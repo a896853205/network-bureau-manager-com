@@ -1,11 +1,8 @@
 import React from 'react';
-import '@/style/index.styl';
-
-// 路由
-import { Link } from 'react-router-dom';
 
 // 样式
 import { Icon } from 'antd';
+import '@/style/index.styl';
 
 // 组件
 import LoginComponent from '@/components/index/Login.jsx';
