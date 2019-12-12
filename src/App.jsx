@@ -27,14 +27,14 @@ export default props => {
   }, [navTo, history, dispatch]);
 
   const index = useRouteMatch({
-      path: [ROUTES.INDEX.path, `${ROUTES.INDEX.path}/index/:type`],
+      path: ROUTES.INDEX.path,
       exact: true
     }),
     home = useRouteMatch(ROUTES.HOME.path);
 
   if (index) {
     // 首页
-    return <IndexController params={index.params} />;
+    return <IndexController />;
   } else if (home) {
     // 主页
     return <HomeController />;
