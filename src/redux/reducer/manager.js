@@ -8,7 +8,8 @@ export default handleActions(
         ...state,
         uuid: result.uuid,
         phone: result.phone,
-        name: result.name
+        name: result.name,
+        role: result.role
       };
     },
     // 设置登录loading
@@ -17,12 +18,20 @@ export default handleActions(
         ...state,
         loginLoading: result
       };
+    },
+    setManagerLoading(state, { payload: result }) {
+      return {
+        ...state,
+        managerLoading: result
+      }
     }
   },
   {
     loginLoading: false,
+    managerLoading: false,
     uuid: '',
     phone: '',
-    name: ''
+    name: '',
+    role: 0
   }
 );
