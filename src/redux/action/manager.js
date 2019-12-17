@@ -1,7 +1,7 @@
 import { createAction } from 'redux-actions';
 
 export default {
-  asyncSetEnterprise: createAction('asyncSetEnterprise'),
-  setEnterprise: createAction('setEnterprise'),
+  asyncSetManager: createAction('asyncSetManager'),
+  setManager: createAction('setManager'),
   setLoginLoading: createAction('setLoginLoading')
 };

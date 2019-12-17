@@ -3,7 +3,7 @@ import { handleActions } from 'redux-actions';
 export default handleActions(
   {
     // 保存企业基本信息
-    setEnterprise(state, { payload: result }) {
+    setManager(state, { payload: result }) {
       return {
         ...state,
         uuid: result.uuid,

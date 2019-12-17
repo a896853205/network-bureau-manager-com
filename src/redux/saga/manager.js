@@ -2,7 +2,7 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
 
 // actions
-import enterpriseAction from '@/redux/action/enterprise';
+import managerAction from '@/redux/action/manager';
 import navToAction from '@/redux/action/nav-to';
 
 // 请求
@@ -16,18 +16,18 @@ import { LOCAL_STORAGE } from '@/constants/app-constants';
 import { HOME_INDEX } from '@/constants/route-constants';
 
 const effects = {
-  asyncSetEnterprise: function*({ payload }) {
+  asyncSetManager: function*({ payload }) {
     // loading开始
-    yield put(enterpriseAction.setLoginLoading(true));
+    yield put(managerAction.setLoginLoading(true));
     // 请求登录
     const res = yield call(
       proxyFetch,
-      APIS.GET_ENTERPRISE_TOKEN,
+      APIS.GET_MANAGER_TOKEN,
       payload,
       'GET'
     );
     // loading结束
-    yield put(enterpriseAction.setLoginLoading(false));
+    yield put(managerAction.setLoginLoading(false));
 
     if (res) {
       // 成功之后将token存到localStorage中并且跳页
@@ -40,8 +40,8 @@ const effects = {
 
 export default function*() {
   yield takeLatest(
-    enterpriseAction.asyncSetEnterprise,
-    effects.asyncSetEnterprise
+    managerAction.asyncSetManager,
+    effects.asyncSetManager
   );
   // yield takeLatest(actions.recordUserBasic, effects.recordUserBasicSaga);
 }

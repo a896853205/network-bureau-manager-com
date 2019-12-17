@@ -4,19 +4,16 @@ import React from 'react';
 import { Icon, Input, Form, Button } from 'antd';
 import '@/style/login.styl';
 
-// 路由
-import { Link } from 'react-router-dom';
-
 // redux
 import { useSelector, useDispatch } from 'react-redux';
-import enterpriseAction from '@/redux/action/enterprise';
+import managerAction from '@/redux/action/manager';
 
 // 加密
 import md5 from 'md5';
 
 export default Form.create({ name: 'login' })(props => {
   const { getFieldDecorator } = props.form;
-  const { loginLoading } = useSelector(state => state.enterpriseStore);
+  const { loginLoading } = useSelector(state => state.managerStore);
   const dispatch = useDispatch();
 
   const handleSubmitLogin = e => {
@@ -26,7 +23,7 @@ export default Form.create({ name: 'login' })(props => {
         // 处理加密密码
         values.password = md5(values.password);
         // 使用redux-saga
-        dispatch(enterpriseAction.asyncSetEnterprise(values));
+        dispatch(managerAction.asyncSetManager(values));
       }
     });
   };
@@ -34,12 +31,12 @@ export default Form.create({ name: 'login' })(props => {
   return (
     <Form onSubmit={handleSubmitLogin}>
       <Form.Item>
-        {getFieldDecorator('code', {
-          rules: [{ required: true, message: '请输入企业统一信用代码!' }]
+        {getFieldDecorator('username', {
+          rules: [{ required: true, message: '请输入账号!' }]
         })(
           <Input
             prefix={<Icon type='user' style={{ color: 'rgba(0,0,0,.25)' }} />}
-            placeholder='企业统一信用代码'
+            placeholder='账号'
             size='large'
           />
         )}
@@ -61,7 +58,6 @@ export default Form.create({ name: 'login' })(props => {
           <Button type='primary' loading={loginLoading} htmlType='submit'>
             登录
           </Button>
-          <Link to='/index/register'>没有账号?</Link>
         </div>
       </Form.Item>
     </Form>
