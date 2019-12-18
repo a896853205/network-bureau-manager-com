@@ -7,6 +7,9 @@ import * as ROUTES from '@/constants/route-constants';
 
 // controller
 import HomeIndexController from '@/page/home/Home-index-controller.jsx';
+import SettingController from '@/page/home/public/Setting-controller.jsx';
+import ManagerCreateController from '@/page/home/super-manager/Manager-create-controller.jsx';
+import ManagerShowController from '@/page/home/super-manager/Manager-show-controller.jsx';
 
 // localStorage
 import { LOCAL_STORAGE } from '@/constants/app-constants';
@@ -43,17 +46,23 @@ export default props => {
     }
   }, [uuid, token, dispatch]);
 
+  // 各个路由控制
   const homeIndex = useRouteMatch({
     path: ROUTES.HOME_INDEX.path,
     exact: true
   });
-
-  let content = null;
-
-  if (homeIndex) {
-    // 主首页
-    content = <HomeIndexController />;
-  }
+  const homeSetting = useRouteMatch({
+    path: ROUTES.HOME_SETTIND.path,
+    exact: true
+  });
+  const homeManagerShow = useRouteMatch({
+    path: ROUTES.HOME_MANAGER_SHOW.path,
+    exact: true
+  });
+  const homeManagerCreate = useRouteMatch({
+    path: ROUTES.HOME_MANAGER_CREATE.path,
+    exact: true
+  });
 
   return (
     <Layout>
@@ -68,7 +77,12 @@ export default props => {
       <Layout className='home-content'>
         <Header className='home-header' />
         <Content className='content-box'>
-          <div className='content-inner-box'>{content}</div>
+          <div className='content-inner-box'>
+            {homeIndex ? <HomeIndexController /> : undefined}
+            {homeSetting ? <SettingController /> : undefined}
+            {homeManagerCreate ? <ManagerCreateController /> : undefined}
+            {homeManagerShow ? <ManagerShowController /> : undefined}
+          </div>
         </Content>
         <Footer className='home-footer'>
           Ant Design ©2018 Created by Ant UED
