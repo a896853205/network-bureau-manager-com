@@ -1,3 +1,5 @@
+import * as ROUTE from '@/constants/route-constants';
+
 // 权限
 const AUTHORITY = {
   SUPER: {
@@ -29,19 +31,27 @@ const AUTHORITY = {
 export const NAV = {
   [AUTHORITY.SUPER.code]: [
     {
-      path: '/home/index',
-      name: '首页',
-      icon: 'audit'
-    },
-    {
-      name: '包括子路由',
+      key: 'manager',
+      icon: 'audit',
+      name: '管理人员',
       children: [
         {
-          path: '/home/index',
-          name: '子路由',
-          icon: 'audit'
+          key: 'showManager',
+          path: ROUTE.HOME_MANAGER_SHOW.path,
+          name: '查看管理员'
+        },
+        {
+          key: 'createManager',
+          path: ROUTE.HOME_MANAGER_CREATE.path,
+          name: '添加管理员'
         }
       ]
+    },
+    {
+      key: 'setting',
+      path: ROUTE.HOME_SETTIND.path,
+      name: '个人设置',
+      icon: 'audit'
     }
   ],
   [AUTHORITY.ACCOUNTANT.code]: [

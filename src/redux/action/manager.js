@@ -4,5 +4,6 @@ export default {
   asyncSetManager: createAction('asyncSetManager'),
   setManager: createAction('setManager'),
   setLoginLoading: createAction('setLoginLoading'),
-  asyncSetManagerByToken: createAction('asyncSetManagerByToken')
+  asyncSetManagerByToken: createAction('asyncSetManagerByToken'),
+  setManagerLoading: createAction('setManagerLoading')
 };

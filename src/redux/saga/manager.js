@@ -35,12 +35,14 @@ const effects = {
   asyncSetManagerByToken: function*() {
     // loading开始
     yield put(managerAction.setManagerLoading(true));
+    
     // 请求管理员信息
     const res = yield call(proxyFetch, APIS.GET_MANAGER_INFO, {}, 'GET');
     // loading结束
     yield put(managerAction.setManagerLoading(false));
+    
     if (res) {
-      // 成功之后将token存到localStorage中并且跳页
+      // 成功之后将token存到localStorage中
       yield put(managerAction.setManager(res));
     } else {
       yield put(navToAction.setNavTo(INDEX.path));

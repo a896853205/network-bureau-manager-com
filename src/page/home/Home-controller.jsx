@@ -2,14 +2,11 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 // 路由
-import { useRouteMatch } from 'react-router-dom';
+import { useRouteMatch, useHistory } from 'react-router-dom';
 import * as ROUTES from '@/constants/route-constants';
 
 // controller
 import HomeIndexController from '@/page/home/Home-index-controller.jsx';
-
-// 导航栏数据
-import { NAV } from '@/constants/nav-constants';
 
 // localStorage
 import { LOCAL_STORAGE } from '@/constants/app-constants';
@@ -17,27 +14,35 @@ import { LOCAL_STORAGE } from '@/constants/app-constants';
 // actions
 import managerAction from '@/redux/action/manager';
 
+// components
+import Nav from '@/components/home/Nav.jsx';
+
 // 样式
 import '@/style/home/home.styl';
-import { Layout, Menu, Icon } from 'antd';
-const { Header, Content, Footer, Sider } = Layout,
-  { SubMenu } = Menu;
+import { Layout, Icon } from 'antd';
+const { Header, Content, Footer, Sider } = Layout;
 
 export default props => {
   const token = window.localStorage.getItem(`${LOCAL_STORAGE}-token`),
-    { role, uuid, managerLoading } = useSelector(state => state.managerStore);
+    { uuid } = useSelector(state => state.managerStore),
+    history = useHistory(),
+    dispatch = useDispatch();
 
-  const dispatch = useDispatch();
+  // 如果没有token就跳到首页
+  useEffect(() => {
+    if (!token) {
+      history.push(ROUTES.INDEX.path);
+    }
+  }, [token, history]);
 
+  // 刷新页面会导致uuid消失,需要用token再请求一遍
   useEffect(() => {
     if (!uuid && token) {
       // 由token获取manager信息
       dispatch(managerAction.asyncSetManagerByToken());
     }
-  }, [dispatch, token, uuid]);
+  }, [uuid, token, dispatch]);
 
-  // 渲染nav 用 NAV[role];
-  // nav loading用managerLoading
   const homeIndex = useRouteMatch({
     path: ROUTES.HOME_INDEX.path,
     exact: true
@@ -57,48 +62,8 @@ export default props => {
           <Icon type='reconciliation' />
           <span>业务管理系统</span>
         </div>
-        <Menu theme='dark' mode='inline'>
-          <SubMenu
-            key='register'
-            title={
-              <span>
-                <Icon type='audit' />
-                <span>登记测试</span>
-              </span>
-            }
-          >
-            <Menu.Item key='registerDeal'>办理测试</Menu.Item>
-            <Menu.Item key='registerList'>查看测试</Menu.Item>
-          </SubMenu>
-          <SubMenu
-            key='entrust'
-            title={
-              <span>
-                <Icon type='file-search' />
-                <span>委托测试</span>
-              </span>
-            }
-          >
-            <Menu.Item key='entrustDeal'>办理测试</Menu.Item>
-            <Menu.Item key='entrustList'>查看测试</Menu.Item>
-          </SubMenu>
-          <SubMenu
-            key='entrustContract'
-            title={
-              <span>
-                <Icon type='profile' />
-                <span>委托合同</span>
-              </span>
-            }
-          >
-            <Menu.Item key='entrustContractDeal'>办理委托合同</Menu.Item>
-            <Menu.Item key='entrustContractList'>查看委托合同</Menu.Item>
-          </SubMenu>
-          <Menu.Item key='4'>
-            <Icon type='setting' />
-            <span className='nav-text'>企业情况设置</span>
-          </Menu.Item>
-        </Menu>
+        {/* 导航栏 */}
+        <Nav />
       </Sider>
       <Layout className='home-content'>
         <Header className='home-header' />

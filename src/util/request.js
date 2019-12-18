@@ -2,7 +2,6 @@ import * as DominConfigs from '../constants/domin-constants';
 // import * as APIs from '../constants/api-constants';
 import moment from 'moment';
 import { message } from 'antd';
-import { useHistory } from 'react-router-dom';
 
 // localStorage
 import { LOCAL_STORAGE } from '@/constants/app-constants';
@@ -182,9 +181,8 @@ const _responseHandle = {
   },
   [DominConfigs.RESPONSE_CODE.unauthorized]: responseData => {
     message.warning(responseData.msg);
-    const history = useHistory();
-    // token 过期
-    history.push('/');
+    // 清除过期的token
+    localStorage.removeItem(`${LOCAL_STORAGE}-token`);
 
     return null;
   }

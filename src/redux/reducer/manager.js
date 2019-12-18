@@ -23,7 +23,7 @@ export default handleActions(
       return {
         ...state,
         managerLoading: result
-      }
+      };
     }
   },
   {
