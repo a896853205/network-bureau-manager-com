@@ -1,5 +1,7 @@
 import React from 'react';
 
+import SaveManage from '@/components/home/super-manager/save-manager.jsx';
+
 export default props => {
-  return <div>管理员创建页</div>;
+  return <SaveManage></SaveManage>;
 };

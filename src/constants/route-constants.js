@@ -17,3 +17,7 @@ export const HOME_MANAGER_CREATE = {
   path: '/home/manager/create',
   name: '管理员创建页'
 };
+export const HOME_MANAGER_RESULT = {
+  path: '/home/manager/result',
+  name: '结果页'
+};
