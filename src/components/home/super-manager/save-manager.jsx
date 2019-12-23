@@ -1,45 +1,58 @@
 import React, { useEffect, useState } from 'react';
 
+// 路由
+import { useHistory } from 'react-router-dom';
+import { HOME_MANAGER_RESULT } from '@/constants/route-constants';
+
+// 请求
+import { SAVE_MANAGER, QUERY_ROLE } from '@/constants/api-constants.js';
 import proxyFetch from '@/util/request';
 
-import { useHistory } from 'react-router-dom';
-import { Form, Input, Tooltip, Icon, Button, Select } from 'antd';
-
-import { SAVE_MANAGER, QUERY_ROLE } from '@/constants/api-constants.js';
+// 样式
+import { Form, Input, Button, Select } from 'antd';
 
 const { Option } = Select;
 
 export default Form.create({ name: 'save-manager' })(props => {
-  const [options, setOptions] = useState(null);
+  const { getFieldDecorator } = props.form,
+    history = useHistory(),
+    [options, setOptions] = useState([]);
 
   useEffect(() => {
     (async () => {
       const queryRole = await proxyFetch(QUERY_ROLE, {}, 'GET');
 
-      setOptions(Object.values(queryRole));
+      setOptions(queryRole);
     })();
   }, []);
 
-  const { getFieldDecorator } = props.form;
-  let history = useHistory();
   const handleSumbitSave = e => {
-    console.log(1);
     e.preventDefault();
     props.form.validateFields((err, value) => {
       if (!err) {
         delete value.confirm;
-
         const res = proxyFetch(SAVE_MANAGER, value);
+
         if (res) {
-          history.push('/home/manager/result');
+          history.push(`${HOME_MANAGER_RESULT.path}/createSuccess`);
         }
       }
     });
   };
 
   return (
-    <Form onSubmit={handleSumbitSave}>
-      <Form.Item label="账号">
+    <Form
+      labelCol={{
+        xs: { span: 8 },
+        sm: { span: 4 }
+      }}
+      wrapperCol={{
+        xs: { span: 16 },
+        sm: { span: 8 }
+      }}
+      onSubmit={handleSumbitSave}
+    >
+      <Form.Item label='账号'>
         {getFieldDecorator('username', {
           rules: [
             {
@@ -49,7 +62,7 @@ export default Form.create({ name: 'save-manager' })(props => {
           ]
         })(<Input />)}
       </Form.Item>
-      <Form.Item label="密码" hasFeedback>
+      <Form.Item label='密码' hasFeedback>
         {getFieldDecorator('password', {
           rules: [
             {
@@ -59,7 +72,7 @@ export default Form.create({ name: 'save-manager' })(props => {
           ]
         })(<Input.Password />)}
       </Form.Item>
-      <Form.Item label="请确认密码" hasFeedback>
+      <Form.Item label='确认密码' hasFeedback>
         {getFieldDecorator('confirm', {
           rules: [
             {
@@ -78,16 +91,7 @@ export default Form.create({ name: 'save-manager' })(props => {
           ]
         })(<Input.Password />)}
       </Form.Item>
-      <Form.Item
-        label={
-          <span>
-            名字
-            <Tooltip title="What do you want others to call you?">
-              <Icon type="question-circle-o" />
-            </Tooltip>
-          </span>
-        }
-      >
+      <Form.Item label='名字' hasFeedback>
         {getFieldDecorator('name', {
           rules: [
             {
@@ -98,8 +102,7 @@ export default Form.create({ name: 'save-manager' })(props => {
           ]
         })(<Input />)}
       </Form.Item>
-
-      <Form.Item label="电话号码">
+      <Form.Item label='电话号码' hasFeedback>
         {getFieldDecorator('phone', {
           rules: [
             { required: true, message: '请输入电话号码！' },
@@ -108,23 +111,30 @@ export default Form.create({ name: 'save-manager' })(props => {
               message: '电话号码不符合规则'
             }
           ]
-        })(<Input style={{ width: '100%' }} />)}
+        })(<Input />)}
       </Form.Item>
-
-      <Form.Item label="权限">
-        <Select style={{ width: 120 }}>
-          {options
-            ? options.map(({ name, code }) => (
-                <Option key={code} value={code}>
-                  {name}
-                </Option>
-              ))
-            : undefined}
+      <Form.Item label='权限' hasFeedback>
+        <Select>
+          {options.map(({ name, code }) => (
+            <Option key={code} value={code}>
+              {name}
+            </Option>
+          ))}
         </Select>
       </Form.Item>
-
-      <Form.Item>
-        <Button type="primary" htmlType="submit">
+      <Form.Item
+        wrapperCol={{
+          xs: {
+            span: 8,
+            offset: 8
+          },
+          sm: {
+            span: 16,
+            offset: 4
+          }
+        }}
+      >
+        <Button type='primary' htmlType='submit'>
           创建
         </Button>
       </Form.Item>
