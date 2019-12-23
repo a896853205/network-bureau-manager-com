@@ -64,24 +64,24 @@ export default props => {
     exact: true
   });
   const homeManagerResult = useRouteMatch({
-    path: ROUTES.HOME_MANAGER_RESULT.path,
+    path: `${ROUTES.HOME_MANAGER_RESULT.path}/:type`,
     exact: true
   });
 
   return (
     <Layout>
-      <Sider className='home-sider'>
-        <div className='logo'>
-          <Icon type='reconciliation' />
+      <Sider className="home-sider">
+        <div className="logo">
+          <Icon type="reconciliation" />
           <span>业务管理系统</span>
         </div>
         {/* 导航栏 */}
         <Nav />
       </Sider>
-      <Layout className='home-content'>
-        <Header className='home-header' />
-        <Content className='content-box'>
-          <div className='content-inner-box'>
+      <Layout className="home-content">
+        <Header className="home-header" />
+        <Content className="content-box">
+          <div className="content-inner-box">
             {homeIndex ? <HomeIndexController /> : undefined}
             {homeSetting ? <SettingController /> : undefined}
             {homeManagerCreate ? <ManagerCreateController /> : undefined}
@@ -93,7 +93,7 @@ export default props => {
             )}
           </div>
         </Content>
-        <Footer className='home-footer'>
+        <Footer className="home-footer">
           Ant Design ©2018 Created by Ant UED
         </Footer>
       </Layout>

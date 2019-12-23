@@ -30,32 +30,44 @@ export default Form.create({ name: 'login' })(props => {
 
   return (
     <Form onSubmit={handleSubmitLogin}>
-      <Form.Item>
+      <Form.Item hasFeedback>
         {getFieldDecorator('username', {
-          rules: [{ required: true, message: '请输入账号!' }]
+          rules: [
+            { required: true, message: '请输入账号!' },
+            {
+              pattern: /^\S{3,12}$/,
+              message: '账号需要3-12位'
+            }
+          ]
         })(
           <Input
-            prefix={<Icon type='user' style={{ color: 'rgba(0,0,0,.25)' }} />}
-            placeholder='账号'
-            size='large'
+            prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
+            placeholder="账号"
+            size="large"
           />
         )}
       </Form.Item>
-      <Form.Item>
+      <Form.Item hasFeedback>
         {getFieldDecorator('password', {
-          rules: [{ required: true, message: '请输入密码!' }]
+          rules: [
+            { required: true, message: '请输入密码!' },
+            {
+              pattern: /^\S{6,12}$/,
+              message: '密码需要6-12位'
+            }
+          ]
         })(
           <Input
-            prefix={<Icon type='key' style={{ color: 'rgba(0,0,0,.25)' }} />}
-            placeholder='密码'
-            size='large'
-            type='password'
+            prefix={<Icon type="key" style={{ color: 'rgba(0,0,0,.25)' }} />}
+            placeholder="密码"
+            size="large"
+            type="password"
           />
         )}
       </Form.Item>
       <Form.Item>
-        <div className='login-button-box'>
-          <Button type='primary' loading={loginLoading} htmlType='submit'>
+        <div className="login-button-box">
+          <Button type="primary" loading={loginLoading} htmlType="submit">
             登录
           </Button>
         </div>
