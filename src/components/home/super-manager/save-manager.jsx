@@ -5,7 +5,7 @@ import { useHistory } from 'react-router-dom';
 import { HOME_MANAGER_RESULT } from '@/constants/route-constants';
 
 // 请求
-import { SAVE_MANAGER, QUERY_ROLE } from '@/constants/api-constants.js';
+import { SAVE_MANAGER, QUERY_ROLE } from '@/constants/api-constants';
 import proxyFetch from '@/util/request';
 
 // 样式
