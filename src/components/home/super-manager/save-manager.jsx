@@ -52,7 +52,7 @@ export default Form.create({ name: 'save-manager' })(props => {
       }}
       onSubmit={handleSumbitSave}
     >
-      <Form.Item label="账号">
+      <Form.Item label='账号'>
         {getFieldDecorator('username', {
           rules: [
             {
@@ -66,7 +66,7 @@ export default Form.create({ name: 'save-manager' })(props => {
           ]
         })(<Input />)}
       </Form.Item>
-      <Form.Item label="密码" hasFeedback>
+      <Form.Item label='密码' hasFeedback>
         {getFieldDecorator('password', {
           rules: [
             {
@@ -80,7 +80,7 @@ export default Form.create({ name: 'save-manager' })(props => {
           ]
         })(<Input.Password />)}
       </Form.Item>
-      <Form.Item label="确认密码" hasFeedback>
+      <Form.Item label='确认密码' hasFeedback>
         {getFieldDecorator('confirm', {
           rules: [
             {
@@ -103,7 +103,7 @@ export default Form.create({ name: 'save-manager' })(props => {
           ]
         })(<Input.Password />)}
       </Form.Item>
-      <Form.Item label="名字" hasFeedback>
+      <Form.Item label='名字' hasFeedback>
         {getFieldDecorator('name', {
           rules: [
             {
@@ -114,7 +114,7 @@ export default Form.create({ name: 'save-manager' })(props => {
           ]
         })(<Input />)}
       </Form.Item>
-      <Form.Item label="电话号码" hasFeedback>
+      <Form.Item label='电话号码' hasFeedback>
         {getFieldDecorator('phone', {
           rules: [
             { required: true, message: '请输入电话号码！' },
@@ -125,14 +125,16 @@ export default Form.create({ name: 'save-manager' })(props => {
           ]
         })(<Input />)}
       </Form.Item>
-      <Form.Item label="权限" hasFeedback>
-        <Select>
-          {options.map(({ name, code }) => (
-            <Option key={code} value={code}>
-              {name}
-            </Option>
-          ))}
-        </Select>
+      <Form.Item label='权限' hasFeedback>
+        {getFieldDecorator('role')(
+          <Select>
+            {options.map(({ name, code }) => (
+              <Option key={code} value={code}>
+                {name}
+              </Option>
+            ))}
+          </Select>
+        )}
       </Form.Item>
       <Form.Item
         wrapperCol={{
@@ -146,7 +148,7 @@ export default Form.create({ name: 'save-manager' })(props => {
           }
         }}
       >
-        <Button type="primary" htmlType="submit">
+        <Button type='primary' htmlType='submit'>
           创建
         </Button>
       </Form.Item>
