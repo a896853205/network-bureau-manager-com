@@ -8,6 +8,8 @@ import proxyFetch from '@/util/request';
 import { Icon, Table } from 'antd';
 import '@/style/home/super-manager/manager-show.styl';
 
+import { AUTHORITY } from '@/constants/auth-constants';
+
 const { Column } = Table;
 
 export default props => {
@@ -36,6 +38,27 @@ export default props => {
     })();
   }, [page]);
 
+  const getAuthorty={
+    1: () => {
+      return AUTHORITY.SUPER.name;
+    },
+    5: () => {
+      return AUTHORITY.ACCOUNTANT.name;
+    },
+    10: () => {
+      return AUTHORITY.PROJECT_MANAGER.name;
+    },
+    15: () => {
+      return AUTHORITY.TECH_LEADER.name;
+    },
+    20: () => {
+      return AUTHORITY.TECH.name;
+    },
+    25: () => {
+      return AUTHORITY.CERTIFIER.name;
+    }
+  };
+
   return (
     <div className='manager-show-box'>
       <Table
@@ -55,7 +78,14 @@ export default props => {
         <Column title='账号' dataIndex='username' key='username' />
         <Column title='姓名' dataIndex='name' key='name' />
         <Column title='电话' dataIndex='phone' key='phone' />
-        <Column title='权限' dataIndex='role' key='role' />
+        <Column 
+          title='权限' 
+          dataIndex='role' 
+          key='role' 
+          render={(roal, record) => (
+            <span> { getAuthorty[roal]() } </span> 
+          )}
+        />
         <Column
           title='操作'
           dataIndex=''
