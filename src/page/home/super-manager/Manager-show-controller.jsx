@@ -13,13 +13,15 @@ const { Column } = Table;
 export default props => {
   const [loading, setLoading] = useState(true),
     [managerList, setManagerList] = useState([]),
+    [total, setTotal] = useState(0),
+    [pageSize, setPageSize] = useState(1),
     [page, setPage] = useState(1);
 
   useEffect(() => {
     (async () => {
       setLoading(true);
 
-      const managerList = await proxyFetch(
+      const { manangerList, total, pageSize } = await proxyFetch(
         QUERY_MANAGER,
         {
           page
@@ -27,7 +29,9 @@ export default props => {
         'GET'
       );
 
-      setManagerList(managerList);
+      setManagerList(manangerList);
+      setTotal(total);
+      setPageSize(pageSize);
       setLoading(false);
     })();
   }, [page]);
@@ -41,8 +45,8 @@ export default props => {
         loading={loading}
         pagination={{
           current: page,
-          total: 20,
-          pageSize: 10,
+          total,
+          pageSize,
           onChange: page => {
             setPage(page);
           }
