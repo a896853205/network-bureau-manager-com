@@ -5,7 +5,7 @@ import { useHistory } from 'react-router-dom';
 import {
   HOME_MANAGER_CREATE,
   HOME_MANAGER_SHOW
-} from '@/constants/route-constants.js';
+} from '@/constants/route-constants';
 
 // 样式
 import { Result, Button } from 'antd';

@@ -26,3 +26,12 @@ export const AUTHORITY = {
   }
 };
 
+export const getAuthortyNameByCode = roleCode => {
+  const auth = Object.values(AUTHORITY).find(item => item.code === roleCode);
+
+  if (auth) {
+    return auth.name;
+  } else {
+    return '';
+  }
+};
