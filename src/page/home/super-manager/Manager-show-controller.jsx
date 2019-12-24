@@ -28,7 +28,7 @@ export default props => {
           title='操作'
           dataIndex=''
           key='operations'
-          render={(icon1, icon2) => (
+          render={(text, record) => (
             <span className='icon-box'>
               <a>
                 <Icon type='edit' className='icon' />
