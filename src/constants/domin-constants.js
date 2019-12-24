@@ -12,7 +12,8 @@ export const DOMAIN = _DOMAIN[SAP_CONTROL];
 
 // 模块
 export const PART = {
-  OPT_MANAGER_USER: '/managerUser'
+  OPT_MANAGER_USER: '/managerUser',
+  OPT_SUPER_MANAGER: '/superManager'
 };
 
 // 返回码

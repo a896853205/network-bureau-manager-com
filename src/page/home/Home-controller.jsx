@@ -10,7 +10,7 @@ import HomeIndexController from '@/page/home/Home-index-controller.jsx';
 import SettingController from '@/page/home/public/Setting-controller.jsx';
 import ManagerCreateController from '@/page/home/super-manager/Manager-create-controller.jsx';
 import ManagerShowController from '@/page/home/super-manager/Manager-show-controller.jsx';
-
+import ManagerResultController from '@/page/home/super-manager/Manager-result-controller.jsx';
 // localStorage
 import { LOCAL_STORAGE } from '@/constants/app-constants';
 
@@ -63,28 +63,37 @@ export default props => {
     path: ROUTES.HOME_MANAGER_CREATE.path,
     exact: true
   });
+  const homeManagerResult = useRouteMatch({
+    path: `${ROUTES.HOME_MANAGER_RESULT.path}/:type`,
+    exact: true
+  });
 
   return (
     <Layout>
-      <Sider className='home-sider'>
-        <div className='logo'>
-          <Icon type='reconciliation' />
+      <Sider className="home-sider">
+        <div className="logo">
+          <Icon type="reconciliation" />
           <span>业务管理系统</span>
         </div>
         {/* 导航栏 */}
         <Nav />
       </Sider>
-      <Layout className='home-content'>
-        <Header className='home-header' />
-        <Content className='content-box'>
-          <div className='content-inner-box'>
+      <Layout className="home-content">
+        <Header className="home-header" />
+        <Content className="content-box">
+          <div className="content-inner-box">
             {homeIndex ? <HomeIndexController /> : undefined}
             {homeSetting ? <SettingController /> : undefined}
             {homeManagerCreate ? <ManagerCreateController /> : undefined}
             {homeManagerShow ? <ManagerShowController /> : undefined}
+            {homeManagerResult ? (
+              <ManagerResultController params={homeManagerResult.params} />
+            ) : (
+              undefined
+            )}
           </div>
         </Content>
-        <Footer className='home-footer'>
+        <Footer className="home-footer">
           Ant Design ©2018 Created by Ant UED
         </Footer>
       </Layout>

@@ -1,13 +1,13 @@
 import * as DominConfigs from '../constants/domin-constants';
-// import * as APIs from '../constants/api-constants';
 import moment from 'moment';
 import { message } from 'antd';
+import wait from '@/util/wait-helper';
 
 // localStorage
 import { LOCAL_STORAGE } from '@/constants/app-constants';
 
 // 请求包装
-export default (
+export default async (
   url,
   params = {},
   requestType = 'POST',
@@ -65,7 +65,13 @@ export default (
   }
 
   // 进行请求
-  return _fetch(url, params, requestType, fetchParams);
+  // 防闪烁
+  const [res] = await Promise.all([
+    _fetch(url, params, requestType, fetchParams),
+    wait(300)
+  ]);
+
+  return res;
 };
 
 /**
