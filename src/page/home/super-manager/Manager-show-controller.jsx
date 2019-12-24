@@ -34,6 +34,27 @@ export default props => {
     })();
   }, [page]);
 
+  const getAuthorty={
+    1: () => {
+      return AUTHORITY.SUPER.name;
+    },
+    5: () => {
+      return AUTHORITY.ACCOUNTANT.name;
+    },
+    10: () => {
+      return AUTHORITY.PROJECT_MANAGER.name;
+    },
+    15: () => {
+      return AUTHORITY.TECH_LEADER.name;
+    },
+    20: () => {
+      return AUTHORITY.TECH.name;
+    },
+    25: () => {
+      return AUTHORITY.CERTIFIER.name;
+    }
+  };
+
   return (
     <div className='manager-show-box'>
       <Table
@@ -58,20 +79,7 @@ export default props => {
           dataIndex='role' 
           key='role' 
           render={(roal, record) => (
-            roal == 1 ?
-              <span> { AUTHORITY.SUPER.name } </span> :
-              roal == 5 ?
-                <span> { AUTHORITY.ACCOUNTANT.name } </span> :
-                roal == 10 ? 
-                  <span> { AUTHORITY.PROJECT_MANAGER.name } </span> :
-                  roal == 15 ?
-                    <span> { AUTHORITY.TECH_LEADER.name } </span> :
-                    roal == 20 ? 
-                      <span> { AUTHORITY.TECH.name } </span> :
-                      roal == 25 ? 
-                        <span> { AUTHORITY.CERTIFIER.name } </span> :
-                        <span>  </span>
-            
+            <span> { getAuthorty[roal]() } </span> 
           )}
         />
         <Column
