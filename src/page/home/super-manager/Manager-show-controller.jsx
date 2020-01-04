@@ -8,7 +8,12 @@ import proxyFetch from '@/util/request';
 import { Icon, Table } from 'antd';
 import '@/style/home/super-manager/manager-show.styl';
 
+// 算法
 import { getAuthortyNameByCode } from '@/constants/auth-constants';
+
+// 路由
+import { HOME_MANAGER_UPDATE } from '@/constants/route-constants';
+import { Link } from 'react-router-dom';
 
 const { Column } = Table;
 
@@ -71,9 +76,13 @@ export default props => {
           key='operations'
           render={(text, record) => (
             <span className='icon-box'>
-              <a href='/'>
+              <Link
+                to={{
+                  pathname: `/${HOME_MANAGER_UPDATE.path}/${record.uuid}`
+                }}
+              >
                 <Icon type='edit' className='icon' />
-              </a>
+              </Link>
               <a href='/'>
                 <Icon type='delete' className='icon' />
               </a>

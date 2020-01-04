@@ -66,7 +66,7 @@ export default Form.create({ name: 'save-manager' })(props => {
               message: '账号需要3-12位'
             }
           ]
-        })(<Input placeholder='请输入账号'/>)}
+        })(<Input placeholder='请输入账号' />)}
       </Form.Item>
       <Form.Item label='密码' hasFeedback>
         {getFieldDecorator('password', {
@@ -80,7 +80,7 @@ export default Form.create({ name: 'save-manager' })(props => {
               message: '密码需要6-12位'
             }
           ]
-        })(<Input.Password placeholder='请输入密码'/>)}
+        })(<Input.Password placeholder='请输入密码' />)}
       </Form.Item>
       <Form.Item label='确认密码' hasFeedback>
         {getFieldDecorator('confirm', {
@@ -103,7 +103,7 @@ export default Form.create({ name: 'save-manager' })(props => {
               }
             }
           ]
-        })(<Input.Password placeholder='请再次输入密码'/>)}
+        })(<Input.Password placeholder='请再次输入密码' />)}
       </Form.Item>
       <Form.Item label='名字' hasFeedback>
         {getFieldDecorator('name', {
@@ -114,7 +114,7 @@ export default Form.create({ name: 'save-manager' })(props => {
               whitespace: true
             }
           ]
-        })(<Input placeholder='请输入用户姓名'/>)}
+        })(<Input placeholder='请输入用户姓名' />)}
       </Form.Item>
       <Form.Item label='电话号码' hasFeedback>
         {getFieldDecorator('phone', {
@@ -125,7 +125,7 @@ export default Form.create({ name: 'save-manager' })(props => {
               message: '电话号码不符合规则'
             }
           ]
-        })(<Input placeholder='请输入11位手机号码'/>)}
+        })(<Input placeholder='请输入11位手机号码' />)}
       </Form.Item>
       <Form.Item label='权限' hasFeedback>
         {getFieldDecorator('role', {
