@@ -16,12 +16,12 @@ const { Option } = Select;
 export default Form.create({ name: 'save-manager' })(props => {
   const { getFieldDecorator } = props.form,
     history = useHistory(),
+    [loading, setLoading] = useState(false),
     [options, setOptions] = useState([]);
 
   useEffect(() => {
     (async () => {
       const queryRole = await proxyFetch(QUERY_ROLE, {}, 'GET');
-
       setOptions(queryRole);
     })();
   }, []);
@@ -31,7 +31,9 @@ export default Form.create({ name: 'save-manager' })(props => {
     props.form.validateFields(async (err, value) => {
       if (!err) {
         delete value.confirm;
+        setLoading(true);
         const res = await proxyFetch(SAVE_MANAGER, value);
+        setLoading(false);
 
         if (res) {
           history.push(`${HOME_MANAGER_RESULT.path}/createSuccess`);
@@ -64,7 +66,7 @@ export default Form.create({ name: 'save-manager' })(props => {
               message: '账号需要3-12位'
             }
           ]
-        })(<Input />)}
+        })(<Input placeholder='请输入账号'/>)}
       </Form.Item>
       <Form.Item label='密码' hasFeedback>
         {getFieldDecorator('password', {
@@ -78,7 +80,7 @@ export default Form.create({ name: 'save-manager' })(props => {
               message: '密码需要6-12位'
             }
           ]
-        })(<Input.Password />)}
+        })(<Input.Password placeholder='请输入密码'/>)}
       </Form.Item>
       <Form.Item label='确认密码' hasFeedback>
         {getFieldDecorator('confirm', {
@@ -101,7 +103,7 @@ export default Form.create({ name: 'save-manager' })(props => {
               }
             }
           ]
-        })(<Input.Password />)}
+        })(<Input.Password placeholder='请再次输入密码'/>)}
       </Form.Item>
       <Form.Item label='名字' hasFeedback>
         {getFieldDecorator('name', {
@@ -112,7 +114,7 @@ export default Form.create({ name: 'save-manager' })(props => {
               whitespace: true
             }
           ]
-        })(<Input />)}
+        })(<Input placeholder='请输入用户姓名'/>)}
       </Form.Item>
       <Form.Item label='电话号码' hasFeedback>
         {getFieldDecorator('phone', {
@@ -123,13 +125,13 @@ export default Form.create({ name: 'save-manager' })(props => {
               message: '电话号码不符合规则'
             }
           ]
-        })(<Input />)}
+        })(<Input placeholder='请输入11位手机号码'/>)}
       </Form.Item>
       <Form.Item label='权限' hasFeedback>
         {getFieldDecorator('role', {
           rules: [{ required: true, message: '请选择权限！' }]
         })(
-          <Select>
+          <Select placeholder='请选择权限'>
             {options.map(({ name, code }) => (
               <Option key={code} value={code}>
                 {name}
@@ -150,7 +152,7 @@ export default Form.create({ name: 'save-manager' })(props => {
           }
         }}
       >
-        <Button type='primary' htmlType='submit'>
+        <Button type='primary' loading={loading} htmlType='submit'>
           创建
         </Button>
       </Form.Item>
