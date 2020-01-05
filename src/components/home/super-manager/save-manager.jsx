@@ -13,11 +13,28 @@ import { Form, Input, Button, Select } from 'antd';
 
 const { Option } = Select;
 
-export default Form.create({ name: 'save-manager' })(props => {
-  const { getFieldDecorator } = props.form,
+export default Form.create({ name: 'save-manager' })(({ form, manager }) => {
+  const { getFieldDecorator, setFieldsValue } = form,
+    // { name, password, phone, role, username, uuid } = manager,
     history = useHistory(),
     [loading, setLoading] = useState(false),
-    [options, setOptions] = useState([]);
+    [options, setOptions] = useState([]),
+    [isUpdate, setIsUpdate] = useState(false),
+    [uuid, setUuid] = useState('');
+
+  useEffect(() => {
+    if (manager && manager.uuid) {
+      setUuid(manager.uuid);
+
+      delete manager.password;
+      delete manager.uuid;
+
+      setFieldsValue(manager);
+      setIsUpdate(true);
+    }
+
+    return () => {};
+  }, [manager, setFieldsValue]);
 
   useEffect(() => {
     (async () => {
@@ -28,15 +45,22 @@ export default Form.create({ name: 'save-manager' })(props => {
 
   const handleSumbitSave = e => {
     e.preventDefault();
-    props.form.validateFields(async (err, value) => {
+    form.validateFields(async (err, value) => {
       if (!err) {
         delete value.confirm;
+
+        value.uuid = uuid;
         setLoading(true);
         const res = await proxyFetch(SAVE_MANAGER, value);
         setLoading(false);
 
         if (res) {
-          history.push(`${HOME_MANAGER_RESULT.path}/createSuccess`);
+          // 有uuid说明是更新，没有是创建
+          if (uuid) {
+            history.push(`${HOME_MANAGER_RESULT.path}/updateSuccess`);
+          } else {
+            history.push(`${HOME_MANAGER_RESULT.path}/createSuccess`);
+          }
         }
       }
     });
@@ -66,7 +90,7 @@ export default Form.create({ name: 'save-manager' })(props => {
               message: '账号需要3-12位'
             }
           ]
-        })(<Input placeholder='请输入账号' />)}
+        })(<Input placeholder='请输入账号' disabled={isUpdate} />)}
       </Form.Item>
       <Form.Item label='密码' hasFeedback>
         {getFieldDecorator('password', {
@@ -95,7 +119,7 @@ export default Form.create({ name: 'save-manager' })(props => {
             },
             {
               validator: (rule, value, callback) => {
-                if (value && value !== props.form.getFieldValue('password')) {
+                if (value && value !== form.getFieldValue('password')) {
                   callback('密码和确认密码要一致！');
                 } else {
                   callback();
@@ -131,7 +155,7 @@ export default Form.create({ name: 'save-manager' })(props => {
         {getFieldDecorator('role', {
           rules: [{ required: true, message: '请选择权限！' }]
         })(
-          <Select placeholder='请选择权限'>
+          <Select placeholder='请选择权限' disabled={isUpdate}>
             {options.map(({ name, code }) => (
               <Option key={code} value={code}>
                 {name}
@@ -153,7 +177,7 @@ export default Form.create({ name: 'save-manager' })(props => {
         }}
       >
         <Button type='primary' loading={loading} htmlType='submit'>
-          创建
+          {isUpdate ? '更新该用户' : '创建'}
         </Button>
       </Form.Item>
     </Form>

@@ -37,7 +37,7 @@ const effects = {
     yield put(managerAction.setManagerLoading(true));
     
     // 请求管理员信息
-    const res = yield call(proxyFetch, APIS.GET_MANAGER_INFO, {}, 'GET');
+    const res = yield call(proxyFetch, APIS.GET_MY_INFO, {}, 'GET');
     // loading结束
     yield put(managerAction.setManagerLoading(false));
     

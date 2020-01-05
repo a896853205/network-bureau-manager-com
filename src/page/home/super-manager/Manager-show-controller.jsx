@@ -76,11 +76,7 @@ export default props => {
           key='operations'
           render={(text, record) => (
             <span className='icon-box'>
-              <Link
-                to={{
-                  pathname: `/${HOME_MANAGER_UPDATE.path}/${record.uuid}`
-                }}
-              >
+              <Link to={`${HOME_MANAGER_UPDATE.path}/${record.uuid}`}>
                 <Icon type='edit' className='icon' />
               </Link>
               <a href='/'>
