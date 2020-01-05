@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 
 // 请求
-import { QUERY_MANAGER } from '@/constants/api-constants';
+import { QUERY_MANAGER, DELETE_MANAGER } from '@/constants/api-constants';
 import proxyFetch from '@/util/request';
 
 // 样式
-import { Icon, Table } from 'antd';
+import { Icon, Table, Modal } from 'antd';
 import '@/style/home/super-manager/manager-show.styl';
 
 // 算法
@@ -16,32 +16,70 @@ import { HOME_MANAGER_UPDATE } from '@/constants/route-constants';
 import { Link } from 'react-router-dom';
 
 const { Column } = Table;
+const { confirm } = Modal;
 
 export default props => {
   const [loading, setLoading] = useState(true),
     [managerList, setManagerList] = useState([]),
     [total, setTotal] = useState(0),
     [pageSize, setPageSize] = useState(1),
-    [page, setPage] = useState(1);
+    [page, setPage] = useState(1),
+    [deleteUuid, setDeleteUuid] = useState(''),
+    [isRefresh, setIsRefresh] = useState(true);
 
   useEffect(() => {
     (async () => {
-      setLoading(true);
+      if (deleteUuid) {
+        setLoading(true);
+        
+        await proxyFetch(DELETE_MANAGER, { uuid: deleteUuid }, 'DELETE');
 
-      const { manangerList, total, pageSize } = await proxyFetch(
-        QUERY_MANAGER,
-        {
-          page
-        },
-        'GET'
-      );
-
-      setManagerList(manangerList);
-      setTotal(total);
-      setPageSize(pageSize);
-      setLoading(false);
+        setLoading(false);
+        setIsRefresh(true);
+      }
     })();
+
+    // 删除之后将uuid清空
+    return () => {
+      setDeleteUuid('');
+    };
+  }, [deleteUuid]);
+
+  /**
+   * 当前没有数据时向前一页查询
+   */
+  useEffect(() => {
+    if (managerList.length === 0) {
+      if (page !== 1) {
+        setPage(page - 1);
+      }
+    }
+  }, [managerList, page]);
+
+  useEffect(() => {
+    setIsRefresh(true);
   }, [page]);
+
+  useEffect(() => {
+    (async () => {
+      if (isRefresh) {
+        setLoading(true);
+        const { managerList, total, pageSize } = await proxyFetch(
+          QUERY_MANAGER,
+          {
+            page
+          },
+          'GET'
+        );
+
+        setManagerList(managerList);
+        setTotal(total);
+        setPageSize(pageSize);
+        setLoading(false);
+        setIsRefresh(false);
+      }
+    })();
+  }, [page, isRefresh]);
 
   return (
     <div className='manager-show-box'>
@@ -79,9 +117,22 @@ export default props => {
               <Link to={`${HOME_MANAGER_UPDATE.path}/${record.uuid}`}>
                 <Icon type='edit' className='icon' />
               </Link>
-              <a href='/'>
-                <Icon type='delete' className='icon' />
-              </a>
+              <Icon
+                type='delete'
+                className='icon'
+                onClick={() => {
+                  confirm({
+                    title: '确定要删除吗?',
+                    content: '管理员数据删除之后将无法恢复',
+                    okText: '确认',
+                    cancelText: '取消',
+                    onOk() {
+                      setDeleteUuid(record.uuid);
+                    },
+                    onCancel() {}
+                  });
+                }}
+              />
             </span>
           )}
         />
