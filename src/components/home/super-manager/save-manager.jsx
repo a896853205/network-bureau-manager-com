@@ -8,6 +8,9 @@ import { HOME_MANAGER_RESULT } from '@/constants/route-constants';
 import { SAVE_MANAGER, QUERY_ROLE } from '@/constants/api-constants';
 import proxyFetch from '@/util/request';
 
+// 加密
+import md5 from 'md5';
+
 // 样式
 import { Form, Input, Button, Select } from 'antd';
 
@@ -50,6 +53,7 @@ export default Form.create({ name: 'save-manager' })(({ form, manager }) => {
         delete value.confirm;
 
         value.uuid = uuid;
+        value.password = md5(value.password)
         setLoading(true);
         const res = await proxyFetch(SAVE_MANAGER, value);
         setLoading(false);

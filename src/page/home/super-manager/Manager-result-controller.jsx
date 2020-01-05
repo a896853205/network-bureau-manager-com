@@ -40,7 +40,16 @@ export default ({ params }) => {
       setTitle('创建成功！');
       setSubTitle('创建已成功，请进行下一步操作');
     } else if (params.type === 'updateSuccess') {
-      setButtons([<Button key='show'>查看管理员</Button>]);
+      setButtons([
+        <Button
+          key='show'
+          onClick={() => {
+            history.push(HOME_MANAGER_SHOW.path);
+          }}
+        >
+          查看管理员
+        </Button>
+      ]);
       setTitle('修改成功！');
       setSubTitle('修改已成功，请进行下一步操作');
     }
