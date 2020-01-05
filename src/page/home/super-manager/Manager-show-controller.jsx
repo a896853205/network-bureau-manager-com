@@ -1,29 +1,46 @@
 import React, { useState, useEffect } from 'react';
 
 // 请求
-import { QUERY_MANAGER } from '@/constants/api-constants';
+import { QUERY_MANAGER, DELETE_MANAGER } from '@/constants/api-constants';
 import proxyFetch from '@/util/request';
 
 // 样式
-import { Icon, Table } from 'antd';
+import { Icon, Table, Modal } from 'antd';
 import '@/style/home/super-manager/manager-show.styl';
+
+// 路由
 
 import { getAuthortyNameByCode } from '@/constants/auth-constants';
 
 const { Column } = Table;
+const { confirm } = Modal;
 
 export default props => {
   const [loading, setLoading] = useState(true),
     [managerList, setManagerList] = useState([]),
     [total, setTotal] = useState(0),
     [pageSize, setPageSize] = useState(1),
-    [page, setPage] = useState(1);
+    [page, setPage] = useState(1),
+    [deleteUuid, setDeleteUuid] = useState(''),
+    [isRefresh, setIsRefresh] = useState(false);
+
+  useEffect(() => {
+    (async () => {
+      if (deleteUuid) {
+        setLoading(true);
+        await proxyFetch(DELETE_MANAGER, { uuid: deleteUuid }, 'DELETE');
+        setLoading(false);
+        if (managerList.length === 0) {
+          setPage(page - 1);}
+          setIsRefresh(true);
+      }
+    })();
+  }, [deleteUuid,managerList,page]);
 
   useEffect(() => {
     (async () => {
       setLoading(true);
-
-      const { manangerList, total, pageSize } = await proxyFetch(
+      const { managerList, total, pageSize } = await proxyFetch(
         QUERY_MANAGER,
         {
           page
@@ -31,12 +48,15 @@ export default props => {
         'GET'
       );
 
-      setManagerList(manangerList);
+      setManagerList(managerList);
       setTotal(total);
       setPageSize(pageSize);
       setLoading(false);
+      if (isRefresh) {
+        setIsRefresh(false);
+      }
     })();
-  }, [page]);
+  }, [page, isRefresh]);
 
   return (
     <div className='manager-show-box'>
@@ -71,12 +91,25 @@ export default props => {
           key='operations'
           render={(text, record) => (
             <span className='icon-box'>
-              <a href='/'>
-                <Icon type='edit' className='icon' />
-              </a>
-              <a href='/'>
-                <Icon type='delete' className='icon' />
-              </a>
+              <Icon type='edit' className='icon' />
+              <div>
+                <Icon
+                  type='delete'
+                  className='icon'
+                  onClick={() => {
+                    confirm({
+                      title: '确定要删除吗?',
+                      content: '管理员数据删除之后将无法恢复',
+                      okText: '确认',
+                      cancelText: '取消',
+                      onOk() {
+                        setDeleteUuid(record.uuid);
+                      },
+                      onCancel() {}
+                    });
+                  }}
+                />
+              </div>
             </span>
           )}
         />
