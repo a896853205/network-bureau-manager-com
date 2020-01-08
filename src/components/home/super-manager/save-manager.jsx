@@ -5,14 +5,18 @@ import { useHistory } from 'react-router-dom';
 import { HOME_MANAGER_RESULT } from '@/constants/route-constants';
 
 // 请求
-import { SAVE_MANAGER, QUERY_ROLE } from '@/constants/api-constants';
-import proxyFetch from '@/util/request';
+import {
+  SAVE_MANAGER,
+  QUERY_ROLE,
+  UPLOAD_FILE
+} from '@/constants/api-constants';
+import proxyFetch, { proxyDataFetch } from '@/util/request';
 
 // 加密
 import md5 from 'md5';
 
 // 样式
-import { Form, Input, Button, Select } from 'antd';
+import { Form, Input, Button, Select, Upload, Icon } from 'antd';
 
 const { Option } = Select;
 
@@ -53,7 +57,7 @@ export default Form.create({ name: 'save-manager' })(({ form, manager }) => {
         delete value.confirm;
 
         value.uuid = uuid;
-        value.password = md5(value.password)
+        value.password = md5(value.password);
         setLoading(true);
         const res = await proxyFetch(SAVE_MANAGER, value);
         setLoading(false);
@@ -82,6 +86,43 @@ export default Form.create({ name: 'save-manager' })(({ form, manager }) => {
       }}
       onSubmit={handleSumbitSave}
     >
+      <Form.Item label='Dragger'>
+        {getFieldDecorator('headPortraitUrl', {
+          valuePropName: 'fileList',
+          getValueFromEvent: e => {
+            // 这个其实是onChange
+            // console.log(e);
+          }
+        })(
+          <Upload
+            listType='picture-card'
+            showUploadList={false}
+            // action={}
+            // beforeUpload={beforeUpload}
+            // onChange={this.handleChange}
+            customRequest={file => {
+              // loading
+              const res = proxyDataFetch(UPLOAD_FILE, file.file);
+              // loading
+            }}
+            data={data => {
+              // 这里修改上传参数
+              // console.log(data);
+            }}
+          >
+            <div>
+              {/* this.state.loading ? 'loading' : */}
+              <Icon type={'plus'} />
+              <div className='ant-upload-text'>Upload</div>
+            </div>
+            {/* {imageUrl ? (
+              <img src={imageUrl} alt='avatar' style={{ width: '100%' }} />
+            ) : (
+              uploadButton
+            )} */}
+          </Upload>
+        )}
+      </Form.Item>
       <Form.Item label='账号'>
         {getFieldDecorator('username', {
           rules: [

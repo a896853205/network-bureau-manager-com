@@ -1,6 +1,9 @@
 import * as DominConfigs from './domin-constants';
 
-export const UPLOAD_TO_QiNiu = 'https://upload-z2.qiniup.com'; // 上传七牛
+/**
+ * 上传文件
+ */
+export const UPLOAD_FILE = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_FILE}/uploadFile` // 上传文件
 
 /**
  * 管理用户

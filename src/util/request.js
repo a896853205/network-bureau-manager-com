@@ -193,3 +193,31 @@ const _responseHandle = {
     return null;
   }
 };
+
+/**
+ * 上传文件
+ */
+
+export const proxyDataFetch = async (url, image) => {
+  const formData = new FormData();
+
+  formData.append('file', image);
+
+  let headers = new Headers({
+    Accept: '*/*',
+    authorization: `Bearer ${localStorage.getItem(`${LOCAL_STORAGE}-token`)}`
+  });
+
+  const fetchParams = {
+    method: 'POST',
+    headers,
+    body: formData
+  };
+
+  const [res] = await Promise.all([
+    _fetch(url, {}, 'POST', fetchParams),
+    wait(300)
+  ]);
+
+  return res;
+};
