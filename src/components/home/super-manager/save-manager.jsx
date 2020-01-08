@@ -22,12 +22,14 @@ const { Option } = Select;
 
 export default Form.create({ name: 'save-manager' })(({ form, manager }) => {
   const { getFieldDecorator, setFieldsValue } = form,
-    // { name, password, phone, role, username, uuid } = manager,
     history = useHistory(),
     [loading, setLoading] = useState(false),
     [options, setOptions] = useState([]),
     [isUpdate, setIsUpdate] = useState(false),
-    [uuid, setUuid] = useState('');
+    [uuid, setUuid] = useState(''),
+    // 上传头像
+    [uploadLoading, setUploadLoading] = useState(false),
+    [headPortraitUrl, setHeadPortraitUrl] = useState('');
 
   useEffect(() => {
     if (manager && manager.uuid) {
@@ -86,7 +88,7 @@ export default Form.create({ name: 'save-manager' })(({ form, manager }) => {
       }}
       onSubmit={handleSumbitSave}
     >
-      <Form.Item label='Dragger'>
+      <Form.Item label='头像'>
         {getFieldDecorator('headPortraitUrl', {
           valuePropName: 'fileList',
           getValueFromEvent: e => {
@@ -97,29 +99,34 @@ export default Form.create({ name: 'save-manager' })(({ form, manager }) => {
           <Upload
             listType='picture-card'
             showUploadList={false}
-            // action={}
+            // 进行将图片格式和大小判断
             // beforeUpload={beforeUpload}
-            // onChange={this.handleChange}
-            customRequest={file => {
+            customRequest={async file => {
               // loading
-              const res = proxyDataFetch(UPLOAD_FILE, file.file);
+              setUploadLoading(true);
+
+              // 参数需要加上oss的文件夹位置
+              const res = await proxyDataFetch(UPLOAD_FILE, file.file);
               // loading
-            }}
-            data={data => {
-              // 这里修改上传参数
-              // console.log(data);
+              setUploadLoading(false);
+
+              if (res) {
+                setHeadPortraitUrl(res.url);
+              }
             }}
           >
-            <div>
-              {/* this.state.loading ? 'loading' : */}
-              <Icon type={'plus'} />
-              <div className='ant-upload-text'>Upload</div>
-            </div>
-            {/* {imageUrl ? (
-              <img src={imageUrl} alt='avatar' style={{ width: '100%' }} />
+            {headPortraitUrl ? (
+              <img
+                src={headPortraitUrl}
+                alt='头像'
+                style={{ width: '100%' }}
+              />
             ) : (
-              uploadButton
-            )} */}
+              <div>
+                <Icon type={uploadLoading ? 'loading' : 'plus'} />
+                <div className='ant-upload-text'>Upload</div>
+              </div>
+            )}
           </Upload>
         )}
       </Form.Item>
