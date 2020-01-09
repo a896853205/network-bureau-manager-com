@@ -198,10 +198,12 @@ const _responseHandle = {
  * 上传文件
  */
 
-export const proxyDataFetch = async (url, image) => {
+export const proxyFileFetch = async (url, data) => {
   const formData = new FormData();
 
-  formData.append('file', image);
+  for (let key in data) {
+    formData.append(key, data[key]);
+  }
 
   let headers = new Headers({
     Accept: '*/*',

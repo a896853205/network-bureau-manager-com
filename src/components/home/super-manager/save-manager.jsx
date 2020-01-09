@@ -10,13 +10,13 @@ import {
   QUERY_ROLE,
   UPLOAD_FILE
 } from '@/constants/api-constants';
-import proxyFetch, { proxyDataFetch } from '@/util/request';
+import proxyFetch, { proxyFileFetch } from '@/util/request';
 
 // 加密
 import md5 from 'md5';
 
 // 样式
-import { Form, Input, Button, Select, Upload, Icon } from 'antd';
+import { Form, Input, Button, Select, Upload, Icon, message } from 'antd';
 
 const { Option } = Select;
 
@@ -52,6 +52,9 @@ export default Form.create({ name: 'save-manager' })(({ form, manager }) => {
     })();
   }, []);
 
+  /**
+   * 保存用户的信息
+   */
   const handleSumbitSave = e => {
     e.preventDefault();
     form.validateFields(async (err, value) => {
@@ -76,6 +79,51 @@ export default Form.create({ name: 'save-manager' })(({ form, manager }) => {
     });
   };
 
+  /**
+   * 上传头像
+   * @param {File} file 上传的文件
+   */
+  const handleUploadImage = async file => {
+    // loading
+    setUploadLoading(true);
+    // 参数需要加上oss的文件夹位置
+    const res = await proxyFileFetch(UPLOAD_FILE, {
+      file: file.file,
+      folderName: 'head'
+    });
+    // loading
+    setUploadLoading(false);
+    if (res) {
+      const { ossName, previewUrl } = res;
+      setHeadPortraitUrl(previewUrl);
+      setFieldsValue({ headPortraitUrl: ossName });
+    }
+  };
+
+  const handleBeforeUpload = file => {
+    // 后缀名
+    const extensionName = file.name.split('.')[1].toLowerCase();
+
+    // 判断后缀名是否非法
+    if (
+      extensionName !== 'jpg' &&
+      extensionName !== 'jpeg' &&
+      extensionName !== 'png'
+    ) {
+      message.error('图片类型必须为jpg,jpeg,png');
+      return false;
+    }
+
+    // 判断大小是否符合
+    if (file.size > 1024 * 1024 * 10) {
+      // 10MB
+      message.error('图片文件大小必须小于10MB');
+      return false;
+    }
+
+    return true;
+  };
+
   return (
     <Form
       labelCol={{
@@ -88,43 +136,33 @@ export default Form.create({ name: 'save-manager' })(({ form, manager }) => {
       }}
       onSubmit={handleSumbitSave}
     >
-      <Form.Item label='头像'>
+      <Form.Item label='头像' hasFeedback>
         {getFieldDecorator('headPortraitUrl', {
           valuePropName: 'fileList',
-          getValueFromEvent: e => {
-            // 这个其实是onChange
-            // console.log(e);
-          }
+          rules: [
+            {
+              required: true,
+              message: '请上传头像!'
+            }
+          ]
         })(
           <Upload
             listType='picture-card'
             showUploadList={false}
             // 进行将图片格式和大小判断
-            // beforeUpload={beforeUpload}
-            customRequest={async file => {
-              // loading
-              setUploadLoading(true);
-
-              // 参数需要加上oss的文件夹位置
-              const res = await proxyDataFetch(UPLOAD_FILE, file.file);
-              // loading
-              setUploadLoading(false);
-
-              if (res) {
-                setHeadPortraitUrl(res.url);
-              }
-            }}
+            beforeUpload={handleBeforeUpload}
+            customRequest={handleUploadImage}
           >
             {headPortraitUrl ? (
               <img
                 src={headPortraitUrl}
                 alt='头像'
-                style={{ width: '100%' }}
+                style={{ width: '100px', height: '100px' }}
               />
             ) : (
               <div>
                 <Icon type={uploadLoading ? 'loading' : 'plus'} />
-                <div className='ant-upload-text'>Upload</div>
+                <div className='ant-upload-text'>点击上传</div>
               </div>
             )}
           </Upload>
