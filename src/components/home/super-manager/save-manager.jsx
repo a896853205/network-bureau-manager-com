@@ -8,7 +8,8 @@ import { HOME_MANAGER_RESULT } from '@/constants/route-constants';
 import {
   SAVE_MANAGER,
   QUERY_ROLE,
-  UPLOAD_FILE
+  UPLOAD_FILE,
+  GET_FILE_URL
 } from '@/constants/api-constants';
 import proxyFetch, { proxyFileFetch } from '@/util/request';
 
@@ -21,16 +22,17 @@ import { Form, Input, Button, Select, Upload, Icon, message } from 'antd';
 const { Option } = Select;
 
 export default Form.create({ name: 'save-manager' })(({ form, manager }) => {
-  const { getFieldDecorator, setFieldsValue } = form,
+  const { getFieldDecorator, setFieldsValue, getFieldValue } = form,
     history = useHistory(),
     [loading, setLoading] = useState(false),
     [options, setOptions] = useState([]),
     [isUpdate, setIsUpdate] = useState(false),
     [uuid, setUuid] = useState(''),
     // 上传头像
-    [uploadLoading, setUploadLoading] = useState(false),
-    [headPortraitUrl, setHeadPortraitUrl] = useState('');
+    [headPortraitLoading, setHeadPortraitLoading] = useState(false),
+    [previewUrl, setPreviewUrl] = useState('');
 
+  const formHeadPortraitUrl = getFieldValue('headPortraitUrl');
   useEffect(() => {
     if (manager && manager.uuid) {
       setUuid(manager.uuid);
@@ -85,20 +87,37 @@ export default Form.create({ name: 'save-manager' })(({ form, manager }) => {
    */
   const handleUploadImage = async file => {
     // loading
-    setUploadLoading(true);
+    setHeadPortraitLoading(true);
     // 参数需要加上oss的文件夹位置
     const res = await proxyFileFetch(UPLOAD_FILE, {
       file: file.file,
       folderName: 'head'
     });
     // loading
-    setUploadLoading(false);
+    setHeadPortraitLoading(false);
+
     if (res) {
-      const { ossName, previewUrl } = res;
-      setHeadPortraitUrl(previewUrl);
-      setFieldsValue({ headPortraitUrl: ossName });
+      const { fileUrl } = res;
+      // 设置form
+      setFieldsValue({ headPortraitUrl: fileUrl });
     }
   };
+
+  useEffect(() => {
+    if (formHeadPortraitUrl) {
+      (async () => {
+        setHeadPortraitLoading(true);
+        const previewUrl = await proxyFetch(
+          GET_FILE_URL,
+          { fileUrl: formHeadPortraitUrl },
+          'GET'
+        );
+        setHeadPortraitLoading(false);
+        // 显示预览
+        setPreviewUrl(previewUrl);
+      })();
+    }
+  }, [formHeadPortraitUrl]);
 
   const handleBeforeUpload = file => {
     // 后缀名
@@ -153,15 +172,15 @@ export default Form.create({ name: 'save-manager' })(({ form, manager }) => {
             beforeUpload={handleBeforeUpload}
             customRequest={handleUploadImage}
           >
-            {headPortraitUrl ? (
+            {previewUrl ? (
               <img
-                src={headPortraitUrl}
+                src={previewUrl}
                 alt='头像'
                 style={{ width: '100px', height: '100px' }}
               />
             ) : (
               <div>
-                <Icon type={uploadLoading ? 'loading' : 'plus'} />
+                <Icon type={headPortraitLoading ? 'loading' : 'plus'} />
                 <div className='ant-upload-text'>点击上传</div>
               </div>
             )}

@@ -1,9 +1,10 @@
 import * as DominConfigs from './domin-constants';
 
 /**
- * 上传文件
+ * 文件
  */
-export const UPLOAD_FILE = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_FILE}/uploadFile` // 上传文件
+export const UPLOAD_FILE = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_FILE}/uploadFile`; // 上传文件
+export const GET_FILE_URL = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_FILE}/getFileUrl`; // 获取文件url
 
 /**
  * 管理用户
