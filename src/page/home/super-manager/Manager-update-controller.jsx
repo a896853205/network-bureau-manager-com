@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 // 样式
 import { Spin } from 'antd';
 
-import SaveManager from '@/components/home/super-manager/save-manager.jsx';
+import SaveManager from '@/components/home/super-manager/Save-manager.jsx';
 
 // 请求
 import proxyFetch from '@/util/request';

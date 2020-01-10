@@ -30,15 +30,18 @@ export default Form.create({ name: 'save-manager' })(({ form, manager }) => {
     [uuid, setUuid] = useState(''),
     // 上传头像
     [headPortraitLoading, setHeadPortraitLoading] = useState(false),
-    [previewUrl, setPreviewUrl] = useState('');
+    [previewUrl, setPreviewUrl] = useState(''),
+    [isNeedUrlFresh, setIsNeedUrlFresh] = useState(false);
 
   const formHeadPortraitUrl = getFieldValue('headPortraitUrl');
   useEffect(() => {
     if (manager && manager.uuid) {
       setUuid(manager.uuid);
+      setPreviewUrl(manager.headPreviewUrl);
 
       delete manager.password;
       delete manager.uuid;
+      delete manager.headPreviewUrl;
 
       setFieldsValue(manager);
       setIsUpdate(true);
@@ -89,22 +92,22 @@ export default Form.create({ name: 'save-manager' })(({ form, manager }) => {
     // loading
     setHeadPortraitLoading(true);
     // 参数需要加上oss的文件夹位置
-    const res = await proxyFileFetch(UPLOAD_FILE, {
+    const fileUrl = await proxyFileFetch(UPLOAD_FILE, {
       file: file.file,
       folderName: 'head'
     });
     // loading
     setHeadPortraitLoading(false);
 
-    if (res) {
-      const { fileUrl } = res;
+    if (fileUrl) {
       // 设置form
       setFieldsValue({ headPortraitUrl: fileUrl });
+      setIsNeedUrlFresh(true);
     }
   };
 
   useEffect(() => {
-    if (formHeadPortraitUrl) {
+    if (formHeadPortraitUrl && isNeedUrlFresh) {
       (async () => {
         setHeadPortraitLoading(true);
         const previewUrl = await proxyFetch(
@@ -115,9 +118,10 @@ export default Form.create({ name: 'save-manager' })(({ form, manager }) => {
         setHeadPortraitLoading(false);
         // 显示预览
         setPreviewUrl(previewUrl);
+        setIsNeedUrlFresh(false);
       })();
     }
-  }, [formHeadPortraitUrl]);
+  }, [formHeadPortraitUrl, isNeedUrlFresh]);
 
   const handleBeforeUpload = file => {
     // 后缀名
@@ -172,7 +176,7 @@ export default Form.create({ name: 'save-manager' })(({ form, manager }) => {
             beforeUpload={handleBeforeUpload}
             customRequest={handleUploadImage}
           >
-            {previewUrl ? (
+            {(previewUrl && !headPortraitLoading) ? (
               <img
                 src={previewUrl}
                 alt='头像'
