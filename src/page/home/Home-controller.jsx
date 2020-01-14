@@ -43,7 +43,7 @@ export default props => {
   useEffect(() => {
     if (!uuid && token) {
       // 由token获取manager信息
-      dispatch(managerAction.asyncSetManagerByToken());
+      dispatch(managerAction.asyncSetManagerByToken(token));
     }
   }, [uuid, token, dispatch]);
 
