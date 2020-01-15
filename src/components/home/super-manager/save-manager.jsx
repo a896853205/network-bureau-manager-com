@@ -66,7 +66,7 @@ export default Form.create({ name: 'save-manager' })(({ form, manager }) => {
       if (!err) {
         delete value.confirm;
 
-        value.uuid = uuid;
+        value.managerUuid = uuid;
         value.password = md5(value.password);
         setLoading(true);
         const res = await proxyFetch(SAVE_MANAGER, value);
@@ -176,7 +176,7 @@ export default Form.create({ name: 'save-manager' })(({ form, manager }) => {
             beforeUpload={handleBeforeUpload}
             customRequest={handleUploadImage}
           >
-            {(previewUrl && !headPortraitLoading) ? (
+            {previewUrl && !headPortraitLoading ? (
               <img
                 src={previewUrl}
                 alt='头像'
