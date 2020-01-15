@@ -19,7 +19,7 @@ export default ({ params }) => {
     (async () => {
       setLoading(true);
 
-      const manager = await proxyFetch(APIS.GET_MANAGER_INFO, { uuid }, 'GET');
+      const manager = await proxyFetch(APIS.GET_MANAGER_INFO, { managerUuid: uuid }, 'GET');
 
       setLoading(false);
       setManager(manager);

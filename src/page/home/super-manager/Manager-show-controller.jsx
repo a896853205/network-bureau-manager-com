@@ -32,7 +32,7 @@ export default props => {
       if (deleteUuid) {
         setLoading(true);
         
-        await proxyFetch(DELETE_MANAGER, { uuid: deleteUuid }, 'DELETE');
+        await proxyFetch(DELETE_MANAGER, { managerUuid: deleteUuid }, 'DELETE');
 
         setLoading(false);
         setIsRefresh(true);
