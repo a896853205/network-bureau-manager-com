@@ -47,7 +47,6 @@ export default Form.create({ name: 'save-manager' })(({ form, manager }) => {
       setIsUpdate(true);
     }
 
-    return () => {};
   }, [manager, setFieldsValue]);
 
   useEffect(() => {
