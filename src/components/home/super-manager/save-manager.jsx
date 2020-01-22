@@ -33,7 +33,9 @@ export default Form.create({ name: 'save-manager' })(({ form, manager }) => {
     [previewUrl, setPreviewUrl] = useState(''),
     [isNeedUrlFresh, setIsNeedUrlFresh] = useState(false);
 
-  const formHeadPortraitUrl = getFieldValue('headPortraitUrl');
+  const formHeadPortraitUrl =
+    getFieldValue('headPortraitUrl') && getFieldValue('headPortraitUrl')[0];
+
   useEffect(() => {
     if (manager && manager.uuid) {
       setUuid(manager.uuid);
@@ -42,11 +44,14 @@ export default Form.create({ name: 'save-manager' })(({ form, manager }) => {
       delete manager.password;
       delete manager.uuid;
       delete manager.headPreviewUrl;
+      delete manager.star;
 
-      setFieldsValue(manager);
+      setFieldsValue({
+        ...manager,
+        headPortraitUrl: [manager.headPortraitUrl]
+      });
       setIsUpdate(true);
     }
-
   }, [manager, setFieldsValue]);
 
   useEffect(() => {
@@ -67,6 +72,8 @@ export default Form.create({ name: 'save-manager' })(({ form, manager }) => {
 
         value.managerUuid = uuid;
         value.password = md5(value.password);
+        value.headPortraitUrl = value.headPortraitUrl[0];
+
         setLoading(true);
         const res = await proxyFetch(SAVE_MANAGER, value);
         setLoading(false);
@@ -88,20 +95,24 @@ export default Form.create({ name: 'save-manager' })(({ form, manager }) => {
    * @param {File} file 上传的文件
    */
   const handleUploadImage = async file => {
-    // loading
-    setHeadPortraitLoading(true);
-    // 参数需要加上oss的文件夹位置
-    const fileUrl = await proxyFileFetch(UPLOAD_FILE, {
-      file: file.file,
-      folderName: 'head'
-    });
-    // loading
-    setHeadPortraitLoading(false);
+    if (handleBeforeUpload(file)) {
+      // loading
+      setHeadPortraitLoading(true);
 
-    if (fileUrl) {
-      // 设置form
-      setFieldsValue({ headPortraitUrl: fileUrl });
-      setIsNeedUrlFresh(true);
+      // 参数需要加上oss的文件夹位置
+      const fileUrl = await proxyFileFetch(UPLOAD_FILE, {
+        file: file.file,
+        folderName: 'head'
+      });
+
+      // loading
+      setHeadPortraitLoading(false);
+
+      if (fileUrl) {
+        // 设置form
+        setFieldsValue({ headPortraitUrl: [fileUrl] });
+        setIsNeedUrlFresh(true);
+      }
     }
   };
 
@@ -109,11 +120,13 @@ export default Form.create({ name: 'save-manager' })(({ form, manager }) => {
     if (formHeadPortraitUrl && isNeedUrlFresh) {
       (async () => {
         setHeadPortraitLoading(true);
+
         const previewUrl = await proxyFetch(
           GET_FILE_URL,
           { fileUrl: formHeadPortraitUrl },
           'GET'
         );
+
         setHeadPortraitLoading(false);
         // 显示预览
         setPreviewUrl(previewUrl);
@@ -121,30 +134,6 @@ export default Form.create({ name: 'save-manager' })(({ form, manager }) => {
       })();
     }
   }, [formHeadPortraitUrl, isNeedUrlFresh]);
-
-  const handleBeforeUpload = file => {
-    // 后缀名
-    const extensionName = file.name.split('.')[1].toLowerCase();
-
-    // 判断后缀名是否非法
-    if (
-      extensionName !== 'jpg' &&
-      extensionName !== 'jpeg' &&
-      extensionName !== 'png'
-    ) {
-      message.error('图片类型必须为jpg,jpeg,png');
-      return false;
-    }
-
-    // 判断大小是否符合
-    if (file.size > 1024 * 1024 * 10) {
-      // 10MB
-      message.error('图片文件大小必须小于10MB');
-      return false;
-    }
-
-    return true;
-  };
 
   return (
     <Form
@@ -161,6 +150,9 @@ export default Form.create({ name: 'save-manager' })(({ form, manager }) => {
       <Form.Item label='头像' hasFeedback>
         {getFieldDecorator('headPortraitUrl', {
           valuePropName: 'fileList',
+          getValueFromEvent: e => {
+            return e && e.fileList;
+          },
           rules: [
             {
               required: true,
@@ -171,8 +163,6 @@ export default Form.create({ name: 'save-manager' })(({ form, manager }) => {
           <Upload
             listType='picture-card'
             showUploadList={false}
-            // 进行将图片格式和大小判断
-            beforeUpload={handleBeforeUpload}
             customRequest={handleUploadImage}
           >
             {previewUrl && !headPortraitLoading ? (
@@ -295,3 +285,27 @@ export default Form.create({ name: 'save-manager' })(({ form, manager }) => {
     </Form>
   );
 });
+
+const handleBeforeUpload = ({ file }) => {
+  // 后缀名
+  const extensionName = file.name.split('.')[1].toLowerCase();
+
+  // 判断后缀名是否非法
+  if (
+    extensionName !== 'jpg' &&
+    extensionName !== 'jpeg' &&
+    extensionName !== 'png'
+  ) {
+    message.error('图片类型必须为jpg,jpeg,png');
+    return false;
+  }
+
+  // 判断大小是否符合
+  if (file.size > 1024 * 1024 * 10) {
+    // 10MB
+    message.error('图片文件大小必须小于10MB');
+    return false;
+  }
+
+  return true;
+};
