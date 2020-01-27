@@ -14,6 +14,7 @@ export const DOMAIN = _DOMAIN[SAP_CONTROL];
 export const PART = {
   OPT_MANAGER_USER: '/managerUser',
   OPT_SUPER_MANAGER: '/superManager',
+  OPT_PROJECT_MANAGER: '/projectManager',
   OPT_FILE: '/file'
 };
 
