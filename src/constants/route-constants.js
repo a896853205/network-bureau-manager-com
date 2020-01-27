@@ -31,6 +31,10 @@ export const HOME_REGISTRATION_LIST = {
   path: '/home/registration/list',
   name: '登记测试列表页'
 };
+export const HOME_REGISTRATION_PROFILE = {
+  path: '/home/registration/profile',
+  name: '登记测试预览页'
+};
 export const HOME_TRUST_LIST = {
   path: '/home/trust/list',
   name: '委托测试列表页'

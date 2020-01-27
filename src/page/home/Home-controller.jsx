@@ -14,6 +14,7 @@ import ManagerShowController from '@/page/home/super-manager/Manager-show-contro
 import ManagerResultController from '@/page/home/super-manager/Manager-result-controller.jsx';
 
 import RegistrationListController from '@/page/home/project-manager/Registration-list-controller.jsx';
+import RegistrationProfileController from '@/page/home/project-manager/Registration-profile-controller.jsx';
 import TrustListController from '@/page/home/project-manager/Trust-list-controller.jsx';
 
 // localStorage
@@ -80,6 +81,10 @@ export default props => {
     path: ROUTES.HOME_REGISTRATION_LIST.path,
     exact: true
   });
+  const homeRegistrationProfile = useRouteMatch({
+    path: ROUTES.HOME_REGISTRATION_PROFILE.path,
+    exact: true
+  });
   const homeTrustList = useRouteMatch({
     path: ROUTES.HOME_TRUST_LIST.path,
     exact: true
@@ -115,6 +120,7 @@ export default props => {
             )}
             {homeRegistrationList ? <RegistrationListController /> : null}
             {homeTrustList ? <TrustListController /> : null}
+            {homeRegistrationProfile ? <RegistrationProfileController /> : null}
           </div>
         </Content>
         <Footer className='home-footer'>
