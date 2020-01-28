@@ -10,6 +10,10 @@ import proxyFetch from '@/util/request';
 // 样式
 import { Table, Button } from 'antd';
 
+//路由
+import { HOME_REGISTRATION_PROFILE } from '@/constants/route-constants';
+import { useHistory } from 'react-router-dom';
+
 const { Column } = Table;
 
 export default props => {
@@ -18,6 +22,7 @@ export default props => {
     [total, setTotal] = useState(0),
     [pageSize, setPageSize] = useState(1),
     [page, setPage] = useState(1),
+    history = useHistory(),
     [sysRegistrationStepList, setSysRegistrationStepList] = useState([]);
 
   useEffect(() => {
@@ -84,7 +89,16 @@ export default props => {
           title='查看详情'
           dataIndex='uuid'
           key='uuid'
-          render={(text, record) => <Button type='link'>查看详情</Button>}
+          render={(text, record) => (
+            <Button
+              type='link'
+              onClick={() => {
+                history.push(HOME_REGISTRATION_PROFILE.path);
+              }}
+            >
+              查看详情
+            </Button>
+          )}
         />
       </Table>
     </div>
