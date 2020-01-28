@@ -80,6 +80,11 @@ export default props => {
           )}
         />
         <Column
+          title='企业名称'
+          dataIndex='enterpriseUser.name'
+          key='enterpriseUser.name'
+        />
+        <Column
           align='center'
           title='查看详情'
           dataIndex='uuid'
