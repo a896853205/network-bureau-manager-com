@@ -4,6 +4,8 @@ import React from 'react';
 import { Icon, Rate } from 'antd';
 
 export default props => {
+  const enterpriseUuid = 'guanliyuan';
+
   return (
     <div className='item-box profile-right-box'>
       <p className='title-box'>
