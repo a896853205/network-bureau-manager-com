@@ -14,6 +14,13 @@ import { Table, Button } from 'antd';
 import { HOME_REGISTRATION_PROFILE } from '@/constants/route-constants';
 import { useHistory } from 'react-router-dom';
 
+// localStorage
+import { LOCAL_STORAGE } from '@/constants/app-constants';
+
+// redux
+import { useDispatch } from 'react-redux';
+import enterpriseAction from '@/redux/action/enterprise';
+
 const { Column } = Table;
 
 export default props => {
@@ -23,6 +30,7 @@ export default props => {
     [pageSize, setPageSize] = useState(1),
     [page, setPage] = useState(1),
     history = useHistory(),
+    dispatch = useDispatch(),
     [sysRegistrationStepList, setSysRegistrationStepList] = useState([]);
 
   useEffect(() => {
@@ -98,6 +106,14 @@ export default props => {
             <Button
               type='link'
               onClick={() => {
+                localStorage.setItem(
+                  `${LOCAL_STORAGE}-registrationUuid`,
+                  record.uuid
+                );
+                // dispatch
+                dispatch(
+                  enterpriseAction.setEnterpriseRegistrationUuid(record.uuid)
+                );
                 history.push(HOME_REGISTRATION_PROFILE.path);
               }}
             >
