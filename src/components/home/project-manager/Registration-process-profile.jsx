@@ -17,7 +17,12 @@ import { useSelector } from 'react-redux';
 export default props => {
   const { steps } = useSelector(state => state.enterpriseStore),
     [sysRegistrationStepList, setSysRegistrationStepList] = useState([]),
-    [loading, setLoading] = useState(true);
+    [loading, setLoading] = useState(true),
+    [uploadStepColor, setUploadStepColor] = useState(''),
+    [elecContractStepColor, setElecContractStepColor] = useState(''),
+    [payStepColor, setPayStepColor] = useState(''),
+    [fieldTestStepColor, setFieldTestStepColor] = useState(''),
+    [testReportStepColor, setTestReportStepColor] = useState('');
 
   useEffect(() => {
     (async () => {
@@ -33,6 +38,37 @@ export default props => {
     })();
   }, []);
 
+  useEffect(() => {
+    if (steps[0]) {
+      //设置时间轴节点颜色
+      const handleColor = i => {
+        let color = '';
+        switch (steps[i].status) {
+          case 1:
+            color = 'grey';
+            break;
+          case 2:
+            color = 'blue';
+            break;
+          case 3:
+            color = 'green';
+            break;
+          case 4:
+            color = 'red';
+            break;
+          default:
+            color = 'blue';
+        }
+        return color;
+      };
+      setUploadStepColor(handleColor(0));
+      setElecContractStepColor(handleColor(1));
+      setPayStepColor(handleColor(2));
+      setFieldTestStepColor(handleColor(3));
+      setTestReportStepColor(handleColor(4));
+    }
+  }, [steps]);
+
   return (
     <div className='item-box profile-left-box'>
       <p className='title-box'>
@@ -41,7 +77,7 @@ export default props => {
       <Skeleton loading={loading}>
         {sysRegistrationStepList.length ? (
           <Timeline mode='alternate'>
-            <Timeline.Item>
+            <Timeline.Item color={uploadStepColor ? uploadStepColor : 'grey'}>
               <div className='left-item-box'>
                 <Icon
                   className='item-icon-box'
@@ -109,7 +145,7 @@ export default props => {
                 </div>
               </div>
             </Timeline.Item>
-            <Timeline.Item>
+            <Timeline.Item color={elecContractStepColor ? elecContractStepColor : 'grey'}>
               <div className='left-item-box'>
                 <Icon
                   className='item-icon-box'
@@ -127,7 +163,7 @@ export default props => {
                 </div>
               </div>
             </Timeline.Item>
-            <Timeline.Item>
+            <Timeline.Item color={payStepColor ? payStepColor : 'grey'}>
               <div className='left-item-box'>
                 <Icon
                   className='item-icon-box'
@@ -145,7 +181,7 @@ export default props => {
                 </div>
               </div>
             </Timeline.Item>
-            <Timeline.Item>
+            <Timeline.Item color={fieldTestStepColor ? fieldTestStepColor : 'grey'}>
               <div className='left-item-box'>
                 <Icon
                   className='item-icon-box'
@@ -163,7 +199,7 @@ export default props => {
                 </div>
               </div>
             </Timeline.Item>
-            <Timeline.Item>
+            <Timeline.Item color={testReportStepColor ? testReportStepColor : 'grey'}>
               <div className='left-item-box'>
                 <Icon
                   className='item-icon-box'

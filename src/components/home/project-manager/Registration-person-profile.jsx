@@ -20,7 +20,6 @@ export default props => {
         { uuid: enterpriseUuid },
         'GET'
       );
-      console.log('result=', code);
       setCode(code);
       setPhone(phone);
       setName(name);
