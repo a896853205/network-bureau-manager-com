@@ -36,6 +36,7 @@ export const NAV = {
   ],
   [AUTHORITY.PROJECT_MANAGER.code]: [
     {
+      key: 'manager',
       path: ROUTE.HOME_INDEX.path,
       name: '首页',
       icon: 'bank'

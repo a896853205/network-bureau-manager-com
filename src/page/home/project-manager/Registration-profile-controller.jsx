@@ -23,7 +23,7 @@ export default props => {
   const localStorageRegistrationUuid = window.localStorage.getItem(
       `${LOCAL_STORAGE}-registrationUuid`
     ),
-    { enterpriseRegistrationUuid, registrationLoading } = useSelector(
+    { enterpriseRegistrationUuid } = useSelector(
       state => state.enterpriseStore
     ),
     dispatch = useDispatch(),

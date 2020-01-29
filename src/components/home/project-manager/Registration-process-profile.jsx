@@ -57,7 +57,7 @@ export default props => {
                   className='text-content-link'
                   to={`${HOME_REGISTRATION_PROFILE.path}`}
                 >
-                  <li>用户文档集</li>
+                  <span>用户文档集</span>
                 </Link>
                 <Link
                   className='text-content-link'
