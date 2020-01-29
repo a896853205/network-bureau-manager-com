@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 
 // 样式
 import '@/style/home/project-manager/registration-profile.styl';
-import '@/style/home/project-manager/item.styl';
+import '@/style/home/item.styl';
 
 // 组件
 import RegistrationPersonProfile from '@/components/home/project-manager/Registration-person-profile.jsx';
