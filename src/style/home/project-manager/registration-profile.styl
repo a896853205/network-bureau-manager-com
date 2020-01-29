@@ -1,9 +1,10 @@
 .registration-profile-box {
   display: flex;
+  align-items: center;
+  justify-content: space-between;
 
   .profile-left-box {
-    margin: 20px;
-    width: 68%;
+    width: calc(98% - 300px);
 
     .left-item-box {
       display: flex;
@@ -38,30 +39,21 @@
   }
 
   .profile-right-box {
-    margin: 20px;
-    width: 32%;
+    width: 300px;
 
-    .manager-info-bottom-box {
+    .enterprise-info-bottom-box {
       display: flex;
       flex-direction: column;
       align-items: center;
       padding-left: 0;
 
-      .manager-info-head-box {
-        width: 100px;
-        height: 100px;
-        border-radius: 50%;
-        box-shadow: 0 0 5px #ddd;
-        overflow: hidden;
-      }
-
-      .manager-into-item-box {
+      .enterprise-info-item-box {
         width: 80%;
         display: flex;
         padding: 6px 0;
         justify-content: space-between;
 
-        .manager-info-icon {
+        .enterprise-info-icon {
           margin-right: 2px;
           font-size: 18px;
         }
