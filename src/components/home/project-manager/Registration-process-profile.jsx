@@ -16,39 +16,60 @@ export default props => {
       <Timeline mode='alternate'>
         <Timeline.Item>
           <div className='left-item-box'>
-            <Icon className='item-icon-box' type='upload' />
+            <Icon className='item-icon-box' type='file-zip' theme='twoTone' twoToneColor='#334454' />
             <div className='item-text-box'>
               <div className='text-top-box'>提交上传8种材料</div>
-              <div className='text-row-box'>
-                <Link to={`${HOME_REGISTRATION_PROFILE.path}`}>
-                  <li>登记测试基本信息</li>
+              <p className='text-sub-title'>
+                检查8种材料信息,是否完整,是否符合要求
+              </p>
+              <div className='text-content-box'>
+                <Link
+                  className='text-content-link'
+                  to={`${HOME_REGISTRATION_PROFILE.path}`}
+                >
+                  <span>登记测试基本信息</span>
                 </Link>
-                <Link to={`${HOME_REGISTRATION_PROFILE.path}`}>
-                  <li>评测合同</li>
+                <Link
+                  className='text-content-link'
+                  to={`${HOME_REGISTRATION_PROFILE.path}`}
+                >
+                  <span>评测合同</span>
                 </Link>
-              </div>
-              <div className='text-row-box'>
-                <Link to={`${HOME_REGISTRATION_PROFILE.path}`}>
-                  <li>软件著作权证书</li>
+                <Link
+                  className='text-content-link'
+                  to={`${HOME_REGISTRATION_PROFILE.path}`}
+                >
+                  <span>软件著作权证书</span>
                 </Link>
-                <Link to={`${HOME_REGISTRATION_PROFILE.path}`}>
-                  <li>样品登记表</li>
+                <Link
+                  className='text-content-link'
+                  to={`${HOME_REGISTRATION_PROFILE.path}`}
+                >
+                  <span>样品登记表</span>
                 </Link>
-              </div>
-              <div className='text-row-box'>
-                <Link to={`${HOME_REGISTRATION_PROFILE.path}`}>
-                  <li>产品说明</li>
+                <Link
+                  className='text-content-link'
+                  to={`${HOME_REGISTRATION_PROFILE.path}`}
+                >
+                  <span>产品说明</span>
                 </Link>
-                <Link to={`${HOME_REGISTRATION_PROFILE.path}`}>
+                <Link
+                  className='text-content-link'
+                  to={`${HOME_REGISTRATION_PROFILE.path}`}
+                >
                   <li>用户文档集</li>
                 </Link>
-              </div>
-              <div className='text-row-box'>
-                <Link to={`${HOME_REGISTRATION_PROFILE.path}`}>
-                  <li>产品介质</li>
+                <Link
+                  className='text-content-link'
+                  to={`${HOME_REGISTRATION_PROFILE.path}`}
+                >
+                  <span>产品介质</span>
                 </Link>
-                <Link to={`${HOME_REGISTRATION_PROFILE.path}`}>
-                  <li>现场测试申请表</li>
+                <Link
+                  className='text-content-link'
+                  to={`${HOME_REGISTRATION_PROFILE.path}`}
+                >
+                  <span>现场测试申请表</span>
                 </Link>
               </div>
             </div>
@@ -56,7 +77,7 @@ export default props => {
         </Timeline.Item>
         <Timeline.Item>
           <div className='left-item-box'>
-            <Icon className='item-icon-box' type='profile' />
+            <Icon className='item-icon-box' type='profile' theme='twoTone' twoToneColor='#334454' />
             <div className='item-text-box'>
               <div className='text-top-box'>电子签合同</div>
               <div className='item-detail-box'>
@@ -67,7 +88,12 @@ export default props => {
         </Timeline.Item>
         <Timeline.Item>
           <div className='left-item-box'>
-            <Icon className='item-icon-box' type='pay-circle' />
+            <Icon
+              className='item-icon-box'
+              type='credit-card'
+              theme='twoTone'
+              twoToneColor='#334454'
+            />
             <div className='item-text-box'>
               <div className='text-top-box'>交付汇款</div>
               <div className='item-detail-box'>
@@ -78,7 +104,7 @@ export default props => {
         </Timeline.Item>
         <Timeline.Item>
           <div className='left-item-box'>
-            <Icon className='item-icon-box' type='bug' />
+            <Icon className='item-icon-box' type='bug' theme='twoTone' twoToneColor='#334454' />
             <div className='item-text-box'>
               <div className='text-top-box'>现场测试</div>
               <div className='item-detail-box'>
@@ -89,22 +115,11 @@ export default props => {
         </Timeline.Item>
         <Timeline.Item>
           <div className='left-item-box'>
-            <Icon className='item-icon-box' type='file-text' />
+            <Icon className='item-icon-box' type='file-text' theme='twoTone' twoToneColor='#334454' />
             <div className='item-text-box'>
               <div className='text-top-box'>发送原始记录和测试报告</div>
               <div className='item-detail-box'>
                 <p>发送原始记录和测试报告</p>
-              </div>
-            </div>
-          </div>
-        </Timeline.Item>
-        <Timeline.Item>
-          <div className='left-item-box'>
-            <Icon className='item-icon-box' type='check-circle' />
-            <div className='item-text-box'>
-              <div className='text-top-box'>结束</div>
-              <div className='item-detail-box'>
-                <p>项目管理员结束审核</p>
               </div>
             </div>
           </div>
