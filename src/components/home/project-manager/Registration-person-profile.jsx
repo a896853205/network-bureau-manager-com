@@ -1,10 +1,31 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 // 样式
-import { Icon, Rate } from 'antd';
+import { Icon /*, Rate*/ } from 'antd';
+
+//请求
+import proxyFetch from '@/util/request';
+import { SELECT_ENTERPRISE_INFO } from '@/constants/api-constants';
 
 export default props => {
-  const enterpriseUuid = 'guanliyuan';
+  const enterpriseUuid = 'guanliyuan',
+    [code, setCode] = useState(''),
+    [phone, setPhone] = useState(''),
+    [name, setName] = useState('');
+
+  useEffect(() => {
+    (async () => {
+      let { code, phone, name } = await proxyFetch(
+        SELECT_ENTERPRISE_INFO,
+        { uuid: enterpriseUuid },
+        'GET'
+      );
+      console.log('result=', code);
+      setCode(code);
+      setPhone(phone);
+      setName(name);
+    })();
+  }, []);
 
   return (
     <div className='item-box profile-right-box'>
@@ -17,29 +38,29 @@ export default props => {
             <Icon type='user' className='enterprise-info-icon' />
             企业名称
           </p>
-          <p>哈尔滨理工大学</p>
+          <p>{name}</p>
         </li>
         <li className='enterprise-info-item-box'>
           <p>
             <Icon type='phone' className='enterprise-info-icon' />
             联系电话
           </p>
-          <p>18351923820</p>
+          <p>{phone}</p>
         </li>
         <li className='enterprise-info-item-box'>
           <p>
-            <Icon type='tag' className='enterprise-info-icon' />
-            办理业务次数
+            <Icon type='idcard' className='enterprise-info-icon' />
+            社会统一信用代码
           </p>
-          <p>111</p>
+          <p>{code}</p>
         </li>
-        <li className='enterprise-info-item-box'>
+        {/*<li className='enterprise-info-item-box'>
           <p>
             <Icon type='star' className='enterprise-info-icon' />
             星级
           </p>
           <Rate disabled defaultValue={5} />
-        </li>
+          </li>*/}
       </ul>
     </div>
   );
