@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { Timeline, Icon, Skeleton, Tag } from 'antd';
 
 // 路由
-import { HOME_REGISTRATION_PROFILE } from '@/constants/route-constants';
+import { HOME_REGISTRATION_PROFILE, HOME_REGISTRATION_DETAIL } from '@/constants/route-constants';
 import { Link } from 'react-router-dom';
 
 // 请求
@@ -55,7 +55,6 @@ export default props => {
       enterpriseRegistrationBasicStatus,
       setEnterpriseRegistrationBasicStatus
     ] = useState(null);
-  console.log('result=', enterpriseRegistrationUuid);
 
   useEffect(() => {
     (async () => {
@@ -187,7 +186,7 @@ export default props => {
                     {enterpriseRegistrationBasicStatus ? (
                       <Link
                         className='text-content-link'
-                        to={`${HOME_REGISTRATION_PROFILE.path}`}
+                        to={`${HOME_REGISTRATION_DETAIL.path}/basic`}
                       >
                         <span>登记测试基本信息</span>
                         <Tag
@@ -203,7 +202,7 @@ export default props => {
                     {enterpriseRegistrationContractStatus ? (
                       <Link
                         className='text-content-link'
-                        to={`${HOME_REGISTRATION_PROFILE.path}`}
+                        to={`${HOME_REGISTRATION_DETAIL.path}/contract`}
                       >
                         <span>评测合同</span>
                         <Tag
@@ -219,7 +218,7 @@ export default props => {
                     {enterpriseRegistrationCopyrightStatus ? (
                       <Link
                         className='text-content-link'
-                        to={`${HOME_REGISTRATION_PROFILE.path}`}
+                        to={`${HOME_REGISTRATION_DETAIL.path}/copyright`}
                       >
                         <span>软件著作权证书</span>
                         <Tag
@@ -235,7 +234,7 @@ export default props => {
                     {enterpriseRegistrationSpecimenStatus ? (
                       <Link
                         className='text-content-link'
-                        to={`${HOME_REGISTRATION_PROFILE.path}`}
+                        to={`${HOME_REGISTRATION_DETAIL.path}/specimen`}
                       >
                         <span>样品登记表</span>
                         <Tag
@@ -251,7 +250,7 @@ export default props => {
                     {enterpriseRegistrationProductDescriptionStatus ? (
                       <Link
                         className='text-content-link'
-                        to={`${HOME_REGISTRATION_PROFILE.path}`}
+                        to={`${HOME_REGISTRATION_DETAIL.path}/productDescription`}
                       >
                         <span>产品说明</span>
                         <Tag
@@ -269,7 +268,7 @@ export default props => {
                     {enterpriseRegistrationDocumentStatus ? (
                       <Link
                         className='text-content-link'
-                        to={`${HOME_REGISTRATION_PROFILE.path}`}
+                        to={`${HOME_REGISTRATION_DETAIL.path}/document`}
                       >
                         <span>用户文档集</span>
                         <Tag
@@ -285,7 +284,7 @@ export default props => {
                     {enterpriseRegistrationProductStatus ? (
                       <Link
                         className='text-content-link'
-                        to={`${HOME_REGISTRATION_PROFILE.path}`}
+                        to={`${HOME_REGISTRATION_DETAIL.path}/product`}
                       >
                         <span>产品介质</span>
                         <Tag
@@ -301,7 +300,7 @@ export default props => {
                     {enterpriseRegistrationApplyStatus ? (
                       <Link
                         className='text-content-link'
-                        to={`${HOME_REGISTRATION_PROFILE.path}`}
+                        to={`${HOME_REGISTRATION_DETAIL.path}/apply`}
                       >
                         <span>现场测试申请表</span>
                         <Tag
