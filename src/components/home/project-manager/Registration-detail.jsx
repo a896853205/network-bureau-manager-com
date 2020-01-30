@@ -1,5 +1,8 @@
 import React from 'react';
 
+//样式
+import '@/style/home/project-manager/detail.styl';
+
 // 组件
 import Apply from '@/components/home/project-manager/registration-detail/Apply.jsx';
 import Contract from '@/components/home/project-manager/registration-detail/Contract.jsx';

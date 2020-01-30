@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { Timeline, Icon, Skeleton, Tag } from 'antd';
 
 // 路由
-import { HOME_REGISTRATION_PROFILE, HOME_REGISTRATION_DETAIL } from '@/constants/route-constants';
+import { HOME_REGISTRATION_DETAIL } from '@/constants/route-constants';
 import { Link } from 'react-router-dom';
 
 // 请求
