@@ -80,7 +80,6 @@ export default props => {
           { registrationUuid: enterpriseRegistrationUuid },
           'GET'
         );
-        console.log('输出:', res);
 
         setEnterpriseRegistrationApplyStatus(
           res.enterpriseRegistrationApplyStatus
@@ -190,14 +189,15 @@ export default props => {
                         className='text-content-link'
                         to={`${HOME_REGISTRATION_PROFILE.path}`}
                       >
-                          <span>登记测试基本信息</span>
-                          <Tag
-                            color={uploadStatusToColor(
-                              enterpriseRegistrationBasicStatus.status
-                            )}
-                          >
-                            {enterpriseRegistrationBasicStatus.statusText}
-                          </Tag>
+                        <span>登记测试基本信息</span>
+                        <Tag
+                          className='content-tag'
+                          color={uploadStatusToColor(
+                            enterpriseRegistrationBasicStatus.status
+                          )}
+                        >
+                          {enterpriseRegistrationBasicStatus.statusText}
+                        </Tag>
                       </Link>
                     ) : null}
                     {enterpriseRegistrationContractStatus ? (
@@ -205,14 +205,15 @@ export default props => {
                         className='text-content-link'
                         to={`${HOME_REGISTRATION_PROFILE.path}`}
                       >
-                          <span>评测合同</span>
-                          <Tag
-                            color={uploadStatusToColor(
-                              enterpriseRegistrationContractStatus.status
-                            )}
-                          >
-                            {enterpriseRegistrationContractStatus.statusText}
-                          </Tag>
+                        <span>评测合同</span>
+                        <Tag
+                          className='content-tag'
+                          color={uploadStatusToColor(
+                            enterpriseRegistrationContractStatus.status
+                          )}
+                        >
+                          {enterpriseRegistrationContractStatus.statusText}
+                        </Tag>
                       </Link>
                     ) : null}
                     {enterpriseRegistrationCopyrightStatus ? (
@@ -220,14 +221,15 @@ export default props => {
                         className='text-content-link'
                         to={`${HOME_REGISTRATION_PROFILE.path}`}
                       >
-                          <span>软件著作权证书</span>
-                          <Tag
-                            color={uploadStatusToColor(
-                              enterpriseRegistrationCopyrightStatus.status
-                            )}
-                          >
-                            {enterpriseRegistrationCopyrightStatus.statusText}
-                          </Tag>
+                        <span>软件著作权证书</span>
+                        <Tag
+                          className='content-tag'
+                          color={uploadStatusToColor(
+                            enterpriseRegistrationCopyrightStatus.status
+                          )}
+                        >
+                          {enterpriseRegistrationCopyrightStatus.statusText}
+                        </Tag>
                       </Link>
                     ) : null}
                     {enterpriseRegistrationSpecimenStatus ? (
@@ -235,14 +237,15 @@ export default props => {
                         className='text-content-link'
                         to={`${HOME_REGISTRATION_PROFILE.path}`}
                       >
-                          <span>样品登记表</span>
-                          <Tag
-                            color={uploadStatusToColor(
-                              enterpriseRegistrationSpecimenStatus.status
-                            )}
-                          >
-                            {enterpriseRegistrationSpecimenStatus.statusText}
-                          </Tag>
+                        <span>样品登记表</span>
+                        <Tag
+                          className='content-tag'
+                          color={uploadStatusToColor(
+                            enterpriseRegistrationSpecimenStatus.status
+                          )}
+                        >
+                          {enterpriseRegistrationSpecimenStatus.statusText}
+                        </Tag>
                       </Link>
                     ) : null}
                     {enterpriseRegistrationProductDescriptionStatus ? (
@@ -250,16 +253,17 @@ export default props => {
                         className='text-content-link'
                         to={`${HOME_REGISTRATION_PROFILE.path}`}
                       >
-                          <span>产品说明</span>
-                          <Tag
-                            color={uploadStatusToColor(
-                              enterpriseRegistrationProductDescriptionStatus.status
-                            )}
-                          >
-                            {
-                              enterpriseRegistrationProductDescriptionStatus.statusText
-                            }
-                          </Tag>
+                        <span>产品说明</span>
+                        <Tag
+                          className='content-tag'
+                          color={uploadStatusToColor(
+                            enterpriseRegistrationProductDescriptionStatus.status
+                          )}
+                        >
+                          {
+                            enterpriseRegistrationProductDescriptionStatus.statusText
+                          }
+                        </Tag>
                       </Link>
                     ) : null}
                     {enterpriseRegistrationDocumentStatus ? (
@@ -267,14 +271,15 @@ export default props => {
                         className='text-content-link'
                         to={`${HOME_REGISTRATION_PROFILE.path}`}
                       >
-                          <span>用户文档集</span>
-                          <Tag
-                            color={uploadStatusToColor(
-                              enterpriseRegistrationDocumentStatus.status
-                            )}
-                          >
-                            {enterpriseRegistrationDocumentStatus.statusText}
-                          </Tag>
+                        <span>用户文档集</span>
+                        <Tag
+                          className='content-tag'
+                          color={uploadStatusToColor(
+                            enterpriseRegistrationDocumentStatus.status
+                          )}
+                        >
+                          {enterpriseRegistrationDocumentStatus.statusText}
+                        </Tag>
                       </Link>
                     ) : null}
                     {enterpriseRegistrationProductStatus ? (
@@ -282,14 +287,15 @@ export default props => {
                         className='text-content-link'
                         to={`${HOME_REGISTRATION_PROFILE.path}`}
                       >
-                          <span>产品介质</span>
-                          <Tag
-                            color={uploadStatusToColor(
-                              enterpriseRegistrationProductStatus.status
-                            )}
-                          >
-                            {enterpriseRegistrationProductStatus.statusText}
-                          </Tag>
+                        <span>产品介质</span>
+                        <Tag
+                          className='content-tag'
+                          color={uploadStatusToColor(
+                            enterpriseRegistrationProductStatus.status
+                          )}
+                        >
+                          {enterpriseRegistrationProductStatus.statusText}
+                        </Tag>
                       </Link>
                     ) : null}
                     {enterpriseRegistrationApplyStatus ? (
@@ -297,14 +303,15 @@ export default props => {
                         className='text-content-link'
                         to={`${HOME_REGISTRATION_PROFILE.path}`}
                       >
-                          <span>现场测试申请表</span>
-                          <Tag
-                            color={uploadStatusToColor(
-                              enterpriseRegistrationApplyStatus.status
-                            )}
-                          >
-                            {enterpriseRegistrationApplyStatus.statusText}
-                          </Tag>
+                        <span>现场测试申请表</span>
+                        <Tag
+                          className='content-tag'
+                          color={uploadStatusToColor(
+                            enterpriseRegistrationApplyStatus.status
+                          )}
+                        >
+                          {enterpriseRegistrationApplyStatus.statusText}
+                        </Tag>
                       </Link>
                     ) : null}
                   </div>

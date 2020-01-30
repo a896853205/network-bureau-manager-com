@@ -39,3 +39,7 @@ export const HOME_TRUST_LIST = {
   path: '/home/trust/list',
   name: '委托测试列表页'
 };
+export const HOME_REGISTRATION_DETAIL = {
+  path: '/home/registration/profile/detail',
+  name: '详情审核页'
+}

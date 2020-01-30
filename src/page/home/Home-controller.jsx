@@ -83,7 +83,6 @@ export default props => {
   });
   const homeRegistrationProfile = useRouteMatch({
     path: ROUTES.HOME_REGISTRATION_PROFILE.path,
-    exact: true
   });
   const homeTrustList = useRouteMatch({
     path: ROUTES.HOME_TRUST_LIST.path,
