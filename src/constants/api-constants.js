@@ -35,3 +35,4 @@ export const SELECT_REGISTRATION_CONTRACT = `${DominConfigs.DOMAIN}${DominConfig
 export const SELECT_REGISTRATION_SPECIMEN = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_PROJECT_MANAGER}/selectRegistrationSpecimen`;  // 查询样品文档集的基本信息
 export const SELECT_REGISTRATION_APPLY = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_PROJECT_MANAGER}/selectRegistrationApply`;  // 查询现场测试申请表的基本信息
 export const SET_REGISTRATION_DETAIL_STATUS = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_PROJECT_MANAGER}/setRegistrationDetailStatus`;
+export const SELECT_REGISTRATION_PRODUCT_DESCRIPTION = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_PROJECT_MANAGER}/selectRegistrationProductDescription`;
