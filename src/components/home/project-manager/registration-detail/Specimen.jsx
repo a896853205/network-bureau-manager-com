@@ -35,7 +35,7 @@ export default props => {
       await proxyFetch(SET_REGISTRATION_DETAIL_STATUS, {
         registrationUuid: enterpriseRegistrationUuid,
         type: 'specimen',
-        status: 2
+        status: 3
       });
 
       setStatusLoading(false);
@@ -51,7 +51,7 @@ export default props => {
         await proxyFetch(SET_REGISTRATION_DETAIL_STATUS, {
           registrationUuid: enterpriseRegistrationUuid,
           type: 'specimen',
-          status: 3,
+          status: 4,
           failText
         });
 

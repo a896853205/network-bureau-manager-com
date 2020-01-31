@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 // 样式
-import { Timeline, Icon, Skeleton, Tag } from 'antd';
+import { Timeline, Icon, Skeleton, Tag, Button } from 'antd';
 
 // 路由
 import { HOME_REGISTRATION_DETAIL } from '@/constants/route-constants';
@@ -10,7 +10,8 @@ import { Link } from 'react-router-dom';
 // 请求
 import {
   QUERY_SYS_REGISTRATION_STEP,
-  SELECT_REGISTRATION_STATUS
+  SELECT_REGISTRATION_STATUS,
+  PUSH_REGISTRATION_PROCESS
 } from '@/constants/api-constants';
 import proxyFetch from '@/util/request';
 
@@ -54,7 +55,8 @@ export default props => {
     [
       enterpriseRegistrationBasicStatus,
       setEnterpriseRegistrationBasicStatus
-    ] = useState(null);
+    ] = useState(null),
+    [pushProcessLoading, setPushProcessLoading] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -131,26 +133,15 @@ export default props => {
     return color;
   };
 
-  const uploadStatusToColor = status => {
-    let color = '';
+  const handlePushProcess = () => {
+    (async () => {
+      setPushProcessLoading(true);
+      await proxyFetch(PUSH_REGISTRATION_PROCESS, {
+        registrationUuid: enterpriseRegistrationUuid
+      });
 
-    switch (status) {
-      case 0:
-        color = 'grey';
-        break;
-      case 1:
-        color = 'blue';
-        break;
-      case 2:
-        color = 'green';
-        break;
-      case 3:
-        color = 'red';
-        break;
-      default:
-        color = 'blue';
-    }
-    return color;
+      setPushProcessLoading(false);
+    })();
   };
 
   return (
@@ -190,7 +181,7 @@ export default props => {
                         </Link>
                         <Tag
                           className='content-tag'
-                          color={uploadStatusToColor(
+                          color={statusToColor(
                             enterpriseRegistrationBasicStatus.status
                           )}
                         >
@@ -205,7 +196,7 @@ export default props => {
                         </Link>
                         <Tag
                           className='content-tag'
-                          color={uploadStatusToColor(
+                          color={statusToColor(
                             enterpriseRegistrationContractStatus.status
                           )}
                         >
@@ -220,7 +211,7 @@ export default props => {
                         </Link>
                         <Tag
                           className='content-tag'
-                          color={uploadStatusToColor(
+                          color={statusToColor(
                             enterpriseRegistrationCopyrightStatus.status
                           )}
                         >
@@ -235,7 +226,7 @@ export default props => {
                         </Link>
                         <Tag
                           className='content-tag'
-                          color={uploadStatusToColor(
+                          color={statusToColor(
                             enterpriseRegistrationSpecimenStatus.status
                           )}
                         >
@@ -252,7 +243,7 @@ export default props => {
                         </Link>
                         <Tag
                           className='content-tag'
-                          color={uploadStatusToColor(
+                          color={statusToColor(
                             enterpriseRegistrationProductDescriptionStatus.status
                           )}
                         >
@@ -269,7 +260,7 @@ export default props => {
                         </Link>
                         <Tag
                           className='content-tag'
-                          color={uploadStatusToColor(
+                          color={statusToColor(
                             enterpriseRegistrationDocumentStatus.status
                           )}
                         >
@@ -284,7 +275,7 @@ export default props => {
                         </Link>
                         <Tag
                           className='content-tag'
-                          color={uploadStatusToColor(
+                          color={statusToColor(
                             enterpriseRegistrationProductStatus.status
                           )}
                         >
@@ -299,7 +290,7 @@ export default props => {
                         </Link>
                         <Tag
                           className='content-tag'
-                          color={uploadStatusToColor(
+                          color={statusToColor(
                             enterpriseRegistrationApplyStatus.status
                           )}
                         >
@@ -308,6 +299,35 @@ export default props => {
                       </div>
                     ) : null}
                   </div>
+                  {enterpriseRegistrationContractStatus &&
+                  enterpriseRegistrationApplyStatus &&
+                  enterpriseRegistrationCopyrightStatus &&
+                  enterpriseRegistrationDocumentStatus &&
+                  enterpriseRegistrationProductDescriptionStatus &&
+                  enterpriseRegistrationProductStatus &&
+                  enterpriseRegistrationSpecimenStatus &&
+                  enterpriseRegistrationBasicStatus ? (
+                    <Button
+                      disabled={
+                        !(
+                          enterpriseRegistrationContractStatus.status === 3 &&
+                          enterpriseRegistrationApplyStatus.status === 3 &&
+                          enterpriseRegistrationCopyrightStatus.status === 3 &&
+                          enterpriseRegistrationDocumentStatus.status === 3 &&
+                          enterpriseRegistrationProductDescriptionStatus.status ===
+                            3 &&
+                          enterpriseRegistrationProductStatus.status === 3 &&
+                          enterpriseRegistrationSpecimenStatus.status === 3 &&
+                          enterpriseRegistrationBasicStatus.status === 3
+                        )
+                      }
+                      size='large'
+                      onClick={handlePushProcess}
+                      loading={pushProcessLoading}
+                    >
+                      提交上传8种材料审查完成开始电子签合同
+                    </Button>
+                  ) : null}
                 </div>
               </div>
             </Timeline.Item>
