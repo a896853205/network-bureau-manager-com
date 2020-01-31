@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 // 路由
 import { HOME_REGISTRATION_PROFILE } from '@/constants/route-constants';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 // redux
 import { useSelector } from 'react-redux';
@@ -11,11 +11,12 @@ import { useSelector } from 'react-redux';
 import proxyFetch from '@/util/request';
 import {
   GET_FILE_URL,
-  SELECT_REGISTRATION_PRODUCT_DESCRIPTION
+  SELECT_REGISTRATION_PRODUCT_DESCRIPTION,
+  SET_REGISTRATION_DETAIL_STATUS
 } from '@/constants/api-constants';
 
 // 样式
-import { Icon, Button, Input } from 'antd';
+import { Icon, Button, Input, message } from 'antd';
 import '@/style/home/project-manager/product-description.styl';
 const { TextArea } = Input;
 
@@ -25,8 +26,45 @@ export default props => {
     ),
     [formProductDescriptionUrl, setFormProductDescriptionUrl] = useState(''),
     [PreviewUrl, setPreviewUrl] = useState(''),
-    [getFileLoading, setGetFileLoading] = useState(true);
+    [getFileLoading, setGetFileLoading] = useState(true),
+    [statusLoading, setStatusLoading] = useState(false),
+    [failText, setFailText] = useState(''),
+    history = useHistory();
 
+  const handleSetSuccessStatus = () => {
+    (async () => {
+      setStatusLoading(true);
+
+      await proxyFetch(SET_REGISTRATION_DETAIL_STATUS, {
+        registrationUuid: enterpriseRegistrationUuid,
+        type: 'productDescription',
+        status: 2
+      });
+
+      setStatusLoading(false);
+      history.push(HOME_REGISTRATION_PROFILE.path);
+    })();
+  };
+
+  const handleSetFailStatus = () => {
+    if (failText) {
+      (async () => {
+        setStatusLoading(true);
+
+        await proxyFetch(SET_REGISTRATION_DETAIL_STATUS, {
+          registrationUuid: enterpriseRegistrationUuid,
+          type: 'productDescription',
+          status: 3,
+          failText
+        });
+
+        setStatusLoading(false);
+        history.push(HOME_REGISTRATION_PROFILE.path);
+      })();
+    } else {
+      message.error('请输入未通过审核理由!');
+    }
+  };
   // 将已有的数据回显
   useEffect(() => {
     if (enterpriseRegistrationUuid) {
@@ -82,10 +120,22 @@ export default props => {
           )}
         </div>
         <div className='description-button-box'>
-          <Button type='primary' htmlType='submit' className='fail-button'>
+          <Button
+            type='primary'
+            htmlType='submit'
+            className='fail-button'
+            loading={statusLoading}
+            onClick={handleSetFailStatus}
+          >
             审核不通过
           </Button>
-          <Button type='primary' htmlType='submit' className='success-button'>
+          <Button
+            type='primary'
+            htmlType='submit'
+            className='success-button'
+            loading={statusLoading}
+            onClick={handleSetSuccessStatus}
+          >
             审核通过
           </Button>
         </div>
@@ -94,6 +144,9 @@ export default props => {
           maxLength='800'
           placeholder='请输入审核不通过理由'
           className='description-textArea-box'
+          onChange={e => {
+            setFailText(e.target.value);
+          }}
         />
       </div>
     </>
