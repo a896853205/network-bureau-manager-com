@@ -109,6 +109,7 @@ export default props => {
           { registrationUuid: enterpriseRegistrationUuid },
           'GET'
         );
+        console.log('result=',registrationBasic);
 
         if (registrationBasic) {
           setStatus(registrationBasic.status);

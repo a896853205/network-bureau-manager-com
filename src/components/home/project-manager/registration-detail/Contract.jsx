@@ -15,7 +15,15 @@ import {
 } from '@/constants/api-constants';
 
 //样式
-import { Descriptions, Icon, Button, Input, Skeleton, message } from 'antd';
+import {
+  Descriptions,
+  Icon,
+  Tag,
+  Button,
+  Input,
+  Skeleton,
+  message
+} from 'antd';
 import '@/style/home/project-manager/contract.styl';
 const { TextArea } = Input;
 
@@ -27,7 +35,31 @@ export default props => {
     [getDataLoading, setGetDataLoading] = useState(false),
     [statusLoading, setStatusLoading] = useState(false),
     [failText, setFailText] = useState(''),
+    [status, setStatus] = useState(0),
+    [statusText, setStatusText] = useState(''),
     history = useHistory();
+
+  const statusToColor = status => {
+    let color = '';
+
+    switch (status) {
+      case 1:
+        color = 'grey';
+        break;
+      case 2:
+        color = 'blue';
+        break;
+      case 3:
+        color = 'green';
+        break;
+      case 4:
+        color = 'red';
+        break;
+      default:
+        color = 'blue';
+    }
+    return color;
+  };
 
   const handleSetSuccessStatus = () => {
     (async () => {
@@ -76,6 +108,11 @@ export default props => {
           'GET'
         );
 
+        if (registrationContract) {
+          setStatus(registrationContract.status);
+          setStatusText(registrationContract.statusText);
+        }
+
         setRegistrationContract(registrationContract);
         setGetDataLoading(false);
       })();
@@ -88,7 +125,12 @@ export default props => {
         <Link to={`${HOME_REGISTRATION_PROFILE.path}`}>
           <Icon type='left' className='exit-icon' />
         </Link>
-        <p className='subtitle-title'>评测合同</p>
+        <p className='subtitle-title'>
+          评测合同{' '}
+          <Tag className='content-tag' color={statusToColor(status)}>
+            {statusText}
+          </Tag>
+        </p>
       </div>
       <Skeleton loading={getDataLoading}>
         {registrationContract ? (
@@ -112,18 +154,20 @@ export default props => {
             </Descriptions>
             <div className='contract-button-box'>
               <Button
+                disabled={!(status === 2)}
                 type='primary'
                 htmlType='submit'
-                className='fail-button'
+                className={status === 2 ? 'fail-button' : ''}
                 loading={statusLoading}
                 onClick={handleSetFailStatus}
               >
                 审核不通过
               </Button>
               <Button
+                disabled={!(status === 2)}
                 type='primary'
                 htmlType='submit'
-                className='success-button'
+                className={status === 2 ? 'success-button' : ''}
                 loading={statusLoading}
                 onClick={handleSetSuccessStatus}
               >
@@ -131,6 +175,7 @@ export default props => {
               </Button>
             </div>
             <TextArea
+              disabled={!(status === 2)}
               autoSize={{ minRows: 3, maxRows: 6 }}
               maxLength='800'
               placeholder='请输入审核不通过理由'

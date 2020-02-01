@@ -16,7 +16,7 @@ import {
 } from '@/constants/api-constants';
 
 // 样式
-import { Icon, Button, Input, message } from 'antd';
+import { Icon, Tag, Button, Input, message } from 'antd';
 import '@/style/home/project-manager/product-description.styl';
 const { TextArea } = Input;
 
@@ -29,7 +29,31 @@ export default props => {
     [getFileLoading, setGetFileLoading] = useState(true),
     [statusLoading, setStatusLoading] = useState(false),
     [failText, setFailText] = useState(''),
+    [status, setStatus] = useState(0),
+    [statusText, setStatusText] = useState(''),
     history = useHistory();
+
+  const statusToColor = status => {
+    let color = '';
+
+    switch (status) {
+      case 1:
+        color = 'grey';
+        break;
+      case 2:
+        color = 'blue';
+        break;
+      case 3:
+        color = 'green';
+        break;
+      case 4:
+        color = 'red';
+        break;
+      default:
+        color = 'blue';
+    }
+    return color;
+  };
 
   const handleSetSuccessStatus = () => {
     (async () => {
@@ -77,6 +101,11 @@ export default props => {
           'GET'
         );
 
+        if (registrationProductDescription) {
+          setStatus(registrationProductDescription.status);
+          setStatusText(registrationProductDescription.statusText);
+        }
+
         setFormProductDescriptionUrl(registrationProductDescription.url);
         setGetFileLoading(false);
       })();
@@ -105,7 +134,12 @@ export default props => {
         <Link to={HOME_REGISTRATION_PROFILE.path}>
           <Icon type='left' className='exit-icon' />
         </Link>
-        <p className='subtitle-title'>产品说明</p>
+        <p className='subtitle-title'>
+          产品说明{' '}
+          <Tag className='content-tag' color={statusToColor(status)}>
+            {statusText}
+          </Tag>
+        </p>
       </div>
       <div className='detail-description-box'>
         <div className='description-upload-button-box'>
@@ -121,18 +155,20 @@ export default props => {
         </div>
         <div className='description-button-box'>
           <Button
+            disabled={!(status === 2)}
             type='primary'
             htmlType='submit'
-            className='fail-button'
+            className={status === 2 ? 'fail-button' : ''}
             loading={statusLoading}
             onClick={handleSetFailStatus}
           >
             审核不通过
           </Button>
           <Button
+            disabled={!(status === 2)}
             type='primary'
             htmlType='submit'
-            className='success-button'
+            className={status === 2 ? 'success-button' : ''}
             loading={statusLoading}
             onClick={handleSetSuccessStatus}
           >
@@ -140,6 +176,7 @@ export default props => {
           </Button>
         </div>
         <TextArea
+          disabled={!(status === 2)}
           autoSize={{ minRows: 3, maxRows: 6 }}
           maxLength='800'
           placeholder='请输入审核不通过理由'
