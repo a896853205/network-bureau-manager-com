@@ -84,7 +84,23 @@ export default () => {
                     </Tag>
                   </div>
                   <div className='item-detail-box'>
-                    <p>甲乙双方电子签合同</p>
+                    <p className='text-sub-title'>甲乙双方电子签合同</p>
+                    <div className='text-timeline-box'>
+                      <Timeline >
+                        <Timeline.Item color='green'>
+                          填写评测合同内容
+                        </Timeline.Item>
+                        <Timeline.Item color='green'>
+                          生成合同下载,盖章扫描,上传pdf
+                        </Timeline.Item>
+                        <Timeline.Item color='red'>
+                          等待企业下载pdf,盖章扫描,上传pdf
+                        </Timeline.Item>
+                        <Timeline.Item color='gray'>
+                          审查,进入下一步
+                        </Timeline.Item>
+                      </Timeline>
+                    </div>
                   </div>
                 </div>
               </div>
