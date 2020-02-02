@@ -3,6 +3,10 @@ import React, { useState, useEffect } from 'react';
 // redux
 import { useSelector } from 'react-redux';
 
+// 路由
+import { HOME_REGISTRATION_DETAIL } from '@/constants/route-constants';
+import { Link } from 'react-router-dom';
+
 // 请求
 import { QUERY_SYS_REGISTRATION_STEP } from '@/constants/api-constants';
 import proxyFetch from '@/util/request';
@@ -69,14 +73,30 @@ export default () => {
             <div className='item-detail-box'>
               <p className='text-subtitle'>甲乙双方电子签合同</p>
               <Timeline mode='left'>
-                <Timeline.Item color='green'>填写评测合同内容</Timeline.Item>
                 <Timeline.Item color='green'>
-                  生成合同下载,盖章扫描,上传pdf
+                  <Link
+                    to={`${HOME_REGISTRATION_DETAIL.path}/contract-manager`}
+                  >
+                    <span>填写评测合同内容</span>
+                  </Link>
+                </Timeline.Item>
+                <Timeline.Item color='green'>
+                  <Link
+                    to={`${HOME_REGISTRATION_DETAIL.path}/contract-download`}
+                  >
+                    <span>生成合同下载,盖章扫描,上传pdf</span>
+                  </Link>
                 </Timeline.Item>
                 <Timeline.Item color='red'>
                   等待企业下载pdf,盖章扫描,上传pdf
                 </Timeline.Item>
-                <Timeline.Item color='gray'>审查,进入下一步</Timeline.Item>
+                <Timeline.Item color='gray'>
+                  <Link
+                    to={`${HOME_REGISTRATION_DETAIL.path}/contract-examine`}
+                  >
+                    <span>审查,进入下一步 </span>
+                  </Link>
+                </Timeline.Item>
               </Timeline>
             </div>
           </div>

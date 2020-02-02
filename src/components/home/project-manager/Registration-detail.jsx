@@ -12,6 +12,9 @@ import ProductDescription from '@/components/home/project-manager/registration-d
 import Product from '@/components/home/project-manager/registration-detail/Product.jsx';
 import Specimen from '@/components/home/project-manager/registration-detail/Specimen.jsx';
 import Basic from '@/components/home/project-manager/registration-detail/Basic.jsx';
+import ContractManager from '@/components/home/project-manager/registration-detail/Contract-manager.jsx';
+import ContractDownload from '@/components/home/project-manager/registration-detail/Contract-download.jsx';
+import ContractExamine from '@/components/home/project-manager/registration-detail/Contract-examine.jsx';
 
 export default ({ type }) => {
   let content = null;
@@ -40,6 +43,15 @@ export default ({ type }) => {
       break;
     case 'basic':
       content = <Basic />;
+      break;
+      case 'contract-manager':
+      content = <ContractManager />;
+      break;
+      case 'contract-download':
+      content = <ContractDownload />;
+      break;
+      case 'contract-examine':
+      content = <ContractExamine />;
       break;
     default:
       content = null;
