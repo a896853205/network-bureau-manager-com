@@ -40,3 +40,5 @@ export const SELECT_REGISTRATION_PRODUCT = `${DominConfigs.DOMAIN}${DominConfigs
 export const SELECT_REGISTRATION_DOCUMENT = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_PROJECT_MANAGER}/selectRegistrationDocument`; // 查询用户文档集的基本信息
 export const SELECT_REGISTRATION_COPYRIGHT = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_PROJECT_MANAGER}/selectRegistrationCopyright`; // 查询产品描述的基本信息
 export const PUSH_REGISTRATION_PROCESS = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_PROJECT_MANAGER}/pushRegistrationProcess`;
+export const SELECT_REGISTRATION_CONTRACT_MANAGER = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_PROJECT_MANAGER}/selectRegistrationContractManager`; // 查询经管人员填写评测合同的基本信息
+export const SAVE_REGISTRATION_CONTRACT_MANAGER = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_PROJECT_MANAGER}/saveRegistrationContractManager`; // 保存经管人员填写评测合同的基本信息
