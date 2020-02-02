@@ -40,16 +40,17 @@ export default () => {
     }
   }, [enterpriseRegistrationUuid]);
 
-  const contractManagerStatusToColor = status => {
+  const contractManagerStatusToColor = (step, managerStatus = 0) => {
     let color = '';
 
-    if (managerStatus === status - 1 || (!managerStatus && status === 1)) {
+    if (managerStatus === step) {
       color = 'blue';
-    } else if (managerStatus >= status) {
+    } else if (managerStatus > step) {
       color = 'green';
     } else {
       color = 'grey';
     }
+
     return color;
   };
 
@@ -66,8 +67,6 @@ export default () => {
       setLoading(false);
     })();
   }, []);
-
-  console.log('steps=', steps);
 
   const statusToColor = status => {
     let color = '';
@@ -111,26 +110,26 @@ export default () => {
             <div className='item-detail-box'>
               <p className='text-subtitle'>甲乙双方电子签合同</p>
               <Timeline mode='left'>
-                <Timeline.Item color={contractManagerStatusToColor(1)}>
+                <Timeline.Item color={contractManagerStatusToColor(1, managerStatus)}>
                   <Link
-                    to={`${HOME_REGISTRATION_DETAIL.path}/contract-manager`}
+                    to={`${HOME_REGISTRATION_DETAIL.path}/contractManager`}
                   >
                     <span>填写评测合同内容</span>
                   </Link>
                 </Timeline.Item>
-                <Timeline.Item color={contractManagerStatusToColor(2)}>
+                <Timeline.Item color={contractManagerStatusToColor(2, managerStatus)}>
                   <Link
-                    to={`${HOME_REGISTRATION_DETAIL.path}/contract-download`}
+                    to={`${HOME_REGISTRATION_DETAIL.path}/contractDownload`}
                   >
                     <span>生成合同下载,盖章扫描,上传pdf</span>
                   </Link>
                 </Timeline.Item>
-                <Timeline.Item color={contractManagerStatusToColor(3)}>
+                <Timeline.Item color={contractManagerStatusToColor(3, managerStatus)}>
                   等待企业下载pdf,盖章扫描,上传pdf
                 </Timeline.Item>
-                <Timeline.Item color={contractManagerStatusToColor(4)}>
+                <Timeline.Item color={contractManagerStatusToColor(4, managerStatus)}>
                   <Link
-                    to={`${HOME_REGISTRATION_DETAIL.path}/contract-examine`}
+                    to={`${HOME_REGISTRATION_DETAIL.path}/contractExamine`}
                   >
                     <span>审查,进入下一步 </span>
                   </Link>

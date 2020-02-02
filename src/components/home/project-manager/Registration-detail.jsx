@@ -44,13 +44,13 @@ export default ({ type }) => {
     case 'basic':
       content = <Basic />;
       break;
-      case 'contract-manager':
+    case 'contractManager':
       content = <ContractManager />;
       break;
-      case 'contract-download':
+    case 'contractDownload':
       content = <ContractDownload />;
       break;
-      case 'contract-examine':
+    case 'contractExamine':
       content = <ContractExamine />;
       break;
     default:

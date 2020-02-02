@@ -91,7 +91,7 @@ export default Form.create({ name: 'contract' })(({ form }) => {
           setSaveDataLoading(false);
 
           if (res) {
-            history.push(`${HOME_REGISTRATION_PROFILE.path}`);
+            history.push(HOME_REGISTRATION_PROFILE.path);
           }
         }
       }
@@ -101,7 +101,7 @@ export default Form.create({ name: 'contract' })(({ form }) => {
   return (
     <>
       <div className='subtitle-box'>
-        <Link to={`${HOME_REGISTRATION_PROFILE.path}`}>
+        <Link to={HOME_REGISTRATION_PROFILE.path}>
           <Icon type='left' className='exit-icon' />
         </Link>
         <p className='subtitle-title'>填写评测合同内容</p>
