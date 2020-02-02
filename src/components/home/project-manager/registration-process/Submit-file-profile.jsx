@@ -160,7 +160,7 @@ export default props => {
                 {steps[0].statusText}
               </Tag>
             </div>
-            <p className='text-sub-title'>
+            <p className='text-subtitle'>
               检查8种材料信息,是否完整,是否符合要求
             </p>
             <div className='text-content-box'>
