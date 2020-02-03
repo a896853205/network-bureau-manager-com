@@ -132,7 +132,7 @@ export default props => {
   return (
     <>
       <div className='subtitle-box'>
-        <Link to={`${HOME_REGISTRATION_PROFILE.path}`}>
+        <Link to={HOME_REGISTRATION_PROFILE.path}>
           <Icon type='left' className='exit-icon' />
         </Link>
         <p className='subtitle-title'>

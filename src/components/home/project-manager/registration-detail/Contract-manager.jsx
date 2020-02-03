@@ -28,6 +28,7 @@ export default Form.create({ name: 'contract' })(({ form }) => {
     ),
     history = useHistory(),
     [getDataLoading, setGetDataLoading] = useState(true),
+    [managerStatus, setManagerStatus] = useState([]),
     [saveDataLoading, setSaveDataLoading] = useState(false);
 
   // 将已有的数据回显
@@ -40,6 +41,8 @@ export default Form.create({ name: 'contract' })(({ form }) => {
           { registrationUuid: enterpriseRegistrationUuid },
           'GET'
         );
+
+        setManagerStatus(registrationContract.managerStatus);
 
         // 数据回显
         if (registrationContract) {
@@ -152,6 +155,7 @@ export default Form.create({ name: 'contract' })(({ form }) => {
               {/* 提交按钮 */}
               <Form.Item wrapperCol={{ offset: 7 }}>
                 <Button
+                  disabled={!(managerStatus >= 1)}
                   type='primary'
                   htmlType='submit'
                   loading={saveDataLoading}
