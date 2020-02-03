@@ -10,7 +10,8 @@ import {
   UPLOAD_PDF_FILE,
   GET_FILE_URL,
   GET_MANAGER_CONTRACT_URL,
-  SAVE_MANAGER_CONTRACT_URL
+  SAVE_MANAGER_CONTRACT_URL,
+  DOWNLOAD_CONTRACT_WORD
 } from '@/constants/api-constants';
 
 // redux
@@ -30,6 +31,7 @@ export default prop => {
     [getDataLoading, setGetDataLoading] = useState(true),
     [saveDataLoading, setSaveDataLoading] = useState(false),
     [contractManagerUrl, setContractManagerUrl] = useState(''),
+    [downloadContractLoading, setDownloadContractLoading] = useState(false),
     history = useHistory();
 
   // 将已有的数据回显
@@ -67,7 +69,7 @@ export default prop => {
       // 参数需要加上oss的文件夹位置
       const fileUrl = await proxyFileFetch(UPLOAD_PDF_FILE, {
         file: file.file,
-        folderName: 'manager/contract'
+        folderName: 'registration/managerContract'
       });
 
       // loading
@@ -75,7 +77,6 @@ export default prop => {
 
       if (fileUrl) {
         setContractManagerUrl(fileUrl);
-
         setIsNeedUrlFresh(true);
       }
     }
@@ -92,8 +93,6 @@ export default prop => {
           'GET'
         );
 
-        console.log('previewUrl=', previewUrl);
-
         setContractManagerLoading(false);
         // 切换下载的url
         setPreviewUrl(previewUrl);
@@ -105,22 +104,32 @@ export default prop => {
   /**
    * 提交事件
    */
-  const handleManagerUrlSave = () => {
-    (async () => {
-      if (enterpriseRegistrationUuid && contractManagerUrl) {
-        let value = {};
-        value.registrationUuid = enterpriseRegistrationUuid;
-        value.managerUrl = contractManagerUrl;
+  const handleManagerUrlSave = async () => {
+    if (enterpriseRegistrationUuid && contractManagerUrl) {
+      let value = {};
+      value.registrationUuid = enterpriseRegistrationUuid;
+      value.managerUrl = contractManagerUrl;
 
-        setSaveDataLoading(true);
-        const res = await proxyFetch(SAVE_MANAGER_CONTRACT_URL, value);
-        setSaveDataLoading(false);
+      setSaveDataLoading(true);
+      const res = await proxyFetch(SAVE_MANAGER_CONTRACT_URL, value);
+      setSaveDataLoading(false);
 
-        if (res) {
-          history.push(HOME_REGISTRATION_PROFILE.path);
-        }
+      if (res) {
+        history.push(HOME_REGISTRATION_PROFILE.path);
       }
-    })();
+    }
+  };
+
+  const handleDownloadContractWord = async () => {
+    setDownloadContractLoading(true);
+
+    const url = await proxyFetch(
+      DOWNLOAD_CONTRACT_WORD,
+      { registrationUuid: enterpriseRegistrationUuid },
+      'GET'
+    );
+    // window.open(url);
+    setDownloadContractLoading(false);
   };
 
   return (
@@ -136,7 +145,13 @@ export default prop => {
           <div className='contract-download-left-box'>
             <Timeline>
               <Timeline.Item>
-                <Button icon='download' size='large' type='primary'>
+                <Button
+                  icon='download'
+                  size='large'
+                  type='primary'
+                  loading={downloadContractLoading}
+                  onClick={handleDownloadContractWord}
+                >
                   生成合同下载
                 </Button>
               </Timeline.Item>
