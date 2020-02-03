@@ -147,7 +147,12 @@ export default prop => {
                 <Upload showUploadList={false} customRequest={handleUploadFile}>
                   {previewUrl && !contractManagerLoading ? (
                     <div>
-                      <a href={previewUrl} onClick={e => e.stopPropagation()}>
+                      <a
+                        href={previewUrl}
+                        onClick={e => e.stopPropagation()}
+                        target='_blank'
+                        rel='noopener noreferrer'
+                      >
                         <Button>查看上传</Button>
                       </a>
                       <Button>重新上传</Button>
