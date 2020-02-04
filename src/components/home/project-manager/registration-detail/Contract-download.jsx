@@ -128,7 +128,8 @@ export default prop => {
       { registrationUuid: enterpriseRegistrationUuid },
       'GET'
     );
-    // window.open(url);
+    
+    window.open(url);
     setDownloadContractLoading(false);
   };
 
