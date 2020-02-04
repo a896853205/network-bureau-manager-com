@@ -14,7 +14,7 @@ import {
 } from '@/constants/api-constants';
 import proxyFetch from '@/util/request';
 
-import { Icon, Tag, Timeline, Skeleton } from 'antd';
+import { Icon, Tag, Timeline, Skeleton, Button } from 'antd';
 export default () => {
   const { steps, enterpriseRegistrationUuid } = useSelector(
       state => state.enterpriseStore
@@ -139,6 +139,7 @@ export default () => {
                 </Timeline.Item>
               </Timeline>
             </div>
+            <Button>电子签合同完成开始交付汇款</Button>
           </div>
         ) : null}
       </Skeleton>
