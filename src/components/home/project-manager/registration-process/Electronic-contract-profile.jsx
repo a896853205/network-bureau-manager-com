@@ -169,6 +169,7 @@ export default () => {
               </Timeline>
             </div>
             <Button
+              disabled={managerStatus !== 5}
               size='large'
               onClick={handlePushProcess}
               loading={pushProcessLoading}
