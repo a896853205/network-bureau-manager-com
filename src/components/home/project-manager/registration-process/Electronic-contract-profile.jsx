@@ -10,7 +10,8 @@ import { Link } from 'react-router-dom';
 // 请求
 import {
   QUERY_SYS_REGISTRATION_STEP,
-  SELECT_REGISTRATION_CONTRACT_MANAGER
+  SELECT_REGISTRATION_CONTRACT_MANAGER,
+  PUSH_REGISTRATION_PROCESS
 } from '@/constants/api-constants';
 import proxyFetch from '@/util/request';
 
@@ -21,7 +22,8 @@ export default () => {
     ),
     [sysRegistrationStepList, setSysRegistrationStepList] = useState([]),
     [managerStatus, setManagerStatus] = useState([]),
-    [loading, setLoading] = useState(true);
+    [loading, setLoading] = useState(true),
+    [pushProcessLoading, setPushProcessLoading] = useState(false);
 
   useEffect(() => {
     if (enterpriseRegistrationUuid) {
@@ -87,6 +89,17 @@ export default () => {
         color = 'blue';
     }
     return color;
+  };
+
+  const handlePushProcess = () => {
+    (async () => {
+      setPushProcessLoading(true);
+      await proxyFetch(PUSH_REGISTRATION_PROCESS, {
+        registrationUuid: enterpriseRegistrationUuid
+      });
+
+      setPushProcessLoading(false);
+    })();
   };
 
   return (
@@ -155,7 +168,13 @@ export default () => {
                 </Timeline.Item>
               </Timeline>
             </div>
-            <Button>电子签合同完成开始交付汇款</Button>
+            <Button
+              size='large'
+              onClick={handlePushProcess}
+              loading={pushProcessLoading}
+            >
+              电子签合同完成开始交付汇款
+            </Button>
           </div>
         ) : null}
       </Skeleton>
