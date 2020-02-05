@@ -116,10 +116,10 @@ export default () => {
                     <Link
                       to={`${HOME_REGISTRATION_DETAIL.path}/contractManager`}
                     >
-                      <span>填写评测合同内容</span>
+                      <span>填写经营管理部合同内容</span>
                     </Link>
                   ) : (
-                    <span>填写评测合同内容</span>
+                    <span>填写经营管理部合同内容</span>
                   )}
                 </Timeline.Item>
                 <Timeline.Item
@@ -129,16 +129,16 @@ export default () => {
                     <Link
                       to={`${HOME_REGISTRATION_DETAIL.path}/contractDownload`}
                     >
-                      <span>生成合同下载,盖章扫描,上传pdf</span>
+                      <span>管理员制定合同</span>
                     </Link>
                   ) : (
-                    <span>生成合同下载,盖章扫描,上传pdf</span>
+                    <span>管理员制定合同</span>
                   )}
                 </Timeline.Item>
                 <Timeline.Item
                   color={contractManagerStatusToColor(3, managerStatus)}
                 >
-                  等待企业下载pdf,盖章扫描,上传pdf
+                  等待企业上传合同pdf
                 </Timeline.Item>
                 <Timeline.Item
                   color={contractManagerStatusToColor(4, managerStatus)}
@@ -147,10 +147,10 @@ export default () => {
                     <Link
                       to={`${HOME_REGISTRATION_DETAIL.path}/contractExamine`}
                     >
-                      <span>审查,进入下一步 </span>
+                      <span>审查最终合同</span>
                     </Link>
                   ) : (
-                    <span>审查,进入下一步 </span>
+                    <span>审查最终合同</span>
                   )}
                 </Timeline.Item>
               </Timeline>
