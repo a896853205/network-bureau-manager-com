@@ -9,7 +9,7 @@ import proxyFetch, { proxyFileFetch } from '@/util/request';
 import {
   UPLOAD_PDF_FILE,
   GET_FILE_URL,
-  GET_MANAGER_CONTRACT_URL,
+  SELECT_MANAGER_CONTRACT_URL,
   SAVE_MANAGER_CONTRACT_URL,
   DOWNLOAD_CONTRACT_WORD
 } from '@/constants/api-constants';
@@ -40,7 +40,7 @@ export default prop => {
       (async () => {
         setGetDataLoading(true);
         let managerContract = await proxyFetch(
-          GET_MANAGER_CONTRACT_URL,
+          SELECT_MANAGER_CONTRACT_URL,
           { registrationUuid: enterpriseRegistrationUuid },
           'GET'
         );
