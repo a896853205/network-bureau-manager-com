@@ -136,7 +136,7 @@ export default props => {
           <Icon type='left' className='exit-icon' />
         </Link>
         <p className='subtitle-title'>
-          用户文档集{' '}
+          用户文档集
           <Tag className='content-tag' color={statusToColor(status)}>
             {statusText}
           </Tag>

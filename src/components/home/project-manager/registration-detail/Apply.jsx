@@ -126,7 +126,7 @@ export default props => {
           <Icon type='left' className='exit-icon' />
         </Link>
         <p className='subtitle-title'>
-          现场测试申请表{' '}
+          现场测试申请表
           <Tag className='content-tag' color={statusToColor(status)}>
             {statusText}
           </Tag>
