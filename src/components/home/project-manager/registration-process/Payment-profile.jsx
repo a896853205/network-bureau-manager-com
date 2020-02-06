@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from 'react';
 
 // 样式
-import { Icon, Tag, Skeleton } from 'antd';
+import { Icon, Tag, Skeleton, Timeline, Button } from 'antd';
+
+//路由
+import { Link } from 'react-router-dom';
+import { HOME_REGISTRATION_PROFILE } from '@/constants/route-constants';
 
 // redux
 import { useSelector } from 'react-redux';
@@ -70,7 +74,23 @@ export default props => {
             </div>
             <div className='item-detail-box'>
               <p className='text-subtitle'>项目测试委托方交付汇款</p>
+              <Timeline>
+                <Timeline.Item>
+                  <Link
+                    to={`${HOME_REGISTRATION_PROFILE.path}/contractExamine`}
+                  >
+                    <span>选择负责的财务人员</span>
+                  </Link>
+                </Timeline.Item>
+                <Timeline.Item>
+                  <span>等待企业付款</span>
+                </Timeline.Item>
+                <Timeline.Item>
+                  <span>财务人员审核</span>
+                </Timeline.Item>
+              </Timeline>
             </div>
+            <Button size='large'>交付汇款完成开始现场测试</Button>
           </div>
         ) : null}
       </Skeleton>
