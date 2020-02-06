@@ -154,7 +154,11 @@ export default () => {
                   等待企业上传合同pdf
                 </Timeline.Item>
                 <Timeline.Item
-                  color={contractManagerStatusToColor(4, managerStatus)}
+                  color={
+                    managerStatus === 6
+                      ? 'red'
+                      : contractManagerStatusToColor(4, managerStatus)
+                  }
                 >
                   {managerStatus >= 4 ? (
                     <Link
