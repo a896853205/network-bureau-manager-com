@@ -48,7 +48,6 @@ export default prop => {
 
         // 数据回显
         if (managerContract && managerContract.managerUrl) {
-          // 数据处理
           setContractManagerUrl(managerContract.managerUrl);
           setManagerStatus(managerContract.managerStatus);
           setIsNeedUrlFresh(true);
@@ -57,7 +56,7 @@ export default prop => {
         setGetDataLoading(false);
       })();
     }
-  }, [enterpriseRegistrationUuid, contractManagerUrl]);
+  }, [enterpriseRegistrationUuid]);
 
   /**
    * 上传pdf文件
