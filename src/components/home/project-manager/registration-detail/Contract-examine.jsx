@@ -17,7 +17,6 @@ import { useHistory } from 'react-router-dom';
 import proxyFetch from '@/util/request';
 import {
   GET_FILE_URL,
-  SELECT_ENTERPRISE_CONTRACT_URL,
   SET_CONTRACT_MANAGER_STATUS,
   SELECT_REGISTRATION_CONTRACT_MANAGER
 } from '@/constants/api-constants';
@@ -41,16 +40,20 @@ export default props => {
   useEffect(() => {
     if (enterpriseRegistrationUuid) {
       (async () => {
-        let enterpriseContract = await proxyFetch(
-          SELECT_ENTERPRISE_CONTRACT_URL,
+        let contractList = await proxyFetch(
+          SELECT_REGISTRATION_CONTRACT_MANAGER,
           { registrationUuid: enterpriseRegistrationUuid },
           'GET'
         );
 
+        if (contractList) {
+          setManagerStatus(contractList.managerStatus);
+        }
+
         // 数据回显
-        if (enterpriseContract && enterpriseContract.enterpriseUrl) {
+        if (contractList && contractList.enterpriseUrl) {
           // 数据处理
-          setContractEnterpriseUrl(enterpriseContract.enterpriseUrl);
+          setContractEnterpriseUrl(contractList.enterpriseUrl);
         }
       })();
     }
@@ -140,25 +143,6 @@ export default props => {
       message.error('请输入未通过审核理由!');
     }
   };
-
-  // 将已有的数据回显
-  useEffect(() => {
-    if (enterpriseRegistrationUuid) {
-      (async () => {
-        let contractList = await proxyFetch(
-          SELECT_REGISTRATION_CONTRACT_MANAGER,
-          { registrationUuid: enterpriseRegistrationUuid },
-          'GET'
-        );
-
-        if (contractList) {
-          setManagerStatus(contractList.managerStatus);
-        }
-
-        console.log('contractList=', contractList);
-      })();
-    }
-  }, [enterpriseRegistrationUuid, managerStatus]);
 
   return (
     <>

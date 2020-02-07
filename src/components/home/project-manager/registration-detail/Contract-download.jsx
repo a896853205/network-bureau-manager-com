@@ -9,7 +9,7 @@ import proxyFetch, { proxyFileFetch } from '@/util/request';
 import {
   UPLOAD_PDF_FILE,
   GET_FILE_URL,
-  SELECT_MANAGER_CONTRACT_URL,
+  SELECT_REGISTRATION_CONTRACT_MANAGER,
   SAVE_MANAGER_CONTRACT_URL,
   DOWNLOAD_CONTRACT_WORD
 } from '@/constants/api-constants';
@@ -28,6 +28,7 @@ export default prop => {
     [contractManagerLoading, setContractManagerLoading] = useState(false),
     [isNeedUrlFresh, setIsNeedUrlFresh] = useState(false),
     [previewUrl, setPreviewUrl] = useState(''),
+    [managerStatus, setManagerStatus] = useState([]),
     [getDataLoading, setGetDataLoading] = useState(true),
     [saveDataLoading, setSaveDataLoading] = useState(false),
     [contractManagerUrl, setContractManagerUrl] = useState(''),
@@ -40,7 +41,7 @@ export default prop => {
       (async () => {
         setGetDataLoading(true);
         let managerContract = await proxyFetch(
-          SELECT_MANAGER_CONTRACT_URL,
+          SELECT_REGISTRATION_CONTRACT_MANAGER,
           { registrationUuid: enterpriseRegistrationUuid },
           'GET'
         );
@@ -49,6 +50,7 @@ export default prop => {
         if (managerContract && managerContract.managerUrl) {
           // 数据处理
           setContractManagerUrl(managerContract.managerUrl);
+          setManagerStatus(managerContract.managerStatus);
           setIsNeedUrlFresh(true);
         }
 
@@ -149,6 +151,7 @@ export default prop => {
                 <Button
                   icon='download'
                   size='large'
+                  className='button'
                   type='primary'
                   loading={downloadContractLoading}
                   onClick={handleDownloadContractWord}
@@ -169,14 +172,19 @@ export default prop => {
                         target='_blank'
                         rel='noopener noreferrer'
                       >
-                        <Button>查看上传</Button>
+                        <Button size='large' className='half-button'>
+                          查看上传
+                        </Button>
                       </a>
-                      <Button>重新上传</Button>
+                      <Button size='large' className='half-button'>
+                        重新上传
+                      </Button>
                     </div>
                   ) : (
                     <Button
                       htmlType='submit'
                       size='large'
+                      className='button'
                       loading={contractManagerLoading}
                     >
                       点击文件上传pdf
@@ -187,8 +195,11 @@ export default prop => {
               </Timeline.Item>
               <Timeline.Item>
                 <Button
+                  disabled={!managerStatus || managerStatus === 5}
                   type='primary'
                   htmlType='submit'
+                  size='large'
+                  className='button'
                   loading={saveDataLoading}
                   onClick={handleManagerUrlSave}
                 >

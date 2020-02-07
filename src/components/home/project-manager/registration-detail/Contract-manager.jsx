@@ -155,10 +155,12 @@ export default Form.create({ name: 'contract' })(({ form }) => {
               {/* 提交按钮 */}
               <Form.Item wrapperCol={{ offset: 7 }}>
                 <Button
-                  disabled={!(managerStatus >= 1)}
+                  disabled={!managerStatus || managerStatus === 5}
                   type='primary'
                   htmlType='submit'
                   loading={saveDataLoading}
+                  className='button'
+                  size='large'
                 >
                   提交
                 </Button>
