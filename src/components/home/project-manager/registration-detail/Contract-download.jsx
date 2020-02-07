@@ -212,7 +212,7 @@ export default prop => {
               message='甲方生成合同下载,盖章扫描,上传pdf注意事项'
               description='根据甲乙双方填写的合同内容生成合同,点击下载按钮,盖章扫描后上传pdf文件。'
               type='info'
-              showIcon
+              //showIcon
             />
           </div>
         </Skeleton>

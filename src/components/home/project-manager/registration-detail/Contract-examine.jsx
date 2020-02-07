@@ -33,7 +33,7 @@ export default props => {
     [contractEnterpriseUrl, setContractEnterpriseUrl] = useState(''),
     [managerStatus, setManagerStatus] = useState(0),
     [statusLoading, setStatusLoading] = useState(false),
-    [failText, setFailText] = useState(''),
+    [managerFailText, setManagerFailText] = useState(''),
     history = useHistory();
 
   // 查找乙方上传url
@@ -126,14 +126,14 @@ export default props => {
   };
 
   const handleSetFailStatus = () => {
-    if (failText) {
+    if (managerFailText) {
       (async () => {
         setStatusLoading(true);
 
         await proxyFetch(SET_CONTRACT_MANAGER_STATUS, {
           registrationUuid: enterpriseRegistrationUuid,
           managerStatus: 6,
-          failText
+          managerFailText
         });
 
         setStatusLoading(false);
@@ -195,7 +195,7 @@ export default props => {
           placeholder='请输入审核不通过理由'
           className='manager-download-textArea-box'
           onChange={e => {
-            setFailText(e.target.value);
+            setManagerFailText(e.target.value);
           }}
         />
       </div>
