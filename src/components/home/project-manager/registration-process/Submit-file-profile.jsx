@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 
 // 请求
 import {
-  QUERY_SYS_REGISTRATION_STEP,
   PUSH_REGISTRATION_PROCESS,
   SELECT_REGISTRATION_STATUS
 } from '@/constants/api-constants';
@@ -18,10 +17,11 @@ import { useSelector } from 'react-redux';
 import { Tag, Icon, Button, Skeleton } from 'antd';
 
 export default props => {
-  const { steps, enterpriseRegistrationUuid } = useSelector(
-      state => state.enterpriseStore
-    ),
-    [sysRegistrationStepList, setSysRegistrationStepList] = useState([]),
+  const {
+      steps,
+      enterpriseRegistrationUuid,
+      sysRegistrationStep
+    } = useSelector(state => state.enterpriseStore),
     [
       enterpriseRegistrationContractStatus,
       setEnterpriseRegistrationContractStatus
@@ -61,6 +61,7 @@ export default props => {
     if (enterpriseRegistrationUuid) {
       (async () => {
         setLoading(true);
+
         const res = await proxyFetch(
           SELECT_REGISTRATION_STATUS,
           { registrationUuid: enterpriseRegistrationUuid },
@@ -96,19 +97,16 @@ export default props => {
     }
   }, [enterpriseRegistrationUuid]);
 
-  useEffect(() => {
+  const handlePushProcess = () => {
     (async () => {
-      setLoading(true);
-      const sysRegistrationStepList = await proxyFetch(
-        QUERY_SYS_REGISTRATION_STEP,
-        {},
-        'GET'
-      );
+      setPushProcessLoading(true);
+      await proxyFetch(PUSH_REGISTRATION_PROCESS, {
+        registrationUuid: enterpriseRegistrationUuid
+      });
 
-      setSysRegistrationStepList(sysRegistrationStepList);
-      setLoading(false);
+      setPushProcessLoading(false);
     })();
-  }, []);
+  };
 
   const statusToColor = status => {
     let color = '';
@@ -132,17 +130,6 @@ export default props => {
     return color;
   };
 
-  const handlePushProcess = () => {
-    (async () => {
-      setPushProcessLoading(true);
-      await proxyFetch(PUSH_REGISTRATION_PROCESS, {
-        registrationUuid: enterpriseRegistrationUuid
-      });
-
-      setPushProcessLoading(false);
-    })();
-  };
-
   return (
     <div className='left-item-box'>
       <Icon
@@ -152,11 +139,11 @@ export default props => {
         twoToneColor='#334454'
       />
       <Skeleton loading={loading}>
-        {sysRegistrationStepList.length ? (
+        {sysRegistrationStep.length ? (
           <div className='item-text-box'>
             <div className='text-top-box'>
-              {sysRegistrationStepList[0].name}
-              <Tag className='title-tag' color={statusToColor(steps[0].status)}>
+              {sysRegistrationStep[0].name}
+              <Tag className='title-tag' color={steps[0].color}>
                 {steps[0].statusText}
               </Tag>
             </div>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 
 // 组件
 import SubmitFileProfile from '@/components/home/project-manager/registration-process/Submit-file-profile.jsx';
@@ -8,53 +8,21 @@ import PaymentProfile from '@/components/home/project-manager/registration-proce
 // 样式
 import { Timeline, Icon, Skeleton, Tag } from 'antd';
 
-// 请求
-import { QUERY_SYS_REGISTRATION_STEP } from '@/constants/api-constants';
-import proxyFetch from '@/util/request';
-
 // redux
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import enterpriseAction from '@/redux/action/enterprise';
 
 export default () => {
-  const { steps } = useSelector(state => state.enterpriseStore),
-    [sysRegistrationStepList, setSysRegistrationStepList] = useState([]),
-    [loading, setLoading] = useState(true);
+  const {
+      steps,
+      sysRegistrationStepLoading: loading,
+      sysRegistrationStep
+    } = useSelector(state => state.enterpriseStore),
+    dispatch = useDispatch();
 
   useEffect(() => {
-    (async () => {
-      setLoading(true);
-      const sysRegistrationStepList = await proxyFetch(
-        QUERY_SYS_REGISTRATION_STEP,
-        {},
-        'GET'
-      );
-
-      setSysRegistrationStepList(sysRegistrationStepList);
-      setLoading(false);
-    })();
-  }, []);
-
-  const statusToColor = status => {
-    let color = '';
-
-    switch (status) {
-      case 1:
-        color = 'grey';
-        break;
-      case 2:
-        color = 'blue';
-        break;
-      case 3:
-        color = 'green';
-        break;
-      case 4:
-        color = 'red';
-        break;
-      default:
-        color = 'blue';
-    }
-    return color;
-  };
+    dispatch(enterpriseAction.asyncSetSysRegistrationStep());
+  }, [dispatch]);
 
   return (
     <div className='item-box profile-left-box'>
@@ -62,18 +30,18 @@ export default () => {
         <span>项目审核</span>
       </p>
       <Skeleton loading={loading}>
-        {sysRegistrationStepList.length && steps.length ? (
+        {sysRegistrationStep.length && steps.length ? (
           <Timeline mode='left'>
-            <Timeline.Item color={statusToColor(steps[0].status)}>
+            <Timeline.Item color={steps[0].color}>
               <SubmitFileProfile />
             </Timeline.Item>
-            <Timeline.Item color={statusToColor(steps[1].status)}>
+            <Timeline.Item color={steps[1].color}>
               <ElectronicContractProfile />
             </Timeline.Item>
-            <Timeline.Item color={statusToColor(steps[2].status)}>
+            <Timeline.Item color={steps[2].color}>
               <PaymentProfile />
             </Timeline.Item>
-            <Timeline.Item color={statusToColor(steps[3].status)}>
+            <Timeline.Item color={steps[3].color}>
               <div className='left-item-box'>
                 <Icon
                   className='item-icon-box'
@@ -83,11 +51,8 @@ export default () => {
                 />
                 <div className='item-text-box'>
                   <div className='text-top-box'>
-                    {sysRegistrationStepList[3].name}
-                    <Tag
-                      className='title-tag'
-                      color={statusToColor(steps[3].status)}
-                    >
+                    {sysRegistrationStep[3].name}
+                    <Tag className='title-tag' color={steps[3].color}>
                       {steps[3].statusText}
                     </Tag>
                   </div>
@@ -97,7 +62,7 @@ export default () => {
                 </div>
               </div>
             </Timeline.Item>
-            <Timeline.Item color={statusToColor(steps[4].status)}>
+            <Timeline.Item color={steps[4].color}>
               <div className='left-item-box'>
                 <Icon
                   className='item-icon-box'
@@ -107,11 +72,8 @@ export default () => {
                 />
                 <div className='item-text-box'>
                   <div className='text-top-box'>
-                    {sysRegistrationStepList[4].name}
-                    <Tag
-                      className='title-tag'
-                      color={statusToColor(steps[4].status)}
-                    >
+                    {sysRegistrationStep[4].name}
+                    <Tag className='title-tag' color={steps[4].color}>
                       {steps[4].statusText}
                     </Tag>
                   </div>

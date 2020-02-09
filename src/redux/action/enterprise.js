@@ -5,5 +5,9 @@ export default {
   setSteps: createAction('setSteps'),
   setRegistration: createAction('setRegistration'),
   asyncSetRestration: createAction('asyncSetRestration'),
-  setRegistrationLoading: createAction('setRegistrationLoading')
+  setRegistrationLoading: createAction('setRegistrationLoading'),
+  // 系统步骤名称
+  setSysRegistrationStep: createAction('setSysRegistrationStep'),
+  asyncSetSysRegistrationStep: createAction('asyncSetSysRegistrationStep'),
+  setSysRegistrationStepLoading: createAction('setSysRegistrationStepLoading')
 };

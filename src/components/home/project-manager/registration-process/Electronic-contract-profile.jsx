@@ -9,7 +9,6 @@ import { Link } from 'react-router-dom';
 
 // 请求
 import {
-  QUERY_SYS_REGISTRATION_STEP,
   SELECT_REGISTRATION_CONTRACT_MANAGER,
   PUSH_REGISTRATION_PROCESS
 } from '@/constants/api-constants';
@@ -17,13 +16,14 @@ import proxyFetch from '@/util/request';
 
 import { Icon, Tag, Timeline, Skeleton, Button } from 'antd';
 export default () => {
-  const { steps, enterpriseRegistrationUuid } = useSelector(
-      state => state.enterpriseStore
-    ),
-    [sysRegistrationStepList, setSysRegistrationStepList] = useState([]),
+  const {
+      steps,
+      enterpriseRegistrationUuid,
+      sysRegistrationStep
+    } = useSelector(state => state.enterpriseStore),
     [managerStatus, setManagerStatus] = useState([]),
-    [loading, setLoading] = useState(true),
-    [pushProcessLoading, setPushProcessLoading] = useState(false);
+    [pushProcessLoading, setPushProcessLoading] = useState(false),
+    [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (enterpriseRegistrationUuid) {
@@ -55,42 +55,6 @@ export default () => {
     return color;
   };
 
-  useEffect(() => {
-    (async () => {
-      setLoading(true);
-      const sysRegistrationStepList = await proxyFetch(
-        QUERY_SYS_REGISTRATION_STEP,
-        {},
-        'GET'
-      );
-
-      setSysRegistrationStepList(sysRegistrationStepList);
-      setLoading(false);
-    })();
-  }, []);
-
-  const statusToColor = status => {
-    let color = '';
-
-    switch (status) {
-      case 1:
-        color = 'grey';
-        break;
-      case 2:
-        color = 'blue';
-        break;
-      case 3:
-        color = 'green';
-        break;
-      case 4:
-        color = 'red';
-        break;
-      default:
-        color = 'blue';
-    }
-    return color;
-  };
-
   const handlePushProcess = () => {
     (async () => {
       setPushProcessLoading(true);
@@ -111,11 +75,11 @@ export default () => {
         twoToneColor='#334454'
       />
       <Skeleton loading={loading}>
-        {sysRegistrationStepList.length ? (
+        {sysRegistrationStep.length ? (
           <div className='item-text-box'>
             <div className='text-top-box'>
-              {sysRegistrationStepList[1].name}
-              <Tag className='title-tag' color={statusToColor(steps[1].status)}>
+              {sysRegistrationStep[1].name}
+              <Tag className='title-tag' color={steps[1].color}>
                 {steps[1].statusText}
               </Tag>
             </div>
