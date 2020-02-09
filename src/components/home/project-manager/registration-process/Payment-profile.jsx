@@ -55,6 +55,20 @@ export default props => {
     return color;
   };
 
+  const contractManagerStatusToColor = (step, status = 0) => {
+    let color = '';
+
+    if (status === step) {
+      color = 'blue';
+    } else if (status > step) {
+      color = 'green';
+    } else {
+      color = 'grey';
+    }
+
+    return color;
+  };
+
   return (
     <div className='left-item-box'>
       <Icon
@@ -75,17 +89,21 @@ export default props => {
             <div className='item-detail-box'>
               <p className='text-subtitle'>项目测试委托方交付汇款</p>
               <Timeline>
-                <Timeline.Item>
-                  <Link
-                    to={`${HOME_REGISTRATION_DETAIL.path}/financeChief`}
-                  >
+                <Timeline.Item
+                  color={contractManagerStatusToColor(1, steps[2].status)}
+                >
+                  <Link to={`${HOME_REGISTRATION_DETAIL.path}/financeShow`}>
                     <span>选择负责的财务人员</span>
                   </Link>
                 </Timeline.Item>
-                <Timeline.Item>
+                <Timeline.Item
+                  color={contractManagerStatusToColor(2, steps[2].status)}
+                >
                   <span>等待企业付款</span>
                 </Timeline.Item>
-                <Timeline.Item>
+                <Timeline.Item
+                  color={contractManagerStatusToColor(3, steps[2].status)}
+                >
                   <span>财务人员审核</span>
                 </Timeline.Item>
               </Timeline>

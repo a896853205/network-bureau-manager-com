@@ -2,27 +2,38 @@ import React, { useState, useEffect } from 'react';
 
 // 路由
 import { HOME_REGISTRATION_PROFILE } from '@/constants/route-constants';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 // 算法
 import { getAuthortyNameByCode } from '@/constants/auth-constants';
 
 // 请求
 import proxyFetch from '@/util/request';
-import { QUERY_FINANCE_MANAGER } from '@/constants/api-constants';
+import {
+  QUERY_FINANCE_MANAGER,
+  UPDATE_FINANCE_MANAGER
+} from '@/constants/api-constants';
+
+// redux
+import { useSelector } from 'react-redux';
 
 //样式
-import { Icon, Table } from 'antd';
-import '@/style/home/project-manager/apply.styl';
+import { Icon, Table, Button } from 'antd';
+import '@/style/home/project-manager/finance-show.styl';
 const { Column } = Table;
 
 export default props => {
-  const [loading, setLoading] = useState(true),
+  const { enterpriseRegistrationUuid } = useSelector(
+      state => state.enterpriseStore
+    ),
+    [loading, setLoading] = useState(true),
     [financeManagerList, setFinanceManagerList] = useState([]),
     [total, setTotal] = useState(0),
     [pageSize, setPageSize] = useState(1),
     [page, setPage] = useState(1),
-    [isRefresh, setIsRefresh] = useState(true);
+    [savaDataLoading, setSavaDataLoading] = useState(false),
+    [isRefresh, setIsRefresh] = useState(true),
+    history = useHistory();
 
   /**
    * 当前没有数据时向前一页查询
@@ -59,6 +70,19 @@ export default props => {
       }
     })();
   }, [page, isRefresh]);
+
+  const handleUpdateStep = () => {
+    (async () => {
+      setSavaDataLoading(true);
+
+      await proxyFetch(UPDATE_FINANCE_MANAGER, {
+        registrationUuid: enterpriseRegistrationUuid,
+      });
+
+      setSavaDataLoading(false);
+      history.push(HOME_REGISTRATION_PROFILE.path);
+    })();
+  };
   return (
     <>
       <div className='subtitle-box'>
@@ -67,7 +91,7 @@ export default props => {
         </Link>
         <p className='subtitle-title'>选择负责的财务人员</p>
       </div>
-      <div className='manager-show-box'>
+      <div className='finance-show-box'>
         <Table
           dataSource={financeManagerList}
           className='table'
@@ -94,6 +118,15 @@ export default props => {
             )}
           />
         </Table>
+        <Button
+          type='primary'
+          htmlType='submit'
+          className='button'
+          loading={savaDataLoading}
+          onClick={handleUpdateStep}
+        >
+          确定选择
+        </Button>
       </div>
     </>
   );
