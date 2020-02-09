@@ -32,6 +32,7 @@ export default props => {
     [pageSize, setPageSize] = useState(1),
     [page, setPage] = useState(1),
     [savaDataLoading, setSavaDataLoading] = useState(false),
+    [financeManagerUuid, setFinanceManagerUuid] = useState(''),
     history = useHistory();
 
   useEffect(() => {
@@ -52,18 +53,24 @@ export default props => {
     })();
   }, [page]);
 
+  // 确认选择提交按钮
   const handleUpdateStep = () => {
     (async () => {
       setSavaDataLoading(true);
 
-      await proxyFetch(UPDATE_FINANCE_MANAGER, {
-        registrationUuid: enterpriseRegistrationUuid
+      let res = await proxyFetch(UPDATE_FINANCE_MANAGER, {
+        registrationUuid: enterpriseRegistrationUuid,
+        financeManagerUuid
       });
 
       setSavaDataLoading(false);
-      history.push(HOME_REGISTRATION_PROFILE.path);
+
+      if (res) {
+        history.push(HOME_REGISTRATION_PROFILE.path);
+      }
     })();
   };
+
   return (
     <>
       <div className='subtitle-box'>
@@ -94,6 +101,14 @@ export default props => {
             onChange: page => {
               setPage(page);
             }
+          }}
+          rowSelection={{
+            type: 'radio',
+            onChange: selectedRowKeys => {
+              setFinanceManagerUuid(selectedRowKeys[0]);
+            },
+            columnTitle: '选择',
+            columnWidth: '100px'
           }}
         >
           <Column title='账号' dataIndex='username' key='username' />
