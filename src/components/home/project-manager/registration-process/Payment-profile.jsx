@@ -5,7 +5,7 @@ import { Icon, Tag, Skeleton, Timeline, Button } from 'antd';
 
 //路由
 import { Link } from 'react-router-dom';
-import { HOME_REGISTRATION_PROFILE } from '@/constants/route-constants';
+import { HOME_REGISTRATION_DETAIL } from '@/constants/route-constants';
 
 // redux
 import { useSelector } from 'react-redux';
@@ -77,7 +77,7 @@ export default props => {
               <Timeline>
                 <Timeline.Item>
                   <Link
-                    to={`${HOME_REGISTRATION_PROFILE.path}/contractExamine`}
+                    to={`${HOME_REGISTRATION_DETAIL.path}/financeChief`}
                   >
                     <span>选择负责的财务人员</span>
                   </Link>

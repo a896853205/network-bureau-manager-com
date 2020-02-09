@@ -15,6 +15,7 @@ import Basic from '@/components/home/project-manager/registration-detail/Basic.j
 import ContractManager from '@/components/home/project-manager/registration-detail/Contract-manager.jsx';
 import ContractDownload from '@/components/home/project-manager/registration-detail/Contract-download.jsx';
 import ContractExamine from '@/components/home/project-manager/registration-detail/Contract-examine.jsx';
+import FinanceChief from '@/components/home/project-manager/registration-detail/Finance-chief.jsx';
 
 export default ({ type }) => {
   let content = null;
@@ -52,6 +53,9 @@ export default ({ type }) => {
       break;
     case 'contractExamine':
       content = <ContractExamine />;
+      break;
+    case 'financeChief':
+      content = <FinanceChief />;
       break;
     default:
       content = null;

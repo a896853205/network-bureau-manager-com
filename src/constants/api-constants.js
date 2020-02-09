@@ -46,3 +46,4 @@ export const SAVE_REGISTRATION_CONTRACT_MANAGER = `${DominConfigs.DOMAIN}${Domin
 export const SAVE_MANAGER_CONTRACT_URL = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_PROJECT_MANAGER}/saveManagerContractUrl`; // 保存评测合同信息
 export const DOWNLOAD_CONTRACT_WORD = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_PROJECT_MANAGER}/downloadContractWord`; // 生成下载word
 export const SET_CONTRACT_MANAGER_STATUS = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_PROJECT_MANAGER}/setContractManagerStatus`; // 设置第二步合同签署步骤
+export const QUERY_FINANCE_MANAGER = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_PROJECT_MANAGER}/queryFinanceManager`; // 查询财务管理员
