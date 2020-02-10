@@ -29,9 +29,28 @@ export const NAV = {
   ],
   [AUTHORITY.ACCOUNTANT.code]: [
     {
-      path: '/home/index',
+      key: 'manager',
+      path: ROUTE.HOME_INDEX.path,
       name: '首页',
+      icon: 'bank'
+    },
+    {
+      key: 'registrationFinanceList',
+      path: ROUTE.HOME_REGISTRATION_FINANCE_LIST.path,
+      name: '登记测试列表',
+      icon: 'file-done'
+    },
+    {
+      key: 'trustFinanceList',
+      path: ROUTE.HOME_TRUST_FINANCE_LIST.path,
+      name: '委托测试列表',
       icon: 'audit'
+    },
+    {
+      key: 'setting',
+      path: ROUTE.HOME_SETTIND.path,
+      name: '个人设置',
+      icon: 'setting'
     }
   ],
   [AUTHORITY.PROJECT_MANAGER.code]: [

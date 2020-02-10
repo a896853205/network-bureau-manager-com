@@ -42,4 +42,17 @@ export const HOME_TRUST_LIST = {
 export const HOME_REGISTRATION_DETAIL = {
   path: '/home/registration/profile/detail',
   name: '详情审核页'
-}
+};
+
+/**
+ * 财务人员
+ */
+export const HOME_REGISTRATION_FINANCE_LIST = {
+  path: '/home/registration/financeList',
+  name: '登记测试交费列表页'
+};
+
+export const HOME_TRUST_FINANCE_LIST = {
+  path: '/home/trust/financeList',
+  name: '委托测试交费列表页'
+};

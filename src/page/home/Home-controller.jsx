@@ -13,9 +13,14 @@ import ManagerUpdateController from '@/page/home/super-manager/Manager-update-co
 import ManagerShowController from '@/page/home/super-manager/Manager-show-controller.jsx';
 import ManagerResultController from '@/page/home/super-manager/Manager-result-controller.jsx';
 
+// 项目管理员
 import RegistrationListController from '@/page/home/project-manager/Registration-list-controller.jsx';
 import RegistrationProfileController from '@/page/home/project-manager/Registration-profile-controller.jsx';
 import TrustListController from '@/page/home/project-manager/Trust-list-controller.jsx';
+
+// 财务管理员
+import TrustFinanceList from '@/page/home/accountant-manager/Trust-finance-list-controller.jsx';
+import RegistrationFinanceList from '@/page/home/accountant-manager/Registration-finance-list-controller.jsx';
 
 // localStorage
 import { LOCAL_STORAGE } from '@/constants/app-constants';
@@ -82,10 +87,18 @@ export default props => {
     exact: true
   });
   const homeRegistrationProfile = useRouteMatch({
-    path: ROUTES.HOME_REGISTRATION_PROFILE.path,
+    path: ROUTES.HOME_REGISTRATION_PROFILE.path
   });
   const homeTrustList = useRouteMatch({
     path: ROUTES.HOME_TRUST_LIST.path,
+    exact: true
+  });
+  const homeTrustFinanceList = useRouteMatch({
+    path: ROUTES.HOME_TRUST_FINANCE_LIST.path,
+    exact: true
+  });
+  const homeRegistrationFinanceList = useRouteMatch({
+    path: ROUTES.HOME_REGISTRATION_FINANCE_LIST.path,
     exact: true
   });
 
@@ -120,6 +133,8 @@ export default props => {
             {homeRegistrationList ? <RegistrationListController /> : null}
             {homeTrustList ? <TrustListController /> : null}
             {homeRegistrationProfile ? <RegistrationProfileController /> : null}
+            {homeRegistrationFinanceList ? <RegistrationFinanceList /> : null}
+            {homeTrustFinanceList ? <TrustFinanceList /> : null}
           </div>
         </Content>
         <Footer className='home-footer'>

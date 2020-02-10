@@ -85,6 +85,7 @@ export default props => {
         className='button'
         loading={savaDataLoading}
         onClick={handleUpdateStep}
+        disabled={!financeManagerUuid}
       >
         确定选择
       </Button>
