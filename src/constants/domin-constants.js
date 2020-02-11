@@ -15,7 +15,8 @@ export const PART = {
   OPT_MANAGER_USER: '/managerUser',
   OPT_SUPER_MANAGER: '/superManager',
   OPT_PROJECT_MANAGER: '/projectManager',
-  OPT_FILE: '/file'
+  OPT_FILE: '/file',
+  OPT_ACCOUNTANT_MANAGER: '/accountantManager'
 };
 
 // 返回码
