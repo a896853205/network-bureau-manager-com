@@ -34,7 +34,7 @@ export default props => {
         QUARY_REGISTRATION_PAYMENT,
         {
           page,
-          managerUuid : uuid
+          managerUuid: uuid
         },
         'GET'
       );
@@ -54,7 +54,7 @@ export default props => {
       await proxyFetch(
         ACCOUNT_CONFIRM_PAYMENT,
         {
-          registrationUuid: registrationUuid
+          registrationUuid
         },
         'PUT'
       );
