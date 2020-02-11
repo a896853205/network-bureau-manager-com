@@ -37,7 +37,7 @@ export default props => {
     (async () => {
       setLoading(true);
 
-      const { enterpriseRegistrationList, total, pageSize } = await proxyFetch(
+      const res = await proxyFetch(
         QUERY_REGISTRATION,
         {
           page
@@ -45,9 +45,9 @@ export default props => {
         'GET'
       );
 
-      setEnterpriseRegistrationList(enterpriseRegistrationList);
-      setTotal(total);
-      setPageSize(pageSize);
+      setEnterpriseRegistrationList(res?.enterpriseRegistrationList);
+      setTotal(res?.total);
+      setPageSize(res?.pageSize);
       setLoading(false);
     })();
   }, [page]);
