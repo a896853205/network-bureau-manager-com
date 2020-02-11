@@ -48,3 +48,10 @@ export const DOWNLOAD_CONTRACT_WORD = `${DominConfigs.DOMAIN}${DominConfigs.PART
 export const SET_CONTRACT_MANAGER_STATUS = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_PROJECT_MANAGER}/setContractManagerStatus`; // 设置第二步合同签署步骤
 export const QUERY_FINANCE_MANAGER = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_PROJECT_MANAGER}/queryFinanceManager`; // 查询财务管理员
 export const UPDATE_FINANCE_MANAGER = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_PROJECT_MANAGER}/updateFinanceManager`; // 选择财务管理员
+
+
+/**
+ * 财务管理员
+ **/
+export const QUARY_REGISTRATION_PAYMENT = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_ACCOUNTANT_MANAGER}/queryRegistrationPayment`; // 查询企业的缴费信息
+export const ACCOUNT_CONFIRM_PAYMENT = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_ACCOUNTANT_MANAGER}/accountantConfirmPayment`; // 财务确认缴费成功
