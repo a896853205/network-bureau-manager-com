@@ -4,11 +4,8 @@ import React, { useState, useEffect } from 'react';
 import proxyFetch from '@/util/request';
 import {
   QUARY_REGISTRATION_PAYMENT,
-  ACCOUNT_CONFIRM_PAYMENT
+  ACCOUNTANT_CONFIRM_PAYMENT
 } from '@/constants/api-constants';
-
-// redux
-import { useSelector } from 'react-redux';
 
 //样式
 import { Table, Button, Modal, Icon } from 'antd';
@@ -18,8 +15,7 @@ const { Column } = Table;
 const { confirm } = Modal;
 
 export default props => {
-  const { uuid } = useSelector(state => state.managerStore),
-    [loading, setLoading] = useState(true),
+  const [loading, setLoading] = useState(true),
     [paymentList, setPaymentList] = useState([]),
     [total, setTotal] = useState(0),
     [pageSize, setPageSize] = useState(1),
@@ -33,8 +29,7 @@ export default props => {
       const { paymentList, total, pageSize } = await proxyFetch(
         QUARY_REGISTRATION_PAYMENT,
         {
-          page,
-          managerUuid: uuid
+          page
         },
         'GET'
       );
@@ -45,14 +40,14 @@ export default props => {
       setLoading(false);
       setIsNeedRefresh(false);
     })();
-  }, [page, uuid, isNeedRefresh]);
+  }, [page, isNeedRefresh]);
 
   const handleUpdateStatus = registrationUuid => {
     (async () => {
       setUpdateStatusLoading(true);
 
       await proxyFetch(
-        ACCOUNT_CONFIRM_PAYMENT,
+        ACCOUNTANT_CONFIRM_PAYMENT,
         {
           registrationUuid
         },
@@ -106,6 +101,14 @@ export default props => {
             render={(text, record) => (
               <span className='payment-box'>
                 {record?.['enterpriseRegistrationStep.statusText']}
+                {record?.['enterpriseRegistrationStep.status'] === 3 ? (
+                  <Icon
+                    type='exclamation-circle'
+                    className='success-icon'
+                    theme='twoTone'
+                    twoToneColor='#fadb14'
+                  />
+                ) : null}
                 {record?.['enterpriseRegistrationStep.status'] === 4 ? (
                   <Icon
                     type='check-circle'

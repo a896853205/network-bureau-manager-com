@@ -54,4 +54,4 @@ export const UPDATE_FINANCE_MANAGER = `${DominConfigs.DOMAIN}${DominConfigs.PART
  * 财务管理员
  **/
 export const QUARY_REGISTRATION_PAYMENT = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_ACCOUNTANT_MANAGER}/queryRegistrationPayment`; // 查询企业的缴费信息
-export const ACCOUNT_CONFIRM_PAYMENT = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_ACCOUNTANT_MANAGER}/accountantConfirmPayment`; // 财务确认缴费成功
+export const ACCOUNTANT_CONFIRM_PAYMENT = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_ACCOUNTANT_MANAGER}/accountantConfirmPayment`; // 财务确认缴费成功
