@@ -146,7 +146,9 @@ export default props => {
                 {registrationBasic.address}
               </Descriptions.Item>
               <Descriptions.Item label='开发研发日期' span={3}>
-                {moment(registrationBasic.devStartTime).format('YYYY-MM-DD')}
+                {registrationBasic.devStartTime
+                  ? moment(registrationBasic.devStartTime).format('YYYY-MM-DD')
+                  : ''}
               </Descriptions.Item>
               <Descriptions.Item label='开发单位全称' span={3}>
                 {registrationBasic.enterpriseName}
