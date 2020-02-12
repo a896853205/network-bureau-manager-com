@@ -109,25 +109,18 @@ export default props => {
   };
 
   const statusToColor = status => {
-    let color = '';
-
     switch (status) {
+      case 0:
+        return 'gray';
       case 1:
-        color = 'grey';
-        break;
-      case 2:
-        color = 'blue';
-        break;
-      case 3:
-        color = 'green';
-        break;
-      case 4:
-        color = 'red';
-        break;
+        return 'blue';
+      case 100:
+        return 'green';
+      case -1:
+        return 'red';
       default:
-        color = 'blue';
+        return 'gray';
     }
-    return color;
   };
 
   return (
@@ -285,15 +278,15 @@ export default props => {
               <Button
                 disabled={
                   !(
-                    enterpriseRegistrationContractStatus.status === 3 &&
-                    enterpriseRegistrationApplyStatus.status === 3 &&
-                    enterpriseRegistrationCopyrightStatus.status === 3 &&
-                    enterpriseRegistrationDocumentStatus.status === 3 &&
+                    enterpriseRegistrationContractStatus.status === 100 &&
+                    enterpriseRegistrationApplyStatus.status === 100 &&
+                    enterpriseRegistrationCopyrightStatus.status === 100 &&
+                    enterpriseRegistrationDocumentStatus.status === 100 &&
                     enterpriseRegistrationProductDescriptionStatus.status ===
-                      3 &&
-                    enterpriseRegistrationProductStatus.status === 3 &&
-                    enterpriseRegistrationSpecimenStatus.status === 3 &&
-                    enterpriseRegistrationBasicStatus.status === 3
+                      100 &&
+                    enterpriseRegistrationProductStatus.status === 100 &&
+                    enterpriseRegistrationSpecimenStatus.status === 100 &&
+                    enterpriseRegistrationBasicStatus.status === 100
                   )
                 }
                 size='large'

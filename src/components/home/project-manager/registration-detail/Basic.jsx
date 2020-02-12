@@ -13,7 +13,8 @@ import { useSelector } from 'react-redux';
 import proxyFetch from '@/util/request';
 import {
   SELECT_REGISTRATION_BASIC,
-  SET_REGISTRATION_DETAIL_STATUS
+  SET_REGISTRATION_DETAIL_SUCCESS_STATUS,
+  SET_REGISTRATION_DETAIL_FAIL_STATUS
 } from '@/constants/api-constants';
 
 // 样式
@@ -42,35 +43,27 @@ export default props => {
     history = useHistory();
 
   const statusToColor = status => {
-    let color = '';
-
     switch (status) {
+      case 0:
+        return 'gray';
       case 1:
-        color = 'grey';
-        break;
-      case 2:
-        color = 'blue';
-        break;
-      case 3:
-        color = 'green';
-        break;
-      case 4:
-        color = 'red';
-        break;
+        return 'blue';
+      case 100:
+        return 'green';
+      case -1:
+        return 'red';
       default:
-        color = 'blue';
+        return 'gray';
     }
-    return color;
   };
 
   const handleSetSuccessStatus = () => {
     (async () => {
       setStatusLoading(true);
 
-      await proxyFetch(SET_REGISTRATION_DETAIL_STATUS, {
+      await proxyFetch(SET_REGISTRATION_DETAIL_SUCCESS_STATUS, {
         registrationUuid: enterpriseRegistrationUuid,
-        type: 'basic',
-        status: 3
+        type: 'basic'
       });
 
       setStatusLoading(false);
@@ -83,10 +76,9 @@ export default props => {
       (async () => {
         setStatusLoading(true);
 
-        await proxyFetch(SET_REGISTRATION_DETAIL_STATUS, {
+        await proxyFetch(SET_REGISTRATION_DETAIL_FAIL_STATUS, {
           registrationUuid: enterpriseRegistrationUuid,
           type: 'basic',
-          status: 4,
           failText
         });
 
@@ -109,7 +101,6 @@ export default props => {
           { registrationUuid: enterpriseRegistrationUuid },
           'GET'
         );
-        console.log('result=',registrationBasic);
 
         if (registrationBasic) {
           setStatus(registrationBasic.status);
@@ -163,20 +154,20 @@ export default props => {
             </Descriptions>
             <div className='basic-button-box'>
               <Button
-                disabled={!(status === 2)}
+                disabled={!(status === 1)}
                 type='primary'
                 htmlType='submit'
-                className={status === 2 ? 'fail-button' : ''}
+                className={status === 1 ? 'fail-button' : ''}
                 loading={statusLoading}
                 onClick={handleSetFailStatus}
               >
                 审核不通过
               </Button>
               <Button
-                disabled={!(status === 2)}
+                disabled={!(status === 1)}
                 type='primary'
                 htmlType='submit'
-                className={status === 2 ? 'success-button' : ''}
+                className={status === 1 ? 'success-button' : ''}
                 loading={statusLoading}
                 onClick={handleSetSuccessStatus}
               >
@@ -184,7 +175,7 @@ export default props => {
               </Button>
             </div>
             <TextArea
-              disabled={!(status === 2)}
+              disabled={!(status === 1)}
               autoSize={{ minRows: 3, maxRows: 6 }}
               maxLength='800'
               placeholder='请输入审核不通过理由'
