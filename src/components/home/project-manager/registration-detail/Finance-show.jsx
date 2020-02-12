@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { HOME_REGISTRATION_PROFILE } from '@/constants/route-constants';
 import { Link, useHistory } from 'react-router-dom';
 
-// 算法
+// 工具
 import { getAuthortyNameByCode } from '@/constants/auth-constants';
 
 // 请求
