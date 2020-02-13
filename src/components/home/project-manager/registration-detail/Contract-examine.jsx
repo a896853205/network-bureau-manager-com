@@ -8,7 +8,8 @@ import { HOME_REGISTRATION_PROFILE } from '@/constants/route-constants';
 import '@/style/home/project-manager/contract-examine.styl';
 
 // redux
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import enterpriseAction from '@/redux/action/enterprise';
 
 //路由
 import { useHistory } from 'react-router-dom';
@@ -30,6 +31,7 @@ export default props => {
   const { steps, enterpriseRegistrationUuid } = useSelector(
       state => state.enterpriseStore
     ),
+    dispatch = useDispatch(),
     [enterpriseUrl, setEnterpriseUrl] = useState(''),
     [contractEnterpriseUrl, setContractEnterpriseUrl] = useState(''),
     [statusLoading, setStatusLoading] = useState(false),
@@ -92,7 +94,7 @@ export default props => {
     (async () => {
       setStatusLoading(true);
 
-      await proxyFetch(
+      const res = await proxyFetch(
         SET_CONTRACT_MANAGER_SUCCESS_STATUS,
         {
           registrationUuid: enterpriseRegistrationUuid
@@ -101,7 +103,10 @@ export default props => {
       );
 
       setStatusLoading(false);
-      history.push(HOME_REGISTRATION_PROFILE.path);
+      if (res) {
+        dispatch(enterpriseAction.asyncSetSteps(enterpriseRegistrationUuid));
+        history.push(HOME_REGISTRATION_PROFILE.path);
+      }
     })();
   };
 
@@ -110,13 +115,16 @@ export default props => {
       (async () => {
         setStatusLoading(true);
 
-        await proxyFetch(SET_CONTRACT_MANAGER_FAIL_STATUS, {
+        const res = await proxyFetch(SET_CONTRACT_MANAGER_FAIL_STATUS, {
           registrationUuid: enterpriseRegistrationUuid,
           managerFailText
         });
 
         setStatusLoading(false);
-        history.push(HOME_REGISTRATION_PROFILE.path);
+        if (res) {
+          dispatch(enterpriseAction.asyncSetSteps(enterpriseRegistrationUuid));
+          history.push(HOME_REGISTRATION_PROFILE.path);
+        }
       })();
     } else {
       message.error('请输入未通过审核理由!');

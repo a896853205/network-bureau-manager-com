@@ -279,7 +279,8 @@ export default props => {
                       100 &&
                     enterpriseRegistrationProductStatus.status === 100 &&
                     enterpriseRegistrationSpecimenStatus.status === 100 &&
-                    enterpriseRegistrationBasicStatus.status === 100
+                    enterpriseRegistrationBasicStatus.status === 100 &&
+                    steps[0].color === 'blue'
                   )
                 }
                 size='large'

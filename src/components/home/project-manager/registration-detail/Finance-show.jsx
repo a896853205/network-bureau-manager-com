@@ -15,7 +15,8 @@ import {
 } from '@/constants/api-constants';
 
 // redux
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import enterpriseAction from '@/redux/action/enterprise';
 
 //样式
 import { Icon, Table, Button } from 'antd';
@@ -33,6 +34,7 @@ export default props => {
     [page, setPage] = useState(1),
     [savaDataLoading, setSavaDataLoading] = useState(false),
     [financeManagerUuid, setFinanceManagerUuid] = useState(''),
+    dispatch = useDispatch(),
     history = useHistory();
 
   useEffect(() => {
@@ -66,6 +68,7 @@ export default props => {
       setSavaDataLoading(false);
 
       if (res) {
+        dispatch(enterpriseAction.asyncSetSteps(enterpriseRegistrationUuid));
         history.push(HOME_REGISTRATION_PROFILE.path);
       }
     })();

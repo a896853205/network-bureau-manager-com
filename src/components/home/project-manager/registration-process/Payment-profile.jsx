@@ -72,9 +72,13 @@ export default props => {
               <Timeline.Item
                 color={contractManagerStatusToColor(1, steps[2].status)}
               >
-                <Link to={`${HOME_REGISTRATION_DETAIL.path}/financeShow`}>
+                {steps[2].status ? (
+                  <Link to={`${HOME_REGISTRATION_DETAIL.path}/financeShow`}>
+                    <span>选择负责的财务人员</span>
+                  </Link>
+                ) : (
                   <span>选择负责的财务人员</span>
-                </Link>
+                )}
               </Timeline.Item>
               <Timeline.Item
                 color={contractManagerStatusToColor(2, steps[2].status)}
