@@ -127,6 +127,9 @@ export default props => {
             key='uuid'
             render={(text, record) => (
               <Button
+                disabled={
+                  !(record?.['enterpriseRegistrationStep.status'] === 3)
+                }
                 type='primary'
                 onClick={() => {
                   confirm({
