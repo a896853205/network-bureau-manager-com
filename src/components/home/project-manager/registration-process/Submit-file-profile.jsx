@@ -15,8 +15,10 @@ import { HOME_REGISTRATION_DETAIL } from '@/constants/route-constants';
 import { Link } from 'react-router-dom';
 
 // redux
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import enterpriseAction from '@/redux/action/enterprise';
 
+// 样式
 import { Tag, Icon, Button, Skeleton } from 'antd';
 
 export default props => {
@@ -25,6 +27,7 @@ export default props => {
       enterpriseRegistrationUuid,
       sysRegistrationStep
     } = useSelector(state => state.enterpriseStore),
+    dispatch = useDispatch(),
     [
       enterpriseRegistrationContractStatus,
       setEnterpriseRegistrationContractStatus
@@ -103,11 +106,13 @@ export default props => {
   const handlePushProcess = () => {
     (async () => {
       setPushProcessLoading(true);
+
       await proxyFetch(PUSH_REGISTRATION_PROCESS, {
         registrationUuid: enterpriseRegistrationUuid
       });
 
       setPushProcessLoading(false);
+      dispatch(enterpriseAction.asyncSetSteps(enterpriseRegistrationUuid));
     })();
   };
 

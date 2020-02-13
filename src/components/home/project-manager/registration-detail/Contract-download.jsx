@@ -15,7 +15,8 @@ import {
 } from '@/constants/api-constants';
 
 // redux
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import enterpriseAction from '@/redux/action/enterprise';
 
 // 样式
 import '@/style/home/project-manager/contract-download.styl';
@@ -32,7 +33,8 @@ export default prop => {
     [saveDataLoading, setSaveDataLoading] = useState(false),
     [contractManagerUrl, setContractManagerUrl] = useState(''),
     [downloadContractLoading, setDownloadContractLoading] = useState(false),
-    history = useHistory();
+    history = useHistory(),
+    dispatch = useDispatch();
 
   // 将已有的数据回显
   useEffect(() => {
@@ -114,6 +116,7 @@ export default prop => {
       setSaveDataLoading(false);
 
       if (res) {
+        dispatch(enterpriseAction.asyncSetSteps(enterpriseRegistrationUuid));
         history.push(HOME_REGISTRATION_PROFILE.path);
       }
     }

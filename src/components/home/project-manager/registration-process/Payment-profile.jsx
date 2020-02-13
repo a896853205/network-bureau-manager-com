@@ -12,7 +12,8 @@ import { PUSH_REGISTRATION_PROCESS } from '@/constants/api-constants';
 import proxyFetch from '@/util/request';
 
 // redux
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import enterpriseAction from '@/redux/action/enterprise';
 
 export default props => {
   const {
@@ -20,6 +21,7 @@ export default props => {
       sysRegistrationStep,
       enterpriseRegistrationUuid
     } = useSelector(state => state.enterpriseStore),
+    dispatch = useDispatch(),
     [pushProcessLoading, setPushProcessLoading] = useState(false);
 
   const contractManagerStatusToColor = (step, status = 0) => {
@@ -44,6 +46,7 @@ export default props => {
       });
 
       setPushProcessLoading(false);
+      dispatch(enterpriseAction.asyncSetSteps(enterpriseRegistrationUuid));
     })();
   };
 

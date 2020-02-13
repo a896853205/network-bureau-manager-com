@@ -1,16 +1,15 @@
 import React, { useState } from 'react';
 
 // redux
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import enterpriseAction from '@/redux/action/enterprise';
 
 // 路由
 import { HOME_REGISTRATION_DETAIL } from '@/constants/route-constants';
 import { Link } from 'react-router-dom';
 
 // 请求
-import {
-  PUSH_REGISTRATION_PROCESS
-} from '@/constants/api-constants';
+import { PUSH_REGISTRATION_PROCESS } from '@/constants/api-constants';
 import proxyFetch from '@/util/request';
 
 import { Icon, Tag, Timeline, Button } from 'antd';
@@ -20,6 +19,7 @@ export default () => {
       enterpriseRegistrationUuid,
       sysRegistrationStep
     } = useSelector(state => state.enterpriseStore),
+    dispatch = useDispatch(),
     [pushProcessLoading, setPushProcessLoading] = useState(false);
 
   const contractManagerStatusToColor = (step, managerStatus = 0) => {
@@ -40,6 +40,7 @@ export default () => {
       });
 
       setPushProcessLoading(false);
+      dispatch(enterpriseAction.asyncSetSteps(enterpriseRegistrationUuid));
     })();
   };
 

@@ -41,6 +41,27 @@ const effects = {
     yield put(enterpriseAction.setRegistrationLoading(false));
   },
 
+  asyncSetSteps: function*({ payload }) {
+    // loading
+    yield put(enterpriseAction.setRegistrationLoading(true));
+
+    // 查询具体步骤信息
+    const steps = yield call(
+      proxyFetch,
+      APIS.QUERY_ENTERPRISE_REGISTRATION_STEP,
+      {
+        registrationUuid: payload
+      },
+      'GET'
+    );
+    
+    // 将所有步骤和基本信息存入redux
+    yield put(enterpriseAction.setSteps(steps));
+
+    // loading
+    yield put(enterpriseAction.setRegistrationLoading(false));
+  },
+
   asyncSetSysRegistrationStep: function*({ payload }) {
     yield put(enterpriseAction.setSysRegistrationStepLoading(true));
 
@@ -65,4 +86,5 @@ export default function*() {
     enterpriseAction.asyncSetSysRegistrationStep,
     effects.asyncSetSysRegistrationStep
   );
+  yield takeLatest(enterpriseAction.asyncSetSteps, effects.asyncSetSteps);
 }

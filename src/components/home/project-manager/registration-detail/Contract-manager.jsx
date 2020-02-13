@@ -5,7 +5,8 @@ import { Link, useHistory } from 'react-router-dom';
 import { HOME_REGISTRATION_PROFILE } from '@/constants/route-constants';
 
 // redux
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import enterpriseAction from '@/redux/action/enterprise';
 
 // 请求
 import proxyFetch from '@/util/request';
@@ -27,6 +28,7 @@ export default Form.create({ name: 'contract' })(({ form }) => {
       state => state.enterpriseStore
     ),
     history = useHistory(),
+    dispatch = useDispatch(),
     [getDataLoading, setGetDataLoading] = useState(true),
     [saveDataLoading, setSaveDataLoading] = useState(false);
 
@@ -91,6 +93,9 @@ export default Form.create({ name: 'contract' })(({ form }) => {
           setSaveDataLoading(false);
 
           if (res) {
+            dispatch(
+              enterpriseAction.asyncSetSteps(enterpriseRegistrationUuid)
+            );
             history.push(HOME_REGISTRATION_PROFILE.path);
           }
         }

@@ -3,6 +3,7 @@ import { createAction } from 'redux-actions';
 export default {
   setEnterpriseRegistrationUuid: createAction('setEnterpriseRegistrationUuid'),
   setSteps: createAction('setSteps'),
+  asyncSetSteps: createAction('asyncSetSteps'),
   setRegistration: createAction('setRegistration'),
   asyncSetRestration: createAction('asyncSetRestration'),
   setRegistrationLoading: createAction('setRegistrationLoading'),
