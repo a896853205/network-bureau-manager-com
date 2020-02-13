@@ -22,13 +22,12 @@ import '@/style/home/project-manager/contract-download.styl';
 import { Button, Timeline, Skeleton, Upload, message, Icon, Alert } from 'antd';
 
 export default prop => {
-  const { enterpriseRegistrationUuid } = useSelector(
+  const { steps, enterpriseRegistrationUuid } = useSelector(
       state => state.enterpriseStore
     ),
     [contractManagerLoading, setContractManagerLoading] = useState(false),
     [isNeedUrlFresh, setIsNeedUrlFresh] = useState(false),
     [previewUrl, setPreviewUrl] = useState(''),
-    [managerStatus, setManagerStatus] = useState([]),
     [getDataLoading, setGetDataLoading] = useState(true),
     [saveDataLoading, setSaveDataLoading] = useState(false),
     [contractManagerUrl, setContractManagerUrl] = useState(''),
@@ -49,7 +48,6 @@ export default prop => {
         // 数据回显
         if (managerContract && managerContract.managerUrl) {
           setContractManagerUrl(managerContract.managerUrl);
-          setManagerStatus(managerContract.managerStatus);
           setIsNeedUrlFresh(true);
         }
 
@@ -194,7 +192,7 @@ export default prop => {
               </Timeline.Item>
               <Timeline.Item>
                 <Button
-                  disabled={!managerStatus || managerStatus === 5}
+                  disabled={steps[1].status < 2 || steps[1].status === 100}
                   type='primary'
                   htmlType='submit'
                   size='large'
@@ -212,7 +210,6 @@ export default prop => {
               message='甲方生成合同下载,盖章扫描,上传pdf注意事项'
               description='根据甲乙双方填写的合同内容生成合同,点击下载按钮,盖章扫描后上传pdf文件。'
               type='info'
-              //showIcon
             />
           </div>
         </Skeleton>

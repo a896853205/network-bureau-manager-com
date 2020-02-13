@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 // redux
 import { useSelector } from 'react-redux';
@@ -9,12 +9,11 @@ import { Link } from 'react-router-dom';
 
 // 请求
 import {
-  SELECT_REGISTRATION_CONTRACT_MANAGER,
   PUSH_REGISTRATION_PROCESS
 } from '@/constants/api-constants';
 import proxyFetch from '@/util/request';
 
-import { Icon, Tag, Timeline, Skeleton, Button } from 'antd';
+import { Icon, Tag, Timeline, Button } from 'antd';
 export default () => {
   const {
       steps,

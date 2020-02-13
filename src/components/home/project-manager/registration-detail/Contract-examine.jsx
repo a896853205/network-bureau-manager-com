@@ -17,7 +17,8 @@ import { useHistory } from 'react-router-dom';
 import proxyFetch from '@/util/request';
 import {
   GET_FILE_URL,
-  SET_CONTRACT_MANAGER_STATUS,
+  SET_CONTRACT_MANAGER_SUCCESS_STATUS,
+  SET_CONTRACT_MANAGER_FAIL_STATUS,
   SELECT_REGISTRATION_CONTRACT_MANAGER
 } from '@/constants/api-constants';
 
@@ -26,12 +27,11 @@ import { Button, Input, Icon, Tag, message } from 'antd';
 const { TextArea } = Input;
 
 export default props => {
-  const { enterpriseRegistrationUuid } = useSelector(
+  const { steps, enterpriseRegistrationUuid } = useSelector(
       state => state.enterpriseStore
     ),
     [enterpriseUrl, setEnterpriseUrl] = useState(''),
     [contractEnterpriseUrl, setContractEnterpriseUrl] = useState(''),
-    [managerStatus, setManagerStatus] = useState(0),
     [statusLoading, setStatusLoading] = useState(false),
     [managerFailText, setManagerFailText] = useState(''),
     history = useHistory();
@@ -45,10 +45,6 @@ export default props => {
           { registrationUuid: enterpriseRegistrationUuid },
           'GET'
         );
-
-        if (contractList) {
-          setManagerStatus(contractList.managerStatus);
-        }
 
         // 数据回显
         if (contractList && contractList.enterpriseUrl) {
@@ -73,10 +69,10 @@ export default props => {
     })();
   }, [contractEnterpriseUrl]);
 
-  const statusToColor = managerStatus => {
+  const statusToColor = status => {
     let color = '';
 
-    switch (managerStatus) {
+    switch (status) {
       case 4:
         color = 'blue';
         break;
@@ -92,33 +88,17 @@ export default props => {
     return color;
   };
 
-  const statusToText = managerStatus => {
-    let color = '';
-
-    switch (managerStatus) {
-      case 4:
-        color = '待审核';
-        break;
-      case 5:
-        color = '审核通过';
-        break;
-      case 6:
-        color = '审核未通过';
-        break;
-      default:
-        color = '待审核';
-    }
-    return color;
-  };
-
   const handleSetSuccessStatus = () => {
     (async () => {
       setStatusLoading(true);
 
-      await proxyFetch(SET_CONTRACT_MANAGER_STATUS, {
-        registrationUuid: enterpriseRegistrationUuid,
-        managerStatus: 5
-      });
+      await proxyFetch(
+        SET_CONTRACT_MANAGER_SUCCESS_STATUS,
+        {
+          registrationUuid: enterpriseRegistrationUuid
+        },
+        'PUT'
+      );
 
       setStatusLoading(false);
       history.push(HOME_REGISTRATION_PROFILE.path);
@@ -130,9 +110,8 @@ export default props => {
       (async () => {
         setStatusLoading(true);
 
-        await proxyFetch(SET_CONTRACT_MANAGER_STATUS, {
+        await proxyFetch(SET_CONTRACT_MANAGER_FAIL_STATUS, {
           registrationUuid: enterpriseRegistrationUuid,
-          managerStatus: 6,
           managerFailText
         });
 
@@ -151,8 +130,8 @@ export default props => {
           <Icon type='left' className='exit-icon' />
         </Link>
         <p className='subtitle-title'>审查,进入下一步</p>
-        <Tag className='content-tag' color={statusToColor(managerStatus)}>
-          {statusToText(managerStatus)}
+        <Tag className='content-tag' color={statusToColor(steps[1].statusText)}>
+          {steps[1].statusText}
         </Tag>
       </div>
       <div className='detail-manager-download-box'>
@@ -169,20 +148,20 @@ export default props => {
         </div>
         <div className='manager-download-button-box'>
           <Button
-            disabled={!(managerStatus === 4)}
+            disabled={!(steps[1].status === 4)}
             type='primary'
             htmlType='submit'
-            className={managerStatus === 4 ? 'fail-button' : ''}
+            className={steps[1].status === 4 ? 'fail-button' : ''}
             loading={statusLoading}
             onClick={handleSetFailStatus}
           >
             审核不通过
           </Button>
           <Button
-            disabled={!(managerStatus === 4)}
+            disabled={!(steps[1].status === 4)}
             type='primary'
             htmlType='submit'
-            className={managerStatus === 4 ? 'success-button' : ''}
+            className={steps[1].status === 4 ? 'success-button' : ''}
             loading={statusLoading}
             onClick={handleSetSuccessStatus}
           >
