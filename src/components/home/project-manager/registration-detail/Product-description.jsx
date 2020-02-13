@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react';
 
+// 工具
+import statusToColor from '@/components/home/project-manager/registration-detail/util/status-to-color';
+
 // 路由
 import { HOME_REGISTRATION_PROFILE } from '@/constants/route-constants';
 import { Link, useHistory } from 'react-router-dom';
@@ -33,21 +36,6 @@ export default props => {
     [status, setStatus] = useState(0),
     [statusText, setStatusText] = useState(''),
     history = useHistory();
-
-    const statusToColor = status => {
-      switch (status) {
-        case 0:
-          return 'gray';
-        case 1:
-          return 'blue';
-        case 100:
-          return 'green';
-        case -1:
-          return 'red';
-        default:
-          return 'gray';
-      }
-    };
 
   const handleSetSuccessStatus = () => {
     (async () => {

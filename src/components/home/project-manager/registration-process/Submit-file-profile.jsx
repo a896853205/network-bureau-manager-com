@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 
+// 工具
+import statusToColor from '@/components/home/project-manager/registration-detail/util/status-to-color';
+
 // 请求
 import {
   PUSH_REGISTRATION_PROCESS,
@@ -106,21 +109,6 @@ export default props => {
 
       setPushProcessLoading(false);
     })();
-  };
-
-  const statusToColor = status => {
-    switch (status) {
-      case 0:
-        return 'gray';
-      case 1:
-        return 'blue';
-      case 100:
-        return 'green';
-      case -1:
-        return 'red';
-      default:
-        return 'gray';
-    }
   };
 
   return (
