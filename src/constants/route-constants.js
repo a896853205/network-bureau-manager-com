@@ -56,3 +56,16 @@ export const HOME_TRUST_FINANCE_LIST = {
   path: '/home/trust/financeList',
   name: '委托测试交费列表页'
 };
+
+/**
+ * 技术管理人员
+ */
+export const HOME_REGISTRATION_TASK_LIST = {
+  path: '/home/registration/taskList',
+  name: '登记测试任务分配列表页'
+}
+
+export const HOME_TRUST_TASK_LIST = {
+  path: '/home/trust/taskList',
+  name: '委托测试任务分配列表页'
+}
