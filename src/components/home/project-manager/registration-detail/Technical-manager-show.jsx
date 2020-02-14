@@ -10,8 +10,8 @@ import { getAuthortyNameByCode } from '@/constants/auth-constants';
 // 请求
 import proxyFetch from '@/util/request';
 import {
-  QUERY_FINANCE_MANAGER,
-  UPDATE_FINANCE_MANAGER
+  QUERY_TECHNICAL_MANAGER,
+  UPDATE_TECHNICAL_MANAGER
 } from '@/constants/api-constants';
 
 // redux
@@ -28,27 +28,27 @@ export default props => {
       state => state.enterpriseStore
     ),
     [loading, setLoading] = useState(true),
-    [financeManagerList, setFinanceManagerList] = useState([]),
+    [technicalManagerList, setTechnicalManagerList] = useState([]),
     [total, setTotal] = useState(0),
     [pageSize, setPageSize] = useState(1),
     [page, setPage] = useState(1),
     [savaDataLoading, setSavaDataLoading] = useState(false),
-    [financeManagerUuid, setFinanceManagerUuid] = useState(''),
+    [technicalManagerUuid, setTechnicalManagerUuid] = useState(''),
     dispatch = useDispatch(),
     history = useHistory();
 
   useEffect(() => {
     (async () => {
       setLoading(true);
-      const { financeManagerList, total, pageSize } = await proxyFetch(
-        QUERY_FINANCE_MANAGER,
+      const { technicalManagerList, total, pageSize } = await proxyFetch(
+        QUERY_TECHNICAL_MANAGER,
         {
           page
         },
         'GET'
       );
 
-      setFinanceManagerList(financeManagerList);
+      setTechnicalManagerList(technicalManagerList);
       setTotal(total);
       setPageSize(pageSize);
       setLoading(false);
@@ -60,9 +60,9 @@ export default props => {
     (async () => {
       setSavaDataLoading(true);
 
-      let res = await proxyFetch(UPDATE_FINANCE_MANAGER, {
+      let res = await proxyFetch(UPDATE_TECHNICAL_MANAGER, {
         registrationUuid: enterpriseRegistrationUuid,
-        financeManagerUuid
+        technicalManagerUuid
       });
 
       setSavaDataLoading(false);
@@ -80,7 +80,7 @@ export default props => {
         <Link to={HOME_REGISTRATION_PROFILE.path}>
           <Icon type='left' className='exit-icon' />
         </Link>
-        <p className='subtitle-title'>选择负责的财务人员</p>
+        <p className='subtitle-title'>选择技术负责人</p>
       </div>
       <Button
         type='primary'
@@ -88,13 +88,13 @@ export default props => {
         className='button'
         loading={savaDataLoading}
         onClick={handleUpdateStep}
-        disabled={!financeManagerUuid || steps[2].status === 100}
+        disabled={!technicalManagerUuid || steps[3].status === 100}
       >
         确定选择
       </Button>
       <div className='finance-show-box'>
         <Table
-          dataSource={financeManagerList}
+          dataSource={technicalManagerList}
           className='table'
           rowKey={record => record.uuid}
           loading={loading}
@@ -109,7 +109,7 @@ export default props => {
           rowSelection={{
             type: 'radio',
             onChange: selectedRowKeys => {
-              setFinanceManagerUuid(selectedRowKeys[0]);
+              setTechnicalManagerUuid(selectedRowKeys[0]);
             },
             columnTitle: '选择',
             columnWidth: '100px'
@@ -131,3 +131,4 @@ export default props => {
     </>
   );
 };
+

@@ -4,6 +4,7 @@ import React, { useEffect } from 'react';
 import SubmitFileProfile from '@/components/home/project-manager/registration-process/Submit-file-profile.jsx';
 import ElectronicContractProfile from '@/components/home/project-manager/registration-process/Electronic-contract-profile.jsx';
 import PaymentProfile from '@/components/home/project-manager/registration-process/Payment-profile.jsx';
+import FieldTestsProfile from '@/components/home/project-manager/registration-process/Field-tests-profile.jsx';
 
 // 样式
 import { Timeline, Icon, Skeleton, Tag } from 'antd';
@@ -42,25 +43,7 @@ export default () => {
               <PaymentProfile />
             </Timeline.Item>
             <Timeline.Item color={steps[3].color}>
-              <div className='left-item-box'>
-                <Icon
-                  className='item-icon-box'
-                  type='bug'
-                  theme='twoTone'
-                  twoToneColor='#334454'
-                />
-                <div className='item-text-box'>
-                  <div className='text-top-box'>
-                    {sysRegistrationStep[3].name}
-                    <Tag className='title-tag' color={steps[3].color}>
-                      {steps[3].statusText}
-                    </Tag>
-                  </div>
-                  <div className='item-detail-box'>
-                    <p className='text-subtitle'>对委托方提供的软件进行测试</p>
-                  </div>
-                </div>
-              </div>
+              <FieldTestsProfile />
             </Timeline.Item>
             <Timeline.Item color={steps[4].color}>
               <div className='left-item-box'>

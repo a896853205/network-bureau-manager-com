@@ -11,7 +11,7 @@ const statusToColor = status => {
     case -1:
       return 'red';
     default:
-      return 'gray';
+      return 'blue';
   }
 };
 

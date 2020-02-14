@@ -16,6 +16,8 @@ import ContractManager from '@/components/home/project-manager/registration-deta
 import ContractDownload from '@/components/home/project-manager/registration-detail/Contract-download.jsx';
 import ContractExamine from '@/components/home/project-manager/registration-detail/Contract-examine.jsx';
 import FinanceShow from '@/components/home/project-manager/registration-detail/Finance-show.jsx';
+import TechnicalManagerShow from '@/components/home/project-manager/registration-detail/Technical-manager-show.jsx';
+import Stamp from '@/components/home/project-manager/registration-detail/Stamp.jsx';
 
 export default ({ type }) => {
   let content = null;
@@ -56,6 +58,12 @@ export default ({ type }) => {
       break;
     case 'financeShow':
       content = <FinanceShow />;
+      break;
+    case 'technicalManagerShow':
+      content = <TechnicalManagerShow />;
+      break;
+    case 'stamp':
+      content = <Stamp />;
       break;
     default:
       content = null;
