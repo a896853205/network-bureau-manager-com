@@ -7,7 +7,7 @@ import {
   ACCOUNTANT_CONFIRM_PAYMENT
 } from '@/constants/api-constants';
 
-//样式
+// 样式
 import { Table, Button, Modal, Icon } from 'antd';
 import '@/style/home/accountant-manager/registration-finance.styl';
 import '@/style/home/item.styl';
@@ -128,7 +128,7 @@ export default props => {
             render={(text, record) => (
               <Button
                 disabled={
-                  !(record?.['enterpriseRegistrationStep.status'] === 3)
+                  record?.['enterpriseRegistrationStep.status'] !== 3
                 }
                 type='primary'
                 onClick={() => {

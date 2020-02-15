@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 // 路由
 import { HOME_REGISTRATION_PROFILE } from '@/constants/route-constants';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 // 工具
 import { getAuthortyNameByCode } from '@/constants/auth-constants';
@@ -19,7 +19,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import enterpriseAction from '@/redux/action/enterprise';
 
 //样式
-import { Icon, Table, Button } from 'antd';
+import { Icon, Table } from 'antd';
 import '@/style/home/project-manager/finance-show.styl';
 const { Column } = Table;
 
@@ -34,8 +34,12 @@ export default props => {
     [page, setPage] = useState(1),
     [savaDataLoading, setSavaDataLoading] = useState(false),
     [financeManagerUuid, setFinanceManagerUuid] = useState(''),
-    dispatch = useDispatch(),
-    history = useHistory();
+    dispatch = useDispatch();
+
+  const step2ManagerUuid = steps[2]?.managerUuid;
+  useEffect(() => {
+    setFinanceManagerUuid(step2ManagerUuid);
+  }, [step2ManagerUuid]);
 
   useEffect(() => {
     (async () => {
@@ -55,7 +59,7 @@ export default props => {
     })();
   }, [page]);
 
-  // 确认选择提交按钮
+  // 切换提交到数据库
   const handleUpdateStep = () => {
     (async () => {
       setSavaDataLoading(true);
@@ -69,7 +73,6 @@ export default props => {
 
       if (res) {
         dispatch(enterpriseAction.asyncSetSteps(enterpriseRegistrationUuid));
-        history.push(HOME_REGISTRATION_PROFILE.path);
       }
     })();
   };
@@ -82,16 +85,6 @@ export default props => {
         </Link>
         <p className='subtitle-title'>选择负责的财务人员</p>
       </div>
-      <Button
-        type='primary'
-        htmlType='submit'
-        className='button'
-        loading={savaDataLoading}
-        onClick={handleUpdateStep}
-        disabled={!financeManagerUuid || steps[2].status === 100}
-      >
-        确定选择
-      </Button>
       <div className='finance-show-box'>
         <Table
           dataSource={financeManagerList}
@@ -110,9 +103,17 @@ export default props => {
             type: 'radio',
             onChange: selectedRowKeys => {
               setFinanceManagerUuid(selectedRowKeys[0]);
+              handleUpdateStep();
             },
             columnTitle: '选择',
-            columnWidth: '100px'
+            columnWidth: '100px',
+            selectedRowKeys: [financeManagerUuid],
+            getCheckboxProps: () => ({
+              disabled:
+                savaDataLoading ||
+                !financeManagerUuid ||
+                (steps[2]?.status !== 1 && steps[2]?.status !== 2)
+            })
           }}
         >
           <Column title='账号' dataIndex='username' key='username' />
@@ -122,9 +123,7 @@ export default props => {
             title='权限'
             dataIndex='role'
             key='role'
-            render={(text, record) => (
-              <span> {getAuthortyNameByCode(text)} </span>
-            )}
+            render={text => <span> {getAuthortyNameByCode(text)} </span>}
           />
         </Table>
       </div>
