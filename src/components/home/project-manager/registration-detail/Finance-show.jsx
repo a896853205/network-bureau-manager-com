@@ -18,7 +18,7 @@ import {
 import { useSelector, useDispatch } from 'react-redux';
 import enterpriseAction from '@/redux/action/enterprise';
 
-//样式
+// 样式
 import { Icon, Table } from 'antd';
 import '@/style/home/project-manager/finance-show.styl';
 const { Column } = Table;

@@ -50,7 +50,7 @@ export const SET_CONTRACT_MANAGER_SUCCESS_STATUS = `${DominConfigs.DOMAIN}${Domi
 export const SET_CONTRACT_MANAGER_FAIL_STATUS = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_PROJECT_MANAGER}/setContractManagerFailStatus`; // 设置第二步合同签署失败状态
 export const QUERY_FINANCE_MANAGER = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_PROJECT_MANAGER}/queryFinanceManager`; // 查询财务管理员
 export const UPDATE_FINANCE_MANAGER = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_PROJECT_MANAGER}/updateFinanceManager`; // 选择财务管理员
-export const QUERY_TECHNICAL_MANAGER = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_PROJECT_MANAGER}/queryTechnicalManager`; // 查询技术负责人
+export const QUERY_TECH_LEADER_MANAGER = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_PROJECT_MANAGER}/queryTechnicalManager`; // 查询技术负责人
 export const ARRANGE_TECH_LEADER_MANAGER = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_PROJECT_MANAGER}/arrangeTechLeaderManager`; // 安排技术负责人
 
 /**
