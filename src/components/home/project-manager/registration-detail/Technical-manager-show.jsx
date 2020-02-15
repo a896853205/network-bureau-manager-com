@@ -24,9 +24,11 @@ import '@/style/home/project-manager/tech-leader-manager-show.styl';
 const { Column } = Table;
 
 export default props => {
-  const { steps, enterpriseRegistrationUuid } = useSelector(
-      state => state.enterpriseStore
-    ),
+  const {
+      steps,
+      enterpriseRegistrationUuid,
+      registrationLoading
+    } = useSelector(state => state.enterpriseStore),
     [loading, setLoading] = useState(true),
     [technicalManagerList, setTechnicalManagerList] = useState([]),
     [total, setTotal] = useState(0),
@@ -104,6 +106,7 @@ export default props => {
             getCheckboxProps: () => ({
               disabled:
                 savaDataLoading ||
+                registrationLoading ||
                 ![steps[3]?.managerUuid] ||
                 (steps[3]?.status !== 1 && steps[3]?.status !== 2)
             })
