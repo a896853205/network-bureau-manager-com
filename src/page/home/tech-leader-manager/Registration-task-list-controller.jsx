@@ -9,7 +9,7 @@ import { Table, Button, Icon } from 'antd';
 import '@/style/home/tech-leader-manager/registration-task.styl';
 import '@/style/home/item.styl';
 
-//路由
+// 路由
 import { HOME_REGISTRATION_TASK_LIST } from '@/constants/route-constants';
 import { useHistory } from 'react-router-dom';
 
@@ -89,7 +89,7 @@ export default props => {
           render={(text, record) => (
             <span className='task-status-box'>
               {record?.['enterpriseRegistrationStep.status'] === 2 ? (
-                <>
+                <span>
                   未分配技术人员
                   <Icon
                     type='exclamation-circle'
@@ -97,10 +97,10 @@ export default props => {
                     theme='twoTone'
                     twoToneColor='#fadb14'
                   />
-                </>
+                </span>
               ) : null}
               {record?.['enterpriseRegistrationStep.status'] === 3 ? (
-                <>
+                <span>
                   已分配技术人员
                   <Icon
                     type='check-circle'
@@ -108,7 +108,7 @@ export default props => {
                     theme='twoTone'
                     twoToneColor='#52c41a'
                   />
-                </>
+                </span>
               ) : null}
             </span>
           )}
@@ -124,13 +124,15 @@ export default props => {
               type='link'
               onClick={() => {
                 localStorage.setItem(
-                  `${LOCAL_STORAGE}-registrationUuid`,
+                  `${LOCAL_STORAGE}-techLeaderRegistrationUuid`,
                   record.uuid
-                ); // dispatch
-                dispatch(
-                  enterpriseAction.setEnterpriseRegistrationUuid(record.uuid)
                 );
-                history.push(`${HOME_REGISTRATION_TASK_LIST.path}/techManagerShow`);
+                dispatch(
+                  enterpriseAction.setTechLeaderEnterpriseRegistrationUuid(record.uuid)
+                );
+                history.push(
+                  `${HOME_REGISTRATION_TASK_LIST.path}/`
+                );
               }}
             >
               查看详情
@@ -146,7 +148,9 @@ export default props => {
             <Button
               type='link'
               onClick={() => {
-                history.push(`${HOME_REGISTRATION_TASK_LIST.path}/techManagerShow`);
+                history.push(
+                  `${HOME_REGISTRATION_TASK_LIST.path}/techManagerShow`
+                );
               }}
             >
               分配技术管理人员

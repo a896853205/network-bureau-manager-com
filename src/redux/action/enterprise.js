@@ -10,5 +10,9 @@ export default {
   // 系统步骤名称
   setSysRegistrationStep: createAction('setSysRegistrationStep'),
   asyncSetSysRegistrationStep: createAction('asyncSetSysRegistrationStep'),
-  setSysRegistrationStepLoading: createAction('setSysRegistrationStepLoading')
+  setSysRegistrationStepLoading: createAction('setSysRegistrationStepLoading'),
+  // 技术管理员的登记测试的uuid
+  setTechLeaderEnterpriseRegistrationUuid: createAction(
+    'setTechLeaderEnterpriseRegistrationUuid'
+  )
 };
