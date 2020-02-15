@@ -20,7 +20,7 @@ import enterpriseAction from '@/redux/action/enterprise';
 
 // 样式
 import { Icon, Table } from 'antd';
-import '@/style/home/project-manager/techLeader-manager-show.styl';
+import '@/style/home/project-manager/tech-leader-manager-show.styl';
 const { Column } = Table;
 
 export default props => {
@@ -33,13 +33,7 @@ export default props => {
     [pageSize, setPageSize] = useState(1),
     [page, setPage] = useState(1),
     [savaDataLoading, setSavaDataLoading] = useState(false),
-    [technicalManagerUuid, setTechnicalManagerUuid] = useState(''),
     dispatch = useDispatch();
-
-  const step3ManagerUuid = steps[3]?.managerUuid;
-  useEffect(() => {
-    setTechnicalManagerUuid(step3ManagerUuid);
-  }, [step3ManagerUuid]);
 
   useEffect(() => {
     (async () => {
@@ -60,7 +54,7 @@ export default props => {
   }, [page]);
 
   // 确认选择提交按钮
-  const handleUpdateStep = () => {
+  const handleUpdateStep = technicalManagerUuid => {
     (async () => {
       setSavaDataLoading(true);
 
@@ -102,16 +96,15 @@ export default props => {
           rowSelection={{
             type: 'radio',
             onChange: selectedRowKeys => {
-              setTechnicalManagerUuid(selectedRowKeys[0]);
-              handleUpdateStep();
+              handleUpdateStep(selectedRowKeys[0]);
             },
             columnTitle: '选择',
             columnWidth: '100px',
-            selectedRowKeys: [technicalManagerUuid],
+            selectedRowKeys: [steps[3]?.managerUuid],
             getCheckboxProps: () => ({
               disabled:
                 savaDataLoading ||
-                !technicalManagerUuid ||
+                ![steps[3]?.managerUuid] ||
                 (steps[3]?.status !== 1 && steps[3]?.status !== 2)
             })
           }}
