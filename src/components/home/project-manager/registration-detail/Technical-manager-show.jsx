@@ -11,7 +11,7 @@ import { getAuthortyNameByCode } from '@/constants/auth-constants';
 import proxyFetch from '@/util/request';
 import {
   QUERY_TECHNICAL_MANAGER,
-  UPDATE_TECHNICAL_MANAGER
+  ARRANGE_TECH_LEADER_MANAGER
 } from '@/constants/api-constants';
 
 // redux
@@ -60,7 +60,7 @@ export default props => {
     (async () => {
       setSavaDataLoading(true);
 
-      let res = await proxyFetch(UPDATE_TECHNICAL_MANAGER, {
+      let res = await proxyFetch(ARRANGE_TECH_LEADER_MANAGER, {
         registrationUuid: enterpriseRegistrationUuid,
         technicalManagerUuid
       });
