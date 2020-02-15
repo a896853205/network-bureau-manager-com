@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 // 路由
 import { HOME_REGISTRATION_PROFILE } from '@/constants/route-constants';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 // 工具
 import { getAuthortyNameByCode } from '@/constants/auth-constants';
@@ -10,7 +10,7 @@ import { getAuthortyNameByCode } from '@/constants/auth-constants';
 // 请求
 import proxyFetch from '@/util/request';
 import {
-  QUERY_TECHNICAL_MANAGER,
+  QUERY_TECH_LEADER_MANAGER,
   ARRANGE_TECH_LEADER_MANAGER
 } from '@/constants/api-constants';
 
@@ -19,8 +19,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import enterpriseAction from '@/redux/action/enterprise';
 
 // 样式
-import { Icon, Table, Button } from 'antd';
-import '@/style/home/project-manager/finance-show.styl';
+import { Icon, Table } from 'antd';
+import '@/style/home/project-manager/techLeader-manager-show.styl';
 const { Column } = Table;
 
 export default props => {
@@ -34,14 +34,18 @@ export default props => {
     [page, setPage] = useState(1),
     [savaDataLoading, setSavaDataLoading] = useState(false),
     [technicalManagerUuid, setTechnicalManagerUuid] = useState(''),
-    dispatch = useDispatch(),
-    history = useHistory();
+    dispatch = useDispatch();
+
+  const step3ManagerUuid = steps[3]?.managerUuid;
+  useEffect(() => {
+    setTechnicalManagerUuid(step3ManagerUuid);
+  }, [step3ManagerUuid]);
 
   useEffect(() => {
     (async () => {
       setLoading(true);
       const { technicalManagerList, total, pageSize } = await proxyFetch(
-        QUERY_TECHNICAL_MANAGER,
+        QUERY_TECH_LEADER_MANAGER,
         {
           page
         },
@@ -69,7 +73,6 @@ export default props => {
 
       if (res) {
         dispatch(enterpriseAction.asyncSetSteps(enterpriseRegistrationUuid));
-        history.push(HOME_REGISTRATION_PROFILE.path);
       }
     })();
   };
@@ -82,17 +85,7 @@ export default props => {
         </Link>
         <p className='subtitle-title'>选择技术负责人</p>
       </div>
-      <Button
-        type='primary'
-        htmlType='submit'
-        className='button'
-        loading={savaDataLoading}
-        onClick={handleUpdateStep}
-        disabled={!technicalManagerUuid || steps[3].status === 100}
-      >
-        确定选择
-      </Button>
-      <div className='finance-show-box'>
+      <div className='techLeader-manager-show-box'>
         <Table
           dataSource={technicalManagerList}
           className='table'
@@ -110,9 +103,17 @@ export default props => {
             type: 'radio',
             onChange: selectedRowKeys => {
               setTechnicalManagerUuid(selectedRowKeys[0]);
+              handleUpdateStep();
             },
             columnTitle: '选择',
-            columnWidth: '100px'
+            columnWidth: '100px',
+            selectedRowKeys: [technicalManagerUuid],
+            getCheckboxProps: () => ({
+              disabled:
+                savaDataLoading ||
+                !technicalManagerUuid ||
+                (steps[3]?.status !== 1 && steps[3]?.status !== 2)
+            })
           }}
         >
           <Column title='账号' dataIndex='username' key='username' />
@@ -122,13 +123,10 @@ export default props => {
             title='权限'
             dataIndex='role'
             key='role'
-            render={(text, record) => (
-              <span> {getAuthortyNameByCode(text)} </span>
-            )}
+            render={text => <span> {getAuthortyNameByCode(text)} </span>}
           />
         </Table>
       </div>
     </>
   );
 };
-
