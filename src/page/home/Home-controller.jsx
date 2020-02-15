@@ -22,6 +22,10 @@ import TrustListController from '@/page/home/project-manager/Trust-list-controll
 import TrustFinanceList from '@/page/home/accountant-manager/Trust-finance-list-controller.jsx';
 import RegistrationFinanceList from '@/page/home/accountant-manager/Registration-finance-list-controller.jsx';
 
+// 技术管理人员
+import TrustTaskList from '@/page/home/tech-leader-manager/Trust-task-list-controller.jsx';
+import RegistrationTaskList from '@/page/home/tech-leader-manager/Registration-task-list-controller.jsx';
+
 // localStorage
 import { LOCAL_STORAGE } from '@/constants/app-constants';
 
@@ -101,6 +105,14 @@ export default props => {
     path: ROUTES.HOME_REGISTRATION_FINANCE_LIST.path,
     exact: true
   });
+  const homeTrustTaskList = useRouteMatch({
+    path: ROUTES.HOME_TRUST_TASK_LIST.path,
+    exact: true
+  });
+  const homeRegistrationTaskList = useRouteMatch({
+    path: ROUTES.HOME_REGISTRATION_TASK_LIST.path,
+    exact: true
+  });
 
   return (
     <Layout>
@@ -135,6 +147,8 @@ export default props => {
             {homeRegistrationProfile ? <RegistrationProfileController /> : null}
             {homeRegistrationFinanceList ? <RegistrationFinanceList /> : null}
             {homeTrustFinanceList ? <TrustFinanceList /> : null}
+            {homeRegistrationTaskList ? <RegistrationTaskList /> : null}
+            {homeTrustTaskList ? <TrustTaskList /> : null}
           </div>
         </Content>
         <Footer className='home-footer'>
