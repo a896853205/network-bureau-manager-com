@@ -24,22 +24,18 @@ import '@/style/home/project-manager/finance-show.styl';
 const { Column } = Table;
 
 export default props => {
-  const { steps, enterpriseRegistrationUuid } = useSelector(
-      state => state.enterpriseStore
-    ),
+  const {
+      steps,
+      enterpriseRegistrationUuid,
+      registrationLoading
+    } = useSelector(state => state.enterpriseStore),
     [loading, setLoading] = useState(true),
     [financeManagerList, setFinanceManagerList] = useState([]),
     [total, setTotal] = useState(0),
     [pageSize, setPageSize] = useState(1),
     [page, setPage] = useState(1),
     [savaDataLoading, setSavaDataLoading] = useState(false),
-    [financeManagerUuid, setFinanceManagerUuid] = useState(''),
     dispatch = useDispatch();
-
-  const step2ManagerUuid = steps[2]?.managerUuid;
-  useEffect(() => {
-    setFinanceManagerUuid(step2ManagerUuid);
-  }, [step2ManagerUuid]);
 
   useEffect(() => {
     (async () => {
@@ -60,7 +56,7 @@ export default props => {
   }, [page]);
 
   // 切换提交到数据库
-  const handleUpdateStep = () => {
+  const handleUpdateStep = financeManagerUuid => {
     (async () => {
       setSavaDataLoading(true);
 
@@ -102,16 +98,16 @@ export default props => {
           rowSelection={{
             type: 'radio',
             onChange: selectedRowKeys => {
-              setFinanceManagerUuid(selectedRowKeys[0]);
-              handleUpdateStep();
+              handleUpdateStep(selectedRowKeys[0]);
             },
             columnTitle: '选择',
             columnWidth: '100px',
-            selectedRowKeys: [financeManagerUuid],
+            selectedRowKeys: [steps[2]?.managerUuid],
             getCheckboxProps: () => ({
               disabled:
                 savaDataLoading ||
-                !financeManagerUuid ||
+                registrationLoading ||
+                !steps[2]?.managerUuid ||
                 (steps[2]?.status !== 1 && steps[2]?.status !== 2)
             })
           }}
