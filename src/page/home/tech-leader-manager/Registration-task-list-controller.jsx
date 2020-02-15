@@ -10,7 +10,10 @@ import '@/style/home/tech-leader-manager/registration-task.styl';
 import '@/style/home/item.styl';
 
 // 路由
-import { HOME_REGISTRATION_TASK_LIST } from '@/constants/route-constants';
+import {
+  HOME_REGISTRATION_TASK_DETAIL,
+  HOME_REGISTRATION_TASK_ASSIGN_TECH
+} from '@/constants/route-constants';
 import { useHistory } from 'react-router-dom';
 
 // localStorage
@@ -128,11 +131,11 @@ export default props => {
                   record.uuid
                 );
                 dispatch(
-                  enterpriseAction.setTechLeaderEnterpriseRegistrationUuid(record.uuid)
+                  enterpriseAction.setTechLeaderEnterpriseRegistrationUuid(
+                    record.uuid
+                  )
                 );
-                history.push(
-                  `${HOME_REGISTRATION_TASK_LIST.path}/`
-                );
+                history.push(HOME_REGISTRATION_TASK_DETAIL.path);
               }}
             >
               查看详情
@@ -144,13 +147,11 @@ export default props => {
           title='分配技术管理人员'
           dataIndex='uuid'
           key='uuid'
-          render={(text, record) => (
+          render={() => (
             <Button
               type='link'
               onClick={() => {
-                history.push(
-                  `${HOME_REGISTRATION_TASK_LIST.path}/techManagerShow`
-                );
+                history.push(HOME_REGISTRATION_TASK_ASSIGN_TECH.path);
               }}
             >
               分配技术管理人员

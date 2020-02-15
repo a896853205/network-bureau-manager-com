@@ -25,6 +25,8 @@ import RegistrationFinanceList from '@/page/home/accountant-manager/Registration
 // 技术管理人员
 import TrustTaskList from '@/page/home/tech-leader-manager/Trust-task-list-controller.jsx';
 import RegistrationTaskList from '@/page/home/tech-leader-manager/Registration-task-list-controller.jsx';
+import RegistrationTaskDetail from '@/page/home/tech-leader-manager/Registration-task-detail-controller.jsx';
+import RegistrationTaskAssignTech from '@/page/home/tech-leader-manager/Registration-task-assign-tech-controller.jsx';
 
 // localStorage
 import { LOCAL_STORAGE } from '@/constants/app-constants';
@@ -113,6 +115,14 @@ export default props => {
     path: ROUTES.HOME_REGISTRATION_TASK_LIST.path,
     exact: true
   });
+  const homeRegistrationTaskAssignTech = useRouteMatch({
+    path: ROUTES.HOME_REGISTRATION_TASK_ASSIGN_TECH.path,
+    exact: true
+  });
+  const homeRegistrationTaskDetail = useRouteMatch({
+    path: ROUTES.HOME_REGISTRATION_TASK_DETAIL.path,
+    exact: true
+  });
 
   return (
     <Layout>
@@ -149,6 +159,10 @@ export default props => {
             {homeTrustFinanceList ? <TrustFinanceList /> : null}
             {homeRegistrationTaskList ? <RegistrationTaskList /> : null}
             {homeTrustTaskList ? <TrustTaskList /> : null}
+            {homeRegistrationTaskAssignTech ? (
+              <RegistrationTaskAssignTech />
+            ) : null}
+            {homeRegistrationTaskDetail ? <RegistrationTaskDetail /> : null}
           </div>
         </Content>
         <Footer className='home-footer'>

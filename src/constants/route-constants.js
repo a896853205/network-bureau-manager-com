@@ -48,12 +48,12 @@ export const HOME_REGISTRATION_DETAIL = {
  * 财务人员
  */
 export const HOME_REGISTRATION_FINANCE_LIST = {
-  path: '/home/registration/financeList',
+  path: '/home/registration/finance/list',
   name: '登记测试交费列表页'
 };
 
 export const HOME_TRUST_FINANCE_LIST = {
-  path: '/home/trust/financeList',
+  path: '/home/trust/finance/list',
   name: '委托测试交费列表页'
 };
 
@@ -61,11 +61,21 @@ export const HOME_TRUST_FINANCE_LIST = {
  * 技术管理人员
  */
 export const HOME_REGISTRATION_TASK_LIST = {
-  path: '/home/registration/taskList',
+  path: '/home/registration/task/list',
   name: '登记测试任务分配列表页'
 }
 
+export const HOME_REGISTRATION_TASK_DETAIL = {
+  path: '/home/registration/task/detail',
+  name: '登记测试任务分配详细页'
+}
+
+export const HOME_REGISTRATION_TASK_ASSIGN_TECH = {
+  path: '/home/registration/task/assign/tech',
+  name: '登记测试任务分配技术人员页'
+}
+
 export const HOME_TRUST_TASK_LIST = {
-  path: '/home/trust/taskList',
+  path: '/home/trust/task/list',
   name: '委托测试任务分配列表页'
 }
