@@ -21,7 +21,7 @@ import { useRouteMatch, useHistory } from 'react-router-dom';
 import * as ROUTES from '@/constants/route-constants';
 
 export default props => {
-  const localStorageRegistrationUuid = window.localStorage.getItem(
+  const localStorageRegistrationUuid = localStorage.getItem(
       `${LOCAL_STORAGE}-registrationUuid`
     ),
     { enterpriseRegistrationUuid } = useSelector(
