@@ -53,6 +53,14 @@ export default props => {
     }
   }, [dispatch, enterpriseRegistrationUuid, localStorageRegistrationUuid]);
 
+  // 退出时清除localStorage
+  useEffect(() => {
+    return () => {
+      window.localStorage.removeItem(`${LOCAL_STORAGE}-registrationUuid`);
+      enterpriseAction.setEnterpriseRegistrationUuid('');
+    };
+  }, []);
+
   const profile = useRouteMatch({
       path: ROUTES.HOME_REGISTRATION_PROFILE.path,
       excat: true
