@@ -25,6 +25,14 @@ export const HOME_MANAGER_RESULT = {
 };
 
 /**
+ * 公共路由
+ */
+export const HOME_REGISTRATION_FILE_DOWNLOAD = {
+  path: '/home/registration/file/download',
+  name: '登记测试文件下载查看页'
+};
+
+/**
  * 项目管理员
  */
 export const HOME_REGISTRATION_LIST = {
@@ -63,19 +71,19 @@ export const HOME_TRUST_FINANCE_LIST = {
 export const HOME_REGISTRATION_TASK_LIST = {
   path: '/home/registration/task/list',
   name: '登记测试任务分配列表页'
-}
+};
 
 export const HOME_REGISTRATION_TASK_DETAIL = {
   path: '/home/registration/task/detail',
   name: '登记测试任务分配详细页'
-}
+};
 
 export const HOME_REGISTRATION_TASK_ASSIGN_TECH = {
   path: '/home/registration/task/assign/tech',
   name: '登记测试任务分配技术人员页'
-}
+};
 
 export const HOME_TRUST_TASK_LIST = {
   path: '/home/trust/task/list',
   name: '委托测试任务分配列表页'
-}
+};

@@ -7,11 +7,14 @@ import * as ROUTES from '@/constants/route-constants';
 
 // controller
 import HomeIndexController from '@/page/home/Home-index-controller.jsx';
-import SettingController from '@/page/home/public/Setting-controller.jsx';
 import ManagerCreateController from '@/page/home/super-manager/Manager-create-controller.jsx';
 import ManagerUpdateController from '@/page/home/super-manager/Manager-update-controller.jsx';
 import ManagerShowController from '@/page/home/super-manager/Manager-show-controller.jsx';
 import ManagerResultController from '@/page/home/super-manager/Manager-result-controller.jsx';
+
+// 公共
+import SettingController from '@/page/home/public/Setting-controller.jsx';
+import RegistrationFileDownloadController from '@/page/home/public/Registration-file-download-controller.jsx';
 
 // 项目管理员
 import RegistrationListController from '@/page/home/project-manager/Registration-list-controller.jsx';
@@ -25,7 +28,6 @@ import RegistrationFinanceList from '@/page/home/accountant-manager/Registration
 // 技术管理人员
 import TrustTaskList from '@/page/home/tech-leader-manager/Trust-task-list-controller.jsx';
 import RegistrationTaskList from '@/page/home/tech-leader-manager/Registration-task-list-controller.jsx';
-import RegistrationTaskDetail from '@/page/home/tech-leader-manager/Registration-task-detail-controller.jsx';
 import RegistrationTaskAssignTech from '@/page/home/tech-leader-manager/Registration-task-assign-tech-controller.jsx';
 
 // localStorage
@@ -119,8 +121,8 @@ export default props => {
     path: ROUTES.HOME_REGISTRATION_TASK_ASSIGN_TECH.path,
     exact: true
   });
-  const homeRegistrationTaskDetail = useRouteMatch({
-    path: ROUTES.HOME_REGISTRATION_TASK_DETAIL.path,
+  const homeRegistrationFileDownload = useRouteMatch({
+    path: ROUTES.HOME_REGISTRATION_FILE_DOWNLOAD.path,
     exact: true
   });
 
@@ -162,7 +164,7 @@ export default props => {
             {homeRegistrationTaskAssignTech ? (
               <RegistrationTaskAssignTech />
             ) : null}
-            {homeRegistrationTaskDetail ? <RegistrationTaskDetail /> : null}
+            {homeRegistrationFileDownload ? <RegistrationFileDownloadController /> : null}
           </div>
         </Content>
         <Footer className='home-footer'>

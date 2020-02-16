@@ -10,8 +10,11 @@ import proxyFetch from '@/util/request';
 // 样式
 import { Table, Button } from 'antd';
 
-//路由
-import { HOME_REGISTRATION_PROFILE } from '@/constants/route-constants';
+// 路由
+import {
+  HOME_REGISTRATION_PROFILE,
+  HOME_REGISTRATION_FILE_DOWNLOAD
+} from '@/constants/route-constants';
 import { useHistory } from 'react-router-dom';
 
 // localStorage
@@ -99,7 +102,7 @@ export default props => {
         />
         <Column
           align='center'
-          title='查看详情'
+          title='查看进度详情'
           dataIndex='uuid'
           key='uuid'
           render={(text, record) => (
@@ -117,7 +120,32 @@ export default props => {
                 history.push(HOME_REGISTRATION_PROFILE.path);
               }}
             >
-              查看详情
+              查看进度详情
+            </Button>
+          )}
+        />
+        <Column
+          align='center'
+          title='查看内容详情'
+          dataIndex='uuid'
+          key='uuid'
+          render={(text, record) => (
+            <Button
+              type='link'
+              onClick={() => {
+                localStorage.setItem(
+                  `${LOCAL_STORAGE}-fileDownloadRegistrationUuid`,
+                  record.uuid
+                );
+                dispatch(
+                  enterpriseAction.setTechLeaderEnterpriseRegistrationUuid(
+                    record.uuid
+                  )
+                );
+                history.push(HOME_REGISTRATION_FILE_DOWNLOAD.path);
+              }}
+            >
+              查看内容详情
             </Button>
           )}
         />

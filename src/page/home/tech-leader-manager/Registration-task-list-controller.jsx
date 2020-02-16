@@ -11,7 +11,7 @@ import '@/style/home/item.styl';
 
 // 路由
 import {
-  HOME_REGISTRATION_TASK_DETAIL,
+  HOME_REGISTRATION_FILE_DOWNLOAD,
   HOME_REGISTRATION_TASK_ASSIGN_TECH
 } from '@/constants/route-constants';
 import { useHistory } from 'react-router-dom';
@@ -115,8 +115,7 @@ export default props => {
               ) : null}
             </span>
           )}
-        />
-         
+        />      
         <Column
           align='center'
           title='查看详情'
@@ -127,7 +126,7 @@ export default props => {
               type='link'
               onClick={() => {
                 localStorage.setItem(
-                  `${LOCAL_STORAGE}-techLeaderRegistrationUuid`,
+                  `${LOCAL_STORAGE}-fileDownloadRegistrationUuid`,
                   record.uuid
                 );
                 dispatch(
@@ -135,7 +134,7 @@ export default props => {
                     record.uuid
                   )
                 );
-                history.push(HOME_REGISTRATION_TASK_DETAIL.path);
+                history.push(HOME_REGISTRATION_FILE_DOWNLOAD.path);
               }}
             >
               查看详情
@@ -158,9 +157,7 @@ export default props => {
             </Button>
           )}
         />
-              
       </Table>
-          
     </div>
   );
 };
