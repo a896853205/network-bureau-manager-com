@@ -63,3 +63,7 @@ export const ACCOUNTANT_CONFIRM_PAYMENT = `${DominConfigs.DOMAIN}${DominConfigs.
  * 技术负责人
  **/
 export const QUARY_REGISTRATION_NEED_ASSIGNED = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_TECH_LEADER_MANAGER}/queryRegistrationNeedAssigned`; // 查询待分配技术负责人员的企业登记测试列表
+export const QUERY_TECH_MANAGER = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_TECH_LEADER_MANAGER}/queryTechManager`; // 查询技术负责人
+export const ARRANGE_TECH_MANAGER = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_TECH_LEADER_MANAGER}/arrangeTechManager`; // 安排技术负责人
+export const QUERY_TECH_LEADER_ENTERPRISE_REGISTRATION_STEP = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_TECH_LEADER_MANAGER}/queryTechLeaderEnterpriseRegistrationStep`;
+export const SELECT_TECH_LEADER_REGISTRATION = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_TECH_LEADER_MANAGER}/selectTechLeaderRegistration`;

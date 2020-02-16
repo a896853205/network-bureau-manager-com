@@ -116,7 +116,6 @@ export default props => {
             </span>
           )}
         />
-         
         <Column
           align='center'
           title='查看详情'
