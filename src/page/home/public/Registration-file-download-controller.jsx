@@ -15,10 +15,9 @@ import EnterpriseInfo from '@/components/home/public/Enterprise-info.jsx';
 export default props => {
   const dispatch = useDispatch();
 
-  // 关掉组件时删除redux和localStorage
+  // 关掉组件时删除redux
   useEffect(() => {
     return () => {
-      localStorage.removeItem(`${LOCAL_STORAGE}-fileDownloadRegistrationUuid`);
       dispatch(enterpriseAction.setFileDownloadRegistrationUuid(''));
     };
   });

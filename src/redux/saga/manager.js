@@ -27,6 +27,7 @@ const effects = {
     if (res) {
       // 成功之后将token存到localStorage中并且跳页
       yield put(managerAction.setManager(res.manager));
+      localStorage.clear();
       localStorage.setItem(`${LOCAL_STORAGE}-token`, res.token);
       yield put(navToAction.setNavTo(HOME_INDEX.path));
     }
@@ -35,12 +36,12 @@ const effects = {
   asyncSetManagerByToken: function*() {
     // loading开始
     yield put(managerAction.setManagerLoading(true));
-    
+
     // 请求管理员信息
     const res = yield call(proxyFetch, APIS.GET_MY_INFO, {}, 'GET');
     // loading结束
     yield put(managerAction.setManagerLoading(false));
-    
+
     if (res) {
       // 成功之后将token存到localStorage中
       yield put(managerAction.setManager(res));

@@ -56,7 +56,6 @@ export default props => {
   // 退出时清除localStorage
   useEffect(() => {
     return () => {
-      localStorage.removeItem(`${LOCAL_STORAGE}-registrationUuid`);
       enterpriseAction.setEnterpriseRegistrationUuid('');
     };
   }, []);
