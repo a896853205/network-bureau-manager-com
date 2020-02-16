@@ -107,12 +107,6 @@ export default handleActions(
         ...state,
         sysRegistrationStepLoading: result
       };
-    },
-    setTechLeaderEnterpriseRegistrationUuid(state, { payload: result }) {
-      return {
-        ...state,
-        techLeaderEnterpriseRegistrationUuid: result
-      };
     }
   },
   {
@@ -122,8 +116,6 @@ export default handleActions(
     registration: null,
     registrationLoading: true, // 查询登记测试的loading
     sysRegistrationStep: [],
-    sysRegistrationStepLoading: true,
-    // 技术管理员的登记测试
-    techLeaderEnterpriseRegistrationUuid: ''
+    sysRegistrationStepLoading: true
   }
 );

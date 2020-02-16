@@ -82,6 +82,15 @@ export default props => {
     })();
   }, [page]);
 
+  // 组件销毁时删除localStorage里的数据
+  useEffect(() => {
+    return () => {
+      window.localStorage.removeItem(
+        `${LOCAL_STORAGE}-techLeaderRegistrationUuid`
+      );
+    };
+  }, []);
+
   // 确认选择提交按钮
   const handleUpdateStep = techManagerUuid => {
     (async () => {

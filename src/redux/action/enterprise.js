@@ -11,8 +11,4 @@ export default {
   setSysRegistrationStep: createAction('setSysRegistrationStep'),
   asyncSetSysRegistrationStep: createAction('asyncSetSysRegistrationStep'),
   setSysRegistrationStepLoading: createAction('setSysRegistrationStepLoading'),
-  // 技术管理员的登记测试的uuid
-  setTechLeaderEnterpriseRegistrationUuid: createAction(
-    'setTechLeaderEnterpriseRegistrationUuid'
-  )
 };

@@ -19,10 +19,6 @@ import { useHistory } from 'react-router-dom';
 // localStorage
 import { LOCAL_STORAGE } from '@/constants/app-constants';
 
-// redux
-import { useDispatch } from 'react-redux';
-import enterpriseAction from '@/redux/action/enterprise';
-
 const { Column } = Table;
 
 export default props => {
@@ -31,8 +27,7 @@ export default props => {
     [total, setTotal] = useState(0),
     [pageSize, setPageSize] = useState(1),
     [page, setPage] = useState(1),
-    history = useHistory(),
-    dispatch = useDispatch();
+    history = useHistory();
 
   useEffect(() => {
     (async () => {
@@ -127,11 +122,6 @@ export default props => {
                 localStorage.setItem(
                   `${LOCAL_STORAGE}-fileDownloadRegistrationUuid`,
                   record.uuid
-                );
-                dispatch(
-                  enterpriseAction.setTechLeaderEnterpriseRegistrationUuid(
-                    record.uuid
-                  )
                 );
                 history.push(HOME_REGISTRATION_FILE_DOWNLOAD.path);
               }}
