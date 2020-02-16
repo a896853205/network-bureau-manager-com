@@ -1,0 +1,39 @@
+.responsible-person-ul {
+  display: flex;
+  list-style: none;
+  padding-left: 0;
+  flex-wrap: wrap;
+  justify-content: space-between;
+
+  li {
+    width: 18%;
+    margin-bottom: 5px;
+    min-width: 100px;
+    padding: 5px;
+    text-align: center;
+
+    img {
+      width: 100px;
+      height: 100px;
+      box-shadow: 0 0 5px #ddd;
+      border-radius: 50%;
+    }
+
+    .responsible-person-card-description {
+      display: flex;
+      flex-direction: column;
+      padding: 5px 0;
+
+      span {
+        margin-top: 10px;
+        color: rgba(0, 0, 0, 0.45);
+
+        &:first-child {
+          color: #000;
+          font-weight: 500;
+          font-size: 16px;
+        }
+      }
+    }
+  }
+}
