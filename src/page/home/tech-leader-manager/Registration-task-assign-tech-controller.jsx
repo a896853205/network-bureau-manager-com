@@ -41,30 +41,24 @@ export default props => {
   useEffect(() => {
     (async () => {
       setLoading(true);
-      const stepsList = await proxyFetch(
-        QUERY_TECH_LEADER_ENTERPRISE_REGISTRATION_STEP,
-        {
-          registrationUuid: localStorageTechLeaderRegistrationUuid
-        },
-        'GET'
-      );
+      const [stepsList, registrationList] = await Promise.all([
+        proxyFetch(
+          QUERY_TECH_LEADER_ENTERPRISE_REGISTRATION_STEP,
+          {
+            registrationUuid: localStorageTechLeaderRegistrationUuid
+          },
+          'GET'
+        ),
+        proxyFetch(
+          SELECT_TECH_LEADER_REGISTRATION,
+          {
+            registrationUuid: localStorageTechLeaderRegistrationUuid
+          },
+          'GET'
+        )
+      ]);
 
       setStepsList(stepsList);
-      setLoading(false);
-    })();
-  }, [localStorageTechLeaderRegistrationUuid]);
-
-  useEffect(() => {
-    (async () => {
-      setLoading(true);
-      const registrationList = await proxyFetch(
-        SELECT_TECH_LEADER_REGISTRATION,
-        {
-          registrationUuid: localStorageTechLeaderRegistrationUuid
-        },
-        'GET'
-      );
-
       setRegistrationList(registrationList);
       setLoading(false);
     })();
@@ -88,15 +82,6 @@ export default props => {
     })();
   }, [page]);
 
-  // 组件销毁时删除localStorage里的数据
-  useEffect(() => {
-    return () => {
-      window.localStorage.removeItem(
-        `${LOCAL_STORAGE}-techLeaderRegistrationUuid`
-      );
-    };
-  }, []);
-
   // 确认选择提交按钮
   const handleUpdateStep = techManagerUuid => {
     (async () => {
@@ -113,6 +98,7 @@ export default props => {
 
   return (
     <div className='item-box techLeader-manager-show-box'>
+      <p className='title-box'>分配技术管理人员</p>
       <div className='subtitle-box'>
         <Link to={HOME_REGISTRATION_TASK_LIST.path}>
           <Icon type='left' className='exit-icon' />
@@ -144,7 +130,7 @@ export default props => {
             getCheckboxProps: () => ({
               disabled:
                 savaDataLoading ||
-                ![registrationList?.techManagerUuid] ||
+                ![stepsList[3]?.techManagerUuid] ||
                 (stepsList[3]?.status !== 2 && stepsList[3]?.status !== 3)
             })
           }}

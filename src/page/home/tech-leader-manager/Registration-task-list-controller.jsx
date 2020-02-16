@@ -68,8 +68,7 @@ export default props => {
             setPage(page);
           }
         }}
-      >
-          
+      >    
         <Column
           title='合同编号'
           dataIndex='enterpriseRegistrationContract.contractCode'
@@ -119,8 +118,8 @@ export default props => {
         <Column
           align='center'
           title='查看详情'
-          dataIndex='uuid'
-          key='uuid'
+          dataIndex=''
+          key=''
           render={(text, record) => (
             <Button
               type='link'
@@ -144,8 +143,8 @@ export default props => {
         <Column
           align='center'
           title='分配技术管理人员'
-          dataIndex='uuid'
-          key='uuid'
+          dataIndex=''
+          key=''
           render={(text, record) => (
             <Button
               type='link'
