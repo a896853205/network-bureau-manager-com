@@ -45,7 +45,7 @@ import { Layout, Icon } from 'antd';
 const { Header, Content, Footer, Sider } = Layout;
 
 export default props => {
-  const token = window.localStorage.getItem(`${LOCAL_STORAGE}-token`),
+  const token = localStorage.getItem(`${LOCAL_STORAGE}-token`),
     { uuid } = useSelector(state => state.managerStore),
     history = useHistory(),
     dispatch = useDispatch();

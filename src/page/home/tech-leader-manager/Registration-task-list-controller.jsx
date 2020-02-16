@@ -9,6 +9,10 @@ import { Table, Button, Icon } from 'antd';
 import '@/style/home/tech-leader-manager/registration-task.styl';
 import '@/style/home/item.styl';
 
+// redux
+import { useDispatch } from 'react-redux';
+import enterpriseAction from '@/redux/action/enterprise';
+
 // 路由
 import {
   HOME_REGISTRATION_FILE_DOWNLOAD,
@@ -27,7 +31,8 @@ export default props => {
     [total, setTotal] = useState(0),
     [pageSize, setPageSize] = useState(1),
     [page, setPage] = useState(1),
-    history = useHistory();
+    history = useHistory(),
+    dispatch = useDispatch();
 
   useEffect(() => {
     (async () => {
@@ -63,7 +68,9 @@ export default props => {
             setPage(page);
           }
         }}
-      >    
+      >
+        {' '}
+          
         <Column
           title='合同编号'
           dataIndex='enterpriseRegistrationContract.contractCode'
@@ -123,6 +130,9 @@ export default props => {
                   `${LOCAL_STORAGE}-fileDownloadRegistrationUuid`,
                   record.uuid
                 );
+                dispatch(
+                  enterpriseAction.setFileDownloadRegistrationUuid(record.uuid)
+                );
                 history.push(HOME_REGISTRATION_FILE_DOWNLOAD.path);
               }}
             >
@@ -139,7 +149,7 @@ export default props => {
             <Button
               type='link'
               onClick={() => {
-                window.localStorage.setItem(
+                localStorage.setItem(
                   `${LOCAL_STORAGE}-techLeaderRegistrationUuid`,
                   record.uuid
                 );

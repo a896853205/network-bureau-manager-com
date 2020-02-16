@@ -107,15 +107,25 @@ export default handleActions(
         ...state,
         sysRegistrationStepLoading: result
       };
+    },
+    setFileDownloadRegistrationUuid(state, { payload: result }) {
+      return {
+        ...state,
+        fileDownloadRegistrationUuid: result
+      };
     }
   },
   {
     // 登记测试
+    // 进度详细信息
     enterpriseRegistrationUuid: '',
     steps: [], // 步骤详细信息
     registration: null,
     registrationLoading: true, // 查询登记测试的loading
+    // 系统步骤名称
     sysRegistrationStep: [],
-    sysRegistrationStepLoading: true
+    sysRegistrationStepLoading: true,
+    // 内容详细信息
+    fileDownloadRegistrationUuid: ''
   }
 );
