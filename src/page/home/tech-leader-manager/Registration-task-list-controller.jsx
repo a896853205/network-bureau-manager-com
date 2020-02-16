@@ -115,7 +115,7 @@ export default props => {
               ) : null}
             </span>
           )}
-        />      
+        />
         <Column
           align='center'
           title='查看详情'
@@ -146,10 +146,14 @@ export default props => {
           title='分配技术管理人员'
           dataIndex='uuid'
           key='uuid'
-          render={() => (
+          render={(text, record) => (
             <Button
               type='link'
               onClick={() => {
+                window.localStorage.setItem(
+                  `${LOCAL_STORAGE}-techLeaderRegistrationUuid`,
+                  record.uuid
+                );
                 history.push(HOME_REGISTRATION_TASK_ASSIGN_TECH.path);
               }}
             >
