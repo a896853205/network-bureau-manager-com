@@ -69,8 +69,6 @@ export default props => {
           }
         }}
       >
-        {' '}
-          
         <Column
           title='合同编号'
           dataIndex='enterpriseRegistrationContract.contractCode'

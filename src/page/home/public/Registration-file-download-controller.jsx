@@ -40,7 +40,7 @@ export default props => {
     ) {
       dispatch(
         enterpriseAction.setFileDownloadRegistrationUuid(
-          fileDownloadRegistrationUuid
+          localStorgeFileDownloadRegistrationUuid
         )
       );
     }
