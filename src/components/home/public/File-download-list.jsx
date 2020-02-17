@@ -8,7 +8,8 @@ import {
   DOWNLOAD_PRODUCT,
   DOWNLOAD_PRODUCT_DESCRIPTION,
   DOWNLOAD_DOCUMENT,
-  DOWNLOAD_COPYRIGHT
+  DOWNLOAD_COPYRIGHT,
+  DOWNLOAD_CONTRACT
 } from '@/constants/api-constants';
 import proxyFetch from '@/util/request';
 
@@ -27,7 +28,8 @@ export default props => {
       setProductDescriptionDownloadLoading
     ] = useState(false),
     [documentDownloadLoading, setDocumentDownloadLoading] = useState(false),
-    [copyrightDownloadLoading, setCopyrightDownloadLoading] = useState(false);
+    [copyrightDownloadLoading, setCopyrightDownloadLoading] = useState(false),
+    [contractDownloadLoading, setContractDownloadLoading] = useState(false);
 
   const handleDownloadProduct = async () => {
     setProductDownloadLoading(true);
@@ -77,18 +79,39 @@ export default props => {
     window.open(url, '_blank');
   };
 
+  const handleDownloadContract = async () => {
+    setContractDownloadLoading(true);
+
+    const url = await proxyFetch(
+      DOWNLOAD_CONTRACT,
+      { registrationUuid: fileDownloadRegistrationUuid },
+      'GET'
+    );
+    setContractDownloadLoading(false);
+    window.open(url, '_blank');
+  };
+
   return (
     <div className='item-box'>
       <h5 className='title-box'>登记测试内容文件详情</h5>
       <div>
         <ul className='file-ul'>
           <li>
-            <Icon
-              className='file-title-icon'
-              type='reconciliation'
-              theme='twoTone'
-            />
-            评测合同下载
+            {contractDownloadLoading ? (
+              <div>
+                <Icon className='file-title-icon' type='loading' spin />
+                <span>请等待...</span>
+              </div>
+            ) : (
+              <div onClick={handleDownloadContract}>
+                <Icon
+                  className='file-title-icon'
+                  type='reconciliation'
+                  theme='twoTone'
+                />
+                评测合同下载
+              </div>
+            )}
           </li>
           <li>
             {copyrightDownloadLoading ? (
