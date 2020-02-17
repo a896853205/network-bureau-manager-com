@@ -60,6 +60,7 @@ export default props => {
 
       setStepsList(stepsList);
       setRegistrationList(registrationList);
+      console.log('registrationList=', registrationList);
       setLoading(false);
     })();
   }, [localStorageTechLeaderRegistrationUuid]);

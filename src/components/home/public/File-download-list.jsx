@@ -10,7 +10,6 @@ export default props => {
     <div className='item-box'>
       <h5 className='title-box'>登记测试内容文件详情</h5>
       <div>
-        {/* 这里用Descriptions展示数据 */}
         <ul className='file-ul'>
           <li>
             <Icon
@@ -19,14 +18,6 @@ export default props => {
               theme='twoTone'
             />
             评测合同下载
-          </li>
-          <li>
-            <Icon
-              className='file-title-icon'
-              type='reconciliation'
-              theme='twoTone'
-            />
-            软件著作权证书下载
           </li>
           <li>
             <Icon
