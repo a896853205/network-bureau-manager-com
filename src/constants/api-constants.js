@@ -71,3 +71,6 @@ export const SELECT_REGISTRATION_MANAGER_UUID = `${DominConfigs.DOMAIN}${DominCo
 export const SELECT_ENTERPRISE_INFO_BY_FILE_DOWNLOAD_REGISTRATION_UUID = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_TECH_LEADER_MANAGER}/selectEnterpriseInfoByFileDownloadRegistrationUuid`; // 查询登记测试企业信息(文件审核页面)
 export const GET_REGISTRATION_MANAGER_INFO = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_TECH_LEADER_MANAGER}/getRegistrationManagerInfo`; // 查询登记测试管理员uuid(文件审核页面)
 export const DOWNLOAD_PRODUCT = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_TECH_LEADER_MANAGER}/downloadProduct`; // 下载产品介质
+export const DOWNLOAD_PRODUCT_DESCRIPTION = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_TECH_LEADER_MANAGER}/downloadProductDescription`; // 下载产品说明
+export const DOWNLOAD_DOCUMENT = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_TECH_LEADER_MANAGER}/downloadDocument`; // 下载用户文档集
+export const DOWNLOAD_COPYRIGHT = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_TECH_LEADER_MANAGER}/downloadCopyright`; // 下载软件著作权
