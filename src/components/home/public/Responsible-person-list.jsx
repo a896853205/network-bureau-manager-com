@@ -20,36 +20,37 @@ export default props => {
       state => state.enterpriseStore
     ),
     [getDataLoading, setGetDataLoading] = useState(false),
-    [projectManagerList, setProjectManagerList] = useState([]),
-    [accountantManagerList, setAccountantManagerList] = useState([]),
-    [techLeaderManagerList, setTechLeaderManagerList] = useState([]),
-    [techManagerList, setTechManagerList] = useState([]),
-    [certifierManagerList, setCertifierManagerList] = useState([]);
+    [projectManager, setProjectManager] = useState([]),
+    [accountantManager, setAccountantManager] = useState([]),
+    [techLeaderManager, setTechLeaderManager] = useState([]),
+    [techManager, setTechManager] = useState([]),
+    [certifierManager, setCertifierManager] = useState([]);
 
   useEffect(() => {
     (async () => {
       if (fileDownloadRegistrationUuid) {
         setGetDataLoading(true);
         const {
-          projectManagerList,
-          accountantManagerList,
-          techLeaderManagerList,
-          techManagerList,
-          certifierManagerList
+          projectManager,
+          accountantManager,
+          techLeaderManager,
+          techManager,
+          certifierManager
         } = await proxyFetch(
           GET_REGISTRATION_MANAGER_INFO,
           { registrationUuid: fileDownloadRegistrationUuid },
           'GET'
         );
-        setProjectManagerList(projectManagerList);
-        setAccountantManagerList(accountantManagerList);
-        setTechLeaderManagerList(techLeaderManagerList);
-        setTechManagerList(techManagerList);
-        setCertifierManagerList(certifierManagerList);
+        setProjectManager(projectManager);
+        setAccountantManager(accountantManager);
+        setTechLeaderManager(techLeaderManager);
+        setTechManager(techManager);
+        setCertifierManager(certifierManager);
         setGetDataLoading(false);
       }
     })();
   }, [fileDownloadRegistrationUuid]);
+  console.log('projectManager=', projectManager);
 
   return (
     <div className='item-box'>
@@ -57,71 +58,75 @@ export default props => {
       <Skeleton loading={getDataLoading}>
         <ul className='responsible-person-ul'>
           <li>
-            <img src={projectManagerList?.headPortraitUrl} alt='' />
+            <img src={projectManager?.headPortraitUrl} alt='' />
             <div className='responsible-person-card-description'>
               <span>
-                {projectManagerList?.name ? projectManagerList?.name : '未分配'}
+                {projectManager?.name ? projectManager?.name : '未分配'}
               </span>
               <span>{getAuthortyNameByCode(10)}</span>
               <span>
-                {projectManagerList?.phone ? projectManagerList?.phone : '未分配'}
+                {projectManager?.phone
+                  ? projectManager?.phone
+                  : '未分配'}
               </span>
             </div>
           </li>
           <li>
-            <img src={accountantManagerList?.headPortraitUrl} alt='' />
+            <img src={accountantManager?.headPortraitUrl} alt='' />
             <div className='responsible-person-card-description'>
               <span>
-                {accountantManagerList?.name
-                  ? accountantManagerList?.name
+                {accountantManager?.name
+                  ? accountantManager?.name
                   : '未分配'}
               </span>
               <span>{getAuthortyNameByCode(5)}</span>
               <span>
-                {accountantManagerList?.phone
-                  ? accountantManagerList?.phone
+                {accountantManager?.phone
+                  ? accountantManager?.phone
                   : '未分配'}
               </span>
             </div>
           </li>
           <li>
-            <img src={techLeaderManagerList?.headPortraitUrl} alt='' />
+            <img src={techLeaderManager?.headPortraitUrl} alt='' />
             <div className='responsible-person-card-description'>
               <span>
-                {techLeaderManagerList?.name
-                  ? techLeaderManagerList?.name
+                {techLeaderManager?.name
+                  ? techLeaderManager?.name
                   : '未分配'}
               </span>
               <span>{getAuthortyNameByCode(15)}</span>
               <span>
-                {techLeaderManagerList?.phone
-                  ? techLeaderManagerList?.phone
+                {techLeaderManager?.phone
+                  ? techLeaderManager?.phone
                   : '未分配'}
               </span>
             </div>
           </li>
           <li>
-            <img src={techManagerList?.headPortraitUrl} alt='' />
+            <img src={techManager?.headPortraitUrl} alt='' />
             <div className='responsible-person-card-description'>
               <span>
-                {techManagerList?.name ? techManagerList?.name : '未分配'}
+                {techManager?.name ? techManager?.name : '未分配'}
               </span>
               <span>{getAuthortyNameByCode(20)}</span>
               <span>
-                {techManagerList?.phone ? techManagerList?.phone : '未分配'}
+                {techManager?.phone ? techManager?.phone : '未分配'}
               </span>
             </div>
           </li>
           <li>
-            <img src={certifierManagerList?.headPortraitUrl} alt='' />
+            <img src={certifierManager?.headPortraitUrl} alt='' />
             <div className='responsible-person-card-description'>
               <span>
-                {certifierManagerList?.name ? certifierManagerList?.name : '未分配'}
+                {certifierManager?.name
+                  ? certifierManager?.name
+                  : '未分配'}
               </span>
               <span>{getAuthortyNameByCode(25)}</span>
               <span>
-                {certifierManagerList?.phone
-                  ? certifierManagerList?.phone
+                {certifierManager?.phone
+                  ? certifierManager?.phone
                   : '未分配'}
               </span>
             </div>

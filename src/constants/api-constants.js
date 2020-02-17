@@ -70,3 +70,4 @@ export const SELECT_TECH_LEADER_REGISTRATION = `${DominConfigs.DOMAIN}${DominCon
 export const SELECT_REGISTRATION_MANAGER_UUID = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_TECH_LEADER_MANAGER}/selectRegistrationManagerUuid`; // 查询登记测试管理员uuid(文件审核页面)
 export const SELECT_ENTERPRISE_INFO_BY_FILE_DOWNLOAD_REGISTRATION_UUID = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_TECH_LEADER_MANAGER}/selectEnterpriseInfoByFileDownloadRegistrationUuid`; // 查询登记测试企业信息(文件审核页面)
 export const GET_REGISTRATION_MANAGER_INFO = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_TECH_LEADER_MANAGER}/getRegistrationManagerInfo`; // 查询登记测试管理员uuid(文件审核页面)
+export const GET_REGISTRATION_FILE_BY_FILE_DOWNLOAD_REGISTRATION_UUID = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_TECH_LEADER_MANAGER}/getRegistrationFileByFileDownloadRegistrationUuid`; // 查询4个文件的基本信息
