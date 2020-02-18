@@ -17,7 +17,8 @@ export const PART = {
   OPT_PROJECT_MANAGER: '/projectManager',
   OPT_FILE: '/file',
   OPT_ACCOUNTANT_MANAGER: '/accountantManager',
-  OPT_TECH_LEADER_MANAGER: '/techLeaderManager'
+  OPT_TECH_LEADER_MANAGER: '/techLeaderManager',
+  OPT_TECH_MANAGER: '/techManager'
 };
 
 // 返回码

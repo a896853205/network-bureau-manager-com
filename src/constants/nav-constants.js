@@ -107,9 +107,10 @@ export const NAV = {
   ],
   [AUTHORITY.TECH.code]: [
     {
-      path: '/home/index',
+      key: 'manager',
+      path: ROUTE.HOME_INDEX.path,
       name: '首页',
-      icon: 'audit'
+      icon: 'bank'
     },
     {
       key: 'registrationTestList',

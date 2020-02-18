@@ -77,3 +77,8 @@ export const DOWNLOAD_PRODUCT_DESCRIPTION = `${DominConfigs.DOMAIN}${DominConfig
 export const DOWNLOAD_DOCUMENT = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_TECH_LEADER_MANAGER}/downloadDocument`; // 下载用户文档集
 export const DOWNLOAD_COPYRIGHT = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_TECH_LEADER_MANAGER}/downloadCopyright`; // 下载软件著作权
 export const DOWNLOAD_CONTRACT = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_TECH_LEADER_MANAGER}/downloadContract`; // 下载合同
+
+/**
+ * 技术人员
+ **/
+export const QUARY_REGISTRATION_NEED_FIELD_TEST = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_TECH_MANAGER}/quaryRegistratiomNeedFieldTest`; // 技术人员查找注册登记信息

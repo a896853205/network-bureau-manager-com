@@ -66,6 +66,7 @@ export default Form.create({ name: 'contract' })(({ form }) => {
           }
 
           setFieldsValue(registrationContract);
+          console.log('registrationContract=', registrationContract);
         }
 
         setGetDataLoading(false);
