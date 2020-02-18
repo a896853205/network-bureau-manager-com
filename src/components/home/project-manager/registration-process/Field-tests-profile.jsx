@@ -58,33 +58,39 @@ export default () => {
               技术负责人选择技术人员
             </Timeline.Item>
             <Timeline.Item color={fieldTestsStatusToColor(3, steps[3].status)}>
-              技术人员申请现场测试
+              <span>确认软件评测样品登记表</span>
+              <span>确认软件评测现场测试申请表</span>
             </Timeline.Item>
             <Timeline.Item color={fieldTestsStatusToColor(4, steps[3].status)}>
-              技术负责人审查现场测试合同
-            </Timeline.Item>
-            <Timeline.Item color={fieldTestsStatusToColor(5, steps[3].status)}>
-              批准人审查现场测试合同
-            </Timeline.Item>
-            <Timeline.Item color={fieldTestsStatusToColor(6, steps[3].status)}>
               技术人员进行现场测试
             </Timeline.Item>
+            <Timeline.Item color={fieldTestsStatusToColor(5, steps[3].status)}>
+              <span>技术人员生成报告</span>
+              <span>技术人员生成原始记录</span>
+            </Timeline.Item>
+            <Timeline.Item color={fieldTestsStatusToColor(6, steps[3].status)}>
+              <span>技术负责人审查报告</span>
+              <span>技术负责人审查原始记录</span>
+            </Timeline.Item>
             <Timeline.Item color={fieldTestsStatusToColor(7, steps[3].status)}>
-              技术人员生成报告和原始记录
+              <span>批准人审查报告</span>
+              <span>批准人审查原始记录</span>
             </Timeline.Item>
             <Timeline.Item color={fieldTestsStatusToColor(8, steps[3].status)}>
-              技术负责人审查
-            </Timeline.Item>
-            <Timeline.Item color={fieldTestsStatusToColor(9, steps[3].status)}>
-              批准人审查
-            </Timeline.Item>
-            <Timeline.Item color={fieldTestsStatusToColor(10, steps[3].status)}>
               {steps[3].status ? (
-                <Link to={`${HOME_REGISTRATION_DETAIL.path}/stamp`}>
-                  <span>项目管理人盖章</span>
-                </Link>
+                <span>
+                  <Link to={`${HOME_REGISTRATION_DETAIL.path}/stamp`}>
+                    <span>项目管理人报告盖章</span>
+                  </Link>
+                  <Link to={`${HOME_REGISTRATION_DETAIL.path}/stamp`}>
+                    <span>项目管理人原始记录盖章</span>
+                  </Link>
+                </span>
               ) : (
-                <span>项目管理人盖章</span>
+                <span>
+                  <span>项目管理人报告盖章</span>
+                  <span>项目管理人原始记录盖章</span>
+                </span>
               )}
             </Timeline.Item>
           </Timeline>

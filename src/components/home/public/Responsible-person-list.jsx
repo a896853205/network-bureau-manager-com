@@ -20,11 +20,11 @@ export default props => {
       state => state.enterpriseStore
     ),
     [getDataLoading, setGetDataLoading] = useState(false),
-    [projectManager, setProjectManager] = useState([]),
-    [accountantManager, setAccountantManager] = useState([]),
-    [techLeaderManager, setTechLeaderManager] = useState([]),
-    [techManager, setTechManager] = useState([]),
-    [certifierManager, setCertifierManager] = useState([]);
+    [projectManager, setProjectManager] = useState(null),
+    [accountantManager, setAccountantManager] = useState(null),
+    [techLeaderManager, setTechLeaderManager] = useState(null),
+    [techManager, setTechManager] = useState(null),
+    [certifierManager, setCertifierManager] = useState(null);
 
   useEffect(() => {
     (async () => {
@@ -52,7 +52,7 @@ export default props => {
   }, [fileDownloadRegistrationUuid]);
 
   return (
-    <div className='item-box'>
+    <div className='item-box responsible-person-list'>
       <h5 className='title-box'>负责人列表</h5>
       <Skeleton loading={getDataLoading}>
         <ul className='responsible-person-ul'>

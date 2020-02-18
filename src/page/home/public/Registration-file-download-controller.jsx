@@ -11,6 +11,7 @@ import { LOCAL_STORAGE } from '@/constants/app-constants';
 import FileDownloadList from '@/components/home/public/File-download-list.jsx';
 import ResponsiblePersonList from '@/components/home/public/Responsible-person-list.jsx';
 import EnterpriseInfo from '@/components/home/public/Enterprise-info.jsx';
+import EnterpriseWrite from '@/components/home/public/Enterprise-write.jsx';
 
 // 路由
 import { useHistory } from 'react-router-dom';
@@ -58,10 +59,11 @@ export default props => {
   }, [dispatch]);
 
   return (
-    <>
+    <div className='item-outter-box'>
       <EnterpriseInfo />
+      <EnterpriseWrite />
       <ResponsiblePersonList />
       <FileDownloadList />
-    </>
+    </div>
   );
 };

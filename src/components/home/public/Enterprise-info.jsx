@@ -10,6 +10,7 @@ import proxyFetch from '@/util/request';
 // 样式
 import { Descriptions, Skeleton } from 'antd';
 import '@/style/home/registration-file-download.styl';
+import '@/style/home/enterprise-info.styl';
 import '@/style/home/item.styl';
 
 export default props => {
@@ -36,7 +37,7 @@ export default props => {
   }, [fileDownloadRegistrationUuid]);
 
   return (
-    <div className='item-box'>
+    <div className='item-box enterprise-info'>
       <h5 className='title-box'>企业信息</h5>
       <Skeleton loading={getDataLoading}>
         {enterpriseInfo ? (

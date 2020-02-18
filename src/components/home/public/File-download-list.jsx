@@ -92,7 +92,7 @@ export default props => {
   };
 
   return (
-    <div className='item-box'>
+    <div className='item-box file-download-list'>
       <h5 className='title-box'>登记测试内容文件详情</h5>
       <div>
         <ul className='file-ul'>

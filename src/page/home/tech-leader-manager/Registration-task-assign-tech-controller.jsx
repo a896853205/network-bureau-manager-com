@@ -57,7 +57,7 @@ export default props => {
   useEffect(() => {
     (async () => {
       if (isNeedFresh) {
-        setLoading(true);
+        setSavaDataLoading(true);
         const techManagerUuid = await proxyFetch(
           SELECT_REGISTRATION_TECH_MANAGER_UUID,
           {
@@ -67,7 +67,7 @@ export default props => {
         );
         setTechManagerUuid(techManagerUuid);
         setIsNeedFresh(false);
-        setLoading(false);
+        setSavaDataLoading(false);
       }
     })();
   }, [localStorageTechLeaderRegistrationUuid, isNeedFresh]);

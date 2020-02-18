@@ -162,21 +162,21 @@ const _responseHandle = {
       message.success(responseData.msg);
     }
 
-    return responseData.data;
+    return responseData.data || true;
   },
   [DominConfigs.RESPONSE_CODE.created]: responseData => {
     if (responseData.msg) {
       message.success(responseData.msg);
     }
 
-    return responseData.data;
+    return responseData.data || true;
   },
   [DominConfigs.RESPONSE_CODE.noContent]: responseData => {
     if (responseData.msg) {
       message.success(responseData.msg);
     }
 
-    return responseData.data;
+    return responseData.data || true;
   },
   [DominConfigs.RESPONSE_CODE.error]: responseData => {
     if (responseData.msg) {
