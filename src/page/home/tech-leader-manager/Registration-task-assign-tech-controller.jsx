@@ -35,13 +35,13 @@ export default props => {
     [pageSize, setPageSize] = useState(1),
     [page, setPage] = useState(1),
     [stepsList, setStepsList] = useState([]),
-    [registrationList, setRegistrationList] = useState([]),
+    [registrationManagerInfo, setRegistrationManagerInfo] = useState([]),
     [savaDataLoading, setSavaDataLoading] = useState(false);
 
   useEffect(() => {
     (async () => {
       setLoading(true);
-      const [stepsList, registrationList] = await Promise.all([
+      const [stepsList, registrationManagerInfo] = await Promise.all([
         proxyFetch(
           QUERY_TECH_LEADER_ENTERPRISE_REGISTRATION_STEP,
           {
@@ -59,8 +59,7 @@ export default props => {
       ]);
 
       setStepsList(stepsList);
-      setRegistrationList(registrationList);
-      console.log('registrationList=', registrationList);
+      setRegistrationManagerInfo(registrationManagerInfo);
       setLoading(false);
     })();
   }, [localStorageTechLeaderRegistrationUuid]);
@@ -127,7 +126,7 @@ export default props => {
             },
             columnTitle: '选择',
             columnWidth: '100px',
-            selectedRowKeys: [registrationList?.techManagerUuid],
+            selectedRowKeys: [registrationManagerInfo?.techManagerUuid],
             getCheckboxProps: () => ({
               disabled:
                 savaDataLoading ||
