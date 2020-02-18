@@ -110,7 +110,19 @@ export const NAV = {
       path: '/home/index',
       name: '首页',
       icon: 'audit'
-    }
+    },
+    {
+      key: 'registrationTestList',
+      path: ROUTE.HOME_REGISTRATION_TEST_LIST.path,
+      name: '登记测试列表',
+      icon: 'file-done'
+    },
+    {
+      key: 'trustTestList',
+      path: ROUTE.HOME_TRUST_TEST_LIST.path,
+      name: '委托测试列表',
+      icon: 'audit'
+    },
   ],
   [AUTHORITY.CERTIFIER.code]: [
     {

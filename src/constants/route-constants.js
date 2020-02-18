@@ -87,3 +87,17 @@ export const HOME_TRUST_TASK_LIST = {
   path: '/home/trust/task/list',
   name: '委托测试任务分配列表页'
 };
+
+/**
+ * 技术人员
+ */
+
+export const HOME_REGISTRATION_TEST_LIST = {
+  path: '/home/registration/test/list',
+  name: '登记测试待测试列表页'
+};
+
+export const HOME_TRUST_TEST_LIST = {
+  path: '/home/trust/test/list',
+  name: '委托测试待测试列表页'
+};

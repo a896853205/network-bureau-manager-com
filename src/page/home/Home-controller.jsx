@@ -30,6 +30,10 @@ import TrustTaskList from '@/page/home/tech-leader-manager/Trust-task-list-contr
 import RegistrationTaskList from '@/page/home/tech-leader-manager/Registration-task-list-controller.jsx';
 import RegistrationTaskAssignTech from '@/page/home/tech-leader-manager/Registration-task-assign-tech-controller.jsx';
 
+// 技术人员
+import RegistrationTestListController from '@/page/home/tech-manager/Registration-test-list-controller.jsx';
+import TrustTestListController from '@/page/home/tech-manager/Trust-test-list-controller.jsx';
+
 // localStorage
 import { LOCAL_STORAGE } from '@/constants/app-constants';
 
@@ -125,6 +129,14 @@ export default props => {
     path: ROUTES.HOME_REGISTRATION_FILE_DOWNLOAD.path,
     exact: true
   });
+  const homeRegistrationTestList = useRouteMatch({
+    path: ROUTES.HOME_REGISTRATION_TEST_LIST.path,
+    exact: true
+  });
+  const homeTrustTestList = useRouteMatch({
+    path: ROUTES.HOME_TRUST_TEST_LIST.path,
+    exact: true
+  });
 
   return (
     <Layout>
@@ -164,7 +176,13 @@ export default props => {
             {homeRegistrationTaskAssignTech ? (
               <RegistrationTaskAssignTech />
             ) : null}
-            {homeRegistrationFileDownload ? <RegistrationFileDownloadController /> : null}
+            {homeRegistrationFileDownload ? (
+              <RegistrationFileDownloadController />
+            ) : null}
+            {homeRegistrationTestList ? (
+              <RegistrationTestListController />
+            ) : null}
+            {homeTrustTestList ? <TrustTestListController /> : null}
           </div>
         </Content>
         <Footer className='home-footer'>
