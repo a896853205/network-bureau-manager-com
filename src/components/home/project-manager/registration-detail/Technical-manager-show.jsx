@@ -11,7 +11,8 @@ import { getAuthortyNameByCode } from '@/constants/auth-constants';
 import proxyFetch from '@/util/request';
 import {
   QUERY_TECH_LEADER_MANAGER,
-  ARRANGE_TECH_LEADER_MANAGER
+  ARRANGE_TECH_LEADER_MANAGER,
+  SELECT_REGISTRATION_TECH_LEAD_MANAGER_UUID
 } from '@/constants/api-constants';
 
 // redux
@@ -34,6 +35,8 @@ export default props => {
     [total, setTotal] = useState(0),
     [pageSize, setPageSize] = useState(1),
     [page, setPage] = useState(1),
+    [techLeaderManagerUuid, setTechLeaderManagerUuid] = useState(''),
+    [isNeedFresh, setIsNeedFresh] = useState(true),
     [savaDataLoading, setSavaDataLoading] = useState(false),
     dispatch = useDispatch();
 
@@ -55,6 +58,24 @@ export default props => {
     })();
   }, [page]);
 
+  useEffect(() => {
+    (async () => {
+      if (isNeedFresh) {
+        setLoading(true);
+        const techLeaderManagerUuid = await proxyFetch(
+          SELECT_REGISTRATION_TECH_LEAD_MANAGER_UUID,
+          {
+            registrationUuid: enterpriseRegistrationUuid
+          },
+          'GET'
+        );
+        setTechLeaderManagerUuid(techLeaderManagerUuid);
+        setIsNeedFresh(false);
+        setLoading(false);
+      }
+    })();
+  }, [enterpriseRegistrationUuid, isNeedFresh]);
+
   // 确认选择提交按钮
   const handleUpdateStep = technicalManagerUuid => {
     (async () => {
@@ -64,7 +85,7 @@ export default props => {
         registrationUuid: enterpriseRegistrationUuid,
         technicalManagerUuid
       });
-
+      setIsNeedFresh(true);
       setSavaDataLoading(false);
 
       if (res) {
@@ -102,12 +123,12 @@ export default props => {
             },
             columnTitle: '选择',
             columnWidth: '100px',
-            selectedRowKeys: [steps[3]?.managerUuid],
+            selectedRowKeys: techLeaderManagerUuid,
             getCheckboxProps: () => ({
               disabled:
                 savaDataLoading ||
                 registrationLoading ||
-                ![steps[3]?.managerUuid] ||
+                !techLeaderManagerUuid ||
                 (steps[3]?.status !== 1 && steps[3]?.status !== 2)
             })
           }}

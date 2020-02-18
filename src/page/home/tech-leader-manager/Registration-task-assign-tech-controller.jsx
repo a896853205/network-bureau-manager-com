@@ -16,7 +16,7 @@ import {
   QUERY_TECH_MANAGER,
   ARRANGE_TECH_MANAGER,
   QUERY_TECH_LEADER_ENTERPRISE_REGISTRATION_STEP,
-  SELECT_TECH_LEADER_REGISTRATION
+  SELECT_REGISTRATION_TECH_MANAGER_UUID
 } from '@/constants/api-constants';
 
 // 样式
@@ -35,34 +35,42 @@ export default props => {
     [pageSize, setPageSize] = useState(1),
     [page, setPage] = useState(1),
     [stepsList, setStepsList] = useState([]),
-    [registrationManagerInfo, setRegistrationManagerInfo] = useState([]),
+    [techManagerUuid, setTechManagerUuid] = useState([]),
+    [isNeedFresh, setIsNeedFresh] = useState(true),
     [savaDataLoading, setSavaDataLoading] = useState(false);
 
   useEffect(() => {
     (async () => {
       setLoading(true);
-      const [stepsList, registrationManagerInfo] = await Promise.all([
-        proxyFetch(
-          QUERY_TECH_LEADER_ENTERPRISE_REGISTRATION_STEP,
-          {
-            registrationUuid: localStorageTechLeaderRegistrationUuid
-          },
-          'GET'
-        ),
-        proxyFetch(
-          SELECT_TECH_LEADER_REGISTRATION,
-          {
-            registrationUuid: localStorageTechLeaderRegistrationUuid
-          },
-          'GET'
-        )
-      ]);
-
+      const stepsList = await proxyFetch(
+        QUERY_TECH_LEADER_ENTERPRISE_REGISTRATION_STEP,
+        {
+          registrationUuid: localStorageTechLeaderRegistrationUuid
+        },
+        'GET'
+      );
       setStepsList(stepsList);
-      setRegistrationManagerInfo(registrationManagerInfo);
       setLoading(false);
     })();
   }, [localStorageTechLeaderRegistrationUuid]);
+
+  useEffect(() => {
+    (async () => {
+      if (isNeedFresh) {
+        setLoading(true);
+        const techManagerUuid = await proxyFetch(
+          SELECT_REGISTRATION_TECH_MANAGER_UUID,
+          {
+            registrationUuid: localStorageTechLeaderRegistrationUuid
+          },
+          'GET'
+        );
+        setTechManagerUuid(techManagerUuid);
+        setIsNeedFresh(false);
+        setLoading(false);
+      }
+    })();
+  }, [localStorageTechLeaderRegistrationUuid, isNeedFresh]);
 
   useEffect(() => {
     (async () => {
@@ -74,7 +82,6 @@ export default props => {
         },
         'GET'
       );
-
       setTechManagerList(techManagerList);
       setTotal(total);
       setPageSize(pageSize);
@@ -91,7 +98,7 @@ export default props => {
         registrationUuid: localStorageTechLeaderRegistrationUuid,
         techManagerUuid
       });
-
+      setIsNeedFresh(true);
       setSavaDataLoading(false);
     })();
   };
@@ -126,11 +133,11 @@ export default props => {
             },
             columnTitle: '选择',
             columnWidth: '100px',
-            selectedRowKeys: [registrationManagerInfo?.techManagerUuid],
+            selectedRowKeys: techManagerUuid,
             getCheckboxProps: () => ({
               disabled:
                 savaDataLoading ||
-                ![stepsList[3]?.techManagerUuid] ||
+                !techManagerUuid ||
                 (stepsList[3]?.status !== 2 && stepsList[3]?.status !== 3)
             })
           }}

@@ -103,8 +103,8 @@ export default props => {
         <Column
           align='center'
           title='查看进度详情'
-          dataIndex='uuid'
-          key='uuid'
+          dataIndex=''
+          key=''
           render={(text, record) => (
             <Button
               type='link'
@@ -127,8 +127,8 @@ export default props => {
         <Column
           align='center'
           title='查看内容详情'
-          dataIndex='uuid'
-          key='uuid'
+          dataIndex=''
+          key=''
           render={(text, record) => (
             <Button
               type='link'

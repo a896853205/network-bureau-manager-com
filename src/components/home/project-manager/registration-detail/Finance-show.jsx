@@ -11,7 +11,8 @@ import { getAuthortyNameByCode } from '@/constants/auth-constants';
 import proxyFetch from '@/util/request';
 import {
   QUERY_FINANCE_MANAGER,
-  UPDATE_FINANCE_MANAGER
+  UPDATE_FINANCE_MANAGER,
+  SELECT_REGISTRATION_ACCOUNTANT_MANAGER_UUID
 } from '@/constants/api-constants';
 
 // redux
@@ -31,10 +32,12 @@ export default props => {
     } = useSelector(state => state.enterpriseStore),
     [loading, setLoading] = useState(true),
     [financeManagerList, setFinanceManagerList] = useState([]),
+    [accountantManagerUuid, setAccountantManagerUuid] = useState(''),
     [total, setTotal] = useState(0),
     [pageSize, setPageSize] = useState(1),
     [page, setPage] = useState(1),
     [savaDataLoading, setSavaDataLoading] = useState(false),
+    [isNeedFresh, setIsNeedFresh] = useState(true),
     dispatch = useDispatch();
 
   useEffect(() => {
@@ -55,6 +58,24 @@ export default props => {
     })();
   }, [page]);
 
+  useEffect(() => {
+    (async () => {
+      if (isNeedFresh) {
+        setLoading(true);
+        const accountantManagerUuid = await proxyFetch(
+          SELECT_REGISTRATION_ACCOUNTANT_MANAGER_UUID,
+          {
+            registrationUuid: enterpriseRegistrationUuid
+          },
+          'GET'
+        );
+        setAccountantManagerUuid(accountantManagerUuid);
+        setIsNeedFresh(false);
+        setLoading(false);
+      }
+    })();
+  }, [enterpriseRegistrationUuid, isNeedFresh]);
+
   // 切换提交到数据库
   const handleUpdateStep = financeManagerUuid => {
     (async () => {
@@ -64,7 +85,7 @@ export default props => {
         registrationUuid: enterpriseRegistrationUuid,
         financeManagerUuid
       });
-
+      setIsNeedFresh(true);
       setSavaDataLoading(false);
 
       if (res) {
@@ -102,12 +123,12 @@ export default props => {
             },
             columnTitle: '选择',
             columnWidth: '100px',
-            selectedRowKeys: [steps[2]?.managerUuid],
+            selectedRowKeys: [accountantManagerUuid],
             getCheckboxProps: () => ({
               disabled:
                 savaDataLoading ||
                 registrationLoading ||
-                !steps[2]?.managerUuid ||
+                !accountantManagerUuid ||
                 (steps[2]?.status !== 1 && steps[2]?.status !== 2)
             })
           }}
