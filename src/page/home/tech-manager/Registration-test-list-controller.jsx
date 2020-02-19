@@ -264,7 +264,7 @@ export default props => {
           key=''
           fixed='right'
           width='160px'
-          render={(text, record) => (
+          render={() => (
             <Link to={HOME_REGISTRATION_TEST_PROFILE.path}>查看进度详情</Link>
           )}
         />
