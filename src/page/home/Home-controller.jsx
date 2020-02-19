@@ -33,6 +33,7 @@ import RegistrationTaskAssignTech from '@/page/home/tech-leader-manager/Registra
 // 技术人员
 import RegistrationTestListController from '@/page/home/tech-manager/Registration-test-list-controller.jsx';
 import TrustTestListController from '@/page/home/tech-manager/Trust-test-list-controller.jsx';
+import RegistrationTestProfileController from '@/page/home/tech-manager/Registration-test-profile-controller.jsx';
 
 // localStorage
 import { LOCAL_STORAGE } from '@/constants/app-constants';
@@ -137,6 +138,10 @@ export default props => {
     path: ROUTES.HOME_TRUST_TEST_LIST.path,
     exact: true
   });
+  const homeRegistrationTestProfile = useRouteMatch({
+    path: ROUTES.HOME_REGISTRATION_TEST_PROFILE.path,
+    exact: true
+  });
 
   return (
     <Layout>
@@ -183,6 +188,9 @@ export default props => {
               <RegistrationTestListController />
             ) : null}
             {homeTrustTestList ? <TrustTestListController /> : null}
+            {homeRegistrationTestProfile ? (
+              <RegistrationTestProfileController />
+            ) : null}
           </div>
         </Content>
         <Footer className='home-footer'>

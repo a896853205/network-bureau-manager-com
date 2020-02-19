@@ -97,6 +97,11 @@ export const HOME_REGISTRATION_TEST_LIST = {
   name: '登记测试待测试列表页'
 };
 
+export const HOME_REGISTRATION_TEST_PROFILE = {
+  path: '/home/registration/test/profile',
+  name: '登记测试待测试预览页'
+};
+
 export const HOME_TRUST_TEST_LIST = {
   path: '/home/trust/test/list',
   name: '委托测试待测试列表页'

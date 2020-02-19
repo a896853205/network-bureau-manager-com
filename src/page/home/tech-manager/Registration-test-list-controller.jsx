@@ -14,8 +14,8 @@ import '@/style/home/item.styl';
 //import enterpriseAction from '@/redux/action/enterprise';
 
 // 路由
-//import {} from '@/constants/route-constants';
-//import { useHistory } from 'react-router-dom';
+import { HOME_REGISTRATION_TEST_PROFILE } from '@/constants/route-constants';
+import { Link } from 'react-router-dom';
 
 // localStorage
 //import { LOCAL_STORAGE } from '@/constants/app-constants';
@@ -82,16 +82,34 @@ export default props => {
           key='enterpriseRegistrationBasic.phone'
         />
         <Column
-          title='状态'
-          dataIndex='enterpriseRegistrationStep.statusText'
-          key='enterpriseRegistrationStep.statusText'
+          align='center'
+          title='查看内容详情'
+          dataIndex=''
+          key=''
+          render={() => <Button type='link'>查看内容详情</Button>}
         />
         <Column
           align='center'
-          title='查看详情'
+          title='软件评测样品登记表状态'
           dataIndex=''
           key=''
-          render={(text, record) => <Button>查看详情</Button>}
+          render={() => <span>这个是评测样品登记表的managerStatus</span>}
+        />
+        <Column
+          align='center'
+          title='软件评测现场测试申请表状态'
+          dataIndex=''
+          key=''
+          render={() => <span>这个是查申请表的managerStatus</span>}
+        />
+        <Column
+          align='center'
+          title='操作'
+          dataIndex=''
+          key=''
+          render={(text, record) => (
+            <Link to={HOME_REGISTRATION_TEST_PROFILE.path}>查看进度详情</Link>
+          )}
         />
       </Table>
     </div>

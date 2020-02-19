@@ -8,6 +8,7 @@ import FieldTestsProfile from '@/components/home/project-manager/registration-pr
 
 // 样式
 import { Timeline, Icon, Skeleton, Tag } from 'antd';
+import '@/style/home/item.styl';
 
 // redux
 import { useSelector, useDispatch } from 'react-redux';
