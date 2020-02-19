@@ -133,7 +133,7 @@ export default props => {
             },
             columnTitle: '选择',
             columnWidth: '100px',
-            selectedRowKeys: techManagerUuid,
+            selectedRowKeys: [techManagerUuid],
             getCheckboxProps: () => ({
               disabled:
                 savaDataLoading ||
