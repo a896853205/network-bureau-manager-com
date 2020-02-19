@@ -22,62 +22,7 @@ export default props => {
   const { fileDownloadRegistrationUuid } = useSelector(
       state => state.enterpriseStore
     ),
-    [productDownloadLoading, setProductDownloadLoading] = useState(false),
-    [
-      productDescriptionDownloadLoading,
-      setProductDescriptionDownloadLoading
-    ] = useState(false),
-    [documentDownloadLoading, setDocumentDownloadLoading] = useState(false),
-    [copyrightDownloadLoading, setCopyrightDownloadLoading] = useState(false),
     [contractDownloadLoading, setContractDownloadLoading] = useState(false);
-
-  const handleDownloadProduct = async () => {
-    setProductDownloadLoading(true);
-
-    const url = await proxyFetch(
-      DOWNLOAD_PRODUCT,
-      { registrationUuid: fileDownloadRegistrationUuid },
-      'GET'
-    );
-    setProductDownloadLoading(false);
-    window.open(url, '_blank');
-  };
-
-  const handleDownloadProductDescription = async () => {
-    setProductDescriptionDownloadLoading(true);
-
-    const url = await proxyFetch(
-      DOWNLOAD_PRODUCT_DESCRIPTION,
-      { registrationUuid: fileDownloadRegistrationUuid },
-      'GET'
-    );
-    setProductDescriptionDownloadLoading(false);
-    window.open(url, '_blank');
-  };
-
-  const handleDownloadDocument = async () => {
-    setDocumentDownloadLoading(true);
-
-    const url = await proxyFetch(
-      DOWNLOAD_DOCUMENT,
-      { registrationUuid: fileDownloadRegistrationUuid },
-      'GET'
-    );
-    setDocumentDownloadLoading(false);
-    window.open(url, '_blank');
-  };
-
-  const handleDownloadCopyright = async () => {
-    setCopyrightDownloadLoading(true);
-
-    const url = await proxyFetch(
-      DOWNLOAD_COPYRIGHT,
-      { registrationUuid: fileDownloadRegistrationUuid },
-      'GET'
-    );
-    setCopyrightDownloadLoading(false);
-    window.open(url, '_blank');
-  };
 
   const handleDownloadContract = async () => {
     setContractDownloadLoading(true);
@@ -114,80 +59,12 @@ export default props => {
             )}
           </li>
           <li>
-            {copyrightDownloadLoading ? (
-              <div>
-                <Icon className='file-title-icon' type='loading' spin />
-                <span>请等待...</span>
-              </div>
-            ) : (
-              <div onClick={handleDownloadCopyright}>
-                <Icon
-                  className='file-title-icon'
-                  type='reconciliation'
-                  theme='twoTone'
-                />
-                <span>软件著作权证书下载</span>
-              </div>
-            )}
-          </li>
-          <li>
             <Icon
               className='file-title-icon'
               type='reconciliation'
               theme='twoTone'
             />
             <span>样品登记表下载</span>
-          </li>
-          <li>
-            {productDescriptionDownloadLoading ? (
-              <div>
-                <Icon className='file-title-icon' type='loading' spin />
-                <span>请等待...</span>
-              </div>
-            ) : (
-              <div onClick={handleDownloadProductDescription}>
-                <Icon
-                  className='file-title-icon'
-                  type='reconciliation'
-                  theme='twoTone'
-                />
-                <span>产品说明下载</span>
-              </div>
-            )}
-          </li>
-          <li>
-            {documentDownloadLoading ? (
-              <div>
-                <Icon className='file-title-icon' type='loading' spin />
-                <span>请等待...</span>
-              </div>
-            ) : (
-              <div onClick={handleDownloadDocument}>
-                <Icon
-                  className='file-title-icon'
-                  type='reconciliation'
-                  theme='twoTone'
-                />
-                <span>用户文档集下载</span>
-              </div>
-            )}
-          </li>
-          <li>
-            {productDownloadLoading ? (
-              <div>
-                <Icon className='file-title-icon' type='loading' spin />
-                <span>请等待...</span>
-              </div>
-            ) : (
-              <div onClick={handleDownloadProduct}>
-                <Icon
-                  className='file-title-icon'
-                  type='reconciliation'
-                  theme='twoTone'
-                />
-                <span>产品介质下载</span>
-              </div>
-            )}
           </li>
           <li>
             <Icon
