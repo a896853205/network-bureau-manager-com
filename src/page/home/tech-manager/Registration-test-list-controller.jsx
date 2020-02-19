@@ -66,25 +66,34 @@ export default props => {
             setPage(page);
           }
         }}
+        scroll={{ x: 1500 }}
       >
         <Column
+          align='center'
           title='合同编号'
           dataIndex='enterpriseRegistrationContract.contractCode'
           key='enterpriseRegistrationContract.contractCode'
+          fixed='left'
+          width='180px'
         />
         <Column
+          align='center'
           title='企业名称'
           dataIndex='enterpriseRegistrationBasic.enterpriseName'
           key='enterpriseRegistrationBasic.enterpriseName'
+          width='250px'
         />
         <Column
+          align='center'
           title='电话'
           dataIndex='enterpriseRegistrationBasic.phone'
           key='enterpriseRegistrationBasic.phone'
+          width='180px'
         />
         <Column
           align='center'
           title='查看内容详情'
+          width='150px'
           dataIndex=''
           key=''
           render={() => <Button type='link'>查看内容详情</Button>}
@@ -94,6 +103,7 @@ export default props => {
           title='软件评测样品登记表状态'
           dataIndex='enterpriseRegistrationSpecimen.managerStatus'
           key='enterpriseRegistrationSpecimen.managerStatus'
+          width='300px'
           render={(text, record) => (
             <div className='test-status-box'>
               {record?.['enterpriseRegistrationSpecimen.managerStatus'] ===
@@ -164,6 +174,7 @@ export default props => {
           title='软件评测现场测试申请表状态'
           dataIndex='enterpriseRegistrationApply.managerStatus'
           key='enterpriseRegistrationApply.managerStatus'
+          width='300px'
           render={(text, record) => (
             <div className='test-status-box'>
               {record?.['enterpriseRegistrationApply.managerStatus'] === -3 ? (
@@ -248,9 +259,11 @@ export default props => {
         />
         <Column
           align='center'
-          title='操作'
+          title='查看进度详情'
           dataIndex=''
           key=''
+          fixed='right'
+          width='160px'
           render={(text, record) => (
             <Link to={HOME_REGISTRATION_TEST_PROFILE.path}>查看进度详情</Link>
           )}
