@@ -12,7 +12,12 @@ export default props => {
   return (
     <div className='generate-report-box'>
       <div className='timeline-item-box'>
-        <Icon className='item-icon-box' type='file-text' />
+        <Icon
+          className='item-icon-box'
+          type='file-text'
+          theme='twoTone'
+          twoToneColor='#334454'
+        />
         <div className='item-text-box'>
           <div className='text-top-box'>生成报告和原始记录</div>
           <p className='text-subtitle'>技术人员生成报告和原始记录</p>

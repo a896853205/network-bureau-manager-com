@@ -2,7 +2,7 @@ import React from 'react';
 
 // 子组件
 import PrepareTest from '@/components/home/tech-manager/Prepare-test.jsx';
-import Test from '@/components/home/tech-manager/Test.jsx';
+// import Test from '@/components/home/tech-manager/Test.jsx';
 import GenerateReport from '@/components/home/tech-manager/Generate-report.jsx';
 
 // 样式
@@ -24,9 +24,9 @@ export default props => {
           <Timeline.Item color='grey'>
             <PrepareTest />
           </Timeline.Item>
-          <Timeline.Item color='grey'>
+          {/* <Timeline.Item color='grey'>
             <Test />
-          </Timeline.Item>
+          </Timeline.Item> */}
           <Timeline.Item color='grey'>
             <GenerateReport />
           </Timeline.Item>

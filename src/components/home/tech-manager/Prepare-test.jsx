@@ -12,7 +12,12 @@ export default props => {
   return (
     <div className='prepare-test-box'>
       <div className='timeline-item-box'>
-        <Icon className='item-icon-box' type='file-search' />
+        <Icon
+          className='item-icon-box'
+          type='snippets'
+          theme='twoTone'
+          twoToneColor='#334454'
+        />
         <div className='item-text-box'>
           <div className='text-top-box'>管理员审核确认</div>
           <p className='text-subtitle'>
