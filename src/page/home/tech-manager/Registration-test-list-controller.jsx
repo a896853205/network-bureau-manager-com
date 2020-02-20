@@ -9,16 +9,16 @@ import { Table, Button, Icon } from 'antd';
 import '@/style/home/tech-manager/registration-test-list.styl';
 import '@/style/home/item.styl';
 
+// localStorage
+import { LOCAL_STORAGE } from '@/constants/app-constants';
+
 // redux
-//import { useDispatch } from 'react-redux';
-//import enterpriseAction from '@/redux/action/enterprise';
+import { useDispatch } from 'react-redux';
+import enterpriseAction from '@/redux/action/enterprise';
 
 // 路由
+import { useHistory } from 'react-router-dom';
 import { HOME_REGISTRATION_TEST_PROFILE } from '@/constants/route-constants';
-import { Link } from 'react-router-dom';
-
-// localStorage
-//import { LOCAL_STORAGE } from '@/constants/app-constants';
 
 const { Column } = Table;
 
@@ -27,9 +27,9 @@ export default props => {
     [enterpriseRegistrationList, setEnterpriseRegistrationList] = useState([]),
     [total, setTotal] = useState(0),
     [pageSize, setPageSize] = useState(1),
-    [page, setPage] = useState(1);
-  // history = useHistory(),
-  // dispatch = useDispatch();
+    [page, setPage] = useState(1),
+    history = useHistory(),
+    dispatch = useDispatch();
 
   useEffect(() => {
     (async () => {
@@ -264,8 +264,23 @@ export default props => {
           key=''
           fixed='right'
           width='160px'
-          render={() => (
-            <Link to={HOME_REGISTRATION_TEST_PROFILE.path}>查看进度详情</Link>
+          render={(text, record) => (
+            <Button
+              type='link'
+              onClick={() => {
+                localStorage.setItem(
+                  `${LOCAL_STORAGE}-registrationUuid`,
+                  record.uuid
+                );
+                // dispatch
+                dispatch(
+                  enterpriseAction.setEnterpriseRegistrationUuid(record.uuid)
+                );
+                history.push(HOME_REGISTRATION_TEST_PROFILE.path);
+              }}
+            >
+              查看进度详情
+            </Button>
           )}
         />
       </Table>

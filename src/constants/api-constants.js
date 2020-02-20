@@ -82,3 +82,5 @@ export const DOWNLOAD_CONTRACT = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_
  * 技术人员
  **/
 export const QUARY_REGISTRATION_NEED_FIELD_TEST = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_TECH_MANAGER}/quaryRegistratiomNeedFieldTest`; // 技术人员查找注册登记信息
+export const QUERY_TECH_ENTERPRISE_REGISTRATION_STEP = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_TECH_MANAGER}/queryTechEnterpriseRegistrationStep`;
+export const SELECT_TECH_REGISTRATION = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_TECH_MANAGER}/selectTechRegistration`;

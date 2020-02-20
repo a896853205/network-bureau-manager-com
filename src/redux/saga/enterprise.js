@@ -41,6 +41,38 @@ const effects = {
     yield put(enterpriseAction.setRegistrationLoading(false));
   },
 
+  asyncSetTechRestration: function*({ payload }) {
+    // loading
+    yield put(enterpriseAction.setRegistrationLoading(true));
+
+    // 查询具体步骤信息
+    const [steps, registration] = yield call(async () => {
+      return await Promise.all([
+        proxyFetch(
+          APIS.QUERY_TECH_ENTERPRISE_REGISTRATION_STEP,
+          {
+            registrationUuid: payload
+          },
+          'GET'
+        ),
+        proxyFetch(
+          APIS.SELECT_TECH_REGISTRATION,
+          {
+            registrationUuid: payload
+          },
+          'GET'
+        )
+      ]);
+    });
+
+    // 将所有步骤和基本信息存入redux
+    yield put(enterpriseAction.setSteps(steps));
+    yield put(enterpriseAction.setRegistration(registration));
+
+    // loading
+    yield put(enterpriseAction.setRegistrationLoading(false));
+  },
+
   asyncSetSteps: function*({ payload }) {
     // loading
     yield put(enterpriseAction.setRegistrationLoading(true));
@@ -54,7 +86,7 @@ const effects = {
       },
       'GET'
     );
-    
+
     // 将所有步骤和基本信息存入redux
     yield put(enterpriseAction.setSteps(steps));
 

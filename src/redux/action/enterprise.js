@@ -15,5 +15,7 @@ export default {
   // 内容详细信息
   setFileDownloadRegistrationUuid: createAction(
     'setFileDownloadRegistrationUuid'
-  )
+  ),
+  // 技术人员设置登记测试
+  asyncSetTechRestration: createAction('asyncSetTechRestration')
 };
