@@ -1,8 +1,15 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 // 样式
 import { Icon, Timeline } from 'antd';
 import '@/style/home/tech-manager/prepare-test.styl';
+
+// 请求
+import proxyFetch from '@/util/request';
+import {
+  GET_TECH_REGISTRATION_TEST_APPLY,
+  GET_TECH_REGISTRATION_TEST_SPECIMEN
+} from '@/constants/api-constants';
 
 // 路由
 import {
@@ -11,7 +18,64 @@ import {
 } from '@/constants/route-constants';
 import { Link } from 'react-router-dom';
 
+// redux
+import { useSelector } from 'react-redux';
+
 export default props => {
+  const { enterpriseRegistrationUuid } = useSelector(
+      state => state.enterpriseStore
+    ),
+    [getDataLoading, setGetDataLoading] = useState(false),
+    [applyManagerStatus, setApplyManagerStatus] = useState(0),
+    [specimenManagerStatus, setSpecimenManagerStatus] = useState(0);
+
+  const fieldTestManagerStatusToColor = (manager, managerStatus = 0) => {
+    let color = '';
+
+    if (managerStatus === -manager) {
+      color = 'red';
+    } else if (managerStatus === manager) {
+      color = 'blue';
+    } else if (managerStatus > manager || -managerStatus > manager) {
+      color = 'green';
+    } else {
+      color = 'grey';
+    }
+
+    return color;
+  };
+
+  // 将已有的数据回显
+  useEffect(() => {
+    if (enterpriseRegistrationUuid) {
+      (async () => {
+        setGetDataLoading(true);
+        const [registrationApply, registrationSpecimen] = await Promise.all([
+          proxyFetch(
+            GET_TECH_REGISTRATION_TEST_APPLY,
+            { registrationUuid: enterpriseRegistrationUuid },
+            'GET'
+          ),
+          proxyFetch(
+            GET_TECH_REGISTRATION_TEST_SPECIMEN,
+            { registrationUuid: enterpriseRegistrationUuid },
+            'GET'
+          )
+        ]);
+
+        if (registrationApply) {
+          setApplyManagerStatus(registrationApply.managerStatus);
+        }
+
+        if (registrationSpecimen) {
+          setSpecimenManagerStatus(registrationSpecimen.managerStatus);
+        }
+
+        setGetDataLoading(false);
+      })();
+    }
+  }, [enterpriseRegistrationUuid]);
+
   return (
     <div className='prepare-test-box'>
       <div className='timeline-item-box'>
@@ -29,27 +93,67 @@ export default props => {
           <div className='inner-timeline-box'>
             <div className='left-timeline-box'>
               <div className='timeline-top-box'>软件评测样品登记表</div>
-              <Timeline mode='left' className='timeline-box'>
-                <Timeline.Item color='grey'>
+              <Timeline
+                mode='left'
+                className='timeline-box'
+                loading={getDataLoading}
+              >
+                <Timeline.Item
+                  color={fieldTestManagerStatusToColor(1, applyManagerStatus)}
+                >
                   <Link to={HOME_REGISTRATION_TEST_DETAIL_SPECIMEN.path}>
                     技术人员确认
                   </Link>
                 </Timeline.Item>
-                <Timeline.Item color='grey'>项目管理员确认</Timeline.Item>
-                <Timeline.Item color='grey'>完成</Timeline.Item>
+                <Timeline.Item
+                  color={fieldTestManagerStatusToColor(2, applyManagerStatus)}
+                >
+                  项目管理员确认
+                </Timeline.Item>
+                <Timeline.Item
+                  color={fieldTestManagerStatusToColor(3, applyManagerStatus)}
+                >
+                  完成
+                </Timeline.Item>
               </Timeline>
             </div>
             <div className='right-timeline-box'>
               <div className='timeline-top-box'>软件评测现场测试申请表</div>
               <Timeline mode='left' className='timeline-box'>
-                <Timeline.Item color='grey'>
+                <Timeline.Item
+                  color={fieldTestManagerStatusToColor(
+                    1,
+                    specimenManagerStatus
+                  )}
+                >
                   <Link to={HOME_REGISTRATION_TEST_DETAIL_APPLY.path}>
                     技术人员确认
                   </Link>
                 </Timeline.Item>
-                <Timeline.Item color='grey'>技术负责人确认</Timeline.Item>
-                <Timeline.Item color='grey'>批准人确认</Timeline.Item>
-                <Timeline.Item color='grey'>完成</Timeline.Item>
+                <Timeline.Item
+                  color={fieldTestManagerStatusToColor(
+                    2,
+                    specimenManagerStatus
+                  )}
+                >
+                  技术负责人确认
+                </Timeline.Item>
+                <Timeline.Item
+                  color={fieldTestManagerStatusToColor(
+                    3,
+                    specimenManagerStatus
+                  )}
+                >
+                  批准人确认
+                </Timeline.Item>
+                <Timeline.Item
+                  color={fieldTestManagerStatusToColor(
+                    4,
+                    specimenManagerStatus
+                  )}
+                >
+                  完成
+                </Timeline.Item>
               </Timeline>
             </div>
           </div>

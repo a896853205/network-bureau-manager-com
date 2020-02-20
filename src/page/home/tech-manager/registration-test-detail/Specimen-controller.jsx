@@ -21,7 +21,7 @@ import '@/style/home/tech-manager/specimen.styl';
 const { TextArea } = Input;
 
 export default props => {
-  const { enterpriseRegistrationUuid, steps } = useSelector(
+  const { enterpriseRegistrationUuid } = useSelector(
       state => state.enterpriseStore
     ),
     [registrationSpecimen, setRegistrationSpecimen] = useState(null),
@@ -30,7 +30,6 @@ export default props => {
     [failManagerText, setFailManagerText] = useState(''),
     [managerStatus, setManagerStatus] = useState(0),
     history = useHistory();
-  console.log('steps=', steps);
 
   const handleSetSuccessStatus = () => {
     (async () => {
