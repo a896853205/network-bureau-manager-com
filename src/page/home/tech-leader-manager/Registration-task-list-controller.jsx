@@ -16,7 +16,8 @@ import enterpriseAction from '@/redux/action/enterprise';
 // 路由
 import {
   HOME_REGISTRATION_FILE_DOWNLOAD,
-  HOME_REGISTRATION_TASK_ASSIGN_TECH
+  HOME_REGISTRATION_TASK_ASSIGN_TECH,
+  HOME_REGISTRATION_TASK_PROFILE
 } from '@/constants/route-constants';
 import { useHistory } from 'react-router-dom';
 
@@ -117,7 +118,7 @@ export default props => {
         />
         <Column
           align='center'
-          title='查看详情'
+          title='查看内容详情'
           dataIndex=''
           key=''
           render={(text, record) => (
@@ -134,7 +135,30 @@ export default props => {
                 history.push(HOME_REGISTRATION_FILE_DOWNLOAD.path);
               }}
             >
-              查看详情
+              查看内容详情
+            </Button>
+          )}
+        />
+        <Column
+          align='center'
+          title='查看进度详情'
+          dataIndex=''
+          key=''
+          render={(text, record) => (
+            <Button
+              type='link'
+              onClick={() => {
+                localStorage.setItem(
+                  `${LOCAL_STORAGE}-registrationUuid`,
+                  record.uuid
+                );
+                dispatch(
+                  enterpriseAction.setEnterpriseRegistrationUuid(record.uuid)
+                );
+                history.push(HOME_REGISTRATION_TASK_PROFILE.path);
+              }}
+            >
+              查看进度详情
             </Button>
           )}
         />

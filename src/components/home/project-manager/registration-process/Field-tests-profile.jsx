@@ -64,15 +64,10 @@ export default props => {
           )
         ]);
 
-        if (registrationApply) {
-          setApplyManagerStatus(registrationApply.managerStatus);
-          setRegistrationApply(registrationApply);
-        }
-
-        if (registrationSpecimen) {
-          setSpecimenManagerStatus(registrationSpecimen.managerStatus);
-          setRegistrationSpecimen(registrationSpecimen);
-        }
+        setApplyManagerStatus(registrationApply?.managerStatus);
+        setRegistrationApply(registrationApply);
+        setSpecimenManagerStatus(registrationSpecimen?.managerStatus);
+        setRegistrationSpecimen(registrationSpecimen);
 
         setGetDataLoading(false);
       })();
@@ -128,7 +123,6 @@ export default props => {
               技术负责人选择技术人员
             </Timeline.Item>
             <Timeline.Item color={fieldTestsStatusToColor(3, steps[3].status)}>
-              <span>管理员审核确认</span>
               <div className='inner-timeline-box'>
                 <Skeleton loading={getDataLoading}>
                   {registrationSpecimen ? (

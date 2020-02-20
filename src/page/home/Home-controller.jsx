@@ -28,7 +28,7 @@ import RegistrationFinanceList from '@/page/home/accountant-manager/Registration
 // 技术管理人员
 import TrustTaskList from '@/page/home/tech-leader-manager/Trust-task-list-controller.jsx';
 import RegistrationTaskList from '@/page/home/tech-leader-manager/Registration-task-list-controller.jsx';
-import RegistrationTaskAssignTech from '@/page/home/tech-leader-manager/Registration-task-assign-tech-controller.jsx';
+import RegistrationTaskRouter from '@/page/home/tech-leader-manager/Registration-task-router-controller.jsx';
 
 // 技术人员
 import RegistrationTestListController from '@/page/home/tech-manager/Registration-test-list-controller.jsx';
@@ -71,6 +71,10 @@ export default props => {
   }, [uuid, token, dispatch]);
 
   // 各个路由控制
+  const homeRegistrationFileDownload = useRouteMatch({
+    path: ROUTES.HOME_REGISTRATION_FILE_DOWNLOAD.path,
+    exact: true
+  });
   const homeIndex = useRouteMatch({
     path: ROUTES.HOME_INDEX.path,
     exact: true
@@ -114,6 +118,8 @@ export default props => {
     path: ROUTES.HOME_REGISTRATION_FINANCE_LIST.path,
     exact: true
   });
+
+  // 技术管理人员
   const homeTrustTaskList = useRouteMatch({
     path: ROUTES.HOME_TRUST_TASK_LIST.path,
     exact: true
@@ -122,14 +128,12 @@ export default props => {
     path: ROUTES.HOME_REGISTRATION_TASK_LIST.path,
     exact: true
   });
-  const homeRegistrationTaskAssignTech = useRouteMatch({
-    path: ROUTES.HOME_REGISTRATION_TASK_ASSIGN_TECH.path,
-    exact: true
+
+  const homeRegistrationTaskRouter = useRouteMatch({
+    path: ROUTES.HOME_REGISTRATION_TASK_ROUTER.path
   });
-  const homeRegistrationFileDownload = useRouteMatch({
-    path: ROUTES.HOME_REGISTRATION_FILE_DOWNLOAD.path,
-    exact: true
-  });
+
+  // 技术人员
   const homeRegistrationTestList = useRouteMatch({
     path: ROUTES.HOME_REGISTRATION_TEST_LIST.path,
     exact: true
@@ -156,6 +160,9 @@ export default props => {
         <Header className='home-header' />
         <Content className='content-box'>
           <div className='content-inner-box'>
+            {homeRegistrationFileDownload ? (
+              <RegistrationFileDownloadController />
+            ) : null}
             {homeIndex ? <HomeIndexController /> : undefined}
             {homeSetting ? <SettingController /> : undefined}
             {homeManagerCreate ? <ManagerCreateController /> : undefined}
@@ -175,14 +182,13 @@ export default props => {
             {homeRegistrationProfile ? <RegistrationProfileController /> : null}
             {homeRegistrationFinanceList ? <RegistrationFinanceList /> : null}
             {homeTrustFinanceList ? <TrustFinanceList /> : null}
+
+            {/* 技术管理员 */}
             {homeRegistrationTaskList ? <RegistrationTaskList /> : null}
             {homeTrustTaskList ? <TrustTaskList /> : null}
-            {homeRegistrationTaskAssignTech ? (
-              <RegistrationTaskAssignTech />
-            ) : null}
-            {homeRegistrationFileDownload ? (
-              <RegistrationFileDownloadController />
-            ) : null}
+            {homeRegistrationTaskRouter ? <RegistrationTaskRouter /> : null}
+
+            {/* 技术人员 */}
             {homeRegistrationTestList ? (
               <RegistrationTestListController />
             ) : null}

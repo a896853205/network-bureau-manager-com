@@ -73,17 +73,29 @@ export const HOME_REGISTRATION_TASK_LIST = {
   name: '登记测试任务分配列表页'
 };
 
-export const HOME_REGISTRATION_TASK_DETAIL = {
-  path: '/home/registration/task/detail',
-  name: '登记测试任务分配详细页'
+export const HOME_REGISTRATION_TASK_ROUTER = {
+  path: '/home/registration/task/router',
+  name: '登记测试任务分配基础'
+};
+
+/**
+ * 三级路由开始
+ ************************/
+export const HOME_REGISTRATION_TASK_PROFILE = {
+  path: '/home/registration/task/router/profile',
+  name: '登记测试待任务分配预览页'
 };
 
 export const HOME_REGISTRATION_TASK_ASSIGN_TECH = {
-  path: '/home/registration/task/assign/tech',
+  path: '/home/registration/task/router/assign/tech',
   name: '登记测试任务分配技术人员页'
 };
 
-export const HOME_TRUST_TASK_LIST = {
+/**
+ * 三级路由结束
+ ************************/
+
+ export const HOME_TRUST_TASK_LIST = {
   path: '/home/trust/task/list',
   name: '委托测试任务分配列表页'
 };
