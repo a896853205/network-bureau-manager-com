@@ -97,20 +97,32 @@ export const HOME_REGISTRATION_TEST_LIST = {
   name: '登记测试待测试列表页'
 };
 
+export const HOME_REGISTRATION_TEST_ROUTER = {
+  path: '/home/registration/test/router',
+  name: '登记测试待测试预览页'
+};
+
+/**
+ * 三级路由开始
+ ***********************/
 export const HOME_REGISTRATION_TEST_PROFILE = {
-  path: '/home/registration/test/profile',
+  path: '/home/registration/test/router/profile',
   name: '登记测试待测试预览页'
 };
 
 export const HOME_REGISTRATION_TEST_DETAIL_APPLY = {
-  path: '/home/registration/test/apply',
+  path: '/home/registration/test/router/apply',
   name: '登记测试软件评测样品登记表预览页'
 };
 
 export const HOME_REGISTRATION_TEST_DETAIL_SPECIMEN = {
-  path: '/home/registration/test/specimen',
+  path: '/home/registration/test/router/specimen',
   name: '登记测试软件评测现场测试申请表预览页'
 };
+
+/**
+ * 三级路由结束
+ ***********************/
 
 export const HOME_TRUST_TEST_LIST = {
   path: '/home/trust/test/list',

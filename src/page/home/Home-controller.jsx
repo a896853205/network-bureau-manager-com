@@ -33,9 +33,7 @@ import RegistrationTaskAssignTech from '@/page/home/tech-leader-manager/Registra
 // 技术人员
 import RegistrationTestListController from '@/page/home/tech-manager/Registration-test-list-controller.jsx';
 import TrustTestListController from '@/page/home/tech-manager/Trust-test-list-controller.jsx';
-import RegistrationTestProfileController from '@/page/home/tech-manager/Registration-test-profile-controller.jsx';
-import ApplyController from '@/page/home/tech-manager/registration-test-detail/Apply-controller.jsx';
-import SpecimenController from '@/page/home/tech-manager/registration-test-detail/Specimen-controller.jsx';
+import RegistrationTestRouter from '@/page/home/tech-manager/Registration-test-router-controller.jsx';
 
 // localStorage
 import { LOCAL_STORAGE } from '@/constants/app-constants';
@@ -140,17 +138,8 @@ export default props => {
     path: ROUTES.HOME_TRUST_TEST_LIST.path,
     exact: true
   });
-  const homeRegistrationTestProfile = useRouteMatch({
-    path: ROUTES.HOME_REGISTRATION_TEST_PROFILE.path,
-    exact: true
-  });
-  const homeRegistrationTestDetailApply = useRouteMatch({
-    path: ROUTES.HOME_REGISTRATION_TEST_DETAIL_APPLY.path,
-    exact: true
-  });
-  const homeRegistrationTestDetailSpecimen = useRouteMatch({
-    path: ROUTES.HOME_REGISTRATION_TEST_DETAIL_SPECIMEN.path,
-    exact: true
+  const homeRegistrationTestRouter = useRouteMatch({
+    path: ROUTES.HOME_REGISTRATION_TEST_ROUTER.path
   });
 
   return (
@@ -198,11 +187,7 @@ export default props => {
               <RegistrationTestListController />
             ) : null}
             {homeTrustTestList ? <TrustTestListController /> : null}
-            {homeRegistrationTestProfile ? (
-              <RegistrationTestProfileController />
-            ) : null}
-            {homeRegistrationTestDetailApply ? <ApplyController /> : null}
-            {homeRegistrationTestDetailSpecimen ? <SpecimenController /> : null}
+            {homeRegistrationTestRouter ? <RegistrationTestRouter /> : null}
           </div>
         </Content>
         <Footer className='home-footer'>

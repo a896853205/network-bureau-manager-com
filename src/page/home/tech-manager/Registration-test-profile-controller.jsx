@@ -1,20 +1,9 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 // 子组件
 import PrepareTest from '@/components/home/tech-manager/Prepare-test.jsx';
 // import Test from '@/components/home/tech-manager/Test.jsx';
 import GenerateReport from '@/components/home/tech-manager/Generate-report.jsx';
-
-// localStorage
-import { LOCAL_STORAGE } from '@/constants/app-constants';
-
-// redux
-import { useSelector, useDispatch } from 'react-redux';
-import enterpriseAction from '@/redux/action/enterprise';
-
-// 路由
-import { useHistory } from 'react-router-dom';
-import * as ROUTES from '@/constants/route-constants';
 
 // 样式
 import { Timeline, Icon } from 'antd';
@@ -22,47 +11,6 @@ import '@/style/home/item.styl';
 import '@/style/home/tech-manager/registration-test-profile.styl';
 
 export default props => {
-  const localStorageRegistrationUuid = localStorage.getItem(
-      `${LOCAL_STORAGE}-registrationUuid`
-    ),
-    { enterpriseRegistrationUuid } = useSelector(
-      state => state.enterpriseStore
-    ),
-    dispatch = useDispatch(),
-    history = useHistory();
-
-  // 如果没有localStorageRegistrationUuid就跳到列表页
-  useEffect(() => {
-    if (!localStorageRegistrationUuid) {
-      history.push(ROUTES.HOME_REGISTRATION_TEST_LIST.path);
-    }
-  }, [localStorageRegistrationUuid, history]);
-
-  useEffect(() => {
-    if (localStorageRegistrationUuid && !enterpriseRegistrationUuid) {
-      dispatch(
-        enterpriseAction.setEnterpriseRegistrationUuid(
-          localStorageRegistrationUuid
-        )
-      );
-    }
-  }, [localStorageRegistrationUuid, enterpriseRegistrationUuid, dispatch]);
-
-  useEffect(() => {
-    if (enterpriseRegistrationUuid) {
-      dispatch(
-        enterpriseAction.asyncSetTechRestration(enterpriseRegistrationUuid)
-      );
-    }
-  }, [dispatch, enterpriseRegistrationUuid, localStorageRegistrationUuid]);
-
-  // 退出时清除localStorage
-  useEffect(() => {
-    return () => {
-      enterpriseAction.setEnterpriseRegistrationUuid('');
-    };
-  }, []);
-
   return (
     <div className='item-box registration-test-profile-box'>
       <p className='title-box'>
