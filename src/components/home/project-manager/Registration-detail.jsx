@@ -11,6 +11,7 @@ import Document from '@/components/home/project-manager/registration-detail/Docu
 import ProductDescription from '@/components/home/project-manager/registration-detail/Product-description.jsx';
 import Product from '@/components/home/project-manager/registration-detail/Product.jsx';
 import Specimen from '@/components/home/project-manager/registration-detail/Specimen.jsx';
+import TestSpecimen from '@/components/home/project-manager/registration-detail/Test-specimen.jsx';
 import Basic from '@/components/home/project-manager/registration-detail/Basic.jsx';
 import ContractManager from '@/components/home/project-manager/registration-detail/Contract-manager.jsx';
 import ContractDownload from '@/components/home/project-manager/registration-detail/Contract-download.jsx';
@@ -64,6 +65,9 @@ export default ({ type }) => {
       break;
     case 'stamp':
       content = <Stamp />;
+      break;
+    case 'testSpecimen':
+      content = <TestSpecimen />;
       break;
     default:
       content = null;

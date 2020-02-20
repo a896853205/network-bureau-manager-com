@@ -1,7 +1,15 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+
+// 请求
+import proxyFetch from '@/util/request';
+import {
+  GET_PROJECT_REGISTRATION_TEST_APPLY,
+  GET_PROJECT_REGISTRATION_TEST_SPECIMEN
+} from '@/constants/api-constants';
 
 // 样式
-import { Timeline, Icon, Tag, Button } from 'antd';
+import { Timeline, Icon, Tag, Button, Skeleton } from 'antd';
+import '@/style/home/project-manager/field-test-profile.styl';
 
 // 路由
 import { HOME_REGISTRATION_DETAIL } from '@/constants/route-constants';
@@ -10,9 +18,71 @@ import { Link } from 'react-router-dom';
 // redux
 import { useSelector } from 'react-redux';
 
-export default () => {
-  const { steps, sysRegistrationStep } = useSelector(
-    state => state.enterpriseStore
+export default props => {
+  const {
+      enterpriseRegistrationUuid,
+      steps,
+      sysRegistrationStep
+    } = useSelector(state => state.enterpriseStore),
+    [getDataLoading, setGetDataLoading] = useState(false),
+    [registrationApply, setRegistrationApply] = useState([]),
+    [registrationSpecimen, setRegistrationSpecimen] = useState([]),
+    [applyManagerStatus, setApplyManagerStatus] = useState(0),
+    [specimenManagerStatus, setSpecimenManagerStatus] = useState(0);
+
+  const fieldTestManagerStatusToColor = (manager, managerStatus = 0) => {
+    let color = '';
+
+    if (managerStatus === -manager) {
+      color = 'red';
+    } else if (managerStatus === manager) {
+      color = 'blue';
+    } else if (managerStatus > manager || -managerStatus > manager) {
+      color = 'green';
+    } else {
+      color = 'grey';
+    }
+
+    return color;
+  };
+
+  // 将已有的数据回显
+  useEffect(() => {
+    if (enterpriseRegistrationUuid) {
+      (async () => {
+        setGetDataLoading(true);
+        const [registrationApply, registrationSpecimen] = await Promise.all([
+          proxyFetch(
+            GET_PROJECT_REGISTRATION_TEST_APPLY,
+            { registrationUuid: enterpriseRegistrationUuid },
+            'GET'
+          ),
+          proxyFetch(
+            GET_PROJECT_REGISTRATION_TEST_SPECIMEN,
+            { registrationUuid: enterpriseRegistrationUuid },
+            'GET'
+          )
+        ]);
+
+        if (registrationApply) {
+          setApplyManagerStatus(registrationApply.managerStatus);
+          setRegistrationApply(registrationApply);
+        }
+
+        if (registrationSpecimen) {
+          setSpecimenManagerStatus(registrationSpecimen.managerStatus);
+          setRegistrationSpecimen(registrationSpecimen);
+        }
+
+        setGetDataLoading(false);
+      })();
+    }
+  }, [enterpriseRegistrationUuid]);
+  console.log(
+    'applyManagerStatus=',
+    applyManagerStatus,
+    'specimenManagerStatus=',
+    specimenManagerStatus
   );
 
   const fieldTestsStatusToColor = (step, status = 0) => {
@@ -26,7 +96,7 @@ export default () => {
   };
 
   return (
-    <div className='left-item-box'>
+    <div className='left-item-box field-test-profile-box'>
       <Icon
         className='item-icon-box'
         type='bug'
@@ -58,25 +128,113 @@ export default () => {
               技术负责人选择技术人员
             </Timeline.Item>
             <Timeline.Item color={fieldTestsStatusToColor(3, steps[3].status)}>
-              <span>确认软件评测样品登记表</span>
-              <span>确认软件评测现场测试申请表</span>
+              <span>管理员审核确认</span>
+              <div className='inner-timeline-box'>
+                <Skeleton loading={getDataLoading}>
+                  {registrationSpecimen ? (
+                    <div className='left-timeline-box'>
+                      <div className='timeline-top-box'>软件评测样品登记表</div>
+                      <Timeline mode='left' className='timeline-box'>
+                        <Timeline.Item
+                          color={fieldTestManagerStatusToColor(
+                            1,
+                            specimenManagerStatus
+                          )}
+                        >
+                          技术人员确认
+                        </Timeline.Item>
+                        {specimenManagerStatus > 1 ||
+                        specimenManagerStatus < -1 ? (
+                          <Link
+                            to={`${HOME_REGISTRATION_DETAIL.path}/testSpecimen`}
+                          >
+                            <Timeline.Item
+                              color={fieldTestManagerStatusToColor(
+                                2,
+                                specimenManagerStatus
+                              )}
+                            >
+                              项目管理员确认
+                            </Timeline.Item>
+                          </Link>
+                        ) : (
+                          <Timeline.Item
+                            color={fieldTestManagerStatusToColor(
+                              2,
+                              specimenManagerStatus
+                            )}
+                          >
+                            项目管理员确认
+                          </Timeline.Item>
+                        )}
+                        <Timeline.Item
+                          color={fieldTestManagerStatusToColor(
+                            3,
+                            specimenManagerStatus
+                          )}
+                        >
+                          完成
+                        </Timeline.Item>
+                      </Timeline>
+                    </div>
+                  ) : null}
+                  {registrationApply ? (
+                    <div className='right-timeline-box'>
+                      <div className='timeline-top-box'>
+                        软件评测现场测试申请表
+                      </div>
+                      <Timeline mode='left' className='timeline-box'>
+                        <Timeline.Item
+                          color={fieldTestManagerStatusToColor(
+                            1,
+                            applyManagerStatus
+                          )}
+                        >
+                          技术人员确认
+                        </Timeline.Item>
+                        <Timeline.Item
+                          color={fieldTestManagerStatusToColor(
+                            2,
+                            applyManagerStatus
+                          )}
+                        >
+                          技术负责人确认
+                        </Timeline.Item>
+                        <Timeline.Item
+                          color={fieldTestManagerStatusToColor(
+                            3,
+                            applyManagerStatus
+                          )}
+                        >
+                          批准人确认
+                        </Timeline.Item>
+                        <Timeline.Item
+                          color={fieldTestManagerStatusToColor(
+                            4,
+                            applyManagerStatus
+                          )}
+                        >
+                          完成
+                        </Timeline.Item>
+                      </Timeline>
+                    </div>
+                  ) : null}
+                </Skeleton>
+              </div>
             </Timeline.Item>
             <Timeline.Item color={fieldTestsStatusToColor(4, steps[3].status)}>
-              技术人员进行现场测试
-            </Timeline.Item>
-            <Timeline.Item color={fieldTestsStatusToColor(5, steps[3].status)}>
               <span>技术人员生成报告</span>
               <span>技术人员生成原始记录</span>
             </Timeline.Item>
-            <Timeline.Item color={fieldTestsStatusToColor(6, steps[3].status)}>
+            <Timeline.Item color={fieldTestsStatusToColor(5, steps[3].status)}>
               <span>技术负责人审查报告</span>
               <span>技术负责人审查原始记录</span>
             </Timeline.Item>
-            <Timeline.Item color={fieldTestsStatusToColor(7, steps[3].status)}>
+            <Timeline.Item color={fieldTestsStatusToColor(6, steps[3].status)}>
               <span>批准人审查报告</span>
               <span>批准人审查原始记录</span>
             </Timeline.Item>
-            <Timeline.Item color={fieldTestsStatusToColor(8, steps[3].status)}>
+            <Timeline.Item color={fieldTestsStatusToColor(7, steps[3].status)}>
               {steps[3].status ? (
                 <span>
                   <Link to={`${HOME_REGISTRATION_DETAIL.path}/stamp`}>

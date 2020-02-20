@@ -54,6 +54,10 @@ export const QUERY_TECH_LEADER_MANAGER = `${DominConfigs.DOMAIN}${DominConfigs.P
 export const ARRANGE_TECH_LEADER_MANAGER = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_PROJECT_MANAGER}/arrangeTechLeaderManager`; // 安排技术负责人
 export const SELECT_REGISTRATION_ACCOUNTANT_MANAGER_UUID = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_PROJECT_MANAGER}/selectRegistrationAccoutantManagerUuid`; // 查询登记测试财务管理员的uuid
 export const SELECT_REGISTRATION_TECH_LEAD_MANAGER_UUID = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_PROJECT_MANAGER}/selectRegistrationTechLeaderManagerUuid`; // 查询登记测试技术负责人管理员的uuid
+export const GET_PROJECT_REGISTRATION_TEST_SPECIMEN = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_PROJECT_MANAGER}/getProjectRegistrationTestSpecimen`; // 技术人员查询样品文档集的基本信息
+export const SET_PROJECT_SPECIMEN_MANAGER_STATUS = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_PROJECT_MANAGER}/setProjectSpecimenManagerStatus`; // 设置样品登记表审核通过状态
+export const SET_PROJECT_SPECIMEN_MANAGER_FAIL_STATUS = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_PROJECT_MANAGER}/setProjectSpecimenManagerFailStatus`; // 设置样品登记表审核不通过状态
+export const GET_PROJECT_REGISTRATION_TEST_APPLY = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_PROJECT_MANAGER}/getProjectRegistrationTestApply`; // 技术人员查询样品文档集的基本信息
 
 /**
  * 财务管理员
