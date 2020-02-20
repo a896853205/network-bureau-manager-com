@@ -35,8 +35,10 @@ export default props => {
     (async () => {
       setStatusLoading(true);
 
+      const techManagerDate = new Date();
       await proxyFetch(SET_TECH_SPECIMEN_MANAGER_STATUS, {
-        registrationUuid: enterpriseRegistrationUuid
+        registrationUuid: enterpriseRegistrationUuid,
+        techManagerDate
       });
 
       setStatusLoading(false);

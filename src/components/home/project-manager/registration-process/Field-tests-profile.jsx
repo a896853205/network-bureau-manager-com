@@ -25,8 +25,8 @@ export default props => {
       sysRegistrationStep
     } = useSelector(state => state.enterpriseStore),
     [getDataLoading, setGetDataLoading] = useState(false),
-    [registrationApply, setRegistrationApply] = useState([]),
-    [registrationSpecimen, setRegistrationSpecimen] = useState([]),
+    [registrationApply, setRegistrationApply] = useState(null),
+    [registrationSpecimen, setRegistrationSpecimen] = useState(null),
     [applyManagerStatus, setApplyManagerStatus] = useState(0),
     [specimenManagerStatus, setSpecimenManagerStatus] = useState(0);
 
@@ -78,12 +78,6 @@ export default props => {
       })();
     }
   }, [enterpriseRegistrationUuid]);
-  console.log(
-    'applyManagerStatus=',
-    applyManagerStatus,
-    'specimenManagerStatus=',
-    specimenManagerStatus
-  );
 
   const fieldTestsStatusToColor = (step, status = 0) => {
     if (status === step) {
