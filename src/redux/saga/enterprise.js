@@ -115,6 +115,10 @@ export default function*() {
     effects.asyncSetRestration
   );
   yield takeLatest(
+    enterpriseAction.asyncSetTechRestration,
+    effects.asyncSetTechRestration
+  );
+  yield takeLatest(
     enterpriseAction.asyncSetSysRegistrationStep,
     effects.asyncSetSysRegistrationStep
   );
