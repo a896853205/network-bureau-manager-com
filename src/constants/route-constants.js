@@ -102,6 +102,16 @@ export const HOME_REGISTRATION_TEST_PROFILE = {
   name: '登记测试待测试预览页'
 };
 
+export const HOME_REGISTRATION_TEST_DETAIL_APPLY = {
+  path: '/home/registration/test/apply',
+  name: '登记测试软件评测样品登记表预览页'
+};
+
+export const HOME_REGISTRATION_TEST_DETAIL_SPECIMEN = {
+  path: '/home/registration/test/specimen',
+  name: '登记测试软件评测现场测试申请表预览页'
+};
+
 export const HOME_TRUST_TEST_LIST = {
   path: '/home/trust/test/list',
   name: '委托测试待测试列表页'

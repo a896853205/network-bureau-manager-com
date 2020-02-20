@@ -5,10 +5,6 @@ import { useSelector } from 'react-redux';
 
 // 请求
 import {
-  DOWNLOAD_PRODUCT,
-  DOWNLOAD_PRODUCT_DESCRIPTION,
-  DOWNLOAD_DOCUMENT,
-  DOWNLOAD_COPYRIGHT,
   DOWNLOAD_CONTRACT
 } from '@/constants/api-constants';
 import proxyFetch from '@/util/request';

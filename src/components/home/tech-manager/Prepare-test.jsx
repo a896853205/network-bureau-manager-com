@@ -5,7 +5,10 @@ import { Icon, Timeline } from 'antd';
 import '@/style/home/tech-manager/prepare-test.styl';
 
 // 路由
-import { HOME_REGISTRATION_TEST_PROFILE } from '@/constants/route-constants';
+import {
+  HOME_REGISTRATION_TEST_DETAIL_APPLY,
+  HOME_REGISTRATION_TEST_DETAIL_SPECIMEN
+} from '@/constants/route-constants';
 import { Link } from 'react-router-dom';
 
 export default props => {
@@ -28,7 +31,7 @@ export default props => {
               <div className='timeline-top-box'>软件评测样品登记表</div>
               <Timeline mode='left' className='timeline-box'>
                 <Timeline.Item color='grey'>
-                  <Link to={HOME_REGISTRATION_TEST_PROFILE.path}>
+                  <Link to={HOME_REGISTRATION_TEST_DETAIL_SPECIMEN.path}>
                     技术人员确认
                   </Link>
                 </Timeline.Item>
@@ -40,7 +43,7 @@ export default props => {
               <div className='timeline-top-box'>软件评测现场测试申请表</div>
               <Timeline mode='left' className='timeline-box'>
                 <Timeline.Item color='grey'>
-                  <Link to={HOME_REGISTRATION_TEST_PROFILE.path}>
+                  <Link to={HOME_REGISTRATION_TEST_DETAIL_APPLY.path}>
                     技术人员确认
                   </Link>
                 </Timeline.Item>

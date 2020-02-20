@@ -34,6 +34,8 @@ import RegistrationTaskAssignTech from '@/page/home/tech-leader-manager/Registra
 import RegistrationTestListController from '@/page/home/tech-manager/Registration-test-list-controller.jsx';
 import TrustTestListController from '@/page/home/tech-manager/Trust-test-list-controller.jsx';
 import RegistrationTestProfileController from '@/page/home/tech-manager/Registration-test-profile-controller.jsx';
+import ApplyController from '@/page/home/tech-manager/registration-test-detail/Apply-controller.jsx';
+import SpecimenController from '@/page/home/tech-manager/registration-test-detail/Specimen-controller.jsx';
 
 // localStorage
 import { LOCAL_STORAGE } from '@/constants/app-constants';
@@ -142,6 +144,14 @@ export default props => {
     path: ROUTES.HOME_REGISTRATION_TEST_PROFILE.path,
     exact: true
   });
+  const homeRegistrationTestDetailApply = useRouteMatch({
+    path: ROUTES.HOME_REGISTRATION_TEST_DETAIL_APPLY.path,
+    exact: true
+  });
+  const homeRegistrationTestDetailSpecimen = useRouteMatch({
+    path: ROUTES.HOME_REGISTRATION_TEST_DETAIL_SPECIMEN.path,
+    exact: true
+  });
 
   return (
     <Layout>
@@ -191,6 +201,8 @@ export default props => {
             {homeRegistrationTestProfile ? (
               <RegistrationTestProfileController />
             ) : null}
+            {homeRegistrationTestDetailApply ? <ApplyController /> : null}
+            {homeRegistrationTestDetailSpecimen ? <SpecimenController /> : null}
           </div>
         </Content>
         <Footer className='home-footer'>
