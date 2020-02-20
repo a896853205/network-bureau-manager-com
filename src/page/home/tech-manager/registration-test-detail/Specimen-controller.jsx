@@ -37,8 +37,7 @@ export default props => {
       setStatusLoading(true);
 
       await proxyFetch(SET_TECH_SPECIMEN_MANAGER_STATUS, {
-        registrationUuid: enterpriseRegistrationUuid,
-        type: 'specimen'
+        registrationUuid: enterpriseRegistrationUuid
       });
 
       setStatusLoading(false);
