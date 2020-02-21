@@ -91,6 +91,11 @@ export const HOME_REGISTRATION_TASK_ASSIGN_TECH = {
   name: '登记测试任务分配技术人员页'
 };
 
+export const HOME_REGISTRATION_TASK_DETAIL_APPLY = {
+  path: '/home/registration/task/router/apply',
+  name: '登记测试软件评测现场测试申请表预览页'
+};
+
 /**
  * 三级路由结束
  ************************/

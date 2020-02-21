@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 // 路由
-import { HOME_REGISTRATION_TEST_PROFILE } from '@/constants/route-constants';
+import { HOME_REGISTRATION_TASK_PROFILE } from '@/constants/route-constants';
 import { Link, useHistory } from 'react-router-dom';
 
 // redux
@@ -10,21 +10,21 @@ import { useSelector } from 'react-redux';
 // 请求
 import proxyFetch from '@/util/request';
 import {
-  GET_TECH_REGISTRATION_TEST_SPECIMEN,
-  SET_TECH_SPECIMEN_MANAGER_STATUS,
-  SET_TECH_SPECIMEN_MANAGER_FAIL_STATUS
+  GET_TECH_LEADER_REGISTRATION_TEST_APPLY,
+  SET_TECH_LEADER_APPLY_MANAGER_STATUS,
+  SET_TECH_LEADER_APPLY_MANAGER_FAIL_STATUS
 } from '@/constants/api-constants';
 
 // 样式
 import { Descriptions, Icon, Button, Input, Skeleton, message } from 'antd';
-import '@/style/home/tech-manager/specimen.styl';
+import '@/style/home/tech-manager/apply.styl';
 const { TextArea } = Input;
 
 export default props => {
   const { enterpriseRegistrationUuid } = useSelector(
       state => state.enterpriseStore
     ),
-    [registrationSpecimen, setRegistrationSpecimen] = useState(null),
+    [registrationApply, setRegistrationApply] = useState(null),
     [getDataLoading, setGetDataLoading] = useState(false),
     [statusLoading, setStatusLoading] = useState(false),
     [failManagerText, setFailManagerText] = useState(''),
@@ -35,12 +35,12 @@ export default props => {
     (async () => {
       setStatusLoading(true);
 
-      await proxyFetch(SET_TECH_SPECIMEN_MANAGER_STATUS, {
+      await proxyFetch(SET_TECH_LEADER_APPLY_MANAGER_STATUS, {
         registrationUuid: enterpriseRegistrationUuid
       });
 
       setStatusLoading(false);
-      history.push(HOME_REGISTRATION_TEST_PROFILE.path);
+      history.push(HOME_REGISTRATION_TASK_PROFILE.path);
     })();
   };
 
@@ -49,13 +49,13 @@ export default props => {
       (async () => {
         setStatusLoading(true);
 
-        await proxyFetch(SET_TECH_SPECIMEN_MANAGER_FAIL_STATUS, {
+        await proxyFetch(SET_TECH_LEADER_APPLY_MANAGER_FAIL_STATUS, {
           registrationUuid: enterpriseRegistrationUuid,
           failManagerText
         });
 
         setStatusLoading(false);
-        history.push(HOME_REGISTRATION_TEST_PROFILE.path);
+        history.push(HOME_REGISTRATION_TASK_PROFILE.path);
       })();
     } else {
       message.error('请输入未通过审核理由!');
@@ -68,59 +68,48 @@ export default props => {
       (async () => {
         setGetDataLoading(true);
 
-        let registrationSpecimen = await proxyFetch(
-          GET_TECH_REGISTRATION_TEST_SPECIMEN,
+        let registrationApply = await proxyFetch(
+          GET_TECH_LEADER_REGISTRATION_TEST_APPLY,
           { registrationUuid: enterpriseRegistrationUuid },
           'GET'
         );
 
-        if (registrationSpecimen) {
-          setManagerStatus(registrationSpecimen.managerStatus);
+        if (registrationApply) {
+          setManagerStatus(registrationApply.managerStatus);
         }
 
-        setRegistrationSpecimen(registrationSpecimen);
+        setRegistrationApply(registrationApply);
         setGetDataLoading(false);
       })();
     }
   }, [enterpriseRegistrationUuid]);
+
   return (
     <div className='item-box'>
       <p className='title-box'>
         <span>技术人员确认</span>
       </p>
       <div className='subtitle-box'>
-        <Link to={`${HOME_REGISTRATION_TEST_PROFILE.path}`}>
+        <Link to={`${HOME_REGISTRATION_TASK_PROFILE.path}`}>
           <Icon type='left' className='exit-icon' />
         </Link>
-        <p className='subtitle-title'>样品登记表</p>
+        <p className='subtitle-title'>现场测试申请表</p>
       </div>
       <Skeleton loading={getDataLoading}>
-        {registrationSpecimen ? (
-          <div className='test-specimen-box'>
-            <Descriptions bordered className='specimen-description-box'>
-              <Descriptions.Item label='注册商标' span={3}>
-                {registrationSpecimen.trademark}
-              </Descriptions.Item>
-              <Descriptions.Item label='开发工具' span={3}>
-                {registrationSpecimen.developmentTool}
-              </Descriptions.Item>
-              <Descriptions.Item label='产品密级'>
-                {registrationSpecimen.securityClassification}
-              </Descriptions.Item>
-              <Descriptions.Item label='单位属性' span={2}>
-                {registrationSpecimen.unit}
-              </Descriptions.Item>
-              <Descriptions.Item label='邮箱' span={3}>
-                {registrationSpecimen.email}
+        {registrationApply ? (
+          <div className='test-apply-box'>
+            <Descriptions bordered className='apply-description-box'>
+              <Descriptions.Item label='内容' span={3}>
+                {registrationApply.content}
               </Descriptions.Item>
             </Descriptions>
-            <div className='specimen-button-box'>
+            <div className='apply-button-box'>
               <Button
-                disabled={!(managerStatus === 1 || managerStatus === -1)}
+                disabled={!(managerStatus === 2 || managerStatus === -2)}
                 type='danger'
                 htmlType='submit'
                 className={
-                  managerStatus === 1 || managerStatus === -1
+                  managerStatus === 2 || managerStatus === -2
                     ? 'fail-button'
                     : ''
                 }
@@ -130,11 +119,11 @@ export default props => {
                 审核不通过
               </Button>
               <Button
-                disabled={!(managerStatus === 1 || managerStatus === -1)}
+                disabled={!(managerStatus === 2 || managerStatus === -2)}
                 type='primary'
                 htmlType='submit'
                 className={
-                  managerStatus === 1 || managerStatus === -1
+                  managerStatus === 2 || managerStatus === -2
                     ? 'success-button'
                     : ''
                 }
@@ -145,11 +134,10 @@ export default props => {
               </Button>
             </div>
             <TextArea
-              disabled={!(managerStatus === 1 || managerStatus === -1)}
               autoSize={{ minRows: 3, maxRows: 6 }}
               maxLength='800'
               placeholder='请输入审核不通过理由'
-              className='specimen-textArea-box'
+              className='apply-textArea-box'
               onChange={e => {
                 setFailManagerText(e.target.value);
               }}

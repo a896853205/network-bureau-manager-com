@@ -12,10 +12,7 @@ import {
 } from '@/constants/api-constants';
 
 // 路由
-/*import {
-  HOME_REGISTRATION_TEST_DETAIL_APPLY,
-  HOME_REGISTRATION_TEST_DETAIL_SPECIMEN
-} from '@/constants/route-constants';*/
+import { HOME_REGISTRATION_TASK_DETAIL_APPLY } from '@/constants/route-constants';
 import { Link } from 'react-router-dom';
 
 // redux
@@ -130,7 +127,7 @@ export default props => {
                     技术人员确认
                   </Timeline.Item>
                   {applyManagerStatus > 1 || applyManagerStatus < -1 ? (
-                    <Link>
+                    <Link to={HOME_REGISTRATION_TASK_DETAIL_APPLY.path}>
                       <Timeline.Item
                         color={fieldTestManagerStatusToColor(
                           2,
@@ -142,13 +139,13 @@ export default props => {
                     </Link>
                   ) : (
                     <Timeline.Item
-                        color={fieldTestManagerStatusToColor(
-                          2,
-                          applyManagerStatus
-                        )}
-                      >
-                        技术负责人确认
-                      </Timeline.Item>
+                      color={fieldTestManagerStatusToColor(
+                        2,
+                        applyManagerStatus
+                      )}
+                    >
+                      技术负责人确认
+                    </Timeline.Item>
                   )}
                   <Timeline.Item
                     color={fieldTestManagerStatusToColor(3, applyManagerStatus)}
