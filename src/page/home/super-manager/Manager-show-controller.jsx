@@ -60,7 +60,10 @@ export default props => {
     setIsRefresh(true);
   }, [page]);
 
+  // TODO 所有请求(带有渲染页面的)都需要加上_isMounted控制变量
   useEffect(() => {
+    let _isMounted = true;
+
     (async () => {
       if (isRefresh) {
         setLoading(true);
@@ -72,15 +75,19 @@ export default props => {
           'GET'
         );
 
-        setManagerList(managerList);
-        setTotal(total);
-        setPageSize(pageSize);
-        setLoading(false);
-        setIsRefresh(false);
+        if (_isMounted) {
+          setManagerList(managerList);
+          setTotal(total);
+          setPageSize(pageSize);
+          setLoading(false);
+          setIsRefresh(false);
+        }
       }
     })();
 
-    return () => {};
+    return () => {
+      _isMounted = false;
+    };
   }, [page, isRefresh]);
 
   return (
