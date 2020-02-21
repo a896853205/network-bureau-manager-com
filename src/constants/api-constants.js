@@ -99,3 +99,10 @@ export const SET_TECH_SPECIMEN_MANAGER_FAIL_STATUS = `${DominConfigs.DOMAIN}${Do
 export const GET_TECH_REGISTRATION_TEST_APPLY = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_TECH_MANAGER}/getTechRegistrationTestApply`; // 技术人员查询现场测试申请表的基本信息
 export const SET_TECH_APPLY_MANAGER_STATUS = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_TECH_MANAGER}/setTechApplyManagerStatus`; // 设置现场申请表审核通过状态
 export const SET_TECH_APPLY_MANAGER_FAIL_STATUS = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_TECH_MANAGER}/setTechApplyManagerFailStatus`; // 设置现场申请表审核不通过状态
+
+/**
+ * 批准人
+ **/
+export const QUARY_REGISTRATION_NEED_CERTIFIED = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_CERTIFIER}/quaryRegistratiomNeedCertified`; // 批准人查找注册登记信息
+export const QUERY_CERTIFIER_ENTERPRISE_REGISTRATION_STEP = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_CERTIFIER}/queryCertifierEnterpriseRegistrationStep`;
+export const SELECT_CERTIFIER_REGISTRATION = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_CERTIFIER}/selectCertifierRegistration`; // 查询登记测试

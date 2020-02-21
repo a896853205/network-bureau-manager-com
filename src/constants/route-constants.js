@@ -145,3 +145,39 @@ export const HOME_TRUST_TEST_LIST = {
   path: '/home/trust/test/list',
   name: '委托测试待测试列表页'
 };
+
+/**
+ * 批准人
+ */
+
+export const HOME_REGISTRATION_CERTIFY_LIST = {
+  path: '/home/registration/certify/list',
+  name: '登记测试待测试列表页'
+};
+
+export const HOME_REGISTRATION_CERTIFY_ROUTER = {
+  path: '/home/registration/certify/router',
+  name: '登记测试待测试预览页'
+};
+
+/**
+ * 三级路由开始
+ ************************/
+export const HOME_REGISTRATION_CERTIFY_PROFILE = {
+  path: '/home/registration/certify/router/profile',
+  name: '登记测试待任务分配预览页'
+};
+
+export const HOME_REGISTRATION_CERTIFY_DETAIL_SPECIMEN = {
+  path: '/home/registration/certify/router/apply',
+  name: '登记测试样品登记表预览页'
+};
+
+/**
+ * 三级路由结束
+ ***********************/
+
+export const HOME_TRUST_CERTIFY_LIST = {
+  path: '/home/trust/certify/list',
+  name: '委托测试待测试列表页'
+};

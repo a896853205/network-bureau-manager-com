@@ -8,9 +8,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import enterpriseAction from '@/redux/action/enterprise';
 
 // 子路由
-import RegistrationTaskAssignTech from '@/page/home/tech-leader-manager/registration-task-detail/Registration-task-assign-tech-controller.jsx';
-import RegistrationTaskProfile from '@/page/home/tech-leader-manager/registration-task-detail/Registration-task-profile-controller.jsx';
-import ApplyController from '@/page/home/tech-leader-manager/registration-task-detail/Apply-controller.jsx';
+import SpecimenController from '@/page/home/certifier-manager/registration-certify-detail/Specimen-controller.jsx';
+// FIXME profile是以controller为结尾的,命名需要修改一下
+import RegistrationCertifyProfile from '@/page/home/certifier-manager/registration-certify-detail/Registration-certify-profile-controller.jsx';
 
 // 路由
 import { useRouteMatch, useHistory } from 'react-router-dom';
@@ -27,6 +27,7 @@ export default props => {
     history = useHistory();
 
   // 如果没有localStorageRegistrationUuid就跳到列表页
+  // FIXME 不是跳到HOME_REGISTRATION_TASK_LIST这个路由,跳到registration-certify-list这个页的路由!
   useEffect(() => {
     if (!localStorageRegistrationUuid) {
       history.push(ROUTES.HOME_REGISTRATION_TASK_LIST.path);
@@ -46,31 +47,26 @@ export default props => {
   useEffect(() => {
     if (enterpriseRegistrationUuid) {
       dispatch(
-        enterpriseAction.asyncSetTechLeaderRestration(
+        enterpriseAction.asyncSetCertifierRestration(
           enterpriseRegistrationUuid
         )
       );
     }
   }, [dispatch, enterpriseRegistrationUuid, localStorageRegistrationUuid]);
 
-  const homeRegistrationTaskAssignTech = useRouteMatch({
-    path: ROUTES.HOME_REGISTRATION_TASK_ASSIGN_TECH.path,
+  const homeRegistrationCertifyDetailSpecimen = useRouteMatch({
+    path: ROUTES.HOME_REGISTRATION_CERTIFY_DETAIL_SPECIMEN.path,
     exact: true
   });
-  const homeRegistrationTaskProfile = useRouteMatch({
-    path: ROUTES.HOME_REGISTRATION_TASK_PROFILE.path,
-    exact: true
-  });
-  const homeRegistrationTaskDetailApply = useRouteMatch({
-    path: ROUTES.HOME_REGISTRATION_TASK_DETAIL_APPLY.path,
+  const homeRegistrationCertifyProfile = useRouteMatch({
+    path: ROUTES.HOME_REGISTRATION_CERTIFY_PROFILE.path,
     exact: true
   });
 
   return (
     <>
-      {homeRegistrationTaskAssignTech ? <RegistrationTaskAssignTech /> : null}
-      {homeRegistrationTaskProfile ? <RegistrationTaskProfile /> : null}
-      {homeRegistrationTaskDetailApply ? <ApplyController /> : null}
+      {homeRegistrationCertifyDetailSpecimen ? <SpecimenController /> : null}
+      {homeRegistrationCertifyProfile ? <RegistrationCertifyProfile /> : null}
     </>
   );
 };

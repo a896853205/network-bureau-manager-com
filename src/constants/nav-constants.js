@@ -127,9 +127,22 @@ export const NAV = {
   ],
   [AUTHORITY.CERTIFIER.code]: [
     {
-      path: '/home/index',
+      key: 'manager',
+      path: ROUTE.HOME_INDEX.path,
       name: '首页',
+      icon: 'bank'
+    },
+    {
+      key: 'registrationCertifyList',
+      path: ROUTE.HOME_REGISTRATION_CERTIFY_LIST.path,
+      name: '登记测试列表',
+      icon: 'file-done'
+    },
+    {
+      key: 'trustCertifyList',
+      path: ROUTE.HOME_TRUST_CERTIFY_LIST.path,
+      name: '委托测试列表',
       icon: 'audit'
-    }
+    },
   ]
 };

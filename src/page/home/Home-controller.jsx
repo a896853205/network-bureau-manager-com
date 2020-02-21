@@ -35,6 +35,12 @@ import RegistrationTestListController from '@/page/home/tech-manager/Registratio
 import TrustTestListController from '@/page/home/tech-manager/Trust-test-list-controller.jsx';
 import RegistrationTestRouter from '@/page/home/tech-manager/Registration-test-router-controller.jsx';
 
+// 批准人
+import RegistrationCertifyListController from '@/page/home/certifier-manager/Registration-certify-list-controller.jsx';
+import TrustCertifyListController from '@/page/home/certifier-manager/Trust-certify-list-controller.jsx';
+// FIXME 命名规范!Controller
+import RegistrationCertifyRouter from '@/page/home/certifier-manager/Registration-certify-router-controller.jsx';
+
 // localStorage
 import { LOCAL_STORAGE } from '@/constants/app-constants';
 
@@ -146,6 +152,19 @@ export default props => {
     path: ROUTES.HOME_REGISTRATION_TEST_ROUTER.path
   });
 
+  // 批准人
+  const homeRegistrationCertifyList = useRouteMatch({
+    path: ROUTES.HOME_REGISTRATION_CERTIFY_LIST.path,
+    exact: true
+  });
+  const homeTrustCertifyList = useRouteMatch({
+    path: ROUTES.HOME_TRUST_CERTIFY_LIST.path,
+    exact: true
+  });
+  const homeRegistrationCertifyRouter = useRouteMatch({
+    path: ROUTES.HOME_REGISTRATION_CERTIFY_ROUTER.path
+  });
+
   return (
     <Layout>
       <Sider className='home-sider'>
@@ -194,6 +213,13 @@ export default props => {
             ) : null}
             {homeTrustTestList ? <TrustTestListController /> : null}
             {homeRegistrationTestRouter ? <RegistrationTestRouter /> : null}
+
+            {/* 批准人 */}
+            {homeRegistrationCertifyList ? (
+              <RegistrationCertifyListController />
+            ) : null}
+            {homeTrustCertifyList ? <TrustCertifyListController /> : null}
+            {homeRegistrationCertifyRouter ? <RegistrationCertifyRouter /> : null}
           </div>
         </Content>
         <Footer className='home-footer'>
