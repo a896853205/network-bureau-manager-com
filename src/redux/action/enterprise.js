@@ -19,5 +19,6 @@ export default {
   // 技术人员设置登记测试
   asyncSetTechRestration: createAction('asyncSetTechRestration'),
   // 技术管理员设置登记测试
-  asyncSetTechLeaderRestration: createAction('asyncSetTechLeaderRestration')
+  asyncSetTechLeaderRestration: createAction('asyncSetTechLeaderRestration'),
+  asyncSetCertifierRestration: createAction('asyncSetCertifierRestration')// 批准人设置登记测试
 };

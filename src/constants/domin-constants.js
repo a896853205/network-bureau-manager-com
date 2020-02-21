@@ -19,7 +19,7 @@ export const PART = {
   OPT_ACCOUNTANT_MANAGER: '/accountantManager',
   OPT_TECH_LEADER_MANAGER: '/techLeaderManager',
   OPT_TECH_MANAGER: '/techManager',
-  OPT_CERTIFIER: '/certifier'
+  OPT_CERTIFIER: '/certifierManager'
 };
 
 // 返回码

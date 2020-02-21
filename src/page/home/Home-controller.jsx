@@ -36,9 +36,9 @@ import TrustTestListController from '@/page/home/tech-manager/Trust-test-list-co
 import RegistrationTestRouter from '@/page/home/tech-manager/Registration-test-router-controller.jsx';
 
 // 批准人
-import RegistrationCertifyListController from '@/page/home/certifier/Registration-certify-list-controller.jsx';
-import TrustCertifyListController from '@/page/home/certifier/Trust-certify-list-controller.jsx';
-import RegistrationCertifyRouter from '@/page/home/certifier/Registration-certify-router-controller.jsx';
+import RegistrationCertifyListController from '@/page/home/certifier-manager/Registration-certify-list-controller.jsx';
+import TrustCertifyListController from '@/page/home/certifier-manager/Trust-certify-list-controller.jsx';
+import RegistrationCertifyRouter from '@/page/home/certifier-manager/Registration-certify-router-controller.jsx';
 
 // localStorage
 import { LOCAL_STORAGE } from '@/constants/app-constants';
