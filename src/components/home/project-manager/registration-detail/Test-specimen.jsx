@@ -42,11 +42,9 @@ export default props => {
   const handleSetSuccessStatus = () => {
     (async () => {
       setStatusLoading(true);
-      const projectManagerDate = new Date();
 
       await proxyFetch(SET_PROJECT_SPECIMEN_MANAGER_STATUS, {
-        registrationUuid: enterpriseRegistrationUuid,
-        projectManagerDate
+        registrationUuid: enterpriseRegistrationUuid
       });
 
       setStatusLoading(false);
