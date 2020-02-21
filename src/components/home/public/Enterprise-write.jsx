@@ -37,6 +37,7 @@ export default props => {
     [modalVisible, setModalVisible] = useState(false),
     [content, setContent] = useState(null);
 
+  // #FIXME 需要将此4个路由修改为(管理员权限)限制
   const handleDownloadProduct = async () => {
     setProductDownloadLoading(true);
 

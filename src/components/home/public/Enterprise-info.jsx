@@ -24,6 +24,8 @@ export default props => {
     (async () => {
       if (fileDownloadRegistrationUuid) {
         setGetDataLoading(true);
+
+        // #FIXME 需要将此路由修改为(管理员权限)限制
         const enterpriseInfo = await proxyFetch(
           SELECT_ENTERPRISE_INFO_BY_FILE_DOWNLOAD_REGISTRATION_UUID,
           { registrationUuid: fileDownloadRegistrationUuid },

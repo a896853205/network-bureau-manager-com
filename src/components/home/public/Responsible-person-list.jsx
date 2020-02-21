@@ -26,6 +26,7 @@ export default props => {
     [techManager, setTechManager] = useState(null),
     [certifierManager, setCertifierManager] = useState(null);
 
+  // #FIXME 需要将此路由修改为(管理员权限)限制
   useEffect(() => {
     (async () => {
       if (fileDownloadRegistrationUuid) {
