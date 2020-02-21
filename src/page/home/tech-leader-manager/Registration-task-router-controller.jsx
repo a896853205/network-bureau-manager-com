@@ -10,6 +10,7 @@ import enterpriseAction from '@/redux/action/enterprise';
 // 子路由
 import RegistrationTaskAssignTech from '@/page/home/tech-leader-manager/Registration-task-assign-tech-controller.jsx';
 import RegistrationTaskProfile from '@/page/home/tech-leader-manager/Registration-task-profile-controller';
+import ApplyController from '@/page/home/tech-leader-manager/registration-task-detail/Apply-controller.jsx';
 
 // 路由
 import { useRouteMatch, useHistory } from 'react-router-dom';
@@ -58,11 +59,16 @@ export default props => {
     path: ROUTES.HOME_REGISTRATION_TASK_PROFILE.path,
     exact: true
   });
+  const homeRegistrationTaskDetailApply = useRouteMatch({
+    path: ROUTES.HOME_REGISTRATION_TASK_DETAIL_APPLY.path,
+    exact: true
+  });
 
   return (
     <>
       {homeRegistrationTaskAssignTech ? <RegistrationTaskAssignTech /> : null}
       {homeRegistrationTaskProfile ? <RegistrationTaskProfile /> : null}
+      {homeRegistrationTaskDetailApply ? <ApplyController /> : null}
     </>
   );
 };

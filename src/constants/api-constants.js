@@ -69,8 +69,8 @@ export const ACCOUNTANT_CONFIRM_PAYMENT = `${DominConfigs.DOMAIN}${DominConfigs.
  * 技术负责人
  **/
 export const QUARY_REGISTRATION_NEED_ASSIGNED = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_TECH_LEADER_MANAGER}/queryRegistrationNeedAssigned`; // 查询待分配技术负责人员的企业登记测试列表
-export const QUERY_TECH_MANAGER = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_TECH_LEADER_MANAGER}/queryTechManager`; // 查询技术负责人
-export const ARRANGE_TECH_MANAGER = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_TECH_LEADER_MANAGER}/arrangeTechManager`; // 安排技术负责人
+export const QUERY_TECH_MANAGER = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_TECH_LEADER_MANAGER}/queryTechManager`; // 查询技术人员
+export const ARRANGE_TECH_MANAGER = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_TECH_LEADER_MANAGER}/arrangeTechManager`; // 安排技术人员
 export const QUERY_TECH_LEADER_ENTERPRISE_REGISTRATION_STEP = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_TECH_LEADER_MANAGER}/queryTechLeaderEnterpriseRegistrationStep`;
 export const SELECT_REGISTRATION_TECH_MANAGER_UUID = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_TECH_LEADER_MANAGER}/selectRegistrationTechManagerUuid`; // 查询登记测试技术人员的uuid
 export const SELECT_REGISTRATION_MANAGER_UUID = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_TECH_LEADER_MANAGER}/selectRegistrationManagerUuid`; // 查询登记测试管理员uuid(文件审核页面)
@@ -82,6 +82,10 @@ export const DOWNLOAD_DOCUMENT = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_
 export const DOWNLOAD_COPYRIGHT = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_TECH_LEADER_MANAGER}/downloadCopyright`; // 下载软件著作权
 export const DOWNLOAD_CONTRACT = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_TECH_LEADER_MANAGER}/downloadContract`; // 下载合同
 export const SELECT_TECH_LEADER_REGISTRATION = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_TECH_LEADER_MANAGER}/selectTechLeaderRegistration`; // 查询登记测试
+export const GET_TECH_LEADER_REGISTRATION_TEST_APPLY = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_TECH_LEADER_MANAGER}/getTechLeaderRegistrationTestApply`; // 技术负责人查询现场测试申请表的基本信息
+export const GET_TECH_LEADER_REGISTRATION_TEST_SPECIMEN = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_TECH_LEADER_MANAGER}/getTechLeaderRegistrationTestSpecimen`; // 技术负责人查询样品文档集的基本信息
+export const SET_TECH_LEADER_APPLY_MANAGER_STATUS = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_TECH_LEADER_MANAGER}/setTechLeaderApplyManagerStatus`; // 设置现场申请表审核通过状态
+export const SET_TECH_LEADER_APPLY_MANAGER_FAIL_STATUS = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_TECH_LEADER_MANAGER}/setTechLeaderApplyManagerFailStatus`; // 设置现场申请表审核不通过状态
 
 /**
  * 技术人员

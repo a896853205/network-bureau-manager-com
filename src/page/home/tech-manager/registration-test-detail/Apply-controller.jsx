@@ -134,6 +134,7 @@ export default props => {
               </Button>
             </div>
             <TextArea
+              disabled={!(managerStatus === 1 || managerStatus === -1)}
               autoSize={{ minRows: 3, maxRows: 6 }}
               maxLength='800'
               placeholder='请输入审核不通过理由'
