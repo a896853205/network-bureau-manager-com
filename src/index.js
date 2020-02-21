@@ -13,12 +13,17 @@ import '@/index.styl';
 import { Provider } from 'react-redux';
 import { store } from '@/redux';
 
+// 错误边界
+import ErrorBoundary from '@/ErrorBoundary.jsx';
+
 ReactDOM.render(
-  <Provider store={store}>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
-  </Provider>,
+  <ErrorBoundary>
+    <Provider store={store}>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </Provider>
+  </ErrorBoundary>,
   document.getElementById('root')
 );
 
