@@ -82,6 +82,8 @@ export const DOWNLOAD_DOCUMENT = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_
 export const DOWNLOAD_COPYRIGHT = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_TECH_LEADER_MANAGER}/downloadCopyright`; // 下载软件著作权
 export const DOWNLOAD_CONTRACT = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_TECH_LEADER_MANAGER}/downloadContract`; // 下载合同
 export const SELECT_TECH_LEADER_REGISTRATION = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_TECH_LEADER_MANAGER}/selectTechLeaderRegistration`; // 查询登记测试
+export const GET_TECH_LEADER_REGISTRATION_TEST_APPLY = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_TECH_LEADER_MANAGER}/getTechLeaderRegistrationTestApply`; // 技术人员查询现场测试申请表的基本信息
+export const GET_TECH_LEADER_REGISTRATION_TEST_SPECIMEN = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_TECH_LEADER_MANAGER}/getTechLeaderRegistrationTestSpecimen`; // 技术人员查询样品文档集的基本信息
 
 /**
  * 技术人员

@@ -4,7 +4,7 @@ import React from 'react';
 import PrepareTest from '@/components/home/tech-leader-manager/Prepare-test.jsx';
 
 // redux
-//import { useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 // 路由
 import { HOME_REGISTRATION_TASK_ASSIGN_TECH } from '@/constants/route-constants';
@@ -16,13 +16,29 @@ import '@/style/home/item.styl';
 import '@/style/home/tech-leader-manager/registration-task-profile.styl';
 
 export default props => {
+  const { steps } = useSelector(state => state.enterpriseStore);
+
+  const fieldTestStatusToColor = (step, status = 0) => {
+    let color = '';
+
+    if (status === step) {
+      color = 'blue';
+    } else if (status > step) {
+      color = 'green';
+    } else {
+      color = 'grey';
+    }
+
+    return color;
+  };
+
   return (
     <div className='item-box registration-task-profile-box'>
       <p className='title-box'>
         <span>项目测试流程</span>
       </p>
       <Timeline mode='left' className='registration-task-profile-timeline-box'>
-        <Timeline.Item>
+        <Timeline.Item color={fieldTestStatusToColor(1, steps[3]?.status)}>
           <div className='timeline-item-box'>
             <Icon
               className='item-icon-box'
@@ -39,10 +55,10 @@ export default props => {
             </div>
           </div>
         </Timeline.Item>
-        <Timeline.Item>
+        <Timeline.Item color={fieldTestStatusToColor(3, steps[3]?.status)}>
           <PrepareTest />
         </Timeline.Item>
-        <Timeline.Item>
+        <Timeline.Item color={fieldTestStatusToColor(4, steps[3]?.status)}>
           <div className='timeline-item-box'>
             <Icon className='item-icon-box' type='audit' />
             <div className='item-text-box'>
@@ -51,7 +67,7 @@ export default props => {
             </div>
           </div>
         </Timeline.Item>
-        <Timeline.Item>
+        <Timeline.Item color={fieldTestStatusToColor(5, steps[3]?.status)}>
           <div className='timeline-item-box'>
             <Icon className='item-icon-box' type='audit' />
             <div className='item-text-box'>
@@ -60,7 +76,7 @@ export default props => {
             </div>
           </div>
         </Timeline.Item>
-        <Timeline.Item>
+        <Timeline.Item color={fieldTestStatusToColor(6, steps[3]?.status)}>
           <div className='timeline-item-box'>
             <Icon className='item-icon-box' type='file-text' />
             <div className='item-text-box'>
@@ -69,7 +85,7 @@ export default props => {
             </div>
           </div>
         </Timeline.Item>
-        <Timeline.Item>
+        <Timeline.Item color={fieldTestStatusToColor(7, steps[3]?.status)}>
           <div className='timeline-item-box'>
             <Icon className='item-icon-box' type='audit' />
             <div className='item-text-box'>
