@@ -8,8 +8,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import enterpriseAction from '@/redux/action/enterprise';
 
 // 子路由
-import RegistrationTaskAssignTech from '@/page/home/tech-leader-manager/Registration-task-assign-tech-controller.jsx';
-import RegistrationTaskProfile from '@/page/home/tech-leader-manager/Registration-task-profile-controller';
+import RegistrationTaskAssignTech from '@/page/home/tech-leader-manager/registration-task-detail/Registration-task-assign-tech-controller.jsx';
+import RegistrationTaskProfile from '@/page/home/tech-leader-manager/registration-task-detail/registration-task-detail/Registration-task-profile-controller';
 import ApplyController from '@/page/home/tech-leader-manager/registration-task-detail/Apply-controller.jsx';
 
 // 路由
@@ -46,7 +46,9 @@ export default props => {
   useEffect(() => {
     if (enterpriseRegistrationUuid) {
       dispatch(
-        enterpriseAction.asyncSetTechLeaderRestration(enterpriseRegistrationUuid)
+        enterpriseAction.asyncSetTechLeaderRestration(
+          enterpriseRegistrationUuid
+        )
       );
     }
   }, [dispatch, enterpriseRegistrationUuid, localStorageRegistrationUuid]);

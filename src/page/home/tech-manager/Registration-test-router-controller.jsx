@@ -12,7 +12,7 @@ import { useRouteMatch, useHistory } from 'react-router-dom';
 import * as ROUTES from '@/constants/route-constants';
 
 // 子组件
-import RegistrationTestProfileController from '@/page/home/tech-manager/Registration-test-profile-controller.jsx';
+import RegistrationTestProfileController from '@/page/home/tech-manager/registration-test-detail/Registration-test-profile-controller.jsx';
 import ApplyController from '@/page/home/tech-manager/registration-test-detail/Apply-controller.jsx';
 import SpecimenController from '@/page/home/tech-manager/registration-test-detail/Specimen-controller.jsx';
 
