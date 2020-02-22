@@ -129,12 +129,12 @@ export const HOME_REGISTRATION_TEST_PROFILE = {
 
 export const HOME_REGISTRATION_TEST_DETAIL_APPLY = {
   path: '/home/registration/test/router/apply',
-  name: '登记测试软件评测样品登记表预览页'
+  name: '登记测试软件评测现场测试申请表预览页'
 };
 
 export const HOME_REGISTRATION_TEST_DETAIL_SPECIMEN = {
   path: '/home/registration/test/router/specimen',
-  name: '登记测试软件评测现场测试申请表预览页'
+  name: '登记测试软件评测样品登记表预览页'
 };
 
 /**
@@ -168,9 +168,9 @@ export const HOME_REGISTRATION_CERTIFY_PROFILE = {
   name: '登记测试待任务分配预览页'
 };
 
-export const HOME_REGISTRATION_CERTIFY_DETAIL_SPECIMEN = {
+export const HOME_REGISTRATION_CERTIFY_DETAIL_APPLY = {
   path: '/home/registration/certify/router/apply',
-  name: '登记测试样品登记表预览页'
+  name: '登记测试软件评测现场测试申请表预览页'
 };
 
 /**

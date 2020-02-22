@@ -8,8 +8,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import enterpriseAction from '@/redux/action/enterprise';
 
 // 子路由
-import SpecimenController from '@/page/home/certifier-manager/registration-certify-detail/Specimen-controller.jsx';
-// FIXME profile是以controller为结尾的,命名需要修改一下
+import ApplyController from '@/page/home/certifier-manager/registration-certify-detail/Apply-controller.jsx';
 import RegistrationCertifyProfile from '@/page/home/certifier-manager/registration-certify-detail/Registration-certify-profile-controller.jsx';
 
 // 路由
@@ -47,15 +46,13 @@ export default props => {
   useEffect(() => {
     if (enterpriseRegistrationUuid) {
       dispatch(
-        enterpriseAction.asyncSetCertifierRestration(
-          enterpriseRegistrationUuid
-        )
+        enterpriseAction.asyncSetCertifierRestration(enterpriseRegistrationUuid)
       );
     }
   }, [dispatch, enterpriseRegistrationUuid, localStorageRegistrationUuid]);
 
-  const homeRegistrationCertifyDetailSpecimen = useRouteMatch({
-    path: ROUTES.HOME_REGISTRATION_CERTIFY_DETAIL_SPECIMEN.path,
+  const homeRegistrationCertifyDetailApply = useRouteMatch({
+    path: ROUTES.HOME_REGISTRATION_CERTIFY_DETAIL_APPLY.path,
     exact: true
   });
   const homeRegistrationCertifyProfile = useRouteMatch({
@@ -65,7 +62,7 @@ export default props => {
 
   return (
     <>
-      {homeRegistrationCertifyDetailSpecimen ? <SpecimenController /> : null}
+      {homeRegistrationCertifyDetailApply ? <ApplyController /> : null}
       {homeRegistrationCertifyProfile ? <RegistrationCertifyProfile /> : null}
     </>
   );

@@ -106,3 +106,7 @@ export const SET_TECH_APPLY_MANAGER_FAIL_STATUS = `${DominConfigs.DOMAIN}${Domin
 export const QUARY_REGISTRATION_NEED_CERTIFIED = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_CERTIFIER}/quaryRegistratiomNeedCertified`; // 批准人查找注册登记信息
 export const QUERY_CERTIFIER_ENTERPRISE_REGISTRATION_STEP = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_CERTIFIER}/queryCertifierEnterpriseRegistrationStep`;
 export const SELECT_CERTIFIER_REGISTRATION = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_CERTIFIER}/selectCertifierRegistration`; // 查询登记测试
+export const GET_CERTIFIER_REGISTRATION_TEST_APPLY = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_CERTIFIER}/getCertifierRegistrationTestApply`; // 技术人员查询现场测试申请表的基本信息
+export const GET_CERTIFIER_REGISTRATION_TEST_SPECIMEN = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_CERTIFIER}/getCertifierRegistrationTestSpecimen`; // 技术人员查询样品文档集的基本信息
+export const SET_CERTIFIER_APPLY_MANAGER_STATUS = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_CERTIFIER}/setCertifierApplyManagerStatus`; // 设置现场申请表审核通过状态
+export const SET_CERTIFIER_APPLY_MANAGER_FAIL_STATUS = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_CERTIFIER}/setCertifierApplyManagerFailStatus`; // 设置现场申请表审核不通过状态
