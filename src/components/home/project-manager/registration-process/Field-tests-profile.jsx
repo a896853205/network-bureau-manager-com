@@ -211,33 +211,46 @@ export default props => {
               </div>
             </Timeline.Item>
             <Timeline.Item color={fieldTestsStatusToColor(4, steps[3].status)}>
-              <span>技术人员生成报告</span>
-              <span>技术人员生成原始记录</span>
-            </Timeline.Item>
-            <Timeline.Item color={fieldTestsStatusToColor(5, steps[3].status)}>
-              <span>技术负责人审查报告</span>
-              <span>技术负责人审查原始记录</span>
-            </Timeline.Item>
-            <Timeline.Item color={fieldTestsStatusToColor(6, steps[3].status)}>
-              <span>批准人审查报告</span>
-              <span>批准人审查原始记录</span>
-            </Timeline.Item>
-            <Timeline.Item color={fieldTestsStatusToColor(7, steps[3].status)}>
-              {steps[3].status ? (
-                <span>
-                  <Link to={`${HOME_REGISTRATION_DETAIL.path}/stamp`}>
-                    <span>项目管理人报告盖章</span>
-                  </Link>
-                  <Link to={`${HOME_REGISTRATION_DETAIL.path}/stamp`}>
-                    <span>项目管理人原始记录盖章</span>
-                  </Link>
-                </span>
-              ) : (
-                <span>
-                  <span>项目管理人报告盖章</span>
-                  <span>项目管理人原始记录盖章</span>
-                </span>
-              )}
+              <div className='inner-timeline-box'>
+                <div className='left-timeline-box'>
+                  <div className='timeline-top-box'>报告盖章</div>
+                  <Timeline mode='left' className='timeline-box'>
+                    <Timeline.Item>
+                      <span>技术人员生成报告</span>
+                    </Timeline.Item>
+                    <Timeline.Item>
+                      <span>技术负责人审查报告</span>
+                    </Timeline.Item>
+                    <Timeline.Item>
+                      <span>批准人审查报告</span>
+                    </Timeline.Item>
+                    <Timeline.Item>
+                      <Link to={`${HOME_REGISTRATION_DETAIL.path}/stamp`}>
+                        <span>项目管理人报告盖章</span>
+                      </Link>
+                    </Timeline.Item>
+                  </Timeline>
+                </div>
+                <div className='right-timeline-box'>
+                  <div className='timeline-top-box'>原始记录盖章</div>
+                  <Timeline mode='left' className='timeline-box'>
+                    <Timeline.Item>
+                      <span>技术人员生成原始记录</span>
+                    </Timeline.Item>
+                    <Timeline.Item>
+                      <span>技术负责人审查原始记录</span>
+                    </Timeline.Item>
+                    <Timeline.Item>
+                      <span>批准人审查原始记录</span>
+                    </Timeline.Item>
+                    <Timeline.Item>
+                      <Link to={`${HOME_REGISTRATION_DETAIL.path}/stamp`}>
+                        <span>项目管理人原始记录盖章</span>
+                      </Link>
+                    </Timeline.Item>
+                  </Timeline>
+                </div>
+              </div>
             </Timeline.Item>
           </Timeline>
         </div>
