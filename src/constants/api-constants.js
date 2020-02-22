@@ -99,6 +99,8 @@ export const SET_TECH_SPECIMEN_MANAGER_FAIL_STATUS = `${DominConfigs.DOMAIN}${Do
 export const GET_TECH_REGISTRATION_TEST_APPLY = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_TECH_MANAGER}/getTechRegistrationTestApply`; // 技术人员查询现场测试申请表的基本信息
 export const SET_TECH_APPLY_MANAGER_STATUS = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_TECH_MANAGER}/setTechApplyManagerStatus`; // 设置现场申请表审核通过状态
 export const SET_TECH_APPLY_MANAGER_FAIL_STATUS = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_TECH_MANAGER}/setTechApplyManagerFailStatus`; // 设置现场申请表审核不通过状态
+export const GENERATE_REPORT_WORD = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_TECH_MANAGER}/generateReportWord`; // 生成报告模板word
+export const GENERATE_RECORD_WORD = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_TECH_MANAGER}/generateRecordWord`; // 生成原始记录模板word
 
 /**
  * 批准人

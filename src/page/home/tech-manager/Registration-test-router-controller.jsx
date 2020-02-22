@@ -15,6 +15,8 @@ import * as ROUTES from '@/constants/route-constants';
 import RegistrationTestProfileController from '@/page/home/tech-manager/registration-test-detail/Registration-test-profile-controller.jsx';
 import ApplyController from '@/page/home/tech-manager/registration-test-detail/Apply-controller.jsx';
 import SpecimenController from '@/page/home/tech-manager/registration-test-detail/Specimen-controller.jsx';
+import GenerateTestReportController from '@/page/home/tech-manager/registration-test-detail/Generate-test-report-controller.jsx';
+import GenerateTestOriginRecordController from '@/page/home/tech-manager/registration-test-detail/Generate-test-origin-record-controller.jsx';
 
 export default props => {
   const localStorageRegistrationUuid = localStorage.getItem(
@@ -70,6 +72,14 @@ export default props => {
     path: ROUTES.HOME_REGISTRATION_TEST_DETAIL_SPECIMEN.path,
     exact: true
   });
+  const homeRegistrationTestGenerateReport = useRouteMatch({
+    path: ROUTES.HOME_REGISTRATION_TEST_GENERATE_REPORT.path,
+    exact: true
+  });
+  const homeRegistrationTestGenerateOriginRecord = useRouteMatch({
+    path: ROUTES.HOME_REGISTRATION_TEST_GENERATE_ORIGINAL_RECORD.path,
+    exact: true
+  });
   return (
     <>
       {homeRegistrationTestProfile ? (
@@ -77,6 +87,10 @@ export default props => {
       ) : null}
       {homeRegistrationTestDetailApply ? <ApplyController /> : null}
       {homeRegistrationTestDetailSpecimen ? <SpecimenController /> : null}
+      {homeRegistrationTestGenerateReport ? <GenerateTestReportController /> : null}
+      {homeRegistrationTestGenerateOriginRecord ? (
+        <GenerateTestOriginRecordController />
+      ) : null}
     </>
   );
 };

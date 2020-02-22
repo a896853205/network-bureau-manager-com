@@ -137,6 +137,16 @@ export const HOME_REGISTRATION_TEST_DETAIL_SPECIMEN = {
   name: '登记测试软件评测样品登记表预览页'
 };
 
+export const HOME_REGISTRATION_TEST_GENERATE_REPORT = {
+  path: '/home/registration/test/router/report',
+  name: '登记测试软件评测生成报告预览页'
+};
+
+export const HOME_REGISTRATION_TEST_GENERATE_ORIGINAL_RECORD = {
+  path: '/home/registration/test/router/record',
+  name: '登记测试软件评测生成原始记录预览页'
+};
+
 /**
  * 三级路由结束
  ***********************/

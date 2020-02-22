@@ -1,7 +1,10 @@
 import React from 'react';
 
 // 路由
-import { HOME_REGISTRATION_TEST_PROFILE } from '@/constants/route-constants';
+import {
+  HOME_REGISTRATION_TEST_GENERATE_REPORT,
+  HOME_REGISTRATION_TEST_GENERATE_ORIGINAL_RECORD
+} from '@/constants/route-constants';
 import { Link } from 'react-router-dom';
 
 // 样式
@@ -23,12 +26,12 @@ export default props => {
           <p className='text-subtitle'>技术人员生成报告和原始记录</p>
           <div className='link-box'>
             <div className='link-left-box'>
-              <Link to={HOME_REGISTRATION_TEST_PROFILE.path}>
+              <Link to={HOME_REGISTRATION_TEST_GENERATE_REPORT.path}>
                 <span>技术人员生成报告</span>
               </Link>
             </div>
             <div className='link-right-box'>
-              <Link to={HOME_REGISTRATION_TEST_PROFILE.path}>
+              <Link to={HOME_REGISTRATION_TEST_GENERATE_ORIGINAL_RECORD.path}>
                 <span>技术人员生成原始记录</span>
               </Link>
             </div>
