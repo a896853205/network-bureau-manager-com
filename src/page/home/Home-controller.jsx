@@ -38,8 +38,7 @@ import RegistrationTestRouter from '@/page/home/tech-manager/Registration-test-r
 // 批准人
 import RegistrationCertifyListController from '@/page/home/certifier-manager/Registration-certify-list-controller.jsx';
 import TrustCertifyListController from '@/page/home/certifier-manager/Trust-certify-list-controller.jsx';
-// FIXME 命名规范!Controller
-import RegistrationCertifyRouter from '@/page/home/certifier-manager/Registration-certify-router-controller.jsx';
+import RegistrationCertifyRouterController from '@/page/home/certifier-manager/Registration-certify-router-controller.jsx';
 
 // localStorage
 import { LOCAL_STORAGE } from '@/constants/app-constants';
@@ -219,7 +218,7 @@ export default props => {
               <RegistrationCertifyListController />
             ) : null}
             {homeTrustCertifyList ? <TrustCertifyListController /> : null}
-            {homeRegistrationCertifyRouter ? <RegistrationCertifyRouter /> : null}
+            {homeRegistrationCertifyRouter ? <RegistrationCertifyRouterController /> : null}
           </div>
         </Content>
         <Footer className='home-footer'>

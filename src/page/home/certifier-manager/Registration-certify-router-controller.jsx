@@ -9,7 +9,7 @@ import enterpriseAction from '@/redux/action/enterprise';
 
 // 子路由
 import ApplyController from '@/page/home/certifier-manager/registration-certify-detail/Apply-controller.jsx';
-import RegistrationCertifyProfile from '@/page/home/certifier-manager/registration-certify-detail/Registration-certify-profile-controller.jsx';
+import RegistrationCertifyProfileController from '@/page/home/certifier-manager/registration-certify-detail/Registration-certify-profile-controller.jsx';
 
 // 路由
 import { useRouteMatch, useHistory } from 'react-router-dom';
@@ -26,10 +26,9 @@ export default props => {
     history = useHistory();
 
   // 如果没有localStorageRegistrationUuid就跳到列表页
-  // FIXME 不是跳到HOME_REGISTRATION_TASK_LIST这个路由,跳到registration-certify-list这个页的路由!
   useEffect(() => {
     if (!localStorageRegistrationUuid) {
-      history.push(ROUTES.HOME_REGISTRATION_TASK_LIST.path);
+      history.push(ROUTES.HOME_REGISTRATION_CERTIFY_LIST.path);
     }
   }, [localStorageRegistrationUuid, history]);
 
@@ -63,7 +62,7 @@ export default props => {
   return (
     <>
       {homeRegistrationCertifyDetailApply ? <ApplyController /> : null}
-      {homeRegistrationCertifyProfile ? <RegistrationCertifyProfile /> : null}
+      {homeRegistrationCertifyProfile ? <RegistrationCertifyProfileController /> : null}
     </>
   );
 };
