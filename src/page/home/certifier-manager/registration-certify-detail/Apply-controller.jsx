@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 // 路由
-import { HOME_REGISTRATION_TASK_PROFILE } from '@/constants/route-constants';
+import { HOME_REGISTRATION_CERTIFY_PROFILE } from '@/constants/route-constants';
 import { Link, useHistory } from 'react-router-dom';
 
 // redux
@@ -10,9 +10,9 @@ import { useSelector } from 'react-redux';
 // 请求
 import proxyFetch from '@/util/request';
 import {
-  GET_TECH_LEADER_REGISTRATION_TEST_APPLY,
-  SET_TECH_LEADER_APPLY_MANAGER_STATUS,
-  SET_TECH_LEADER_APPLY_MANAGER_FAIL_STATUS
+  GET_CERTIFIER_REGISTRATION_TEST_APPLY,
+  SET_CERTIFIER_APPLY_MANAGER_STATUS,
+  SET_CERTIFIER_APPLY_MANAGER_FAIL_STATUS
 } from '@/constants/api-constants';
 
 // 样式
@@ -35,12 +35,12 @@ export default props => {
     (async () => {
       setStatusLoading(true);
 
-      await proxyFetch(SET_TECH_LEADER_APPLY_MANAGER_STATUS, {
+      await proxyFetch(SET_CERTIFIER_APPLY_MANAGER_STATUS, {
         registrationUuid: enterpriseRegistrationUuid
       });
 
       setStatusLoading(false);
-      history.push(HOME_REGISTRATION_TASK_PROFILE.path);
+      history.push(HOME_REGISTRATION_CERTIFY_PROFILE.path);
     })();
   };
 
@@ -49,13 +49,13 @@ export default props => {
       (async () => {
         setStatusLoading(true);
 
-        await proxyFetch(SET_TECH_LEADER_APPLY_MANAGER_FAIL_STATUS, {
+        await proxyFetch(SET_CERTIFIER_APPLY_MANAGER_FAIL_STATUS, {
           registrationUuid: enterpriseRegistrationUuid,
           failManagerText
         });
 
         setStatusLoading(false);
-        history.push(HOME_REGISTRATION_TASK_PROFILE.path);
+        history.push(HOME_REGISTRATION_CERTIFY_PROFILE.path);
       })();
     } else {
       message.error('请输入未通过审核理由!');
@@ -69,7 +69,7 @@ export default props => {
         setGetDataLoading(true);
 
         let registrationApply = await proxyFetch(
-          GET_TECH_LEADER_REGISTRATION_TEST_APPLY,
+          GET_CERTIFIER_REGISTRATION_TEST_APPLY,
           { registrationUuid: enterpriseRegistrationUuid },
           'GET'
         );
@@ -90,7 +90,7 @@ export default props => {
         <span>技术人员确认</span>
       </p>
       <div className='subtitle-box'>
-        <Link to={`${HOME_REGISTRATION_TASK_PROFILE.path}`}>
+        <Link to={`${HOME_REGISTRATION_CERTIFY_PROFILE.path}`}>
           <Icon type='left' className='exit-icon' />
         </Link>
         <p className='subtitle-title'>现场测试申请表</p>
@@ -105,11 +105,11 @@ export default props => {
             </Descriptions>
             <div className='apply-button-box'>
               <Button
-                disabled={!(managerStatus === 2 || managerStatus === -2)}
+                disabled={!(managerStatus === 3 || managerStatus === -3)}
                 type='danger'
                 htmlType='submit'
                 className={
-                  managerStatus === 2 || managerStatus === -2
+                  managerStatus === 3 || managerStatus === -3
                     ? 'fail-button'
                     : ''
                 }
@@ -119,11 +119,11 @@ export default props => {
                 审核不通过
               </Button>
               <Button
-                disabled={!(managerStatus === 2 || managerStatus === -2)}
+                disabled={!(managerStatus === 3 || managerStatus === -3)}
                 type='primary'
                 htmlType='submit'
                 className={
-                  managerStatus === 2 || managerStatus === -2
+                  managerStatus === 3 || managerStatus === -3
                     ? 'success-button'
                     : ''
                 }
@@ -134,7 +134,7 @@ export default props => {
               </Button>
             </div>
             <TextArea
-              disabled={!(managerStatus === 2 || managerStatus === -2)}
+              disabled={!(managerStatus === 3 || managerStatus === -3)}
               autoSize={{ minRows: 3, maxRows: 6 }}
               maxLength='800'
               placeholder='请输入审核不通过理由'
