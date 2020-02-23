@@ -7,8 +7,8 @@ import { Link } from 'react-router-dom';
 // 工具
 import { getAuthortyNameByCode } from '@/constants/auth-constants';
 
-// localStorage
-import { LOCAL_STORAGE } from '@/constants/app-constants';
+// redux
+import { useSelector } from 'react-redux';
 
 // 请求
 import proxyFetch from '@/util/request';
@@ -26,9 +26,9 @@ import '@/style/home/item.styl';
 const { Column } = Table;
 
 export default props => {
-  const localStorageTechLeaderRegistrationUuid = window.localStorage.getItem(
-      `${LOCAL_STORAGE}-techLeaderRegistrationUuid`
-    ),
+  const { enterpriseRegistrationUuid } = useSelector(
+    state => state.enterpriseStore
+  ),
     [loading, setLoading] = useState(true),
     [techManagerList, setTechManagerList] = useState([]),
     [total, setTotal] = useState(0),
@@ -45,14 +45,14 @@ export default props => {
       const stepsList = await proxyFetch(
         QUERY_TECH_LEADER_ENTERPRISE_REGISTRATION_STEP,
         {
-          registrationUuid: localStorageTechLeaderRegistrationUuid
+          registrationUuid: enterpriseRegistrationUuid
         },
         'GET'
       );
       setStepsList(stepsList);
       setLoading(false);
     })();
-  }, [localStorageTechLeaderRegistrationUuid]);
+  }, [enterpriseRegistrationUuid]);
 
   useEffect(() => {
     (async () => {
@@ -61,7 +61,7 @@ export default props => {
         const techManagerUuid = await proxyFetch(
           SELECT_REGISTRATION_TECH_MANAGER_UUID,
           {
-            registrationUuid: localStorageTechLeaderRegistrationUuid
+            registrationUuid: enterpriseRegistrationUuid
           },
           'GET'
         );
@@ -70,7 +70,7 @@ export default props => {
         setSavaDataLoading(false);
       }
     })();
-  }, [localStorageTechLeaderRegistrationUuid, isNeedFresh]);
+  }, [enterpriseRegistrationUuid, isNeedFresh]);
 
   useEffect(() => {
     (async () => {
@@ -95,7 +95,7 @@ export default props => {
       setSavaDataLoading(true);
 
       await proxyFetch(ARRANGE_TECH_MANAGER, {
-        registrationUuid: localStorageTechLeaderRegistrationUuid,
+        registrationUuid: enterpriseRegistrationUuid,
         techManagerUuid
       });
       setIsNeedFresh(true);
