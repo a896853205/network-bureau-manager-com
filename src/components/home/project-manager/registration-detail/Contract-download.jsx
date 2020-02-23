@@ -48,7 +48,7 @@ export default prop => {
         );
 
         // 数据回显
-        if (managerContract && managerContract.managerUrl) {
+        if (managerContract?.managerUrl) {
           setContractManagerUrl(managerContract.managerUrl);
           setIsNeedUrlFresh(true);
         }
@@ -68,6 +68,7 @@ export default prop => {
       setContractManagerLoading(true);
 
       // 参数需要加上oss的文件夹位置
+      // TODO 以后把这个改成后台输入的路由把
       const fileUrl = await proxyFileFetch(UPLOAD_PDF_FILE, {
         file: file.file,
         folderName: 'registration/managerContract'
@@ -131,7 +132,10 @@ export default prop => {
       'GET'
     );
 
-    window.open(url);
+    if (url) {
+      window.open(url);
+    }
+
     setDownloadContractLoading(false);
   };
 
@@ -160,9 +164,6 @@ export default prop => {
                 </Button>
               </Timeline.Item>
               <Timeline.Item>
-                <span>盖章扫描</span>
-              </Timeline.Item>
-              <Timeline.Item>
                 <Upload showUploadList={false} customRequest={handleUploadFile}>
                   {previewUrl && !contractManagerLoading ? (
                     <div>
@@ -187,7 +188,7 @@ export default prop => {
                       className='button'
                       loading={contractManagerLoading}
                     >
-                      点击文件上传pdf
+                      点击上传盖章的pdf
                       <Icon type='inbox' />
                     </Button>
                   )}
@@ -195,7 +196,7 @@ export default prop => {
               </Timeline.Item>
               <Timeline.Item>
                 <Button
-                  disabled={steps[1].status < 2 || steps[1].status === 100}
+                  disabled={steps[1]?.status < 2 || steps[1]?.status === 100}
                   type='primary'
                   htmlType='submit'
                   size='large'
@@ -211,7 +212,7 @@ export default prop => {
           <div className='contract-download-right-box'>
             <Alert
               message='甲方生成合同下载,盖章扫描,上传pdf注意事项'
-              description='根据甲乙双方填写的合同内容生成合同,点击下载按钮,盖章扫描后上传pdf文件。'
+              description='根据甲乙双方填写的合同内容生成合同,点击下载按钮,盖章扫描后上传pdf文件,最后点击提交按钮。'
               type='info'
             />
           </div>

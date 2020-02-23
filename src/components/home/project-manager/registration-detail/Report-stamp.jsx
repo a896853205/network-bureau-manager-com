@@ -49,7 +49,7 @@ export default prop => {
         );
 
         // 数据回显
-        if (report && report.finalUrl) {
+        if (report?.finalUrl) {
           setFinalUrl(report.finalUrl);
           setIsNeedUrlFresh(true);
         }
@@ -135,7 +135,7 @@ export default prop => {
           'GET'
         );
 
-        setReportUrl(report.url);
+        setReportUrl(report?.url);
         setDownloadReportLoading(false);
       })();
     }
@@ -163,7 +163,7 @@ export default prop => {
         <Link to={HOME_REGISTRATION_PROFILE.path}>
           <Icon type='left' className='exit-icon' />
         </Link>
-        <p className='subtitle-title'>生成合同下载,盖章扫描,上传pdf</p>
+        <p className='subtitle-title'>下载报告,盖章扫描,上传pdf</p>
       </div>
       <div className='detail-report-download-box'>
         <Skeleton loading={getDataLoading}>
@@ -179,11 +179,11 @@ export default prop => {
                       className='button'
                       loading={downloadReportLoading}
                     >
-                      下载原始记录word文件
+                      下载报告word文件
                     </Button>
                   </a>
                 ) : (
-                  <Button disabled>企业未上传</Button>
+                  <Button disabled>技术人员未上传</Button>
                 )}
               </Timeline.Item>
               <Timeline.Item>
@@ -222,7 +222,7 @@ export default prop => {
               </Timeline.Item>
               <Timeline.Item>
                 <Button
-                  disabled={steps[3].status < 4 || steps[4].status === 100}
+                  disabled={steps[3]?.status < 4 || steps[4]?.status === 100}
                   type='primary'
                   htmlType='submit'
                   size='large'

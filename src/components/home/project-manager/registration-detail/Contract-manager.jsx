@@ -66,7 +66,6 @@ export default Form.create({ name: 'contract' })(({ form }) => {
           }
 
           setFieldsValue(registrationContract);
-          console.log('registrationContract=', registrationContract);
         }
 
         setGetDataLoading(false);
@@ -131,34 +130,40 @@ export default Form.create({ name: 'contract' })(({ form }) => {
               <Form.Item label='样品接受日期'>
                 {getFieldDecorator('specimenHaveTime', {
                   rules: [{ required: true, message: '请选择样品接受日期！' }]
-                })(<DatePicker placeholder='请选择样品接受日期' />)}
+                })(<DatePicker placeholder='20XX-XX-XX' />)}
               </Form.Item>
 
               {/* 评测费金额 */}
               <Form.Item label='评测费金额'>
                 {getFieldDecorator('payment', {
                   rules: [{ required: true, message: '请输入评测费金额！' }]
-                })(<Input placeholder='请输入评测费金额' maxLength={32} />)}
+                })(
+                  <Input
+                    placeholder='2000'
+                    maxLength={32}
+                    addonAfter={<span>元</span>}
+                  />
+                )}
               </Form.Item>
 
               {/* 缴费时间 */}
-              <Form.Item label='缴费时间'>
+              <Form.Item label='缴费日期'>
                 {getFieldDecorator('paymentTime', {
-                  rules: [{ required: true, message: '请选择缴费时间！' }]
-                })(<DatePicker placeholder='请选择缴费时间' />)}
+                  rules: [{ required: true, message: '请选择缴费日期！' }]
+                })(<DatePicker placeholder='20XX-XX-XX' />)}
               </Form.Item>
 
               {/* 合同日期 */}
               <Form.Item label='合同日期'>
                 {getFieldDecorator('contractTime', {
                   rules: [{ required: true, message: '请选择合同日期！' }]
-                })(<DatePicker placeholder='请选择合同日期' />)}
+                })(<DatePicker placeholder='20XX-XX-XX' />)}
               </Form.Item>
 
               {/* 提交按钮 */}
               <Form.Item wrapperCol={{ offset: 7 }}>
                 <Button
-                  disabled={!steps[1].status || steps[1].status === 100}
+                  disabled={!steps[1]?.status || steps[1]?.status === 100}
                   type='primary'
                   htmlType='submit'
                   loading={saveDataLoading}

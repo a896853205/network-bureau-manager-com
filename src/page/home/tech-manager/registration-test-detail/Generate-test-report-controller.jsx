@@ -73,13 +73,11 @@ export default Form.create({ name: 'report' })(({ form }) => {
 
         // 数据回显
         if (report) {
-          if (report.failText) {
-            setFailText(report.failText);
-          }
+          setFailText(report?.failText);
 
           delete report.failText;
           setFieldsValue(report);
-          if (report && report.url) {
+          if (report?.url) {
             setFieldsValue({ url: [report.url] });
             setIsNeedUrlFresh(true);
           }
@@ -102,7 +100,7 @@ export default Form.create({ name: 'report' })(({ form }) => {
       // 参数需要加上oss的文件夹位置
       const fileUrl = await proxyFileFetch(UPLOAD_WORD_FILE, {
         file: file.file,
-        folderName: 'registration/originReport'
+        folderName: 'registration/report'
       });
 
       // loading
@@ -203,10 +201,13 @@ export default Form.create({ name: 'report' })(({ form }) => {
                       ]
                     })(
                       <Input
-                        placeholder='请输入原始记录总页数'
+                        placeholder='请输入报告总页数'
                         size='large'
+                        type='number'
                         className='input'
+                        style={{ textAlign: 'center' }}
                         maxLength={32}
+                        addonAfter={<span>页</span>}
                       />
                     )}
                   </Form.Item>

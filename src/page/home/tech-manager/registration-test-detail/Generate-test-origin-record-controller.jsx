@@ -60,14 +60,12 @@ export default Form.create({ name: 'record' })(({ form }) => {
 
         // 数据回显
         if (record) {
-          if (record.failText) {
-            setFailText(record.failText);
-          }
+          setFailText(record?.failText);
 
           delete record.failText;
 
           setFieldsValue(record);
-          if (record && record.url) {
+          if (record?.url) {
             setFieldsValue({ url: [record.url] });
             setIsNeedUrlFresh(true);
           }
@@ -206,8 +204,11 @@ export default Form.create({ name: 'record' })(({ form }) => {
                       <Input
                         placeholder='请输入原始记录总页数'
                         size='large'
+                        type='number'
+                        style={{ textAlign: 'center' }}
                         className='input'
                         maxLength={32}
+                        addonAfter={<span>页</span>}
                       />
                     )}
                   </Form.Item>

@@ -16,7 +16,6 @@ import enterpriseAction from '@/redux/action/enterprise';
 // 路由
 import {
   HOME_REGISTRATION_FILE_DOWNLOAD,
-  HOME_REGISTRATION_TASK_ASSIGN_TECH,
   HOME_REGISTRATION_TASK_PROFILE
 } from '@/constants/route-constants';
 import { useHistory } from 'react-router-dom';
@@ -159,26 +158,6 @@ export default props => {
               }}
             >
               查看进度详情
-            </Button>
-          )}
-        />
-        <Column
-          align='center'
-          title='分配技术管理人员'
-          dataIndex=''
-          key=''
-          render={(text, record) => (
-            <Button
-              type='link'
-              onClick={() => {
-                localStorage.setItem(
-                  `${LOCAL_STORAGE}-techLeaderRegistrationUuid`,
-                  record.uuid
-                );
-                history.push(HOME_REGISTRATION_TASK_ASSIGN_TECH.path);
-              }}
-            >
-              分配技术管理人员
             </Button>
           )}
         />
