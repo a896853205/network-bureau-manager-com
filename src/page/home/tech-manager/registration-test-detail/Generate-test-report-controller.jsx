@@ -40,6 +40,7 @@ export default Form.create({ name: 'report' })(({ form }) => {
     [getDataLoading, setGetDataLoading] = useState(true),
     [previewUrl, setPreviewUrl] = useState(''),
     [saveDataLoading, setSaveDataLoading] = useState(false),
+    [failText, setFailText] = useState(''),
     [isNeedUrlFresh, setIsNeedUrlFresh] = useState(false),
     [reportLoading, setReportLoading] = useState(false),
     history = useHistory();
@@ -72,6 +73,11 @@ export default Form.create({ name: 'report' })(({ form }) => {
 
         // 数据回显
         if (report) {
+          if (report.failText) {
+            setFailText(report.failText);
+          }
+
+          delete report.failText;
           setFieldsValue(report);
           if (report && report.url) {
             setFieldsValue({ url: [report.url] });
@@ -164,6 +170,13 @@ export default Form.create({ name: 'report' })(({ form }) => {
         </Link>
         <p className='subtitle-title'>生成报告</p>
       </div>
+      {failText ? (
+        <Alert
+          message='填写错误,请按描述修改'
+          description={failText}
+          type='error'
+        />
+      ) : null}
       <div className='generate-report-upload-box'>
         <Skeleton loading={getDataLoading}>
           <div className='report-left-box'>

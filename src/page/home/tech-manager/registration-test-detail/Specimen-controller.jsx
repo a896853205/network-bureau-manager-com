@@ -116,28 +116,20 @@ export default props => {
             </Descriptions>
             <div className='specimen-button-box'>
               <Button
-                disabled={!(managerStatus === 1 || managerStatus === -1)}
+                disabled={!(managerStatus === 1)}
                 type='danger'
                 htmlType='submit'
-                className={
-                  managerStatus === 1 || managerStatus === -1
-                    ? 'fail-button'
-                    : ''
-                }
+                className={managerStatus === 1 ? 'fail-button' : ''}
                 loading={statusLoading}
                 onClick={handleSetFailStatus}
               >
                 审核不通过
               </Button>
               <Button
-                disabled={!(managerStatus === 1 || managerStatus === -1)}
+                disabled={!(managerStatus === 1)}
                 type='primary'
                 htmlType='submit'
-                className={
-                  managerStatus === 1 || managerStatus === -1
-                    ? 'success-button'
-                    : ''
-                }
+                className={managerStatus === 1 ? 'success-button' : ''}
                 loading={statusLoading}
                 onClick={handleSetSuccessStatus}
               >
@@ -145,7 +137,7 @@ export default props => {
               </Button>
             </div>
             <TextArea
-              disabled={!(managerStatus === 1 || managerStatus === -1)}
+              disabled={!(managerStatus === 1)}
               autoSize={{ minRows: 3, maxRows: 6 }}
               maxLength='800'
               placeholder='请输入审核不通过理由'

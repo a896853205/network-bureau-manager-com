@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 // 路由
-import { HOME_REGISTRATION_TASK_PROFILE } from '@/constants/route-constants';
+import { HOME_REGISTRATION_CERTIFY_PROFILE } from '@/constants/route-constants';
 import { Link, useHistory } from 'react-router-dom';
 
 // redux
@@ -11,14 +11,14 @@ import { useSelector } from 'react-redux';
 import proxyFetch from '@/util/request';
 import {
   GET_FILE_URL,
-  GET_TECH_LEADER_REGISTRATION_RECORD,
-  SET_TECH_LEADER_REGISTRATION_RECORD_SUCCESS_STATUS,
-  SET_TECH_LEADER_REGISTRATION_RECORD_FAIL_STATUS
+  GET_CERTIFIER_REGISTRATION_REPORT,
+  SET_CERTIFIER_REGISTRATION_REPORT_SUCCESS_STATUS,
+  SET_CERTIFIER_REGISTRATION_REPORT_FAIL_STATUS
 } from '@/constants/api-constants';
 
 //样式
 import { Icon, Button, Tag, Input, message } from 'antd';
-import '@/style/home/tech-leader-manager/registration-task-examine-original-record.styl';
+import '@/style/home/certifier-manager/registration-certify-examine-report.styl';
 const { TextArea } = Input;
 
 export default props => {
@@ -62,7 +62,7 @@ export default props => {
       setStatusLoading(true);
 
       await proxyFetch(
-        SET_TECH_LEADER_REGISTRATION_RECORD_SUCCESS_STATUS,
+        SET_CERTIFIER_REGISTRATION_REPORT_SUCCESS_STATUS,
         {
           registrationUuid: enterpriseRegistrationUuid
         },
@@ -70,7 +70,7 @@ export default props => {
       );
 
       setStatusLoading(false);
-      history.push(HOME_REGISTRATION_TASK_PROFILE.path);
+      history.push(HOME_REGISTRATION_CERTIFY_PROFILE.path);
     })();
   };
 
@@ -80,7 +80,7 @@ export default props => {
         setStatusLoading(true);
 
         await proxyFetch(
-          SET_TECH_LEADER_REGISTRATION_RECORD_FAIL_STATUS,
+          SET_CERTIFIER_REGISTRATION_REPORT_FAIL_STATUS,
           {
             registrationUuid: enterpriseRegistrationUuid,
             failText
@@ -89,7 +89,7 @@ export default props => {
         );
 
         setStatusLoading(false);
-        history.push(HOME_REGISTRATION_TASK_PROFILE.path);
+        history.push(HOME_REGISTRATION_CERTIFY_PROFILE.path);
       })();
     } else {
       message.error('请输入未通过审核理由!');
@@ -102,17 +102,17 @@ export default props => {
       (async () => {
         setGetFileLoading(true);
 
-        let record = await proxyFetch(
-          GET_TECH_LEADER_REGISTRATION_RECORD,
+        let report = await proxyFetch(
+          GET_CERTIFIER_REGISTRATION_REPORT,
           { registrationUuid: enterpriseRegistrationUuid },
           'GET'
         );
 
-        if (record) {
-          setStatus(record.status);
+        if (report) {
+          setStatus(report.status);
         }
 
-        setFormUrl(record.url);
+        setFormUrl(report.url);
         setGetFileLoading(false);
       })();
     }
@@ -135,12 +135,12 @@ export default props => {
   }, [formUrl]);
 
   return (
-    <div className='item-box registration-task-examine-record-box'>
+    <div className='item-box registration-certify-examine-report-box'>
       <p className='title-box'>
         <span>技术负责人审核</span>
       </p>
       <div className='subtitle-box'>
-        <Link to={`${HOME_REGISTRATION_TASK_PROFILE.path}`}>
+        <Link to={`${HOME_REGISTRATION_CERTIFY_PROFILE.path}`}>
           <Icon type='left' className='exit-icon' />
         </Link>
         <p className='subtitle-title'>
@@ -150,8 +150,8 @@ export default props => {
           </Tag>
         </p>
       </div>
-      <div className='detail-record-box'>
-        <div className='record-upload-button-box'>
+      <div className='detail-report-box'>
+        <div className='report-upload-button-box'>
           {formUrl ? (
             <a href={PreviewUrl}>
               <Button type='primary' icon='download' loading={getFileLoading}>
@@ -162,22 +162,22 @@ export default props => {
             <Button disabled>企业未上传</Button>
           )}
         </div>
-        <div className='record-button-box'>
+        <div className='report-button-box'>
           <Button
-            disabled={!(status === 2)}
+            disabled={!(status === 3)}
             type='primary'
             htmlType='submit'
-            className={status === 2 ? 'fail-button' : ''}
+            className={status === 3 ? 'fail-button' : ''}
             loading={statusLoading}
             onClick={handleSetFailStatus}
           >
             审核不通过
           </Button>
           <Button
-            disabled={!(status === 2)}
+            disabled={!(status === 3)}
             type='primary'
             htmlType='submit'
-            className={status === 2 ? 'success-button' : ''}
+            className={status === 3 ? 'success-button' : ''}
             loading={statusLoading}
             onClick={handleSetSuccessStatus}
           >
@@ -185,11 +185,11 @@ export default props => {
           </Button>
         </div>
         <TextArea
-          disabled={!(status === 2)}
+          disabled={!(status === 3)}
           autoSize={{ minRows: 3, maxRows: 6 }}
           maxLength='800'
           placeholder='请输入审核不通过理由'
-          className='record-textArea-box'
+          className='report-textArea-box'
           onChange={e => {
             setFailText(e.target.value);
           }}

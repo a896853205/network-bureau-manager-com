@@ -193,6 +193,16 @@ export const HOME_REGISTRATION_CERTIFY_DETAIL_APPLY = {
   name: '登记测试软件评测现场测试申请表预览页'
 };
 
+export const HOME_REGISTRATION_CERTIFY_EXAMINE_REPORT = {
+  path: '/home/registration/certify/router/examineReport',
+  name: '登记测试软件评测生成报告预览页'
+};
+
+export const HOME_REGISTRATION_CERTIFY_EXAMINE_ORIGINAL_RECORD = {
+  path: '/home/registration/certify/router/examineOriginalRecord',
+  name: '登记测试软件评测生成原始记录预览页'
+};
+
 /**
  * 三级路由结束
  ***********************/

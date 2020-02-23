@@ -96,20 +96,32 @@ export default props => {
                     <Timeline.Item
                       color={fieldTestStatusToColor(1, reportStatus)}
                     >
-                      <Link to={HOME_REGISTRATION_TEST_GENERATE_REPORT.path}>
+                      {reportStatus ? (
+                        <Link to={HOME_REGISTRATION_TEST_GENERATE_REPORT.path}>
+                          <span>技术人员生成报告</span>
+                        </Link>
+                      ) : (
                         <span>技术人员生成报告</span>
-                      </Link>
+                      )}
                     </Timeline.Item>
-                    <Timeline.Item color={fieldTestStatusToColor(2, reportStatus)}>
+                    <Timeline.Item
+                      color={fieldTestStatusToColor(2, reportStatus)}
+                    >
                       <span>技术负责人审查报告</span>
                     </Timeline.Item>
-                    <Timeline.Item color={fieldTestStatusToColor(3, reportStatus)}>
+                    <Timeline.Item
+                      color={fieldTestStatusToColor(3, reportStatus)}
+                    >
                       <span>批准人审查报告</span>
                     </Timeline.Item>
-                    <Timeline.Item color={fieldTestStatusToColor(4, reportStatus)}>
+                    <Timeline.Item
+                      color={fieldTestStatusToColor(4, reportStatus)}
+                    >
                       <span>项目管理人报告盖章</span>
                     </Timeline.Item>
-                    <Timeline.Item color={fieldTestStatusToColor(5, reportStatus)}>
+                    <Timeline.Item
+                      color={fieldTestStatusToColor(5, reportStatus)}
+                    >
                       <span>完成</span>
                     </Timeline.Item>
                   </Timeline>
@@ -119,25 +131,39 @@ export default props => {
                 <div className='right-timeline-box'>
                   <div className='timeline-top-box'>原始记录盖章</div>
                   <Timeline mode='left' className='timeline-box'>
-                    <Timeline.Item color={fieldTestStatusToColor(1, recordStatus)}>
-                      <Link
-                        to={
-                          HOME_REGISTRATION_TEST_GENERATE_ORIGINAL_RECORD.path
-                        }
-                      >
+                    <Timeline.Item
+                      color={fieldTestStatusToColor(1, recordStatus)}
+                    >
+                      {recordStatus ? (
+                        <Link
+                          to={
+                            HOME_REGISTRATION_TEST_GENERATE_ORIGINAL_RECORD.path
+                          }
+                        >
+                          <span>技术人员生成原始记录</span>
+                        </Link>
+                      ) : (
                         <span>技术人员生成原始记录</span>
-                      </Link>
+                      )}
                     </Timeline.Item>
-                    <Timeline.Item color={fieldTestStatusToColor(2, recordStatus)}>
+                    <Timeline.Item
+                      color={fieldTestStatusToColor(2, recordStatus)}
+                    >
                       <span>技术负责人审查原始记录</span>
                     </Timeline.Item>
-                    <Timeline.Item color={fieldTestStatusToColor(3, recordStatus)}>
+                    <Timeline.Item
+                      color={fieldTestStatusToColor(3, recordStatus)}
+                    >
                       <span>批准人审查原始记录</span>
                     </Timeline.Item>
-                    <Timeline.Item color={fieldTestStatusToColor(4, recordStatus)}>
+                    <Timeline.Item
+                      color={fieldTestStatusToColor(4, recordStatus)}
+                    >
                       <span>项目管理人原始记录盖章</span>
                     </Timeline.Item>
-                    <Timeline.Item color={fieldTestStatusToColor(5, recordStatus)}>
+                    <Timeline.Item
+                      color={fieldTestStatusToColor(5, recordStatus)}
+                    >
                       <span>完成</span>
                     </Timeline.Item>
                   </Timeline>

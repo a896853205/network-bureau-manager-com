@@ -3,8 +3,8 @@ import React, { useState, useEffect } from 'react';
 // 请求
 import proxyFetch from '@/util/request';
 import {
-  GET_TECH_LEADER_REGISTRATION_REPORT_STATUS,
-  GET_TECH_LEADER_REGISTRATION_RECORD_STATUS
+  GET_CERTIFIER_REGISTRATION_REPORT_STATUS,
+  GET_CERTIFIER_REGISTRATION_RECORD_STATUS
 } from '@/constants/api-constants';
 
 // redux
@@ -12,14 +12,14 @@ import { useSelector } from 'react-redux';
 
 // 路由
 import {
-  HOME_REGISTRATION_TASK_EXAMINE_REPORT,
-  HOME_REGISTRATION_TASK_EXAMINE_ORIGINAL_RECORD
+  HOME_REGISTRATION_CERTIFY_EXAMINE_REPORT,
+  HOME_REGISTRATION_CERTIFY_EXAMINE_ORIGINAL_RECORD
 } from '@/constants/route-constants';
 import { Link } from 'react-router-dom';
 
 // 样式
 import { Icon, Timeline, Skeleton } from 'antd';
-import '@/style/home/tech-leader-manager/generate-report.styl';
+import '@/style/home/certifier-manager/generate-report.styl';
 
 export default props => {
   const { enterpriseRegistrationUuid } = useSelector(
@@ -50,12 +50,12 @@ export default props => {
         setGetDataLoading(true);
         const [registrationReport, registrationRecord] = await Promise.all([
           proxyFetch(
-            GET_TECH_LEADER_REGISTRATION_REPORT_STATUS,
+            GET_CERTIFIER_REGISTRATION_REPORT_STATUS,
             { registrationUuid: enterpriseRegistrationUuid },
             'GET'
           ),
           proxyFetch(
-            GET_TECH_LEADER_REGISTRATION_RECORD_STATUS,
+            GET_CERTIFIER_REGISTRATION_RECORD_STATUS,
             { registrationUuid: enterpriseRegistrationUuid },
             'GET'
           )
@@ -97,14 +97,14 @@ export default props => {
                     <Timeline.Item
                       color={fieldTestStatusToColor(2, reportStatus)}
                     >
-                      <Link to={HOME_REGISTRATION_TASK_EXAMINE_REPORT.path}>
-                        <span>技术负责人审查报告</span>
-                      </Link>
+                      <span>技术负责人审查报告</span>
                     </Timeline.Item>
                     <Timeline.Item
                       color={fieldTestStatusToColor(3, reportStatus)}
                     >
-                      <span>批准人审查报告</span>
+                      <Link to={HOME_REGISTRATION_CERTIFY_EXAMINE_REPORT.path}>
+                        <span>批准人审查报告</span>
+                      </Link>
                     </Timeline.Item>
                     <Timeline.Item
                       color={fieldTestStatusToColor(4, reportStatus)}
@@ -131,16 +131,18 @@ export default props => {
                     <Timeline.Item
                       color={fieldTestStatusToColor(2, recordStatus)}
                     >
-                      <Link
-                        to={HOME_REGISTRATION_TASK_EXAMINE_ORIGINAL_RECORD.path}
-                      >
-                        <span>技术负责人审查原始记录</span>
-                      </Link>
+                      <span>技术负责人审查原始记录</span>
                     </Timeline.Item>
                     <Timeline.Item
                       color={fieldTestStatusToColor(3, recordStatus)}
                     >
-                      <span>批准人审查原始记录</span>
+                      <Link
+                        to={
+                          HOME_REGISTRATION_CERTIFY_EXAMINE_ORIGINAL_RECORD.path
+                        }
+                      >
+                        <span>批准人审查原始记录</span>
+                      </Link>
                     </Timeline.Item>
                     <Timeline.Item
                       color={fieldTestStatusToColor(4, recordStatus)}

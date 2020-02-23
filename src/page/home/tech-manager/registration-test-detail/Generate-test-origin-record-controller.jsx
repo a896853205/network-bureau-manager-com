@@ -41,6 +41,7 @@ export default Form.create({ name: 'record' })(({ form }) => {
     [saveDataLoading, setSaveDataLoading] = useState(false),
     [isNeedUrlFresh, setIsNeedUrlFresh] = useState(false),
     [recordLoading, setRecordLoading] = useState(false),
+    [failText, setFailText] = useState(''),
     [downloadRecordLoading, setDownloadRecordLoading] = useState(false),
     history = useHistory();
 
@@ -59,6 +60,12 @@ export default Form.create({ name: 'record' })(({ form }) => {
 
         // 数据回显
         if (record) {
+          if (record.failText) {
+            setFailText(record.failText);
+          }
+
+          delete record.failText;
+
           setFieldsValue(record);
           if (record && record.url) {
             setFieldsValue({ url: [record.url] });
@@ -164,6 +171,13 @@ export default Form.create({ name: 'record' })(({ form }) => {
         </Link>
         <p className='subtitle-title'>生成原始记录</p>
       </div>
+      {failText ? (
+        <Alert
+          message='填写错误,请按描述修改'
+          description={failText}
+          type='error'
+        />
+      ) : null}
       <div className='generate-record-upload-box'>
         <Skeleton loading={getDataLoading}>
           <div className='record-left-box'>
