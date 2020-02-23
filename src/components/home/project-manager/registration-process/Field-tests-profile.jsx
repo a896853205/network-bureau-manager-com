@@ -4,7 +4,9 @@ import React, { useState, useEffect } from 'react';
 import proxyFetch from '@/util/request';
 import {
   GET_PROJECT_REGISTRATION_TEST_APPLY,
-  GET_PROJECT_REGISTRATION_TEST_SPECIMEN
+  GET_PROJECT_REGISTRATION_TEST_SPECIMEN,
+  GET_PROJECT_REGISTRATION_TEST_REPORT,
+  GET_PROJECT_REGISTRATION_TEST_RECORD
 } from '@/constants/api-constants';
 
 // 样式
@@ -28,7 +30,11 @@ export default props => {
     [registrationApply, setRegistrationApply] = useState(null),
     [registrationSpecimen, setRegistrationSpecimen] = useState(null),
     [applyManagerStatus, setApplyManagerStatus] = useState(0),
-    [specimenManagerStatus, setSpecimenManagerStatus] = useState(0);
+    [specimenManagerStatus, setSpecimenManagerStatus] = useState(0),
+    [registrationReport, setRegistrationReport] = useState(null),
+    [registrationRecord, setRegistrationRecord] = useState(null),
+    [registrationReportStatus, setRegistrationReportStatus] = useState(0),
+    [registrationRecordStatus, setRegistrationRecordStatus] = useState(0);
 
   const fieldTestManagerStatusToColor = (manager, managerStatus = 0) => {
     let color = '';
@@ -51,7 +57,12 @@ export default props => {
     if (enterpriseRegistrationUuid) {
       (async () => {
         setGetDataLoading(true);
-        const [registrationApply, registrationSpecimen] = await Promise.all([
+        const [
+          registrationApply,
+          registrationSpecimen,
+          registrationReport,
+          registrationRecord
+        ] = await Promise.all([
           proxyFetch(
             GET_PROJECT_REGISTRATION_TEST_APPLY,
             { registrationUuid: enterpriseRegistrationUuid },
@@ -61,6 +72,16 @@ export default props => {
             GET_PROJECT_REGISTRATION_TEST_SPECIMEN,
             { registrationUuid: enterpriseRegistrationUuid },
             'GET'
+          ),
+          proxyFetch(
+            GET_PROJECT_REGISTRATION_TEST_REPORT,
+            { registrationUuid: enterpriseRegistrationUuid },
+            'GET'
+          ),
+          proxyFetch(
+            GET_PROJECT_REGISTRATION_TEST_RECORD,
+            { registrationUuid: enterpriseRegistrationUuid },
+            'GET'
           )
         ]);
 
@@ -68,6 +89,10 @@ export default props => {
         setRegistrationApply(registrationApply);
         setSpecimenManagerStatus(registrationSpecimen?.managerStatus);
         setRegistrationSpecimen(registrationSpecimen);
+        setRegistrationReport(registrationReport);
+        setRegistrationRecord(registrationRecord);
+        setRegistrationReportStatus(registrationReport?.status);
+        setRegistrationRecordStatus(registrationRecord?.status);
 
         setGetDataLoading(false);
       })();
@@ -211,46 +236,92 @@ export default props => {
               </div>
             </Timeline.Item>
             <Timeline.Item color={fieldTestsStatusToColor(4, steps[3].status)}>
-              <div className='inner-timeline-box'>
-                <div className='left-timeline-box'>
-                  <div className='timeline-top-box'>报告盖章</div>
-                  <Timeline mode='left' className='timeline-box'>
-                    <Timeline.Item>
-                      <span>技术人员生成报告</span>
-                    </Timeline.Item>
-                    <Timeline.Item>
-                      <span>技术负责人审查报告</span>
-                    </Timeline.Item>
-                    <Timeline.Item>
-                      <span>批准人审查报告</span>
-                    </Timeline.Item>
-                    <Timeline.Item>
-                      <Link to={`${HOME_REGISTRATION_DETAIL.path}/stamp`}>
-                        <span>项目管理人报告盖章</span>
-                      </Link>
-                    </Timeline.Item>
-                  </Timeline>
+              <Skeleton loading={getDataLoading}>
+                <div className='inner-timeline-box'>
+                  {registrationReport ? (
+                    <div className='left-timeline-box'>
+                      <div className='timeline-top-box'>报告盖章</div>
+                      <Timeline mode='left' className='timeline-box'>
+                        <Timeline.Item
+                          color={fieldTestManagerStatusToColor(
+                            1,
+                            registrationReportStatus
+                          )}
+                        >
+                          <span>技术人员生成报告</span>
+                        </Timeline.Item>
+                        <Timeline.Item
+                          color={fieldTestManagerStatusToColor(
+                            2,
+                            registrationReportStatus
+                          )}
+                        >
+                          <span>技术负责人审查报告</span>
+                        </Timeline.Item>
+                        <Timeline.Item
+                          color={fieldTestManagerStatusToColor(
+                            3,
+                            registrationReportStatus
+                          )}
+                        >
+                          <span>批准人审查报告</span>
+                        </Timeline.Item>
+                        <Timeline.Item
+                          color={fieldTestManagerStatusToColor(
+                            4,
+                            registrationReportStatus
+                          )}
+                        >
+                          <Link to={`${HOME_REGISTRATION_DETAIL.path}/reportStamp`}>
+                            <span>项目管理人报告盖章</span>
+                          </Link>
+                        </Timeline.Item>
+                      </Timeline>
+                    </div>
+                  ) : null}
+                  {registrationRecord ? (
+                    <div className='right-timeline-box'>
+                      <div className='timeline-top-box'>原始记录盖章</div>
+                      <Timeline mode='left' className='timeline-box'>
+                        <Timeline.Item
+                          color={fieldTestManagerStatusToColor(
+                            1,
+                            registrationRecordStatus
+                          )}
+                        >
+                          <span>技术人员生成原始记录</span>
+                        </Timeline.Item>
+                        <Timeline.Item
+                          color={fieldTestManagerStatusToColor(
+                            2,
+                            registrationRecordStatus
+                          )}
+                        >
+                          <span>技术负责人审查原始记录</span>
+                        </Timeline.Item>
+                        <Timeline.Item
+                          color={fieldTestManagerStatusToColor(
+                            3,
+                            registrationRecordStatus
+                          )}
+                        >
+                          <span>批准人审查原始记录</span>
+                        </Timeline.Item>
+                        <Timeline.Item
+                          color={fieldTestManagerStatusToColor(
+                            4,
+                            registrationRecordStatus
+                          )}
+                        >
+                          <Link to={`${HOME_REGISTRATION_DETAIL.path}/recordStamp`}>
+                            <span>项目管理人原始记录盖章</span>
+                          </Link>
+                        </Timeline.Item>
+                      </Timeline>
+                    </div>
+                  ) : null}
                 </div>
-                <div className='right-timeline-box'>
-                  <div className='timeline-top-box'>原始记录盖章</div>
-                  <Timeline mode='left' className='timeline-box'>
-                    <Timeline.Item>
-                      <span>技术人员生成原始记录</span>
-                    </Timeline.Item>
-                    <Timeline.Item>
-                      <span>技术负责人审查原始记录</span>
-                    </Timeline.Item>
-                    <Timeline.Item>
-                      <span>批准人审查原始记录</span>
-                    </Timeline.Item>
-                    <Timeline.Item>
-                      <Link to={`${HOME_REGISTRATION_DETAIL.path}/stamp`}>
-                        <span>项目管理人原始记录盖章</span>
-                      </Link>
-                    </Timeline.Item>
-                  </Timeline>
-                </div>
-              </div>
+              </Skeleton>
             </Timeline.Item>
           </Timeline>
         </div>

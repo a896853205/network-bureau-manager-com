@@ -18,7 +18,8 @@ import ContractDownload from '@/components/home/project-manager/registration-det
 import ContractExamine from '@/components/home/project-manager/registration-detail/Contract-examine.jsx';
 import FinanceShow from '@/components/home/project-manager/registration-detail/Finance-show.jsx';
 import TechnicalManagerShow from '@/components/home/project-manager/registration-detail/Technical-manager-show.jsx';
-import Stamp from '@/components/home/project-manager/registration-detail/Stamp.jsx';
+import ReportStamp from '@/components/home/project-manager/registration-detail/Report-stamp.jsx';
+import RecordStamp from '@/components/home/project-manager/registration-detail/Record-stamp.jsx';
 
 export default ({ type }) => {
   let content = null;
@@ -63,8 +64,11 @@ export default ({ type }) => {
     case 'technicalManagerShow':
       content = <TechnicalManagerShow />;
       break;
-    case 'stamp':
-      content = <Stamp />;
+    case 'reportStamp':
+      content = <ReportStamp />;
+      break;
+    case 'recordStamp':
+      content = <RecordStamp />;
       break;
     case 'testSpecimen':
       content = <TestSpecimen />;
