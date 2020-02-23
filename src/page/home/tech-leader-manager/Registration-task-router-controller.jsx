@@ -11,6 +11,8 @@ import enterpriseAction from '@/redux/action/enterprise';
 import RegistrationTaskAssignTech from '@/page/home/tech-leader-manager/registration-task-detail/Registration-task-assign-tech-controller.jsx';
 import RegistrationTaskProfile from '@/page/home/tech-leader-manager/registration-task-detail/Registration-task-profile-controller.jsx';
 import ApplyController from '@/page/home/tech-leader-manager/registration-task-detail/Apply-controller.jsx';
+import RegistrationTaskExamineReportController from '@/page/home/tech-leader-manager/registration-task-detail/Registration-task-examine-report-controller.jsx';
+import RegistrationTaskExamineOriginalRecordController from '@/page/home/tech-leader-manager/registration-task-detail/Registration-task-examine-original-record-controller.jsx';
 
 // 路由
 import { useRouteMatch, useHistory } from 'react-router-dom';
@@ -65,12 +67,26 @@ export default props => {
     path: ROUTES.HOME_REGISTRATION_TASK_DETAIL_APPLY.path,
     exact: true
   });
+  const homeRegistrationTaskExamineReport = useRouteMatch({
+    path: ROUTES.HOME_REGISTRATION_TASK_EXAMINE_REPORT.path,
+    exact: true
+  });
+  const homeRegistrationTaskExamineOriginalRecord = useRouteMatch({
+    path: ROUTES.HOME_REGISTRATION_TASK_EXAMINE_ORIGINAL_RECORD.path,
+    exact: true
+  });
 
   return (
     <>
       {homeRegistrationTaskAssignTech ? <RegistrationTaskAssignTech /> : null}
       {homeRegistrationTaskProfile ? <RegistrationTaskProfile /> : null}
       {homeRegistrationTaskDetailApply ? <ApplyController /> : null}
+      {homeRegistrationTaskExamineReport ? (
+        <RegistrationTaskExamineReportController />
+      ) : null}
+      {homeRegistrationTaskExamineOriginalRecord ? (
+        <RegistrationTaskExamineOriginalRecordController />
+      ) : null}
     </>
   );
 };

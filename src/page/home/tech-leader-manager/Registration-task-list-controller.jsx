@@ -102,7 +102,7 @@ export default props => {
                   />
                 </span>
               ) : null}
-              {record?.['enterpriseRegistrationStep.status'] === 3 ? (
+              {record?.['enterpriseRegistrationStep.status'] >= 3 ? (
                 <span>
                   已分配技术人员
                   <Icon

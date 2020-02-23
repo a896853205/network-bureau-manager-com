@@ -5,6 +5,7 @@ import * as DominConfigs from './domin-constants';
  */
 export const UPLOAD_FILE = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_FILE}/uploadFile`; // 上传文件
 export const UPLOAD_PDF_FILE = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_FILE}/uploadPdfFile`; // 上传word,pdf文件
+export const UPLOAD_WORD_FILE = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_FILE}/uploadWordFile`; // 上传word,pdf文件
 export const GET_FILE_URL = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_FILE}/getFileUrl`; // 获取文件url
 
 /**
@@ -86,6 +87,14 @@ export const GET_TECH_LEADER_REGISTRATION_TEST_APPLY = `${DominConfigs.DOMAIN}${
 export const GET_TECH_LEADER_REGISTRATION_TEST_SPECIMEN = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_TECH_LEADER_MANAGER}/getTechLeaderRegistrationTestSpecimen`; // 技术负责人查询样品文档集的基本信息
 export const SET_TECH_LEADER_APPLY_MANAGER_STATUS = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_TECH_LEADER_MANAGER}/setTechLeaderApplyManagerStatus`; // 设置现场申请表审核通过状态
 export const SET_TECH_LEADER_APPLY_MANAGER_FAIL_STATUS = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_TECH_LEADER_MANAGER}/setTechLeaderApplyManagerFailStatus`; // 设置现场申请表审核不通过状态
+export const GET_TECH_LEADER_REGISTRATION_REPORT_STATUS = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_TECH_LEADER_MANAGER}/getTechLeaderRegistrationReportStatus`; // 技术负责人查询现场报告状态信息
+export const GET_TECH_LEADER_REGISTRATION_RECORD_STATUS = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_TECH_LEADER_MANAGER}/getTechLeaderRegistrationRecordStatus`; // 技术负责人查询原始记录状态信息
+export const GET_TECH_LEADER_REGISTRATION_RECORD = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_TECH_LEADER_MANAGER}/getTechLeaderRegistrationRecord`; // 技术负责人查询原始记录的基本信息
+export const SET_TECH_LEADER_REGISTRATION_RECORD_SUCCESS_STATUS = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_TECH_LEADER_MANAGER}/setTechLeaderRegistrationRecordSuccessStatus`; // 设置原始记录审核通过状态
+export const SET_TECH_LEADER_REGISTRATION_RECORD_FAIL_STATUS = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_TECH_LEADER_MANAGER}/setTechLeaderRegistrationRecordFailStatus`; // 设置原始记录审核不通过状态
+export const GET_TECH_LEADER_REGISTRATION_REPORT = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_TECH_LEADER_MANAGER}/getTechLeaderRegistrationReport`; // 技术负责人查询现场报告的基本信息
+export const SET_TECH_LEADER_REGISTRATION_REPORT_SUCCESS_STATUS = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_TECH_LEADER_MANAGER}/setTechLeaderRegistrationReportSuccessStatus`; // 设置现场报告审核通过状态
+export const SET_TECH_LEADER_REGISTRATION_REPORT_FAIL_STATUS = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_TECH_LEADER_MANAGER}/setTechLeaderRegistrationReportFailStatus`; // 设置现场报告审核不通过状态
 
 /**
  * 技术人员
@@ -101,6 +110,12 @@ export const SET_TECH_APPLY_MANAGER_STATUS = `${DominConfigs.DOMAIN}${DominConfi
 export const SET_TECH_APPLY_MANAGER_FAIL_STATUS = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_TECH_MANAGER}/setTechApplyManagerFailStatus`; // 设置现场申请表审核不通过状态
 export const GENERATE_REPORT_WORD = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_TECH_MANAGER}/generateReportWord`; // 生成报告模板word
 export const GENERATE_RECORD_WORD = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_TECH_MANAGER}/generateRecordWord`; // 生成原始记录模板word
+export const SELECT_TECH_REGISTRATION_RECORD = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_TECH_MANAGER}/selectTechRegistrationRecord`; // 查询原始记录信息
+export const SAVE_TECH_REGISTRATION_RECORD = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_TECH_MANAGER}/saveTechRegistrationRecord`; // 保存原始记录信息
+export const SELECT_TECH_REGISTRATION_REPORT = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_TECH_MANAGER}/selectTechRegistrationReport`; // 查询现场报告信息
+export const SAVE_TECH_REGISTRATION_REPORT = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_TECH_MANAGER}/saveTechRegistrationReport`; // 保存现场报告信息
+export const GET_TECH_REGISTRATION_REPORT_STATUS = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_TECH_MANAGER}/getTechRegistrationReportStatus`; // 技术人员查询现场报告状态信息
+export const GET_TECH_REGISTRATION_RECORD_STATUS = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_TECH_MANAGER}/getTechRegistrationRecordStatus`; // 技术人员查询原始记录状态信息
 
 /**
  * 批准人

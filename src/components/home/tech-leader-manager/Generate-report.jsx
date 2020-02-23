@@ -3,8 +3,8 @@ import React, { useState, useEffect } from 'react';
 // 请求
 import proxyFetch from '@/util/request';
 import {
-  GET_TECH_REGISTRATION_REPORT_STATUS,
-  GET_TECH_REGISTRATION_RECORD_STATUS
+  GET_TECH_LEADER_REGISTRATION_REPORT_STATUS,
+  GET_TECH_LEADER_REGISTRATION_RECORD_STATUS
 } from '@/constants/api-constants';
 
 // redux
@@ -12,8 +12,8 @@ import { useSelector } from 'react-redux';
 
 // 路由
 import {
-  HOME_REGISTRATION_TEST_GENERATE_REPORT,
-  HOME_REGISTRATION_TEST_GENERATE_ORIGINAL_RECORD
+  HOME_REGISTRATION_TASK_EXAMINE_REPORT,
+  HOME_REGISTRATION_TASK_EXAMINE_ORIGINAL_RECORD
 } from '@/constants/route-constants';
 import { Link } from 'react-router-dom';
 
@@ -32,19 +32,15 @@ export default props => {
     [recordStatus, setRecordStatus] = useState(0);
 
   const fieldTestStatusToColor = (manager, status = 0) => {
-    let color = '';
-
     if (status === -manager) {
-      color = 'red';
+      return 'red';
     } else if (status === manager) {
-      color = 'blue';
+      return 'blue';
     } else if (status > manager || -status > manager) {
-      color = 'green';
+      return 'green';
     } else {
-      color = 'grey';
+      return 'grey';
     }
-
-    return color;
   };
 
   // 将已有的数据回显
@@ -54,12 +50,12 @@ export default props => {
         setGetDataLoading(true);
         const [registrationReport, registrationRecord] = await Promise.all([
           proxyFetch(
-            GET_TECH_REGISTRATION_REPORT_STATUS,
+            GET_TECH_LEADER_REGISTRATION_REPORT_STATUS,
             { registrationUuid: enterpriseRegistrationUuid },
             'GET'
           ),
           proxyFetch(
-            GET_TECH_REGISTRATION_RECORD_STATUS,
+            GET_TECH_LEADER_REGISTRATION_RECORD_STATUS,
             { registrationUuid: enterpriseRegistrationUuid },
             'GET'
           )
@@ -96,20 +92,28 @@ export default props => {
                     <Timeline.Item
                       color={fieldTestStatusToColor(1, reportStatus)}
                     >
-                      <Link to={HOME_REGISTRATION_TEST_GENERATE_REPORT.path}>
-                        <span>技术人员生成报告</span>
+                      <span>技术人员生成报告</span>
+                    </Timeline.Item>
+                    <Timeline.Item
+                      color={fieldTestStatusToColor(2, reportStatus)}
+                    >
+                      <Link to={HOME_REGISTRATION_TASK_EXAMINE_REPORT.path}>
+                        <span>技术负责人审查报告</span>
                       </Link>
                     </Timeline.Item>
-                    <Timeline.Item color={fieldTestStatusToColor(2, reportStatus)}>
-                      <span>技术负责人审查报告</span>
-                    </Timeline.Item>
-                    <Timeline.Item color={fieldTestStatusToColor(3, reportStatus)}>
+                    <Timeline.Item
+                      color={fieldTestStatusToColor(3, reportStatus)}
+                    >
                       <span>批准人审查报告</span>
                     </Timeline.Item>
-                    <Timeline.Item color={fieldTestStatusToColor(4, reportStatus)}>
+                    <Timeline.Item
+                      color={fieldTestStatusToColor(4, reportStatus)}
+                    >
                       <span>项目管理人报告盖章</span>
                     </Timeline.Item>
-                    <Timeline.Item color={fieldTestStatusToColor(5, reportStatus)}>
+                    <Timeline.Item
+                      color={fieldTestStatusToColor(5, reportStatus)}
+                    >
                       <span>完成</span>
                     </Timeline.Item>
                   </Timeline>
@@ -119,25 +123,33 @@ export default props => {
                 <div className='right-timeline-box'>
                   <div className='timeline-top-box'>原始记录盖章</div>
                   <Timeline mode='left' className='timeline-box'>
-                    <Timeline.Item color={fieldTestStatusToColor(1, recordStatus)}>
+                    <Timeline.Item
+                      color={fieldTestStatusToColor(1, recordStatus)}
+                    >
+                      <span>技术人员生成原始记录</span>
+                    </Timeline.Item>
+                    <Timeline.Item
+                      color={fieldTestStatusToColor(2, recordStatus)}
+                    >
                       <Link
-                        to={
-                          HOME_REGISTRATION_TEST_GENERATE_ORIGINAL_RECORD.path
-                        }
+                        to={HOME_REGISTRATION_TASK_EXAMINE_ORIGINAL_RECORD.path}
                       >
-                        <span>技术人员生成原始记录</span>
+                        <span>技术负责人审查原始记录</span>
                       </Link>
                     </Timeline.Item>
-                    <Timeline.Item color={fieldTestStatusToColor(2, recordStatus)}>
-                      <span>技术负责人审查原始记录</span>
-                    </Timeline.Item>
-                    <Timeline.Item color={fieldTestStatusToColor(3, recordStatus)}>
+                    <Timeline.Item
+                      color={fieldTestStatusToColor(3, recordStatus)}
+                    >
                       <span>批准人审查原始记录</span>
                     </Timeline.Item>
-                    <Timeline.Item color={fieldTestStatusToColor(4, recordStatus)}>
+                    <Timeline.Item
+                      color={fieldTestStatusToColor(4, recordStatus)}
+                    >
                       <span>项目管理人原始记录盖章</span>
                     </Timeline.Item>
-                    <Timeline.Item color={fieldTestStatusToColor(5, recordStatus)}>
+                    <Timeline.Item
+                      color={fieldTestStatusToColor(5, recordStatus)}
+                    >
                       <span>完成</span>
                     </Timeline.Item>
                   </Timeline>

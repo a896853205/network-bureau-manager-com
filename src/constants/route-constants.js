@@ -96,6 +96,16 @@ export const HOME_REGISTRATION_TASK_DETAIL_APPLY = {
   name: '登记测试软件评测现场测试申请表预览页'
 };
 
+export const HOME_REGISTRATION_TASK_EXAMINE_REPORT = {
+  path: '/home/registration/task/router/report',
+  name: '登记测试软件评测生成报告预览页'
+};
+
+export const HOME_REGISTRATION_TASK_EXAMINE_ORIGINAL_RECORD = {
+  path: '/home/registration/task/router/record',
+  name: '登记测试软件评测生成原始记录预览页'
+};
+
 /**
  * 三级路由结束
  ************************/
