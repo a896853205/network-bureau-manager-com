@@ -212,46 +212,62 @@ export default Form.create({ name: 'record' })(({ form }) => {
                       />
                     )}
                   </Form.Item>
-                  {getFieldDecorator('url', {
-                    valuePropName: 'fileList',
-                    getValueFromEvent: e => {
-                      return e && e.fileList;
-                    },
-                    rules: [{ required: true }]
-                  })(
-                    <Upload
-                      showUploadList={false}
-                      customRequest={handleUploadFile}
-                    >
-                      {previewUrl && !recordLoading ? (
-                        <div>
-                          <a
-                            href={previewUrl}
-                            onClick={e => e.stopPropagation()}
-                            target='_blank'
-                            rel='noopener noreferrer'
-                          >
-                            <Button size='large' className='half-button'>
-                              查看上传
+                  <Form.Item>
+                    {getFieldDecorator('url', {
+                      valuePropName: 'fileList',
+                      getValueFromEvent: e => {
+                        return e && e.fileList;
+                      },
+                      rules: [
+                        {
+                          required: true,
+                          message: '请上传原始记录word文件！'
+                        }
+                      ]
+                    })(
+                      <Upload
+                        showUploadList={false}
+                        customRequest={handleUploadFile}
+                        htmlType='button'
+                      >
+                        {previewUrl && !recordLoading ? (
+                          <div>
+                            <a
+                              href={previewUrl}
+                              onClick={e => e.stopPropagation()}
+                              target='_blank'
+                              rel='noopener noreferrer'
+                            >
+                              <Button
+                                size='large'
+                                className='half-button'
+                                htmlType='button'
+                              >
+                                查看上传
+                              </Button>
+                            </a>
+                            <Button
+                              size='large'
+                              className='half-button'
+                              htmlType='button'
+                            >
+                              重新上传
                             </Button>
-                          </a>
-                          <Button size='large' className='half-button'>
-                            重新上传
+                          </div>
+                        ) : (
+                          <Button
+                            htmlType='button'
+                            size='large'
+                            className='button'
+                            loading={recordLoading}
+                          >
+                            点击文件上传word
+                            <Icon type='inbox' />
                           </Button>
-                        </div>
-                      ) : (
-                        <Button
-                          htmlType='submit'
-                          size='large'
-                          className='button'
-                          loading={recordLoading}
-                        >
-                          点击文件上传word
-                          <Icon type='inbox' />
-                        </Button>
-                      )}
-                    </Upload>
-                  )}
+                        )}
+                      </Upload>
+                    )}
+                  </Form.Item>
                   <Form.Item>
                     <Button
                       type='primary'
@@ -259,7 +275,6 @@ export default Form.create({ name: 'record' })(({ form }) => {
                       className='button'
                       size='large'
                       loading={saveDataLoading}
-                      onClick={handleRecordSave}
                     >
                       提交
                     </Button>

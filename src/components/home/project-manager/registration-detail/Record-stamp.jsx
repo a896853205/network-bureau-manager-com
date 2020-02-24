@@ -19,12 +19,22 @@ import enterpriseAction from '@/redux/action/enterprise';
 
 // 样式
 import '@/style/home/project-manager/record-stamp.styl';
-import { Button, Timeline, Skeleton, Upload, message, Icon, Alert } from 'antd';
+import {
+  Button,
+  Timeline,
+  Skeleton,
+  Upload,
+  message,
+  Icon,
+  Alert,
+  Form
+} from 'antd';
 
-export default prop => {
+export default Form.create({ name: 'finalRecord' })(({ form }) => {
   const { steps, enterpriseRegistrationUuid } = useSelector(
       state => state.enterpriseStore
     ),
+    { getFieldDecorator, setFieldsValue, getFieldValue } = form,
     [recordManagerLoading, setRecordManagerLoading] = useState(false),
     [isNeedUrlFresh, setIsNeedUrlFresh] = useState(false),
     [previewUrl, setPreviewUrl] = useState(''),
@@ -32,10 +42,11 @@ export default prop => {
     [getDataLoading, setGetDataLoading] = useState(true),
     [saveDataLoading, setSaveDataLoading] = useState(false),
     [recordUrl, setRecordUrl] = useState(''),
-    [finalUrl, setFinalUrl] = useState(''),
     [downloadRecordLoading, setDownloadRecordLoading] = useState(false),
     history = useHistory(),
     dispatch = useDispatch();
+  const formFinalUrl =
+    getFieldValue('finalUrl') && getFieldValue('finalUrl')[0];
 
   // 将已有的数据回显
   useEffect(() => {
@@ -50,14 +61,14 @@ export default prop => {
 
         // 数据回显
         if (record?.finalUrl) {
-          setFinalUrl(record.finalUrl);
+          setFieldsValue({ finalUrl: [record.finalUrl] });
           setIsNeedUrlFresh(true);
         }
 
         setGetDataLoading(false);
       })();
     }
-  }, [enterpriseRegistrationUuid]);
+  }, [enterpriseRegistrationUuid, setFieldsValue]);
 
   /**
    * 上传pdf文件
@@ -78,20 +89,20 @@ export default prop => {
       setRecordManagerLoading(false);
 
       if (fileUrl) {
-        setFinalUrl(fileUrl);
+        setFieldsValue({ finalUrl: [fileUrl] });
         setIsNeedUrlFresh(true);
       }
     }
   };
 
   useEffect(() => {
-    if (finalUrl && isNeedUrlFresh) {
+    if (formFinalUrl && isNeedUrlFresh) {
       (async () => {
         setRecordManagerLoading(true);
 
         const previewUrl = await proxyFetch(
           GET_FILE_URL,
-          { fileUrl: finalUrl },
+          { fileUrl: formFinalUrl },
           'GET'
         );
 
@@ -101,26 +112,34 @@ export default prop => {
         setIsNeedUrlFresh(false);
       })();
     }
-  }, [finalUrl, isNeedUrlFresh]);
+  }, [formFinalUrl, isNeedUrlFresh]);
 
   /**
    * 提交事件
    */
-  const handleManagerUrlSave = async () => {
-    if (enterpriseRegistrationUuid && finalUrl) {
-      let value = {};
-      value.registrationUuid = enterpriseRegistrationUuid;
-      value.finalUrl = finalUrl;
+  const handleManagerUrlSave = e => {
+    e.preventDefault();
 
-      setSaveDataLoading(true);
-      const res = await proxyFetch(SAVE_RECORD_FINAL_URL, value);
-      setSaveDataLoading(false);
+    // 表单判断
+    form.validateFields(async (err, value) => {
+      if (enterpriseRegistrationUuid) {
+        if (!err) {
+          value.registrationUuid = enterpriseRegistrationUuid;
+          value.finalUrl = value.finalUrl[0];
 
-      if (res) {
-        dispatch(enterpriseAction.asyncSetSteps(enterpriseRegistrationUuid));
-        history.push(HOME_REGISTRATION_PROFILE.path);
+          setSaveDataLoading(true);
+          const res = await proxyFetch(SAVE_RECORD_FINAL_URL, value);
+          setSaveDataLoading(false);
+
+          if (res) {
+            dispatch(
+              enterpriseAction.asyncSetSteps(enterpriseRegistrationUuid)
+            );
+            history.push(HOME_REGISTRATION_PROFILE.path);
+          }
+        }
       }
-    }
+    });
   };
 
   // 回显原始记录word
@@ -190,48 +209,75 @@ export default prop => {
                 <span>盖章扫描</span>
               </Timeline.Item>
               <Timeline.Item>
-                <Upload showUploadList={false} customRequest={handleUploadFile}>
-                  {previewUrl && !recordManagerLoading ? (
-                    <div>
-                      <a
-                        href={previewUrl}
-                        onClick={e => e.stopPropagation()}
-                        target='_blank'
-                        rel='noopener noreferrer'
+                <Form onSubmit={handleManagerUrlSave}>
+                  <Form.Item>
+                    {getFieldDecorator('finalUrl', {
+                      valuePropName: 'fileList',
+                      getValueFromEvent: e => {
+                        return e && e.fileList;
+                      },
+                      rules: [
+                        { required: true, message: '请上传原始记录pdf文件' }
+                      ]
+                    })(
+                      <Upload
+                        showUploadList={false}
+                        customRequest={handleUploadFile}
+                        htmlType='button'
                       >
-                        <Button size='large' className='half-button'>
-                          查看上传
-                        </Button>
-                      </a>
-                      <Button size='large' className='half-button'>
-                        重新上传
-                      </Button>
-                    </div>
-                  ) : (
+                        {previewUrl && !recordManagerLoading ? (
+                          <div>
+                            <a
+                              href={previewUrl}
+                              onClick={e => e.stopPropagation()}
+                              target='_blank'
+                              rel='noopener noreferrer'
+                            >
+                              <Button
+                                size='large'
+                                className='half-button'
+                                htmlType='button'
+                              >
+                                查看上传
+                              </Button>
+                            </a>
+                            <Button
+                              size='large'
+                              className='half-button'
+                              htmlType='button'
+                            >
+                              重新上传
+                            </Button>
+                          </div>
+                        ) : (
+                          <Button
+                            htmlType='button'
+                            size='large'
+                            className='button'
+                            loading={recordManagerLoading}
+                          >
+                            点击文件上传pdf
+                            <Icon type='inbox' />
+                          </Button>
+                        )}
+                      </Upload>
+                    )}
+                  </Form.Item>
+                  <Form.Item>
                     <Button
-                      htmlType='submit'
+                      disabled={
+                        steps[3]?.status < 4 || steps[4]?.status === 100
+                      }
+                      type='primary'
                       size='large'
                       className='button'
-                      loading={recordManagerLoading}
+                      loading={saveDataLoading}
+                      htmlType='submit'
                     >
-                      点击文件上传pdf
-                      <Icon type='inbox' />
+                      提交
                     </Button>
-                  )}
-                </Upload>
-              </Timeline.Item>
-              <Timeline.Item>
-                <Button
-                  disabled={steps[3]?.status < 4 || steps[4]?.status === 100}
-                  type='primary'
-                  htmlType='submit'
-                  size='large'
-                  className='button'
-                  loading={saveDataLoading}
-                  onClick={handleManagerUrlSave}
-                >
-                  提交
-                </Button>
+                  </Form.Item>
+                </Form>
               </Timeline.Item>
             </Timeline>
           </div>
@@ -246,7 +292,7 @@ export default prop => {
       </div>
     </>
   );
-};
+});
 
 const handleBeforeUpload = ({ file }) => {
   // 后缀名

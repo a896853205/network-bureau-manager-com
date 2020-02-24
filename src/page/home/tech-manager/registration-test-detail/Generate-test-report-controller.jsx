@@ -197,7 +197,7 @@ export default Form.create({ name: 'report' })(({ form }) => {
                   <Form.Item>
                     {getFieldDecorator('totalPage', {
                       rules: [
-                        { required: true, message: '请输入原始记录总页数' }
+                        { required: true, message: '请输入现场报告总页数' }
                       ]
                     })(
                       <Input
@@ -211,46 +211,62 @@ export default Form.create({ name: 'report' })(({ form }) => {
                       />
                     )}
                   </Form.Item>
-                  {getFieldDecorator('url', {
-                    valuePropName: 'fileList',
-                    getValueFromEvent: e => {
-                      return e && e.fileList;
-                    },
-                    rules: [{ required: true }]
-                  })(
-                    <Upload
-                      showUploadList={false}
-                      customRequest={handleUploadFile}
-                    >
-                      {previewUrl && !reportLoading ? (
-                        <div>
-                          <a
-                            href={previewUrl}
-                            onClick={e => e.stopPropagation()}
-                            target='_blank'
-                            rel='noopener noreferrer'
-                          >
-                            <Button size='large' className='half-button'>
-                              查看上传
+                  <Form.Item>
+                    {getFieldDecorator('url', {
+                      valuePropName: 'fileList',
+                      getValueFromEvent: e => {
+                        return e && e.fileList;
+                      },
+                      rules: [
+                        {
+                          required: true,
+                          message: '请上传原始记录word文件！'
+                        }
+                      ]
+                    })(
+                      <Upload
+                        showUploadList={false}
+                        customRequest={handleUploadFile}
+                        htmlType='button'
+                      >
+                        {previewUrl && !reportLoading ? (
+                          <div>
+                            <a
+                              href={previewUrl}
+                              onClick={e => e.stopPropagation()}
+                              target='_blank'
+                              rel='noopener noreferrer'
+                            >
+                              <Button
+                                size='large'
+                                className='half-button'
+                                htmlType='button'
+                              >
+                                查看上传
+                              </Button>
+                            </a>
+                            <Button
+                              size='large'
+                              className='half-button'
+                              htmlType='button'
+                            >
+                              重新上传
                             </Button>
-                          </a>
-                          <Button size='large' className='half-button'>
-                            重新上传
+                          </div>
+                        ) : (
+                          <Button
+                            htmlType='button'
+                            size='large'
+                            className='button'
+                            loading={reportLoading}
+                          >
+                            点击文件上传word
+                            <Icon type='inbox' />
                           </Button>
-                        </div>
-                      ) : (
-                        <Button
-                          htmlType='submit'
-                          size='large'
-                          className='button'
-                          loading={reportLoading}
-                        >
-                          点击文件上传word
-                          <Icon type='inbox' />
-                        </Button>
-                      )}
-                    </Upload>
-                  )}
+                        )}
+                      </Upload>
+                    )}
+                  </Form.Item>
                   <Form.Item>
                     <Button
                       type='primary'
@@ -258,7 +274,6 @@ export default Form.create({ name: 'report' })(({ form }) => {
                       className='button'
                       size='large'
                       loading={saveDataLoading}
-                      onClick={handleReportSave}
                     >
                       提交
                     </Button>
