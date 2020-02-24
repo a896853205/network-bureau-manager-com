@@ -28,7 +28,7 @@ export default () => {
     } else if (status > step) {
       return 'green';
     } else {
-      return 'grey';
+      return 'gray';
     }
   };
 

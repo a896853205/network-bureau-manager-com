@@ -20,7 +20,7 @@ const contractStatusToColor = status => {
     case -1:
       return 'red';
     case 0:
-      return 'grey';
+      return 'gray';
     case 1:
       return 'blue';
     case 2:
@@ -34,14 +34,14 @@ const contractStatusToColor = status => {
     case 100:
       return 'green';
     default:
-      return 'grey';
+      return 'gray';
   }
 };
 
 const paymentStatusToColor = status => {
   switch (status) {
     case 0:
-      return 'grey';
+      return 'gray';
     case 1:
       return 'blue';
     case 2:

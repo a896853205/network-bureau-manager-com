@@ -25,7 +25,7 @@ export default props => {
     } else if (status > step) {
       color = 'green';
     } else {
-      color = 'grey';
+      color = 'gray';
     }
 
     return color;

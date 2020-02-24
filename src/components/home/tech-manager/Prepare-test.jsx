@@ -39,7 +39,7 @@ export default props => {
     } else if (managerStatus > manager || -managerStatus > manager) {
       color = 'green';
     } else {
-      color = 'grey';
+      color = 'gray';
     }
 
     return color;
