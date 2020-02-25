@@ -98,7 +98,7 @@ export default props => {
                       specimenManagerStatus
                     )}
                   >
-                    技术人员确认
+                    <span>技术人员确认</span>
                   </Timeline.Item>
                   <Timeline.Item
                     color={fieldTestManagerStatusToColor(
@@ -106,7 +106,7 @@ export default props => {
                       specimenManagerStatus
                     )}
                   >
-                    项目管理员确认
+                    <span>项目管理员确认</span>
                   </Timeline.Item>
                   <Timeline.Item
                     color={fieldTestManagerStatusToColor(
@@ -114,7 +114,7 @@ export default props => {
                       specimenManagerStatus
                     )}
                   >
-                    完成
+                    <span>完成</span>
                   </Timeline.Item>
                 </Timeline>
               </div>
@@ -124,27 +124,29 @@ export default props => {
                   <Timeline.Item
                     color={fieldTestManagerStatusToColor(1, applyManagerStatus)}
                   >
-                    技术人员确认
+                    <span>技术人员确认</span>
                   </Timeline.Item>
                   <Timeline.Item
                     color={fieldTestManagerStatusToColor(2, applyManagerStatus)}
                   >
-                    技术负责人确认
+                    <span>技术负责人确认</span>
                   </Timeline.Item>
-                  <Link to={HOME_REGISTRATION_CERTIFY_DETAIL_APPLY.path}>
-                    <Timeline.Item
-                      color={fieldTestManagerStatusToColor(
-                        3,
-                        applyManagerStatus
-                      )}
-                    >
-                      批准人确认
-                    </Timeline.Item>
-                  </Link>
+
+                  <Timeline.Item
+                    color={fieldTestManagerStatusToColor(3, applyManagerStatus)}
+                  >
+                    {applyManagerStatus > 2 || applyManagerStatus === -3 ? (
+                      <Link to={HOME_REGISTRATION_CERTIFY_DETAIL_APPLY.path}>
+                        <span>批准人确认</span>
+                      </Link>
+                    ) : (
+                      <span>批准人确认</span>
+                    )}
+                  </Timeline.Item>
                   <Timeline.Item
                     color={fieldTestManagerStatusToColor(4, applyManagerStatus)}
                   >
-                    完成
+                    <span>完成</span>
                   </Timeline.Item>
                 </Timeline>
               </div>

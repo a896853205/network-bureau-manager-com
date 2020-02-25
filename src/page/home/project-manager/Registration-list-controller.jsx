@@ -136,12 +136,12 @@ export default props => {
                 localStorage.setItem(
                   `${LOCAL_STORAGE}-fileDownloadRegistrationUuid`,
                   record.uuid
-                );
+                );/*
                 dispatch(
                   enterpriseAction.setTechLeaderEnterpriseRegistrationUuid(
                     record.uuid
                   )
-                );
+                );*/
                 history.push(HOME_REGISTRATION_FILE_DOWNLOAD.path);
               }}
             >

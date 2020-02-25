@@ -139,7 +139,7 @@ export default props => {
               )}
             </Timeline.Item>
             <Timeline.Item color={fieldTestsStatusToColor(2, steps[3].status)}>
-              技术负责人选择技术人员
+              <span>技术负责人选择技术人员</span>
             </Timeline.Item>
             <Timeline.Item color={fieldTestsStatusToColor(3, steps[3].status)}>
               <div className='inner-timeline-box'>
@@ -154,39 +154,32 @@ export default props => {
                             specimenManagerStatus
                           )}
                         >
-                          技术人员确认
+                          <span>技术人员确认</span>
                         </Timeline.Item>
-                        {specimenManagerStatus > 1 ||
-                        specimenManagerStatus < -1 ? (
-                          <Link
-                            to={`${HOME_REGISTRATION_DETAIL.path}/testSpecimen`}
-                          >
-                            <Timeline.Item
-                              color={fieldTestManagerStatusToColor(
-                                2,
-                                specimenManagerStatus
-                              )}
+                        <Timeline.Item
+                          color={fieldTestManagerStatusToColor(
+                            2,
+                            specimenManagerStatus
+                          )}
+                        >
+                          {specimenManagerStatus > 1 ||
+                          specimenManagerStatus < -1 ? (
+                            <Link
+                              to={`${HOME_REGISTRATION_DETAIL.path}/testSpecimen`}
                             >
-                              项目管理员确认
-                            </Timeline.Item>
-                          </Link>
-                        ) : (
-                          <Timeline.Item
-                            color={fieldTestManagerStatusToColor(
-                              2,
-                              specimenManagerStatus
-                            )}
-                          >
-                            项目管理员确认
-                          </Timeline.Item>
-                        )}
+                              <span>项目管理员确认</span>
+                            </Link>
+                          ) : (
+                            <span>项目管理员确认</span>
+                          )}
+                        </Timeline.Item>
                         <Timeline.Item
                           color={fieldTestManagerStatusToColor(
                             3,
                             specimenManagerStatus
                           )}
                         >
-                          完成
+                          <span>完成</span>
                         </Timeline.Item>
                       </Timeline>
                     </div>
@@ -203,7 +196,7 @@ export default props => {
                             applyManagerStatus
                           )}
                         >
-                          技术人员确认
+                          <span>技术人员确认</span>
                         </Timeline.Item>
                         <Timeline.Item
                           color={fieldTestManagerStatusToColor(
@@ -211,7 +204,7 @@ export default props => {
                             applyManagerStatus
                           )}
                         >
-                          技术负责人确认
+                          <span>技术负责人确认</span>
                         </Timeline.Item>
                         <Timeline.Item
                           color={fieldTestManagerStatusToColor(
@@ -219,7 +212,7 @@ export default props => {
                             applyManagerStatus
                           )}
                         >
-                          批准人确认
+                          <span>批准人确认</span>
                         </Timeline.Item>
                         <Timeline.Item
                           color={fieldTestManagerStatusToColor(
@@ -227,7 +220,7 @@ export default props => {
                             applyManagerStatus
                           )}
                         >
-                          完成
+                          <span>完成</span>
                         </Timeline.Item>
                       </Timeline>
                     </div>
@@ -272,9 +265,15 @@ export default props => {
                             registrationReportStatus
                           )}
                         >
-                          <Link to={`${HOME_REGISTRATION_DETAIL.path}/reportStamp`}>
+                          {registrationReportStatus >= 4 ? (
+                            <Link
+                              to={`${HOME_REGISTRATION_DETAIL.path}/reportStamp`}
+                            >
+                              <span>项目管理人报告盖章</span>
+                            </Link>
+                          ) : (
                             <span>项目管理人报告盖章</span>
-                          </Link>
+                          )}
                         </Timeline.Item>
                       </Timeline>
                     </div>
@@ -313,9 +312,15 @@ export default props => {
                             registrationRecordStatus
                           )}
                         >
-                          <Link to={`${HOME_REGISTRATION_DETAIL.path}/recordStamp`}>
+                          {registrationRecordStatus >= 4 ? (
+                            <Link
+                              to={`${HOME_REGISTRATION_DETAIL.path}/recordStamp`}
+                            >
+                              <span>项目管理人原始记录盖章</span>
+                            </Link>
+                          ) : (
                             <span>项目管理人原始记录盖章</span>
-                          </Link>
+                          )}
                         </Timeline.Item>
                       </Timeline>
                     </div>

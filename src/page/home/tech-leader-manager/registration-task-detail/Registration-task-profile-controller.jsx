@@ -39,7 +39,7 @@ export default props => {
         <span>项目测试流程</span>
       </p>
       <Timeline mode='left' className='registration-task-profile-timeline-box'>
-        <Timeline.Item color={fieldTestStatusToColor(1, steps[3]?.status)}>
+        <Timeline.Item color={fieldTestStatusToColor(2, steps[3]?.status)}>
           <div className='timeline-item-box'>
             <Icon
               className='item-icon-box'

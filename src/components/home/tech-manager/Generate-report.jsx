@@ -18,7 +18,7 @@ import {
 import { Link } from 'react-router-dom';
 
 // 样式
-import { Icon, Timeline, Skeleton } from 'antd';
+import { Icon, Timeline, Skeleton, Tag } from 'antd';
 import '@/style/home/tech-manager/generate-report.styl';
 
 export default props => {
@@ -45,6 +45,30 @@ export default props => {
     }
 
     return color;
+  };
+
+  const statusToColor = status => {
+    if (status < 0) {
+      return 'red';
+    } else if (status >= 4) {
+      return 'green';
+    } else if (status) {
+      return 'blue';
+    } else {
+      return 'gray';
+    }
+  };
+
+  const statusToText = status => {
+    if (status < 0) {
+      return '审核未通过';
+    } else if (status >= 4) {
+      return '审核通过';
+    } else if (status) {
+      return '审核中';
+    } else {
+      return '未开始';
+    }
   };
 
   // 将已有的数据回显
@@ -97,9 +121,19 @@ export default props => {
                       color={fieldTestStatusToColor(1, reportStatus)}
                     >
                       {reportStatus ? (
-                        <Link to={HOME_REGISTRATION_TEST_GENERATE_REPORT.path}>
-                          <span>技术人员生成报告</span>
-                        </Link>
+                        <div>
+                          <Link
+                            to={HOME_REGISTRATION_TEST_GENERATE_REPORT.path}
+                          >
+                            <span>技术人员生成报告</span>
+                          </Link>
+                          <Tag
+                            className='content-tag'
+                            color={statusToColor(reportStatus)}
+                          >
+                            {statusToText(reportStatus)}
+                          </Tag>
+                        </div>
                       ) : (
                         <span>技术人员生成报告</span>
                       )}
@@ -140,7 +174,15 @@ export default props => {
                             HOME_REGISTRATION_TEST_GENERATE_ORIGINAL_RECORD.path
                           }
                         >
-                          <span>技术人员生成原始记录</span>
+                          <div>
+                            <span>技术人员生成原始记录</span>
+                            <Tag
+                              className='content-tag'
+                              color={statusToColor(recordStatus)}
+                            >
+                              {statusToText(recordStatus)}
+                            </Tag>
+                          </div>
                         </Link>
                       ) : (
                         <span>技术人员生成原始记录</span>

@@ -1,3 +1,10 @@
+import React from 'react';
+
+export default props => {
+  return <></>;
+};
+
+/*
 import React, { useState } from 'react';
 
 // redux
@@ -76,3 +83,4 @@ export default props => {
     </div>
   );
 };
+*/
