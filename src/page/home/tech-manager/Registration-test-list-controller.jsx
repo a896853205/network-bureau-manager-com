@@ -18,7 +18,10 @@ import enterpriseAction from '@/redux/action/enterprise';
 
 // 路由
 import { useHistory } from 'react-router-dom';
-import { HOME_REGISTRATION_TEST_PROFILE } from '@/constants/route-constants';
+import {
+  HOME_REGISTRATION_TEST_PROFILE,
+  HOME_REGISTRATION_FILE_DOWNLOAD
+} from '@/constants/route-constants';
 
 const { Column } = Table;
 
@@ -42,7 +45,6 @@ export default props => {
         },
         'GET'
       );
-      console.log('res=', res);
 
       setEnterpriseRegistrationList(res?.enterpriseRegistrationList);
       setTotal(res?.total);
@@ -96,7 +98,20 @@ export default props => {
           width='150px'
           dataIndex=''
           key=''
-          render={() => <Button type='link'>查看内容详情</Button>}
+          render={(text, record) => (
+            <Button
+              type='link'
+              onClick={() => {
+                localStorage.setItem(
+                  `${LOCAL_STORAGE}-fileDownloadRegistrationUuid`,
+                  record.uuid
+                );
+                history.push(HOME_REGISTRATION_FILE_DOWNLOAD.path);
+              }}
+            >
+              查看内容详情
+            </Button>
+          )}
         />
         <Column
           align='center'

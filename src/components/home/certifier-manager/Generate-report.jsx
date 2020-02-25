@@ -102,9 +102,15 @@ export default props => {
                     <Timeline.Item
                       color={fieldTestStatusToColor(3, reportStatus)}
                     >
-                      <Link to={HOME_REGISTRATION_CERTIFY_EXAMINE_REPORT.path}>
+                      {reportStatus > 2 || reportStatus === -3 ? (
+                        <Link
+                          to={HOME_REGISTRATION_CERTIFY_EXAMINE_REPORT.path}
+                        >
+                          <span>批准人审查报告</span>
+                        </Link>
+                      ) : (
                         <span>批准人审查报告</span>
-                      </Link>
+                      )}
                     </Timeline.Item>
                     <Timeline.Item
                       color={fieldTestStatusToColor(4, reportStatus)}
@@ -136,13 +142,17 @@ export default props => {
                     <Timeline.Item
                       color={fieldTestStatusToColor(3, recordStatus)}
                     >
-                      <Link
-                        to={
-                          HOME_REGISTRATION_CERTIFY_EXAMINE_ORIGINAL_RECORD.path
-                        }
-                      >
+                      {recordStatus > 2 || recordStatus === -3 ? (
+                        <Link
+                          to={
+                            HOME_REGISTRATION_CERTIFY_EXAMINE_ORIGINAL_RECORD.path
+                          }
+                        >
+                          <span>批准人审查原始记录</span>
+                        </Link>
+                      ) : (
                         <span>批准人审查原始记录</span>
-                      </Link>
+                      )}
                     </Timeline.Item>
                     <Timeline.Item
                       color={fieldTestStatusToColor(4, recordStatus)}
