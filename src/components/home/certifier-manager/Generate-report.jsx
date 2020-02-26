@@ -25,7 +25,7 @@ export default props => {
   const { enterpriseRegistrationUuid } = useSelector(
       state => state.enterpriseStore
     ),
-    [getDataLoading, setGetDataLoading] = useState(false),
+    [getDataLoading, setGetDataLoading] = useState(true),
     [registrationReport, setRegistrationReport] = useState(null),
     [registrationRecord, setRegistrationRecord] = useState(null),
     [reportStatus, setReportStatus] = useState(0),

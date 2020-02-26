@@ -105,7 +105,9 @@ export default props => {
           <div className='test-apply-box'>
             <Descriptions bordered className='apply-description-box'>
               <Descriptions.Item label='内容' span={3}>
-                {registrationApply.content}
+                <div className='registration-apply-content'>
+                  {registrationApply.content}
+                </div>
               </Descriptions.Item>
             </Descriptions>
             <div className='apply-button-box'>
