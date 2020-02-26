@@ -133,7 +133,11 @@ export default Form.create({ name: 'contract' })(({ form }) => {
               {/* 评测费金额 */}
               <Form.Item label='评测费金额'>
                 {getFieldDecorator('payment', {
-                  rules: [{ required: true, message: '请输入评测费金额！' }]
+                  rules: [{ required: true, message: '请输入评测费金额！' },
+                  {
+                    pattern: /^([1-9])(\d{0,7})$/,
+                    message: '评测费金额需要是1-8位整数'
+                  }]
                 })(
                   <Input
                     placeholder='2000'
