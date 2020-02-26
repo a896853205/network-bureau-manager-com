@@ -16,6 +16,15 @@ import { store } from '@/redux';
 // 错误边界
 import ErrorBoundary from '@/ErrorBoundary.jsx';
 
+// 环境
+import { SAP_CONTROL } from '@/config/app-config';
+import { ENVIRONMENT } from '@/constants/app-constants';
+
+// 生产环境设置
+if (ENVIRONMENT.PRO === SAP_CONTROL) {
+  console.log = () => {};
+}
+
 ReactDOM.render(
   <ErrorBoundary>
     <Provider store={store}>

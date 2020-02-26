@@ -5,7 +5,6 @@ import statusToColor from '@/components/home/project-manager/registration-detail
 
 // 请求
 import {
-  PUSH_REGISTRATION_PROCESS,
   SELECT_REGISTRATION_STATUS
 } from '@/constants/api-constants';
 import proxyFetch from '@/util/request';
@@ -15,11 +14,10 @@ import { HOME_REGISTRATION_DETAIL } from '@/constants/route-constants';
 import { Link } from 'react-router-dom';
 
 // redux
-import { useSelector, useDispatch } from 'react-redux';
-import enterpriseAction from '@/redux/action/enterprise';
+import { useSelector } from 'react-redux';
 
 // 样式
-import { Tag, Icon, Button, Skeleton } from 'antd';
+import { Tag, Icon, Skeleton } from 'antd';
 
 export default props => {
   const {
@@ -27,7 +25,6 @@ export default props => {
       enterpriseRegistrationUuid,
       sysRegistrationStep
     } = useSelector(state => state.enterpriseStore),
-    dispatch = useDispatch(),
     [
       enterpriseRegistrationContractStatus,
       setEnterpriseRegistrationContractStatus
@@ -60,8 +57,7 @@ export default props => {
       enterpriseRegistrationBasicStatus,
       setEnterpriseRegistrationBasicStatus
     ] = useState(null),
-    [loading, setLoading] = useState(true),
-    [pushProcessLoading, setPushProcessLoading] = useState(false);
+    [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (enterpriseRegistrationUuid) {
@@ -102,19 +98,6 @@ export default props => {
       })();
     }
   }, [enterpriseRegistrationUuid]);
-
-  const handlePushProcess = () => {
-    (async () => {
-      setPushProcessLoading(true);
-
-      await proxyFetch(PUSH_REGISTRATION_PROCESS, {
-        registrationUuid: enterpriseRegistrationUuid
-      });
-
-      setPushProcessLoading(false);
-      dispatch(enterpriseAction.asyncSetSteps(enterpriseRegistrationUuid));
-    })();
-  };
 
   return (
     <div className='left-item-box'>
@@ -260,36 +243,6 @@ export default props => {
                 </div>
               ) : null}
             </div>
-            {enterpriseRegistrationContractStatus &&
-            enterpriseRegistrationApplyStatus &&
-            enterpriseRegistrationCopyrightStatus &&
-            enterpriseRegistrationDocumentStatus &&
-            enterpriseRegistrationProductDescriptionStatus &&
-            enterpriseRegistrationProductStatus &&
-            enterpriseRegistrationSpecimenStatus &&
-            enterpriseRegistrationBasicStatus ? (
-              <Button
-                disabled={
-                  !(
-                    enterpriseRegistrationContractStatus.status === 100 &&
-                    enterpriseRegistrationApplyStatus.status === 100 &&
-                    enterpriseRegistrationCopyrightStatus.status === 100 &&
-                    enterpriseRegistrationDocumentStatus.status === 100 &&
-                    enterpriseRegistrationProductDescriptionStatus.status ===
-                      100 &&
-                    enterpriseRegistrationProductStatus.status === 100 &&
-                    enterpriseRegistrationSpecimenStatus.status === 100 &&
-                    enterpriseRegistrationBasicStatus.status === 100 &&
-                    steps[0].color === 'blue'
-                  )
-                }
-                size='large'
-                onClick={handlePushProcess}
-                loading={pushProcessLoading}
-              >
-                提交上传8种材料审查完成开始电子签合同
-              </Button>
-            ) : null}
           </div>
         ) : null}
       </Skeleton>

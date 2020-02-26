@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 
 // 样式
+import { Affix } from 'antd';
 import '@/style/home/project-manager/registration-profile.styl';
 import '@/style/home/item.styl';
 
@@ -81,7 +82,9 @@ export default props => {
   return (
     <div className='registration-profile-box'>
       {content}
-      <RegistrationPersonProfile />
+      <Affix offsetTop={10}>
+        <RegistrationPersonProfile />
+      </Affix>
     </div>
   );
 };
