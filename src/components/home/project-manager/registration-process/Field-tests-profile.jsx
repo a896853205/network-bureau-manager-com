@@ -330,7 +330,6 @@ export default props => {
             </Timeline.Item>
           </Timeline>
         </div>
-        <Button size='large'>现场测试完成开始接受原始记录和测试报告</Button>
       </div>
     </div>
   );

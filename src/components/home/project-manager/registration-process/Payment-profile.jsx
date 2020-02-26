@@ -1,28 +1,19 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 // 样式
-import { Icon, Tag, Timeline, Button } from 'antd';
+import { Icon, Tag, Timeline } from 'antd';
 
 //路由
 import { Link } from 'react-router-dom';
 import { HOME_REGISTRATION_DETAIL } from '@/constants/route-constants';
 
-// 请求
-import { PUSH_REGISTRATION_PROCESS } from '@/constants/api-constants';
-import proxyFetch from '@/util/request';
-
 // redux
-import { useSelector, useDispatch } from 'react-redux';
-import enterpriseAction from '@/redux/action/enterprise';
+import { useSelector } from 'react-redux';
 
 export default props => {
-  const {
-      steps,
-      sysRegistrationStep,
-      enterpriseRegistrationUuid
-    } = useSelector(state => state.enterpriseStore),
-    dispatch = useDispatch(),
-    [pushProcessLoading, setPushProcessLoading] = useState(false);
+  const { steps, sysRegistrationStep } = useSelector(
+    state => state.enterpriseStore
+  );
 
   const contractManagerStatusToColor = (step, status = 0) => {
     let color = '';
@@ -36,18 +27,6 @@ export default props => {
     }
 
     return color;
-  };
-
-  const handlePushProcess = () => {
-    (async () => {
-      setPushProcessLoading(true);
-      await proxyFetch(PUSH_REGISTRATION_PROCESS, {
-        registrationUuid: enterpriseRegistrationUuid
-      });
-
-      setPushProcessLoading(false);
-      dispatch(enterpriseAction.asyncSetSteps(enterpriseRegistrationUuid));
-    })();
   };
 
   return (
@@ -92,14 +71,6 @@ export default props => {
               </Timeline.Item>
             </Timeline>
           </div>
-          <Button
-            size='large'
-            disabled={steps[2].status !== 4}
-            onClick={handlePushProcess}
-            loading={pushProcessLoading}
-          >
-            交付汇款完成开始现场测试
-          </Button>
         </div>
       ) : null}
     </div>
