@@ -65,6 +65,10 @@ export default Form.create({ name: 'contract' })(({ form }) => {
             );
           }
 
+          delete registrationContract.failText;
+          delete registrationContract.managerUrl;
+          delete registrationContract.enterpriseUrl;
+
           setFieldsValue(registrationContract);
         }
 

@@ -49,13 +49,18 @@ export default props => {
       (async () => {
         setStatusLoading(true);
 
-        await proxyFetch(SET_TECH_LEADER_APPLY_MANAGER_FAIL_STATUS, {
-          registrationUuid: enterpriseRegistrationUuid,
-          failManagerText
-        });
+        const res = await proxyFetch(
+          SET_TECH_LEADER_APPLY_MANAGER_FAIL_STATUS,
+          {
+            registrationUuid: enterpriseRegistrationUuid,
+            failManagerText
+          }
+        );
 
         setStatusLoading(false);
-        history.push(HOME_REGISTRATION_TASK_PROFILE.path);
+        if (res) {
+          history.push(HOME_REGISTRATION_TASK_PROFILE.path);
+        }
       })();
     } else {
       message.error('请输入未通过审核理由!');

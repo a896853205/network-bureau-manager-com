@@ -49,13 +49,15 @@ export default props => {
       (async () => {
         setStatusLoading(true);
 
-        await proxyFetch(SET_CERTIFIER_APPLY_MANAGER_FAIL_STATUS, {
+        const res = await proxyFetch(SET_CERTIFIER_APPLY_MANAGER_FAIL_STATUS, {
           registrationUuid: enterpriseRegistrationUuid,
           failManagerText
         });
 
         setStatusLoading(false);
-        history.push(HOME_REGISTRATION_CERTIFY_PROFILE.path);
+        if (res) {
+          history.push(HOME_REGISTRATION_CERTIFY_PROFILE.path);
+        }
       })();
     } else {
       message.error('请输入未通过审核理由!');
