@@ -8,7 +8,8 @@ import { HOME_REGISTRATION_PROFILE } from '@/constants/route-constants';
 import { Link, useHistory } from 'react-router-dom';
 
 // redux
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import enterpriseAction from '@/redux/action/enterprise';
 
 // 请求
 import proxyFetch from '@/util/request';
@@ -35,6 +36,7 @@ export default props => {
     [failText, setFailText] = useState(''),
     [status, setStatus] = useState(0),
     [statusText, setStatusText] = useState(''),
+    dispatch = useDispatch(),
     history = useHistory();
 
   const handleSetSuccessStatus = () => {
@@ -47,6 +49,7 @@ export default props => {
       });
 
       setStatusLoading(false);
+      dispatch(enterpriseAction.asyncSetSteps(enterpriseRegistrationUuid));
       history.push(HOME_REGISTRATION_PROFILE.path);
     })();
   };
