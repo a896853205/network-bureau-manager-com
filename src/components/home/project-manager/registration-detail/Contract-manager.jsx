@@ -126,13 +126,6 @@ export default Form.create({ name: 'contract' })(({ form }) => {
                 })(<Input placeholder='请输入合同编号' maxLength={32} />)}
               </Form.Item>
 
-              {/* 样品接受日期 */}
-              <Form.Item label='样品接受日期'>
-                {getFieldDecorator('specimenHaveTime', {
-                  rules: [{ required: true, message: '请选择样品接受日期！' }]
-                })(<DatePicker placeholder='20XX-XX-XX' />)}
-              </Form.Item>
-
               {/* 评测费金额 */}
               <Form.Item label='评测费金额'>
                 {getFieldDecorator('payment', {
@@ -144,6 +137,13 @@ export default Form.create({ name: 'contract' })(({ form }) => {
                     addonAfter={<span>元</span>}
                   />
                 )}
+              </Form.Item>
+
+              {/* 样品接受日期 */}
+              <Form.Item label='样品接受日期'>
+                {getFieldDecorator('specimenHaveTime', {
+                  rules: [{ required: true, message: '请选择样品接受日期！' }]
+                })(<DatePicker placeholder='20XX-XX-XX' />)}
               </Form.Item>
 
               {/* 缴费时间 */}
@@ -178,8 +178,8 @@ export default Form.create({ name: 'contract' })(({ form }) => {
         </Skeleton>
         <div className='contract-manager-right-box'>
           <Alert
-            message='甲方填写评测合同内容注意事项'
-            description='此块内容是甲方填写评测合同的信息,均为必填项,请甲方提供的真实完整、准确的信息。'
+            message='经营管理部填写注意事项'
+            description='此块内容是经营管理部填写注意事项,此处填写的内容都会再评测合同中有所体现,评测费金额默认为2000元人民币。'
             type='info'
             showIcon
           />
