@@ -83,6 +83,18 @@ export default props => {
       })();
     }
   }, [enterpriseRegistrationUuid]);
+
+  const securityClassificationToText = securityClassification => {
+    switch (securityClassification) {
+      case 0:
+        return '无';
+      case 1:
+        return '涉密';
+      default:
+        return '';
+    }
+  };
+
   return (
     <div className='item-box'>
       <p className='title-box'>
@@ -105,7 +117,9 @@ export default props => {
                 {registrationSpecimen.developmentTool}
               </Descriptions.Item>
               <Descriptions.Item label='产品密级'>
-                {registrationSpecimen.securityClassification}
+                {securityClassificationToText(
+                  registrationSpecimen.securityClassification
+                )}
               </Descriptions.Item>
               <Descriptions.Item label='单位属性' span={2}>
                 {registrationSpecimen.unit}
