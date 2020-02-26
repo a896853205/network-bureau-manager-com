@@ -82,7 +82,7 @@ export default props => {
   return (
     <div className='registration-profile-box'>
       {content}
-      <Affix offsetTop={10}>
+      <Affix offsetTop={10} >
         <RegistrationPersonProfile />
       </Affix>
     </div>

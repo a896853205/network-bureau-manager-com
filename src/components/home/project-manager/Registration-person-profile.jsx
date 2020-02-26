@@ -7,7 +7,7 @@ import { Icon /*, Rate*/ } from 'antd';
 import proxyFetch from '@/util/request';
 import { SELECT_ENTERPRISE_INFO } from '@/constants/api-constants';
 
-export default props => {
+export default React.forwardRef(() => {
   const enterpriseUuid = 'guanliyuan',
     [code, setCode] = useState(''),
     [phone, setPhone] = useState(''),
@@ -63,4 +63,4 @@ export default props => {
       </ul>
     </div>
   );
-};
+});
