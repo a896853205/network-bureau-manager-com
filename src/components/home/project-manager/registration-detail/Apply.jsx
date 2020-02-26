@@ -52,7 +52,6 @@ export default props => {
       await proxyFetch(SET_REGISTRATION_DETAIL_SUCCESS_STATUS, {
         registrationUuid: enterpriseRegistrationUuid,
         type: 'apply',
-        status: 100
       });
 
       setStatusLoading(false);
