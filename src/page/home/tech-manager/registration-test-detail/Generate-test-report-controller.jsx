@@ -197,7 +197,11 @@ export default Form.create({ name: 'report' })(({ form }) => {
                   <Form.Item>
                     {getFieldDecorator('totalPage', {
                       rules: [
-                        { required: true, message: '请输入现场报告总页数' }
+                        { required: true, message: '请输入现场报告总页数' },
+                        {
+                          pattern: /^[1-9]\d{0,2}$/,
+                          message: '请输入正确的页数,须在1-999之间'
+                        }
                       ]
                     })(
                       <Input
