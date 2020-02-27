@@ -166,7 +166,7 @@ export default props => {
         </div>
         <div className='record-button-box'>
           <Button
-            disabled={!(status === 3)}
+            disabled={status !== 3}
             type='primary'
             htmlType='submit'
             className={status === 3 ? 'fail-button' : ''}
@@ -176,7 +176,7 @@ export default props => {
             审核不通过
           </Button>
           <Button
-            disabled={!(status === 3)}
+            disabled={status !== 3}
             type='primary'
             htmlType='submit'
             className={status === 3 ? 'success-button' : ''}
@@ -187,7 +187,7 @@ export default props => {
           </Button>
         </div>
         <TextArea
-          disabled={!(status === 3)}
+          disabled={status !== 3}
           autoSize={{ minRows: 3, maxRows: 6 }}
           maxLength='800'
           placeholder='请输入审核不通过理由'

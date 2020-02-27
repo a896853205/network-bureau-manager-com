@@ -156,7 +156,7 @@ export default props => {
         </div>
         <div className='manager-download-button-box'>
           <Button
-            disabled={!(steps[1]?.status === 4)}
+            disabled={steps[1]?.status !== 4}
             type='primary'
             htmlType='submit'
             className={steps[1]?.status === 4 ? 'fail-button' : ''}
@@ -166,7 +166,7 @@ export default props => {
             审核不通过
           </Button>
           <Button
-            disabled={!(steps[1]?.status === 4)}
+            disabled={steps[1]?.status !== 4}
             type='primary'
             htmlType='submit'
             className={steps[1]?.status === 4 ? 'success-button' : ''}
