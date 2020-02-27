@@ -10,7 +10,7 @@ import {
 } from '@/constants/api-constants';
 
 // 样式
-import { Timeline, Icon, Tag, Button, Skeleton } from 'antd';
+import { Timeline, Icon, Tag, Skeleton } from 'antd';
 import '@/style/home/project-manager/field-test-profile.styl';
 
 // 路由

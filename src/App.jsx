@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import '@/App.styl';
-import { useRouteMatch, useHistory } from 'react-router-dom';
+import { useRouteMatch, useHistory, useLocation } from 'react-router-dom';
 
 // route
 import * as ROUTES from '@/constants/route-constants';
@@ -31,6 +31,13 @@ export default props => {
       exact: true
     }),
     home = useRouteMatch(ROUTES.HOME.path);
+
+  // 切换路径滚动条调整
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
 
   if (index) {
     // 首页
