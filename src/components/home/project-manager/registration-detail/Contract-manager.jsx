@@ -126,18 +126,29 @@ export default Form.create({ name: 'contract' })(({ form }) => {
               {/* 版本 */}
               <Form.Item label='合同编号'>
                 {getFieldDecorator('contractCode', {
-                  rules: [{ required: true, message: '请输入合同编号！' }]
-                })(<Input placeholder='请输入合同编号' maxLength={32} />)}
+                  rules: [
+                    {
+                      required: true,
+                      message: '请输入合同编号！'
+                    },
+                    {
+                      message: '合同编号过长！',
+                      max: 32
+                    }
+                  ]
+                })(<Input placeholder='请输入合同编号' />)}
               </Form.Item>
 
               {/* 评测费金额 */}
               <Form.Item label='评测费金额'>
                 {getFieldDecorator('payment', {
-                  rules: [{ required: true, message: '请输入评测费金额！' },
-                  {
-                    pattern: /^([1-9])(\d{0,7})$/,
-                    message: '评测费金额需要是1-8位整数'
-                  }]
+                  rules: [
+                    { required: true, message: '请输入评测费金额！' },
+                    {
+                      pattern: /^(\d{1,8})$/,
+                      message: '评测费金额需要是1-8位整数'
+                    }
+                  ]
                 })(
                   <Input
                     placeholder='2000'

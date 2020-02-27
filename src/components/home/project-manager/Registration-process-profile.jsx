@@ -7,7 +7,7 @@ import PaymentProfile from '@/components/home/project-manager/registration-proce
 import FieldTestsProfile from '@/components/home/project-manager/registration-process/Field-tests-profile.jsx';
 
 // 样式
-import { Timeline, Icon, Skeleton, Tag } from 'antd';
+import { Timeline, Icon, Skeleton } from 'antd';
 import '@/style/home/item.styl';
 
 // redux
