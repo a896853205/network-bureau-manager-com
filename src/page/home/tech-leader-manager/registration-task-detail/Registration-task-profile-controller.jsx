@@ -39,6 +39,9 @@ export default props => {
         <span>项目测试流程</span>
       </p>
       <Timeline mode='left' className='registration-task-profile-timeline-box'>
+        <Timeline.Item color='green' dot={<Icon type='play-circle' />}>
+          开始
+        </Timeline.Item>
         <Timeline.Item color={fieldTestStatusToColor(2, steps[3]?.status)}>
           <div className='timeline-item-box'>
             <Icon
@@ -60,7 +63,10 @@ export default props => {
           <PrepareTest />
         </Timeline.Item>
         <Timeline.Item color={fieldTestStatusToColor(4, steps[3]?.status)}>
-          <GenerateReport/>
+          <GenerateReport />
+        </Timeline.Item>
+        <Timeline.Item color='green' dot={<Icon type='check-circle' />}>
+          结束
         </Timeline.Item>
       </Timeline>
     </div>

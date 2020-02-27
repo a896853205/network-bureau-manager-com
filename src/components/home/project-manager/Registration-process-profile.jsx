@@ -34,6 +34,9 @@ export default () => {
       <Skeleton loading={loading}>
         {sysRegistrationStep.length && steps.length ? (
           <Timeline mode='left'>
+            <Timeline.Item color='green' dot={<Icon type='play-circle' />}>
+              开始
+            </Timeline.Item>
             <Timeline.Item color={steps[0].color}>
               <SubmitFileProfile />
             </Timeline.Item>
@@ -46,26 +49,11 @@ export default () => {
             <Timeline.Item color={steps[3].color}>
               <FieldTestsProfile />
             </Timeline.Item>
-            <Timeline.Item color={steps[4].color}>
-              <div className='left-item-box'>
-                <Icon
-                  className='item-icon-box'
-                  type='file-text'
-                  theme='twoTone'
-                  twoToneColor='#334454'
-                />
-                <div className='item-text-box'>
-                  <div className='text-top-box'>
-                    {sysRegistrationStep[4].name}
-                    <Tag className='title-tag' color={steps[4].color}>
-                      {steps[4].statusText}
-                    </Tag>
-                  </div>
-                  <div className='item-detail-box'>
-                    <p className='text-subtitle'>发送原始记录和测试报告</p>
-                  </div>
-                </div>
-              </div>
+            <Timeline.Item
+              color={steps[4].color}
+              dot={<Icon type='check-circle' />}
+            >
+              结束
             </Timeline.Item>
           </Timeline>
         ) : null}

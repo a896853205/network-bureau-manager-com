@@ -15,7 +15,7 @@ import enterpriseAction from '@/redux/action/enterprise';
 
 // 路由
 import {
-  HOME_REGISTRATION_FILE_DOWNLOAD,
+  // HOME_REGISTRATION_FILE_DOWNLOAD,
   HOME_REGISTRATION_TASK_PROFILE
 } from '@/constants/route-constants';
 import { useHistory } from 'react-router-dom';
@@ -115,7 +115,7 @@ export default props => {
             </span>
           )}
         />
-        <Column
+        {/* <Column
           align='center'
           title='查看内容详情'
           dataIndex=''
@@ -137,7 +137,7 @@ export default props => {
               查看内容详情
             </Button>
           )}
-        />
+        /> */}
         <Column
           align='center'
           title='查看进度详情'

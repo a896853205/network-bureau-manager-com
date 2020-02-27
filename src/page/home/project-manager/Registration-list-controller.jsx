@@ -13,7 +13,7 @@ import { Table, Button } from 'antd';
 // 路由
 import {
   HOME_REGISTRATION_PROFILE,
-  HOME_REGISTRATION_FILE_DOWNLOAD
+  // HOME_REGISTRATION_FILE_DOWNLOAD
 } from '@/constants/route-constants';
 import { useHistory } from 'react-router-dom';
 
@@ -124,7 +124,7 @@ export default props => {
             </Button>
           )}
         />
-        <Column
+        {/* <Column
           align='center'
           title='查看内容详情'
           dataIndex=''
@@ -136,19 +136,15 @@ export default props => {
                 localStorage.setItem(
                   `${LOCAL_STORAGE}-fileDownloadRegistrationUuid`,
                   record.uuid
-                );/*
-                dispatch(
-                  enterpriseAction.setTechLeaderEnterpriseRegistrationUuid(
-                    record.uuid
-                  )
-                );*/
+                );
+
                 history.push(HOME_REGISTRATION_FILE_DOWNLOAD.path);
               }}
             >
               查看内容详情
             </Button>
           )}
-        />
+        /> */}
       </Table>
     </div>
   );

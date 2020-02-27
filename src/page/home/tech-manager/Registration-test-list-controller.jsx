@@ -20,7 +20,7 @@ import enterpriseAction from '@/redux/action/enterprise';
 import { useHistory } from 'react-router-dom';
 import {
   HOME_REGISTRATION_TEST_PROFILE,
-  HOME_REGISTRATION_FILE_DOWNLOAD
+  // HOME_REGISTRATION_FILE_DOWNLOAD
 } from '@/constants/route-constants';
 
 const { Column } = Table;
@@ -92,7 +92,7 @@ export default props => {
           key='enterpriseRegistrationBasic.phone'
           width='180px'
         />
-        <Column
+        {/* <Column
           align='center'
           title='查看内容详情'
           width='150px'
@@ -112,7 +112,7 @@ export default props => {
               查看内容详情
             </Button>
           )}
-        />
+        /> */}
         <Column
           align='center'
           title='软件评测样品登记表状态'

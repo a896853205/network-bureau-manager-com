@@ -8,14 +8,12 @@ import GenerateReport from '@/components/home/tech-manager/Generate-report.jsx';
 import { useSelector } from 'react-redux';
 
 // 样式
-import { Timeline } from 'antd';
+import { Timeline, Icon } from 'antd';
 import '@/style/home/item.styl';
 import '@/style/home/tech-manager/registration-test-profile.styl';
 
 export default props => {
-  const { steps } = useSelector(
-    state => state.enterpriseStore
-  );
+  const { steps } = useSelector(state => state.enterpriseStore);
 
   const fieldTestStatusToColor = (step, status = 0) => {
     let color = '';
@@ -42,11 +40,17 @@ export default props => {
             mode='left'
             className='registration-test-profile-timeline-box'
           >
+            <Timeline.Item color='green' dot={<Icon type='play-circle' />}>
+              开始
+            </Timeline.Item>
             <Timeline.Item color={fieldTestStatusToColor(3, steps[3]?.status)}>
               <PrepareTest />
             </Timeline.Item>
             <Timeline.Item color={fieldTestStatusToColor(4, steps[3]?.status)}>
               <GenerateReport />
+            </Timeline.Item>
+            <Timeline.Item color='green' dot={<Icon type='check-circle' />}>
+              结束
             </Timeline.Item>
           </Timeline>
         ) : null}
