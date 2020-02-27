@@ -4,9 +4,7 @@ import React, { useState, useEffect } from 'react';
 import statusToColor from '@/components/home/project-manager/registration-detail/util/status-to-color';
 
 // 请求
-import {
-  SELECT_REGISTRATION_STATUS
-} from '@/constants/api-constants';
+import { SELECT_REGISTRATION_STATUS } from '@/constants/api-constants';
 import proxyFetch from '@/util/request';
 
 // 路由
@@ -23,7 +21,8 @@ export default props => {
   const {
       steps,
       enterpriseRegistrationUuid,
-      sysRegistrationStep
+      sysRegistrationStep,
+      registration
     } = useSelector(state => state.enterpriseStore),
     [
       enterpriseRegistrationContractStatus,
@@ -57,7 +56,14 @@ export default props => {
       enterpriseRegistrationBasicStatus,
       setEnterpriseRegistrationBasicStatus
     ] = useState(null),
-    [loading, setLoading] = useState(true);
+    [loading, setLoading] = useState(true),
+    [isCurrentStep, setIsCurrentStep] = useState(false);
+
+  useEffect(() => {
+    if (registration?.currentStep === 1) {
+      setIsCurrentStep(true);
+    }
+  }, [registration]);
 
   useEffect(() => {
     if (enterpriseRegistrationUuid) {
@@ -122,7 +128,10 @@ export default props => {
             <div className='text-content-box'>
               {enterpriseRegistrationBasicStatus ? (
                 <div className='text-content-link'>
-                  <Link to={`${HOME_REGISTRATION_DETAIL.path}/basic`}>
+                  <Link
+                    to={`${HOME_REGISTRATION_DETAIL.path}/basic`}
+                    className={isCurrentStep ? '' : 'old-link'}
+                  >
                     <span>登记测试基本信息</span>
                   </Link>
                   <Tag
@@ -137,7 +146,10 @@ export default props => {
               ) : null}
               {enterpriseRegistrationContractStatus ? (
                 <div className='text-content-link'>
-                  <Link to={`${HOME_REGISTRATION_DETAIL.path}/contract`}>
+                  <Link
+                    to={`${HOME_REGISTRATION_DETAIL.path}/contract`}
+                    className={isCurrentStep ? '' : 'old-link'}
+                  >
                     <span>评测合同</span>
                   </Link>
                   <Tag
@@ -152,7 +164,10 @@ export default props => {
               ) : null}
               {enterpriseRegistrationCopyrightStatus ? (
                 <div className='text-content-link'>
-                  <Link to={`${HOME_REGISTRATION_DETAIL.path}/copyright`}>
+                  <Link
+                    to={`${HOME_REGISTRATION_DETAIL.path}/copyright`}
+                    className={isCurrentStep ? '' : 'old-link'}
+                  >
                     <span>软件著作权证书</span>
                   </Link>
                   <Tag
@@ -167,7 +182,10 @@ export default props => {
               ) : null}
               {enterpriseRegistrationSpecimenStatus ? (
                 <div className='text-content-link'>
-                  <Link to={`${HOME_REGISTRATION_DETAIL.path}/specimen`}>
+                  <Link
+                    to={`${HOME_REGISTRATION_DETAIL.path}/specimen`}
+                    className={isCurrentStep ? '' : 'old-link'}
+                  >
                     <span>样品登记表</span>
                   </Link>
                   <Tag
@@ -184,6 +202,7 @@ export default props => {
                 <div className='text-content-link'>
                   <Link
                     to={`${HOME_REGISTRATION_DETAIL.path}/productDescription`}
+                    className={isCurrentStep ? '' : 'old-link'}
                   >
                     <span>产品说明</span>
                   </Link>
@@ -199,7 +218,10 @@ export default props => {
               ) : null}
               {enterpriseRegistrationDocumentStatus ? (
                 <div className='text-content-link'>
-                  <Link to={`${HOME_REGISTRATION_DETAIL.path}/document`}>
+                  <Link
+                    to={`${HOME_REGISTRATION_DETAIL.path}/document`}
+                    className={isCurrentStep ? '' : 'old-link'}
+                  >
                     <span>用户文档集</span>
                   </Link>
                   <Tag
@@ -214,7 +236,10 @@ export default props => {
               ) : null}
               {enterpriseRegistrationProductStatus ? (
                 <div className='text-content-link'>
-                  <Link to={`${HOME_REGISTRATION_DETAIL.path}/product`}>
+                  <Link
+                    to={`${HOME_REGISTRATION_DETAIL.path}/product`}
+                    className={isCurrentStep ? '' : 'old-link'}
+                  >
                     <span>产品介质</span>
                   </Link>
                   <Tag
@@ -229,7 +254,10 @@ export default props => {
               ) : null}
               {enterpriseRegistrationApplyStatus ? (
                 <div className='text-content-link'>
-                  <Link to={`${HOME_REGISTRATION_DETAIL.path}/apply`}>
+                  <Link
+                    to={`${HOME_REGISTRATION_DETAIL.path}/apply`}
+                    className={isCurrentStep ? '' : 'old-link'}
+                  >
                     <span>现场测试申请表</span>
                   </Link>
                   <Tag

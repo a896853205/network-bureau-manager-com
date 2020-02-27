@@ -22,14 +22,21 @@ import { Icon, Timeline, Skeleton } from 'antd';
 import '@/style/home/tech-leader-manager/generate-report.styl';
 
 export default props => {
-  const { enterpriseRegistrationUuid } = useSelector(
+  const { enterpriseRegistrationUuid, registration } = useSelector(
       state => state.enterpriseStore
     ),
     [getDataLoading, setGetDataLoading] = useState(false),
     [registrationReport, setRegistrationReport] = useState(null),
     [registrationRecord, setRegistrationRecord] = useState(null),
     [reportStatus, setReportStatus] = useState(0),
-    [recordStatus, setRecordStatus] = useState(0);
+    [recordStatus, setRecordStatus] = useState(0),
+    [isCurrentStep, setIsCurrentStep] = useState(false);
+
+  useEffect(() => {
+    if (registration?.currentStep === 4) {
+      setIsCurrentStep(true);
+    }
+  }, [registration]);
 
   const fieldTestStatusToColor = (manager, status = 0) => {
     if (status === -manager) {
@@ -98,7 +105,10 @@ export default props => {
                       color={fieldTestStatusToColor(2, reportStatus)}
                     >
                       {reportStatus > 1 || reportStatus < -1 ? (
-                        <Link to={HOME_REGISTRATION_TASK_EXAMINE_REPORT.path}>
+                        <Link
+                          to={HOME_REGISTRATION_TASK_EXAMINE_REPORT.path}
+                          className={isCurrentStep ? '' : 'old-link'}
+                        >
                           <span>技术负责人审查报告</span>
                         </Link>
                       ) : (
@@ -140,6 +150,7 @@ export default props => {
                           to={
                             HOME_REGISTRATION_TASK_EXAMINE_ORIGINAL_RECORD.path
                           }
+                          className={isCurrentStep ? '' : 'old-link'}
                         >
                           <span>技术负责人审查原始记录</span>
                         </Link>

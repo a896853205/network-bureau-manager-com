@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 // redux
 import { useSelector } from 'react-redux';
@@ -9,9 +9,16 @@ import { Link } from 'react-router-dom';
 
 import { Icon, Tag, Timeline } from 'antd';
 export default () => {
-  const { steps, sysRegistrationStep } = useSelector(
-    state => state.enterpriseStore
-  );
+  const { steps, sysRegistrationStep, registration } = useSelector(
+      state => state.enterpriseStore
+    ),
+    [isCurrentStep, setIsCurrentStep] = useState(false);
+
+  useEffect(() => {
+    if (registration?.currentStep === 2) {
+      setIsCurrentStep(true);
+    }
+  }, [registration]);
 
   const contractManagerStatusToColor = (step, status = 0) => {
     if (status === step) {
@@ -50,7 +57,10 @@ export default () => {
                 }
               >
                 {steps[1].status ? (
-                  <Link to={`${HOME_REGISTRATION_DETAIL.path}/contractManager`}>
+                  <Link
+                    to={`${HOME_REGISTRATION_DETAIL.path}/contractManager`}
+                    className={isCurrentStep ? '' : 'old-link'}
+                  >
                     <span>填写经营管理部合同内容</span>
                   </Link>
                 ) : (
@@ -67,6 +77,7 @@ export default () => {
                 {steps[1].status >= 2 || steps[1].status === -1 ? (
                   <Link
                     to={`${HOME_REGISTRATION_DETAIL.path}/contractDownload`}
+                    className={isCurrentStep ? '' : 'old-link'}
                   >
                     <span>管理员制定合同</span>
                   </Link>
@@ -91,7 +102,11 @@ export default () => {
                 }
               >
                 {steps[1].status >= 4 || steps[1].status === -1 ? (
-                  <Link to={`${HOME_REGISTRATION_DETAIL.path}/contractExamine`}>
+                  <Link
+                    to={`${HOME_REGISTRATION_DETAIL.path}/contractExamine`}
+                    className={isCurrentStep ? '' : 'old-link'}
+                    A
+                  >
                     <span>审查最终合同</span>
                   </Link>
                 ) : (

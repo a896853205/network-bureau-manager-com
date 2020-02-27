@@ -22,14 +22,21 @@ import { Icon, Timeline, Skeleton } from 'antd';
 import '@/style/home/certifier-manager/generate-report.styl';
 
 export default props => {
-  const { enterpriseRegistrationUuid } = useSelector(
+  const { enterpriseRegistrationUuid, registration } = useSelector(
       state => state.enterpriseStore
     ),
     [getDataLoading, setGetDataLoading] = useState(true),
     [registrationReport, setRegistrationReport] = useState(null),
     [registrationRecord, setRegistrationRecord] = useState(null),
     [reportStatus, setReportStatus] = useState(0),
-    [recordStatus, setRecordStatus] = useState(0);
+    [recordStatus, setRecordStatus] = useState(0),
+    [isCurrentStep, setIsCurrentStep] = useState(false);
+
+  useEffect(() => {
+    if (registration?.currentStep === 4) {
+      setIsCurrentStep(true);
+    }
+  }, [registration]);
 
   const fieldTestStatusToColor = (manager, status = 0) => {
     if (status === -manager) {
@@ -105,6 +112,7 @@ export default props => {
                       {reportStatus > 2 || reportStatus === -3 ? (
                         <Link
                           to={HOME_REGISTRATION_CERTIFY_EXAMINE_REPORT.path}
+                          className={isCurrentStep ? '' : 'old-link'}
                         >
                           <span>批准人审查报告</span>
                         </Link>
@@ -147,6 +155,7 @@ export default props => {
                           to={
                             HOME_REGISTRATION_CERTIFY_EXAMINE_ORIGINAL_RECORD.path
                           }
+                          className={isCurrentStep ? '' : 'old-link'}
                         >
                           <span>批准人审查原始记录</span>
                         </Link>

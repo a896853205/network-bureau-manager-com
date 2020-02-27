@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 // 子组件
 import PrepareTest from '@/components/home/tech-leader-manager/Prepare-test.jsx';
@@ -17,7 +17,14 @@ import '@/style/home/item.styl';
 import '@/style/home/tech-leader-manager/registration-task-profile.styl';
 
 export default props => {
-  const { steps } = useSelector(state => state.enterpriseStore);
+  const { steps, registration } = useSelector(state => state.enterpriseStore),
+    [isCurrentStep, setIsCurrentStep] = useState(false);
+
+  useEffect(() => {
+    if (registration?.currentStep === 4) {
+      setIsCurrentStep(true);
+    }
+  }, [registration]);
 
   const fieldTestStatusToColor = (step, status = 0) => {
     let color = '';
@@ -53,7 +60,10 @@ export default props => {
             <div className='item-text-box'>
               <div className='text-center-top-box'>分配技术管理人员</div>
               <p className='text-subtitle'>技术负责人分配技术管理人员</p>
-              <Link to={HOME_REGISTRATION_TASK_ASSIGN_TECH.path}>
+              <Link
+                to={HOME_REGISTRATION_TASK_ASSIGN_TECH.path}
+                className={isCurrentStep ? '' : 'old-link'}
+              >
                 <span>分配技术管理人员</span>
               </Link>
             </div>

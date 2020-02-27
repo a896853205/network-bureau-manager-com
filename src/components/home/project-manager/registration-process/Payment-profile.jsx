@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 // 样式
 import { Icon, Tag, Timeline } from 'antd';
@@ -11,9 +11,16 @@ import { HOME_REGISTRATION_DETAIL } from '@/constants/route-constants';
 import { useSelector } from 'react-redux';
 
 export default props => {
-  const { steps, sysRegistrationStep } = useSelector(
-    state => state.enterpriseStore
-  );
+  const { steps, sysRegistrationStep, registration } = useSelector(
+      state => state.enterpriseStore
+    ),
+    [isCurrentStep, setIsCurrentStep] = useState(false);
+
+  useEffect(() => {
+    if (registration?.currentStep === 3) {
+      setIsCurrentStep(true);
+    }
+  }, [registration]);
 
   const contractManagerStatusToColor = (step, status = 0) => {
     let color = '';
@@ -52,7 +59,7 @@ export default props => {
                 color={contractManagerStatusToColor(1, steps[2].status)}
               >
                 {steps[2].status ? (
-                  <Link to={`${HOME_REGISTRATION_DETAIL.path}/financeShow`}>
+                  <Link to={`${HOME_REGISTRATION_DETAIL.path}/financeShow`} className={isCurrentStep ? '' : 'old-link'}>
                     <span>选择负责的财务人员</span>
                   </Link>
                 ) : (

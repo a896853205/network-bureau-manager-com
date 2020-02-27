@@ -24,7 +24,8 @@ export default props => {
   const {
       enterpriseRegistrationUuid,
       steps,
-      sysRegistrationStep
+      sysRegistrationStep,
+      registration
     } = useSelector(state => state.enterpriseStore),
     [getDataLoading, setGetDataLoading] = useState(false),
     [registrationApply, setRegistrationApply] = useState(null),
@@ -34,7 +35,14 @@ export default props => {
     [registrationReport, setRegistrationReport] = useState(null),
     [registrationRecord, setRegistrationRecord] = useState(null),
     [registrationReportStatus, setRegistrationReportStatus] = useState(0),
-    [registrationRecordStatus, setRegistrationRecordStatus] = useState(0);
+    [registrationRecordStatus, setRegistrationRecordStatus] = useState(0),
+    [isCurrentStep, setIsCurrentStep] = useState(false);
+
+  useEffect(() => {
+    if (registration?.currentStep === 4) {
+      setIsCurrentStep(true);
+    }
+  }, [registration]);
 
   const fieldTestManagerStatusToColor = (manager, managerStatus = 0) => {
     let color = '';
@@ -131,6 +139,7 @@ export default props => {
               {steps[3].status ? (
                 <Link
                   to={`${HOME_REGISTRATION_DETAIL.path}/technicalManagerShow`}
+                  className={isCurrentStep ? '' : 'old-link'}
                 >
                   <span>选择技术负责人</span>
                 </Link>
@@ -166,6 +175,7 @@ export default props => {
                           specimenManagerStatus < -1 ? (
                             <Link
                               to={`${HOME_REGISTRATION_DETAIL.path}/testSpecimen`}
+                              className={isCurrentStep ? '' : 'old-link'}
                             >
                               <span>项目管理员确认</span>
                             </Link>
@@ -268,6 +278,7 @@ export default props => {
                           {registrationReportStatus >= 4 ? (
                             <Link
                               to={`${HOME_REGISTRATION_DETAIL.path}/reportStamp`}
+                              className={isCurrentStep ? '' : 'old-link'}
                             >
                               <span>项目管理人报告盖章</span>
                             </Link>
@@ -315,6 +326,7 @@ export default props => {
                           {registrationRecordStatus >= 4 ? (
                             <Link
                               to={`${HOME_REGISTRATION_DETAIL.path}/recordStamp`}
+                              className={isCurrentStep ? '' : 'old-link'}
                             >
                               <span>项目管理人原始记录盖章</span>
                             </Link>

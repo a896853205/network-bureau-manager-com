@@ -19,13 +19,19 @@ import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 export default props => {
-  const { enterpriseRegistrationUuid } = useSelector(
+  const { enterpriseRegistrationUuid, registration } = useSelector(
       state => state.enterpriseStore
     ),
     [getDataLoading, setGetDataLoading] = useState(false),
     [applyManagerStatus, setApplyManagerStatus] = useState(0),
-    [specimenManagerStatus, setSpecimenManagerStatus] = useState(0);
+    [specimenManagerStatus, setSpecimenManagerStatus] = useState(0),
+    [isCurrentStep, setIsCurrentStep] = useState(false);
 
+  useEffect(() => {
+    if (registration?.currentStep === 4) {
+      setIsCurrentStep(true);
+    }
+  }, [registration]);
   const fieldTestManagerStatusToColor = (manager, managerStatus = 0) => {
     let color = '';
 
@@ -127,7 +133,10 @@ export default props => {
                     技术人员确认
                   </Timeline.Item>
                   {applyManagerStatus > 1 || applyManagerStatus < -1 ? (
-                    <Link to={HOME_REGISTRATION_TASK_DETAIL_APPLY.path}>
+                    <Link
+                      to={HOME_REGISTRATION_TASK_DETAIL_APPLY.path}
+                      className={isCurrentStep ? '' : 'old-link'}
+                    >
                       <Timeline.Item
                         color={fieldTestManagerStatusToColor(
                           2,

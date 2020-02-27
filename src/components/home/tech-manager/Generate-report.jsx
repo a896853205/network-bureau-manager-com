@@ -22,14 +22,21 @@ import { Icon, Timeline, Skeleton, Tag } from 'antd';
 import '@/style/home/tech-manager/generate-report.styl';
 
 export default props => {
-  const { enterpriseRegistrationUuid } = useSelector(
+  const { enterpriseRegistrationUuid, registration } = useSelector(
       state => state.enterpriseStore
     ),
     [getDataLoading, setGetDataLoading] = useState(false),
     [registrationReport, setRegistrationReport] = useState(null),
     [registrationRecord, setRegistrationRecord] = useState(null),
     [reportStatus, setReportStatus] = useState(0),
-    [recordStatus, setRecordStatus] = useState(0);
+    [recordStatus, setRecordStatus] = useState(0),
+    [isCurrentStep, setIsCurrentStep] = useState(false);
+
+  useEffect(() => {
+    if (registration?.currentStep === 4) {
+      setIsCurrentStep(true);
+    }
+  }, [registration]);
 
   const fieldTestStatusToColor = (manager, status = 0) => {
     let color = '';
@@ -124,6 +131,7 @@ export default props => {
                         <div>
                           <Link
                             to={HOME_REGISTRATION_TEST_GENERATE_REPORT.path}
+                            className={isCurrentStep ? '' : 'old-link'}
                           >
                             <span>技术人员生成报告</span>
                           </Link>
@@ -173,6 +181,7 @@ export default props => {
                           to={
                             HOME_REGISTRATION_TEST_GENERATE_ORIGINAL_RECORD.path
                           }
+                          className={isCurrentStep ? '' : 'old-link'}
                         >
                           <div>
                             <span>技术人员生成原始记录</span>
