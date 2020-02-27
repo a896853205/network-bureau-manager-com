@@ -178,7 +178,7 @@ export default props => {
         </div>
         <TextArea
           autoSize={{ minRows: 3, maxRows: 6 }}
-          maxLength='800'
+          maxLength='100'
           placeholder='请输入审核不通过理由'
           className='manager-download-textArea-box'
           onChange={e => {

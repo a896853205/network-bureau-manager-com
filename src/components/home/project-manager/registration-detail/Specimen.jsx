@@ -174,7 +174,7 @@ export default props => {
             <TextArea
               disabled={status !== 1}
               autoSize={{ minRows: 3, maxRows: 6 }}
-              maxLength='800'
+              maxLength='100'
               placeholder='请输入审核不通过理由'
               className='specimen-textArea-box'
               onChange={e => {
