@@ -198,7 +198,11 @@ export default Form.create({ name: 'record' })(({ form }) => {
                   <Form.Item>
                     {getFieldDecorator('totalPage', {
                       rules: [
-                        { required: true, message: '请输入原始记录总页数' }
+                        { required: true, message: '请输入原始记录总页数' },
+                        {
+                          pattern: /^[1-9]\d{0,2}$/,
+                          message: '请输入正确的页数,须在1-999之间'
+                        }
                       ]
                     })(
                       <Input
@@ -207,7 +211,6 @@ export default Form.create({ name: 'record' })(({ form }) => {
                         type='number'
                         style={{ textAlign: 'center' }}
                         className='input'
-                        maxLength={32}
                         addonAfter={<span>页</span>}
                       />
                     )}
