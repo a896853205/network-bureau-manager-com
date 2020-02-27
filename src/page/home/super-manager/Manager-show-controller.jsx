@@ -5,7 +5,8 @@ import { QUERY_MANAGER, DELETE_MANAGER } from '@/constants/api-constants';
 import proxyFetch from '@/util/request';
 
 // 样式
-import { Icon, Table, Modal } from 'antd';
+import { Icon, Table } from 'antd';
+//, Modal
 import '@/style/home/super-manager/manager-show.styl';
 
 // 算法
@@ -16,7 +17,7 @@ import { HOME_MANAGER_UPDATE } from '@/constants/route-constants';
 import { Link } from 'react-router-dom';
 
 const { Column } = Table;
-const { confirm } = Modal;
+// const { confirm } = Modal;
 
 export default props => {
   const [loading, setLoading] = useState(true),
@@ -126,7 +127,7 @@ export default props => {
               <Link to={`${HOME_MANAGER_UPDATE.path}/${record.uuid}`}>
                 <Icon type='edit' className='icon' />
               </Link>
-              <Icon
+              {/* <Icon
                 type='delete'
                 className='icon'
                 onClick={() => {
@@ -141,7 +142,7 @@ export default props => {
                     onCancel() {}
                   });
                 }}
-              />
+              /> */}
             </span>
           )}
         />
