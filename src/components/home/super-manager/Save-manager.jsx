@@ -238,6 +238,10 @@ export default Form.create({ name: 'save-manager' })(({ form, manager }) => {
               required: true,
               message: '请输入用户名！',
               whitespace: true
+            },
+            {
+              message: '用户名过长！',
+              max: 32
             }
           ]
         })(<Input placeholder='请输入用户姓名' />)}
@@ -247,7 +251,7 @@ export default Form.create({ name: 'save-manager' })(({ form, manager }) => {
           rules: [
             { required: true, message: '请输入电话号码！' },
             {
-              pattern: /^[1][0-9][0-9]{9}$/,
+              pattern: /^(\d)(\d|-){4,19}$/,
               message: '电话号码不符合规则'
             }
           ]
