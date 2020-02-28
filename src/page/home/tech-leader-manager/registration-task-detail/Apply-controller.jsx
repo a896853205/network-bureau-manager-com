@@ -135,7 +135,7 @@ export default props => {
             <TextArea
               disabled={managerStatus !== 2}
               autoSize={{ minRows: 3, maxRows: 6 }}
-              maxLength='800'
+              maxLength='100'
               placeholder='请输入审核不通过理由'
               className='apply-textArea-box'
               onChange={e => {
