@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 // 路由
-import { HOME_REGISTRATION_TASK_LIST } from '@/constants/route-constants';
+import { HOME_REGISTRATION_TASK_PROFILE } from '@/constants/route-constants';
 import { Link } from 'react-router-dom';
 
 // 工具
@@ -105,9 +105,9 @@ export default props => {
 
   return (
     <div className='item-box techLeader-manager-show-box'>
-      <p className='title-box'>分配技术管理人员</p>
+      <p className='title-box'>分配技术人员</p>
       <div className='subtitle-box'>
-        <Link to={HOME_REGISTRATION_TASK_LIST.path}>
+        <Link to={HOME_REGISTRATION_TASK_PROFILE.path}>
           <Icon type='left' className='exit-icon' />
         </Link>
         <p className='subtitle-title'>选择技术人员</p>

@@ -58,13 +58,13 @@ export default props => {
               twoToneColor='#334454'
             />
             <div className='item-text-box'>
-              <div className='text-center-top-box'>分配技术管理人员</div>
-              <p className='text-subtitle'>技术负责人分配技术管理人员</p>
+              <div className='text-center-top-box'>分配技术人员</div>
+              <p className='text-subtitle'>技术负责人分配技术人员</p>
               <Link
                 to={HOME_REGISTRATION_TASK_ASSIGN_TECH.path}
                 className={isCurrentStep ? '' : 'old-link'}
               >
-                <span>分配技术管理人员</span>
+                <span>分配技术人员</span>
               </Link>
             </div>
           </div>
