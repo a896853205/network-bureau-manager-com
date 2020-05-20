@@ -240,7 +240,7 @@ export default props => {
                     to={`${HOME_REGISTRATION_DETAIL.path}/product`}
                     className={isCurrentStep ? '' : 'old-link'}
                   >
-                    <span>产品介质</span>
+                    <span>样品</span>
                   </Link>
                   <Tag
                     className='content-tag'

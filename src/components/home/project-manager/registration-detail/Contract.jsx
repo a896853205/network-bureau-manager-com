@@ -124,9 +124,6 @@ export default props => {
               <Descriptions.Item label='数量'>
                 {registrationContract.amount}
               </Descriptions.Item>
-              <Descriptions.Item label='传真'>
-                {registrationContract.fax}
-              </Descriptions.Item>
               <Descriptions.Item label='邮政编码'>
                 {registrationContract.postalCode}
               </Descriptions.Item>

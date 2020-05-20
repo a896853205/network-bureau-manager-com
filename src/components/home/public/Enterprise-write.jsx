@@ -191,7 +191,7 @@ export default props => {
           ghost
           loading={productDownloadLoading}
         >
-          下载产品介质
+          下载样品
         </Button>
       </div>
       <Modal
