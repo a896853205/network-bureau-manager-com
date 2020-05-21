@@ -4,6 +4,8 @@ export default status => {
       return 'gray';
     case 1:
       return 'blue';
+    case 2:
+      return 'purple';
     case 100:
       return 'green';
     case -1:
