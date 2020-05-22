@@ -11,7 +11,6 @@ import {
   GET_FILE_URL,
   SELECT_REGISTRATION_CONTRACT_MANAGER,
   SAVE_MANAGER_CONTRACT_URL,
-  DOWNLOAD_CONTRACT_WORD
 } from '@/constants/api-constants';
 
 // redux
@@ -28,20 +27,21 @@ import {
   message,
   Icon,
   Alert,
-  Form
+  Form,
 } from 'antd';
 
 export default Form.create({ name: 'contractManager' })(({ form }) => {
   const { getFieldDecorator, setFieldsValue, getFieldValue } = form,
     { steps, enterpriseRegistrationUuid } = useSelector(
-      state => state.enterpriseStore
+      (state) => state.enterpriseStore
     ),
     [contractManagerLoading, setContractManagerLoading] = useState(false),
     [isNeedUrlFresh, setIsNeedUrlFresh] = useState(false),
     [previewUrl, setPreviewUrl] = useState(''),
     [getDataLoading, setGetDataLoading] = useState(true),
     [saveDataLoading, setSaveDataLoading] = useState(false),
-    [downloadContractLoading, setDownloadContractLoading] = useState(false),
+    [enterpriseUrl, setEnterpriseUrl] = useState(''),
+    [contractEnterpriseUrl, setContractEnterpriseUrl] = useState(''),
     history = useHistory(),
     dispatch = useDispatch(),
     formManagerUrl =
@@ -61,21 +61,26 @@ export default Form.create({ name: 'contractManager' })(({ form }) => {
         // 数据回显
         if (managerContract?.managerUrl) {
           setFieldsValue({
-            managerUrl: [managerContract.managerUrl]
+            managerUrl: [managerContract.managerUrl],
           });
           setIsNeedUrlFresh(true);
+        }
+
+        if (managerContract && managerContract.enterpriseUrl) {
+          // 数据处理
+          setContractEnterpriseUrl(managerContract.enterpriseUrl);
         }
 
         setGetDataLoading(false);
       })();
     }
-  }, [enterpriseRegistrationUuid, setFieldsValue]);
+  }, [enterpriseRegistrationUuid, setFieldsValue, contractEnterpriseUrl]);
 
   /**
    * 上传pdf文件
    * @param {File} file 上传的文件
    */
-  const handleUploadFile = async file => {
+  const handleUploadFile = async (file) => {
     if (handleBeforeUpload(file)) {
       // loading
       setContractManagerLoading(true);
@@ -84,7 +89,7 @@ export default Form.create({ name: 'contractManager' })(({ form }) => {
       // TODO 以后把这个改成后台输入的路由把
       const fileUrl = await proxyFileFetch(UPLOAD_PDF_FILE, {
         file: file.file,
-        folderName: 'registration/managerContract'
+        folderName: 'registration/managerContract',
       });
 
       // loading
@@ -119,7 +124,7 @@ export default Form.create({ name: 'contractManager' })(({ form }) => {
   /**
    * 提交事件
    */
-  const handleManagerUrlSave = e => {
+  const handleManagerUrlSave = (e) => {
     e.preventDefault();
 
     // 表单判断
@@ -143,21 +148,35 @@ export default Form.create({ name: 'contractManager' })(({ form }) => {
     });
   };
 
-  const handleDownloadContractWord = async () => {
-    setDownloadContractLoading(true);
+  useEffect(() => {
+    (async () => {
+      if (contractEnterpriseUrl) {
+        const enterpriseUrl = await proxyFetch(
+          GET_FILE_URL,
+          { fileUrl: contractEnterpriseUrl },
+          'GET'
+        );
 
-    const url = await proxyFetch(
-      DOWNLOAD_CONTRACT_WORD,
-      { registrationUuid: enterpriseRegistrationUuid },
-      'GET'
-    );
+        setEnterpriseUrl(enterpriseUrl);
+      }
+    })();
+  }, [contractEnterpriseUrl]);
 
-    if (url) {
-      window.open(url);
-    }
+  // const handleDownloadContractWord = async () => {
+  //   setDownloadContractLoading(true);
 
-    setDownloadContractLoading(false);
-  };
+  //   const url = await proxyFetch(
+  //     DOWNLOAD_CONTRACT_WORD,
+  //     { registrationUuid: enterpriseRegistrationUuid },
+  //     'GET'
+  //   );
+
+  //   if (url) {
+  //     window.open(url);
+  //   }
+
+  //   setDownloadContractLoading(false);
+  // };
 
   return (
     <>
@@ -172,16 +191,24 @@ export default Form.create({ name: 'contractManager' })(({ form }) => {
           <div className='contract-download-left-box'>
             <Timeline>
               <Timeline.Item>
-                <Button
-                  icon='download'
-                  size='large'
-                  className='button'
-                  type='primary'
-                  loading={downloadContractLoading}
-                  onClick={handleDownloadContractWord}
-                >
-                  生成合同下载
-                </Button>
+                {enterpriseUrl ? (
+                  <a
+                    href={enterpriseUrl}
+                    target='_blank'
+                    rel='noopener noreferrer'
+                  >
+                    <Button
+                      type='primary'
+                      size='large'
+                      icon='download'
+                      className='button'
+                    >
+                      下载文件
+                    </Button>
+                  </a>
+                ) : (
+                  <Button disabled>请等待</Button>
+                )}
               </Timeline.Item>
               <Timeline.Item>
                 <Form
@@ -192,15 +219,15 @@ export default Form.create({ name: 'contractManager' })(({ form }) => {
                   <Form.Item>
                     {getFieldDecorator('managerUrl', {
                       valuePropName: 'fileList',
-                      getValueFromEvent: e => {
+                      getValueFromEvent: (e) => {
                         return e && e.fileList;
                       },
                       rules: [
                         {
                           required: true,
-                          message: '请上传合同PDF文件！'
-                        }
-                      ]
+                          message: '请上传合同PDF文件！',
+                        },
+                      ],
                     })(
                       <Upload
                         showUploadList={false}
@@ -211,7 +238,7 @@ export default Form.create({ name: 'contractManager' })(({ form }) => {
                           <div>
                             <a
                               href={previewUrl}
-                              onClick={e => e.stopPropagation()}
+                              onClick={(e) => e.stopPropagation()}
                               target='_blank'
                               rel='noopener noreferrer'
                             >

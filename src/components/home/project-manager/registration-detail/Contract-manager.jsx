@@ -165,13 +165,6 @@ export default Form.create({ name: 'contract' })(({ form }) => {
                 })(<DatePicker placeholder='20XX-XX-XX' />)}
               </Form.Item>
 
-              {/* 缴费时间 */}
-              <Form.Item label='缴费日期'>
-                {getFieldDecorator('paymentTime', {
-                  rules: [{ required: true, message: '请选择缴费日期！' }]
-                })(<DatePicker placeholder='20XX-XX-XX' />)}
-              </Form.Item>
-
               {/* 合同日期 */}
               <Form.Item label='合同日期'>
                 {getFieldDecorator('contractTime', {

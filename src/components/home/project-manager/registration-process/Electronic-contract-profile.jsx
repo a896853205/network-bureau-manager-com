@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom';
 import { Icon, Tag, Timeline } from 'antd';
 export default () => {
   const { steps, sysRegistrationStep, registration } = useSelector(
-      state => state.enterpriseStore
+      (state) => state.enterpriseStore
     ),
     [isCurrentStep, setIsCurrentStep] = useState(false);
 
@@ -74,43 +74,43 @@ export default () => {
                     : contractManagerStatusToColor(2, steps[1].status)
                 }
               >
-                {steps[1].status >= 2 || steps[1].status === -1 ? (
-                  <Link
-                    to={`${HOME_REGISTRATION_DETAIL.path}/contractDownload`}
-                    className={isCurrentStep ? '' : 'old-link'}
-                  >
-                    <span>管理员制定合同</span>
-                  </Link>
-                ) : (
-                  <span>管理员制定合同</span>
-                )}
-              </Timeline.Item>
-              <Timeline.Item
-                color={
-                  steps[1].status === -1
-                    ? 'green'
-                    : contractManagerStatusToColor(3, steps[1].status)
-                }
-              >
                 等待企业上传合同pdf
               </Timeline.Item>
               <Timeline.Item
                 color={
                   steps[1].status === -1
                     ? 'red'
-                    : contractManagerStatusToColor(4, steps[1].status)
+                    : contractManagerStatusToColor(3, steps[1].status)
                 }
               >
-                {steps[1].status >= 4 || steps[1].status === -1 ? (
+                {steps[1].status >= 3 || steps[1].status === -1 ? (
                   <Link
                     to={`${HOME_REGISTRATION_DETAIL.path}/contractExamine`}
                     className={isCurrentStep ? '' : 'old-link'}
                     A
                   >
-                    <span>审查最终合同</span>
+                    <span>审核乙方合同</span>
                   </Link>
                 ) : (
-                  <span>审查最终合同</span>
+                  <span>审核乙方合同</span>
+                )}
+              </Timeline.Item>
+              <Timeline.Item
+                color={
+                  steps[1].status === -1
+                    ? 'gray'
+                    : contractManagerStatusToColor(4, steps[1].status)
+                }
+              >
+                {steps[1].status >= 4 ? (
+                  <Link
+                    to={`${HOME_REGISTRATION_DETAIL.path}/contractDownload`}
+                    className={isCurrentStep ? '' : 'old-link'}
+                  >
+                    <span>管理员合同盖章上传</span>
+                  </Link>
+                ) : (
+                  <span>管理员合同盖章上传</span>
                 )}
               </Timeline.Item>
             </Timeline>

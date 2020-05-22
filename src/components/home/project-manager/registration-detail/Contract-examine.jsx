@@ -137,7 +137,7 @@ export default props => {
         <Link to={HOME_REGISTRATION_PROFILE.path}>
           <Icon type='left' className='exit-icon' />
         </Link>
-        <p className='subtitle-title'>审核最终合同</p>
+        <p className='subtitle-title'>审核乙方合同</p>
         <Tag className='content-tag' color={statusToColor(steps[1]?.statusText)}>
           {steps[1]?.statusText}
         </Tag>
@@ -156,20 +156,20 @@ export default props => {
         </div>
         <div className='manager-download-button-box'>
           <Button
-            disabled={steps[1]?.status !== 4}
+            disabled={steps[1]?.status !== 3}
             type='primary'
             htmlType='submit'
-            className={steps[1]?.status === 4 ? 'fail-button' : ''}
+            className={steps[1]?.status === 3 ? 'fail-button' : ''}
             loading={statusLoading}
             onClick={handleSetFailStatus}
           >
             审核不通过
           </Button>
           <Button
-            disabled={steps[1]?.status !== 4}
+            disabled={steps[1]?.status !== 3}
             type='primary'
             htmlType='submit'
-            className={steps[1]?.status === 4 ? 'success-button' : ''}
+            className={steps[1]?.status === 3 ? 'success-button' : ''}
             loading={statusLoading}
             onClick={handleSetSuccessStatus}
           >
