@@ -17,7 +17,7 @@ import {
   GET_FILE_URL,
   SELECT_REGISTRATION_PRODUCT_DESCRIPTION,
   SET_REGISTRATION_DETAIL_SUCCESS_STATUS,
-  SET_REGISTRATION_DETAIL_FAIL_STATUS
+  SET_REGISTRATION_DETAIL_FAIL_STATUS,
 } from '@/constants/api-constants';
 
 // 样式
@@ -25,9 +25,9 @@ import { Icon, Tag, Button, Input, message } from 'antd';
 import '@/style/home/project-manager/product-description.styl';
 const { TextArea } = Input;
 
-export default props => {
+export default (props) => {
   const { enterpriseRegistrationUuid } = useSelector(
-      state => state.enterpriseStore
+      (state) => state.enterpriseStore
     ),
     [formProductDescriptionUrl, setFormProductDescriptionUrl] = useState(''),
     [PreviewUrl, setPreviewUrl] = useState(''),
@@ -45,7 +45,7 @@ export default props => {
 
       await proxyFetch(SET_REGISTRATION_DETAIL_SUCCESS_STATUS, {
         registrationUuid: enterpriseRegistrationUuid,
-        type: 'productDescription'
+        type: 'productDescription',
       });
 
       setStatusLoading(false);
@@ -62,7 +62,7 @@ export default props => {
         const res = await proxyFetch(SET_REGISTRATION_DETAIL_FAIL_STATUS, {
           registrationUuid: enterpriseRegistrationUuid,
           type: 'productDescription',
-          failText
+          failText,
         });
 
         setStatusLoading(false);
@@ -129,7 +129,13 @@ export default props => {
       <div className='detail-description-box'>
         <div className='description-upload-button-box'>
           {formProductDescriptionUrl ? (
-            <a href={PreviewUrl}>
+            <a
+              href={`http://view.officeapps.live.com/op/view.aspx?src=${encodeURIComponent(
+                PreviewUrl
+              )}`}
+              target='_blank'
+              rel='noopener noreferrer'
+            >
               <Button type='primary' icon='download' loading={getFileLoading}>
                 下载文件
               </Button>
@@ -166,7 +172,7 @@ export default props => {
           maxLength='100'
           placeholder='请输入审核不通过理由'
           className='description-textArea-box'
-          onChange={e => {
+          onChange={(e) => {
             setFailText(e.target.value);
           }}
         />

@@ -13,7 +13,7 @@ import {
   GET_FILE_URL,
   GET_TECH_LEADER_REGISTRATION_REPORT,
   SET_TECH_LEADER_REGISTRATION_REPORT_SUCCESS_STATUS,
-  SET_TECH_LEADER_REGISTRATION_REPORT_FAIL_STATUS
+  SET_TECH_LEADER_REGISTRATION_REPORT_FAIL_STATUS,
 } from '@/constants/api-constants';
 
 //样式
@@ -21,9 +21,9 @@ import { Icon, Button, Tag, Input, message } from 'antd';
 import '@/style/home/tech-leader-manager/registration-task-examine-report.styl';
 const { TextArea } = Input;
 
-export default props => {
+export default (props) => {
   const { enterpriseRegistrationUuid } = useSelector(
-      state => state.enterpriseStore
+      (state) => state.enterpriseStore
     ),
     [formUrl, setFormUrl] = useState(''),
     [PreviewUrl, setPreviewUrl] = useState(''),
@@ -64,7 +64,7 @@ export default props => {
       await proxyFetch(
         SET_TECH_LEADER_REGISTRATION_REPORT_SUCCESS_STATUS,
         {
-          registrationUuid: enterpriseRegistrationUuid
+          registrationUuid: enterpriseRegistrationUuid,
         },
         'PUT'
       );
@@ -83,7 +83,7 @@ export default props => {
           SET_TECH_LEADER_REGISTRATION_REPORT_FAIL_STATUS,
           {
             registrationUuid: enterpriseRegistrationUuid,
-            failText
+            failText,
           },
           'PUT'
         );
@@ -154,12 +154,22 @@ export default props => {
       </div>
       <div className='detail-report-box'>
         <div className='report-upload-button-box'>
-          {formUrl ? (
-            <a href={PreviewUrl}>
-              <Button type='primary' icon='download' loading={getFileLoading}>
-                下载文件
-              </Button>
-            </a>
+          {PreviewUrl ? (
+            <Button
+              type='primary'
+              icon='download'
+              onClick={(e) => {
+                e.stopPropagation();
+                window.open(
+                  `http://view.officeapps.live.com/op/view.aspx?src=${encodeURIComponent(
+                    PreviewUrl
+                  )}`
+                );
+              }}
+              loading={getFileLoading}
+            >
+              下载文件
+            </Button>
           ) : (
             <Button disabled>企业未上传</Button>
           )}
@@ -192,7 +202,7 @@ export default props => {
           maxLength='100'
           placeholder='请输入审核不通过理由'
           className='report-textArea-box'
-          onChange={e => {
+          onChange={(e) => {
             setFailText(e.target.value);
           }}
         />

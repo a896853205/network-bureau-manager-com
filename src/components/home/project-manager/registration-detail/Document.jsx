@@ -17,7 +17,7 @@ import {
   GET_FILE_URL,
   SELECT_REGISTRATION_DOCUMENT,
   SET_REGISTRATION_DETAIL_SUCCESS_STATUS,
-  SET_REGISTRATION_DETAIL_FAIL_STATUS
+  SET_REGISTRATION_DETAIL_FAIL_STATUS,
 } from '@/constants/api-constants';
 
 //样式
@@ -25,9 +25,9 @@ import { Icon, Button, Input, Tag, message } from 'antd';
 import '@/style/home/project-manager/document.styl';
 const { TextArea } = Input;
 
-export default props => {
+export default (props) => {
   const { enterpriseRegistrationUuid } = useSelector(
-      state => state.enterpriseStore
+      (state) => state.enterpriseStore
     ),
     [formDocumentUrl, setFormDocumentUrl] = useState(''),
     [PreviewUrl, setPreviewUrl] = useState(''),
@@ -45,7 +45,7 @@ export default props => {
 
       await proxyFetch(SET_REGISTRATION_DETAIL_SUCCESS_STATUS, {
         registrationUuid: enterpriseRegistrationUuid,
-        type: 'document'
+        type: 'document',
       });
 
       setStatusLoading(false);
@@ -62,7 +62,7 @@ export default props => {
         const res = await proxyFetch(SET_REGISTRATION_DETAIL_FAIL_STATUS, {
           registrationUuid: enterpriseRegistrationUuid,
           type: 'document',
-          failText
+          failText,
         });
 
         setStatusLoading(false);
@@ -129,12 +129,30 @@ export default props => {
       </div>
       <div className='detail-document-box'>
         <div className='document-upload-button-box'>
-          {formDocumentUrl ? (
-            <a href={PreviewUrl}>
-              <Button type='primary' icon='download' loading={getFileLoading}>
-                下载文件
-              </Button>
-            </a>
+          {PreviewUrl ? (
+            <Button
+              type='primary'
+              icon='download'
+              onClick={(e) => {
+                e.stopPropagation();
+                const urlArr = PreviewUrl.split('?');
+                var urlArrList = urlArr[0],
+                  appU = urlArrList.split('/');
+                var fileName = appU[appU.length - 1];
+                if (fileName.split('.')[1].toLowerCase() !== 'pdf') {
+                  window.open(
+                    `http://view.officeapps.live.com/op/view.aspx?src=${encodeURIComponent(
+                      PreviewUrl
+                    )}`
+                  );
+                } else {
+                  window.open(PreviewUrl);
+                }
+              }}
+              loading={getFileLoading}
+            >
+              下载文件
+            </Button>
           ) : (
             <Button disabled>企业未上传</Button>
           )}
@@ -167,7 +185,7 @@ export default props => {
           maxLength='100'
           placeholder='请输入审核不通过理由'
           className='document-textArea-box'
-          onChange={e => {
+          onChange={(e) => {
             setFailText(e.target.value);
           }}
         />

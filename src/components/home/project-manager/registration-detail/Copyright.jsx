@@ -17,7 +17,7 @@ import {
   GET_FILE_URL,
   SELECT_REGISTRATION_COPYRIGHT,
   SET_REGISTRATION_DETAIL_SUCCESS_STATUS,
-  SET_REGISTRATION_DETAIL_FAIL_STATUS
+  SET_REGISTRATION_DETAIL_FAIL_STATUS,
 } from '@/constants/api-constants';
 
 // 样式
@@ -25,9 +25,9 @@ import { Icon, Button, Input, Tag, message } from 'antd';
 import '@/style/home/project-manager/copyright.styl';
 const { TextArea } = Input;
 
-export default props => {
+export default (props) => {
   const { enterpriseRegistrationUuid } = useSelector(
-      state => state.enterpriseStore
+      (state) => state.enterpriseStore
     ),
     [formCopyrightUrl, setFormCopyrightUrl] = useState(''),
     [PreviewUrl, setPreviewUrl] = useState(''),
@@ -45,7 +45,7 @@ export default props => {
 
       await proxyFetch(SET_REGISTRATION_DETAIL_SUCCESS_STATUS, {
         registrationUuid: enterpriseRegistrationUuid,
-        type: 'copyright'
+        type: 'copyright',
       });
 
       setStatusLoading(false);
@@ -62,7 +62,7 @@ export default props => {
         const res = await proxyFetch(SET_REGISTRATION_DETAIL_FAIL_STATUS, {
           registrationUuid: enterpriseRegistrationUuid,
           type: 'copyright',
-          failText
+          failText,
         });
 
         setStatusLoading(false);
@@ -128,6 +128,14 @@ export default props => {
         </p>
       </div>
       <div className='detail-copyright-box'>
+        {PreviewUrl ? (
+          <img
+            src={PreviewUrl}
+            alt='avatar'
+            style={{ width: '100%' }}
+            className='img'
+          />
+        ) : null}
         <div className='copyright-upload-button-box'>
           {formCopyrightUrl ? (
             <a href={PreviewUrl}>
@@ -167,7 +175,7 @@ export default props => {
           maxLength='100'
           placeholder='请输入审核不通过理由'
           className='copyright-textArea-box'
-          onChange={e => {
+          onChange={(e) => {
             setFailText(e.target.value);
           }}
         />

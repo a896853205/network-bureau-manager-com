@@ -13,7 +13,7 @@ import {
   GET_FILE_URL,
   GET_CERTIFIER_REGISTRATION_RECORD,
   SET_CERTIFIER_REGISTRATION_RECORD_SUCCESS_STATUS,
-  SET_CERTIFIER_REGISTRATION_RECORD_FAIL_STATUS
+  SET_CERTIFIER_REGISTRATION_RECORD_FAIL_STATUS,
 } from '@/constants/api-constants';
 
 //样式
@@ -21,9 +21,9 @@ import { Icon, Button, Tag, Input, message } from 'antd';
 import '@/style/home/certifier-manager/registration-certify-examine-original-record.styl';
 const { TextArea } = Input;
 
-export default props => {
+export default (props) => {
   const { enterpriseRegistrationUuid } = useSelector(
-      state => state.enterpriseStore
+      (state) => state.enterpriseStore
     ),
     [formUrl, setFormUrl] = useState(''),
     [PreviewUrl, setPreviewUrl] = useState(''),
@@ -64,7 +64,7 @@ export default props => {
       await proxyFetch(
         SET_CERTIFIER_REGISTRATION_RECORD_SUCCESS_STATUS,
         {
-          registrationUuid: enterpriseRegistrationUuid
+          registrationUuid: enterpriseRegistrationUuid,
         },
         'PUT'
       );
@@ -83,7 +83,7 @@ export default props => {
           SET_CERTIFIER_REGISTRATION_RECORD_FAIL_STATUS,
           {
             registrationUuid: enterpriseRegistrationUuid,
-            failText
+            failText,
           },
           'PUT'
         );
@@ -155,7 +155,13 @@ export default props => {
       <div className='detail-record-box'>
         <div className='record-upload-button-box'>
           {formUrl ? (
-            <a href={PreviewUrl}>
+            <a
+              href={`http://view.officeapps.live.com/op/view.aspx?src=${encodeURIComponent(
+                PreviewUrl
+              )}`}
+              target='_blank'
+              rel='noopener noreferrer'
+            >
               <Button type='primary' icon='download' loading={getFileLoading}>
                 下载文件
               </Button>
@@ -192,7 +198,7 @@ export default props => {
           maxLength='100'
           placeholder='请输入审核不通过理由'
           className='record-textArea-box'
-          onChange={e => {
+          onChange={(e) => {
             setFailText(e.target.value);
           }}
         />

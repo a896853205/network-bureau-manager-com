@@ -10,7 +10,7 @@ import {
   UPLOAD_PDF_FILE,
   GET_FILE_URL,
   SELECT_PROJECT_MANAGER_REGISTRATION_REPORT,
-  SAVE_REPORT_FINAL_URL
+  SAVE_REPORT_FINAL_URL,
 } from '@/constants/api-constants';
 
 // redux
@@ -27,12 +27,12 @@ import {
   message,
   Icon,
   Alert,
-  Form
+  Form,
 } from 'antd';
 
 export default Form.create({ name: 'finalReport' })(({ form }) => {
   const { steps, enterpriseRegistrationUuid } = useSelector(
-      state => state.enterpriseStore
+      (state) => state.enterpriseStore
     ),
     { getFieldDecorator, setFieldsValue, getFieldValue } = form,
     [reportManagerLoading, setReportManagerLoading] = useState(false),
@@ -74,7 +74,7 @@ export default Form.create({ name: 'finalReport' })(({ form }) => {
    * 上传pdf文件
    * @param {File} file 上传的文件
    */
-  const handleUploadFile = async file => {
+  const handleUploadFile = async (file) => {
     if (handleBeforeUpload(file)) {
       // loading
       setReportManagerLoading(true);
@@ -82,7 +82,7 @@ export default Form.create({ name: 'finalReport' })(({ form }) => {
       // 参数需要加上oss的文件夹位置
       const fileUrl = await proxyFileFetch(UPLOAD_PDF_FILE, {
         file: file.file,
-        folderName: 'registration/managerReport'
+        folderName: 'registration/managerReport',
       });
 
       // loading
@@ -117,7 +117,7 @@ export default Form.create({ name: 'finalReport' })(({ form }) => {
   /**
    * 提交事件
    */
-  const handleManagerUrlSave = e => {
+  const handleManagerUrlSave = (e) => {
     e.preventDefault();
 
     // 表单判断
@@ -190,7 +190,13 @@ export default Form.create({ name: 'finalReport' })(({ form }) => {
             <Timeline>
               <Timeline.Item>
                 {reportUrl ? (
-                  <a href={reportPreviewUrl}>
+                  <a
+                    href={`http://view.officeapps.live.com/op/view.aspx?src=${encodeURIComponent(
+                      reportPreviewUrl
+                    )}`}
+                    target='_blank'
+                    rel='noopener noreferrer'
+                  >
                     <Button
                       type='primary'
                       icon='download'
@@ -213,12 +219,10 @@ export default Form.create({ name: 'finalReport' })(({ form }) => {
                   <Form.Item>
                     {getFieldDecorator('finalUrl', {
                       valuePropName: 'fileList',
-                      getValueFromEvent: e => {
+                      getValueFromEvent: (e) => {
                         return e && e.fileList;
                       },
-                      rules: [
-                        { required: true, message: '请上传报告pdf文件' }
-                      ]
+                      rules: [{ required: true, message: '请上传报告pdf文件' }],
                     })(
                       <Upload
                         showUploadList={false}
@@ -229,7 +233,7 @@ export default Form.create({ name: 'finalReport' })(({ form }) => {
                           <div>
                             <a
                               href={previewUrl}
-                              onClick={e => e.stopPropagation()}
+                              onClick={(e) => e.stopPropagation()}
                               target='_blank'
                               rel='noopener noreferrer'
                             >

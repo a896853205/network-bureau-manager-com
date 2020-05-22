@@ -11,7 +11,7 @@ import {
   UPLOAD_WORD_FILE,
   SELECT_TECH_REGISTRATION_REPORT,
   GET_FILE_URL,
-  SAVE_TECH_REGISTRATION_REPORT
+  SAVE_TECH_REGISTRATION_REPORT,
 } from '@/constants/api-constants';
 
 // redux
@@ -28,12 +28,12 @@ import {
   Input,
   Form,
   message,
-  Skeleton
+  Skeleton,
 } from 'antd';
 
 export default Form.create({ name: 'report' })(({ form }) => {
   const { enterpriseRegistrationUuid } = useSelector(
-      state => state.enterpriseStore
+      (state) => state.enterpriseStore
     ),
     { getFieldDecorator, setFieldsValue, getFieldValue } = form,
     [downloadReportLoading, setDownloadReportLoading] = useState(false),
@@ -50,11 +50,15 @@ export default Form.create({ name: 'report' })(({ form }) => {
   const handleDownloadReportWord = async () => {
     setDownloadReportLoading(true);
 
-    const url = await proxyFetch(
+    const tempUrl = await proxyFetch(
       GENERATE_REPORT_WORD,
       { registrationUuid: enterpriseRegistrationUuid },
       'GET'
     );
+
+    const url = `http://view.officeapps.live.com/op/view.aspx?src=${encodeURIComponent(
+      tempUrl
+    )}`;
 
     window.open(url);
     setDownloadReportLoading(false);
@@ -92,7 +96,7 @@ export default Form.create({ name: 'report' })(({ form }) => {
    * 上传pdf文件
    * @param {File} file 上传的文件
    */
-  const handleUploadFile = async file => {
+  const handleUploadFile = async (file) => {
     if (handleBeforeUpload(file)) {
       // loading
       setReportLoading(true);
@@ -100,7 +104,7 @@ export default Form.create({ name: 'report' })(({ form }) => {
       // 参数需要加上oss的文件夹位置
       const fileUrl = await proxyFileFetch(UPLOAD_WORD_FILE, {
         file: file.file,
-        folderName: 'registration/report'
+        folderName: 'registration/report',
       });
 
       // loading
@@ -135,7 +139,7 @@ export default Form.create({ name: 'report' })(({ form }) => {
   /**
    * 提交事件
    */
-  const handleReportSave = e => {
+  const handleReportSave = (e) => {
     e.preventDefault();
 
     // 表单判断
@@ -200,9 +204,9 @@ export default Form.create({ name: 'report' })(({ form }) => {
                         { required: true, message: '请输入现场报告总页数' },
                         {
                           pattern: /^[1-9]\d{0,2}$/,
-                          message: '请输入正确的页数,须在1-999之间'
-                        }
-                      ]
+                          message: '请输入正确的页数,须在1-999之间',
+                        },
+                      ],
                     })(
                       <Input
                         placeholder='请输入报告总页数'
@@ -218,15 +222,15 @@ export default Form.create({ name: 'report' })(({ form }) => {
                   <Form.Item>
                     {getFieldDecorator('url', {
                       valuePropName: 'fileList',
-                      getValueFromEvent: e => {
+                      getValueFromEvent: (e) => {
                         return e && e.fileList;
                       },
                       rules: [
                         {
                           required: true,
-                          message: '请上传原始记录word文件！'
-                        }
-                      ]
+                          message: '请上传原始记录word文件！',
+                        },
+                      ],
                     })(
                       <Upload
                         showUploadList={false}
@@ -237,7 +241,14 @@ export default Form.create({ name: 'report' })(({ form }) => {
                           <div>
                             <a
                               href={previewUrl}
-                              onClick={e => e.stopPropagation()}
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                window.open(
+                                  `http://view.officeapps.live.com/op/view.aspx?src=${encodeURIComponent(
+                                    previewUrl
+                                  )}`
+                                );
+                              }}
                               target='_blank'
                               rel='noopener noreferrer'
                             >

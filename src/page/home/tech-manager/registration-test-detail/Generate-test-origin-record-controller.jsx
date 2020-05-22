@@ -79,11 +79,15 @@ export default Form.create({ name: 'record' })(({ form }) => {
   const handleDownloadReportWord = async () => {
     setDownloadRecordLoading(true);
 
-    const url = await proxyFetch(
+    const tempUrl = await proxyFetch(
       GENERATE_RECORD_WORD,
       { registrationUuid: enterpriseRegistrationUuid },
       'GET'
     );
+
+    const url = `http://view.officeapps.live.com/op/view.aspx?src=${encodeURIComponent(
+      tempUrl
+    )}`;
 
     window.open(url);
     setDownloadRecordLoading(false);
@@ -237,7 +241,14 @@ export default Form.create({ name: 'record' })(({ form }) => {
                           <div>
                             <a
                               href={previewUrl}
-                              onClick={e => e.stopPropagation()}
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                window.open(
+                                  `http://view.officeapps.live.com/op/view.aspx?src=${encodeURIComponent(
+                                    previewUrl
+                                  )}`
+                                );
+                              }}
                               target='_blank'
                               rel='noopener noreferrer'
                             >

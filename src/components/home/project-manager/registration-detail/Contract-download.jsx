@@ -184,7 +184,7 @@ export default Form.create({ name: 'contractManager' })(({ form }) => {
         <Link to={HOME_REGISTRATION_PROFILE.path}>
           <Icon type='left' className='exit-icon' />
         </Link>
-        <p className='subtitle-title'>生成合同下载,盖章扫描,上传pdf</p>
+        <p className='subtitle-title'>合同下载,盖章扫描,上传pdf</p>
       </div>
       <div className='detail-contract-download-box'>
         <Skeleton loading={getDataLoading}>
@@ -203,7 +203,7 @@ export default Form.create({ name: 'contractManager' })(({ form }) => {
                       icon='download'
                       className='button'
                     >
-                      下载文件
+                      下载乙方合同
                     </Button>
                   </a>
                 ) : (
@@ -293,8 +293,8 @@ export default Form.create({ name: 'contractManager' })(({ form }) => {
           </div>
           <div className='contract-download-right-box'>
             <Alert
-              message='甲方生成合同下载,盖章扫描,上传pdf注意事项'
-              description='根据甲乙双方填写的合同内容生成合同,点击下载按钮,盖章扫描后上传pdf文件,最后点击提交按钮。'
+              message='合同下载,盖章扫描,上传pdf注意事项'
+              description='点击下载按钮下载乙方合同,盖章扫描后上传pdf文件,最后点击提交按钮。'
               type='info'
             />
           </div>
