@@ -1,10 +1,9 @@
-import React from 'react';
+// import React from 'react';
 
-export default props => {
-  return <></>;
-};
+// export default props => {
+//   return <></>;
+// };
 
-/*
 import React, { useState } from 'react';
 
 // redux
@@ -62,7 +61,7 @@ export default props => {
               </div>
             )}
           </li>
-          <li>
+          {/* <li>
             <Icon
               className='file-title-icon'
               type='reconciliation'
@@ -77,10 +76,9 @@ export default props => {
               theme='twoTone'
             />
             <span>现场测试申请表下载</span>
-          </li>
+          </li> */}
         </ul>
       </div>
     </div>
   );
 };
-*/

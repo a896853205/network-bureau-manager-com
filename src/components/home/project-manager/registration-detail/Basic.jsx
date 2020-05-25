@@ -128,10 +128,10 @@ export default props => {
               <Descriptions.Item label='联系人' span={2}>
                 {registrationBasic.linkman}
               </Descriptions.Item>
-              <Descriptions.Item label='委托单位(人)'>
+              <Descriptions.Item label='委托单位'>
                 {registrationBasic.client}
               </Descriptions.Item>
-              <Descriptions.Item label='电话(手机)' span={2}>
+              <Descriptions.Item label='手机' span={2}>
                 {registrationBasic.phone}
               </Descriptions.Item>
               <Descriptions.Item label='注册地址' span={3}>
@@ -142,7 +142,7 @@ export default props => {
                   ? moment(registrationBasic.devStartTime).format('YYYY-MM-DD')
                   : ''}
               </Descriptions.Item>
-              <Descriptions.Item label='开发单位全称' span={3}>
+              <Descriptions.Item label='开发单位' span={3}>
                 {registrationBasic.enterpriseName}
               </Descriptions.Item>
             </Descriptions>

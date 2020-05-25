@@ -129,17 +129,29 @@ export default (props) => {
       <div className='detail-description-box'>
         <div className='description-upload-button-box'>
           {formProductDescriptionUrl ? (
-            <a
-              href={`http://view.officeapps.live.com/op/view.aspx?src=${encodeURIComponent(
-                PreviewUrl
-              )}`}
-              target='_blank'
-              rel='noopener noreferrer'
+            <Button
+              type='primary'
+              icon='download'
+              onClick={(e) => {
+                e.stopPropagation();
+                const urlArr = PreviewUrl.split('?');
+                var urlArrList = urlArr[0],
+                  appU = urlArrList.split('/');
+                var fileName = appU[appU.length - 1];
+                if (fileName.split('.')[1].toLowerCase() !== 'pdf') {
+                  window.open(
+                    `http://view.officeapps.live.com/op/view.aspx?src=${encodeURIComponent(
+                      PreviewUrl
+                    )}`
+                  );
+                } else {
+                  window.open(PreviewUrl);
+                }
+              }}
+              loading={getFileLoading}
             >
-              <Button type='primary' icon='download' loading={getFileLoading}>
-                下载文件
-              </Button>
-            </a>
+              下载文件
+            </Button>
           ) : (
             <Button disabled>企业未上传</Button>
           )}

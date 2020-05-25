@@ -1,10 +1,9 @@
-import React from 'react';
+// import React from 'react';
 
-export default props => {
-  return <></>;
-};
+// export default props => {
+//   return <></>;
+// };
 
-/*
 import React, { useState, useEffect } from 'react';
 
 // redux
@@ -125,4 +124,3 @@ export default props => {
     </div>
   );
 };
-*/

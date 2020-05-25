@@ -1,10 +1,9 @@
-import React from 'react';
+// import React from 'react';
 
-export default props => {
-  return <></>;
-};
+// export default props => {
+//   return <></>;
+// };
 
-/*
 import React, { useState } from 'react';
 
 // redux
@@ -15,7 +14,7 @@ import {
   DOWNLOAD_PRODUCT,
   DOWNLOAD_PRODUCT_DESCRIPTION,
   DOWNLOAD_DOCUMENT,
-  DOWNLOAD_COPYRIGHT
+  DOWNLOAD_COPYRIGHT,
 } from '@/constants/api-constants';
 import proxyFetch from '@/util/request';
 
@@ -30,14 +29,14 @@ import { Button, Modal } from 'antd';
 import '@/style/home/enterprise-write.styl';
 import '@/style/home/item.styl';
 
-export default props => {
+export default (props) => {
   const { fileDownloadRegistrationUuid } = useSelector(
-      state => state.enterpriseStore
+      (state) => state.enterpriseStore
     ),
     [productDownloadLoading, setProductDownloadLoading] = useState(false),
     [
       productDescriptionDownloadLoading,
-      setProductDescriptionDownloadLoading
+      setProductDescriptionDownloadLoading,
     ] = useState(false),
     [documentDownloadLoading, setDocumentDownloadLoading] = useState(false),
     [copyrightDownloadLoading, setCopyrightDownloadLoading] = useState(false),
@@ -66,7 +65,20 @@ export default props => {
       'GET'
     );
     setProductDescriptionDownloadLoading(false);
-    window.open(url, '_blank');
+
+    const urlArr = url.split('?');
+    var urlArrList = urlArr[0],
+      appU = urlArrList.split('/');
+    var fileName = appU[appU.length - 1];
+    if (fileName.split('.')[1].toLowerCase() !== 'pdf') {
+      window.open(
+        `http://view.officeapps.live.com/op/view.aspx?src=${encodeURIComponent(
+          url
+        )}`
+      );
+    } else {
+      window.open(url);
+    }
   };
 
   const handleDownloadDocument = async () => {
@@ -78,7 +90,20 @@ export default props => {
       'GET'
     );
     setDocumentDownloadLoading(false);
-    window.open(url, '_blank');
+
+    const urlArr = url.split('?');
+    var urlArrList = urlArr[0],
+      appU = urlArrList.split('/');
+    var fileName = appU[appU.length - 1];
+    if (fileName.split('.')[1].toLowerCase() !== 'pdf') {
+      window.open(
+        `http://view.officeapps.live.com/op/view.aspx?src=${encodeURIComponent(
+          url
+        )}`
+      );
+    } else {
+      window.open(url);
+    }
   };
 
   const handleDownloadCopyright = async () => {
@@ -93,7 +118,7 @@ export default props => {
     window.open(url, '_blank');
   };
 
-  const handleShowModal = type => {
+  const handleShowModal = (type) => {
     switch (type) {
       case 'basic':
         setContent(<Basic />);
@@ -206,4 +231,3 @@ export default props => {
     </div>
   );
 };
-*/

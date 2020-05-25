@@ -20,12 +20,12 @@ import enterpriseAction from '@/redux/action/enterprise';
 import { useHistory } from 'react-router-dom';
 import {
   HOME_REGISTRATION_TEST_PROFILE,
-  // HOME_REGISTRATION_FILE_DOWNLOAD
+  HOME_REGISTRATION_FILE_DOWNLOAD,
 } from '@/constants/route-constants';
 
 const { Column } = Table;
 
-export default props => {
+export default (props) => {
   const [loading, setLoading] = useState(true),
     [enterpriseRegistrationList, setEnterpriseRegistrationList] = useState([]),
     [total, setTotal] = useState(0),
@@ -41,7 +41,7 @@ export default props => {
       const res = await proxyFetch(
         QUARY_REGISTRATION_NEED_FIELD_TEST,
         {
-          page
+          page,
         },
         'GET'
       );
@@ -58,15 +58,15 @@ export default props => {
       <Table
         dataSource={enterpriseRegistrationList}
         className='table'
-        rowKey={record => record.uuid}
+        rowKey={(record) => record.uuid}
         loading={loading}
         pagination={{
           current: page,
           total,
           pageSize,
-          onChange: page => {
+          onChange: (page) => {
             setPage(page);
-          }
+          },
         }}
         scroll={{ x: 1500 }}
       >
@@ -92,27 +92,6 @@ export default props => {
           key='enterpriseRegistrationBasic.phone'
           width='180px'
         />
-        {/* <Column
-          align='center'
-          title='查看内容详情'
-          width='150px'
-          dataIndex=''
-          key=''
-          render={(text, record) => (
-            <Button
-              type='link'
-              onClick={() => {
-                localStorage.setItem(
-                  `${LOCAL_STORAGE}-fileDownloadRegistrationUuid`,
-                  record.uuid
-                );
-                history.push(HOME_REGISTRATION_FILE_DOWNLOAD.path);
-              }}
-            >
-              查看内容详情
-            </Button>
-          )}
-        /> */}
         <Column
           align='center'
           title='软件评测样品登记表状态'
@@ -270,6 +249,28 @@ export default props => {
                 </span>
               ) : null}
             </div>
+          )}
+        />
+        <Column
+          align='center'
+          title='查看内容详情'
+          width='150px'
+          fixed='right'
+          dataIndex=''
+          key=''
+          render={(text, record) => (
+            <Button
+              type='link'
+              onClick={() => {
+                localStorage.setItem(
+                  `${LOCAL_STORAGE}-fileDownloadRegistrationUuid`,
+                  record.uuid
+                );
+                history.push(HOME_REGISTRATION_FILE_DOWNLOAD.path);
+              }}
+            >
+              查看内容详情
+            </Button>
           )}
         />
         <Column
