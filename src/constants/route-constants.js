@@ -43,8 +43,8 @@ export const HOME_REGISTRATION_PROFILE = {
   path: '/home/registration/profile',
   name: '登记测试预览页'
 };
-export const HOME_TRUST_LIST = {
-  path: '/home/trust/list',
+export const HOME_DELEGATION_LIST = {
+  path: '/home/delegation/list',
   name: '委托测试列表页'
 };
 export const HOME_REGISTRATION_DETAIL = {
@@ -60,8 +60,8 @@ export const HOME_REGISTRATION_FINANCE_LIST = {
   name: '登记测试交费列表页'
 };
 
-export const HOME_TRUST_FINANCE_LIST = {
-  path: '/home/trust/finance/list',
+export const HOME_DELEGATION_FINANCE_LIST = {
+  path: '/home/delegation/finance/list',
   name: '委托测试交费列表页'
 };
 
@@ -110,8 +110,8 @@ export const HOME_REGISTRATION_TASK_EXAMINE_ORIGINAL_RECORD = {
  * 三级路由结束
  ************************/
 
- export const HOME_TRUST_TASK_LIST = {
-  path: '/home/trust/task/list',
+ export const HOME_DELEGATION_TASK_LIST = {
+  path: '/home/delegation/task/list',
   name: '委托测试任务分配列表页'
 };
 
@@ -161,8 +161,8 @@ export const HOME_REGISTRATION_TEST_GENERATE_ORIGINAL_RECORD = {
  * 三级路由结束
  ***********************/
 
-export const HOME_TRUST_TEST_LIST = {
-  path: '/home/trust/test/list',
+export const HOME_DELEGATION_TEST_LIST = {
+  path: '/home/delegation/test/list',
   name: '委托测试待测试列表页'
 };
 
@@ -207,7 +207,7 @@ export const HOME_REGISTRATION_CERTIFY_EXAMINE_ORIGINAL_RECORD = {
  * 三级路由结束
  ***********************/
 
-export const HOME_TRUST_CERTIFY_LIST = {
-  path: '/home/trust/certify/list',
+export const HOME_DELEGATION_CERTIFY_LIST = {
+  path: '/home/delegation/certify/list',
   name: '委托测试待测试列表页'
 };

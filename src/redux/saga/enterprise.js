@@ -171,6 +171,172 @@ const effects = {
 
     yield put(enterpriseAction.setSysRegistrationStep(sysRegistrationStep));
     yield put(enterpriseAction.setSysRegistrationStepLoading(false));
+  },
+
+  // 委托测试
+
+  asyncSetDelegation: function*({ payload }) {
+    // loading
+    yield put(enterpriseAction.setDelegationLoading(true));
+
+    // 查询具体步骤信息
+    const [delegationSteps, delegation] = yield call(async () => {
+      return await Promise.all([
+        proxyFetch(
+          APIS.QUERY_ENTERPRISE_DELEGATION_STEP,
+          {
+            delegationUuid: payload
+          },
+          'GET'
+        ),
+        proxyFetch(
+          APIS.SELECT_DELEGATION,
+          {
+            delegationUuid: payload
+          },
+          'GET'
+        )
+      ]);
+    });
+
+    // 将所有步骤和基本信息存入redux
+    yield put(enterpriseAction.setDelegationSteps(delegationSteps));
+    yield put(enterpriseAction.setDelegation(delegation));
+
+    // loading
+    yield put(enterpriseAction.setDelegationLoading(false));
+  },
+
+  asyncSetTechLeaderDelegation: function*({ payload }) {
+    // loading
+    yield put(enterpriseAction.setDelegationLoading(true));
+
+    // 查询具体步骤信息
+    const [delegationSteps, delegation] = yield call(async () => {
+      return await Promise.all([
+        proxyFetch(
+          APIS.QUERY_TECH_LEADER_ENTERPRISE_DELEGATION_STEP,
+          {
+            delegationUuid: payload
+          },
+          'GET'
+        ),
+        proxyFetch(
+          APIS.SELECT_TECH_LEADER_DELEGATION,
+          {
+            delegationUuid: payload
+          },
+          'GET'
+        )
+      ]);
+    });
+
+    // 将所有步骤和基本信息存入redux
+    yield put(enterpriseAction.setDelegationSteps(delegationSteps));
+    yield put(enterpriseAction.setDelegation(delegation));
+
+    // loading
+    yield put(enterpriseAction.setDelegationLoading(false));
+  },
+
+  asyncSetCertifierDelegation: function*({ payload }) {
+    // loading
+    yield put(enterpriseAction.setDelegationLoading(true));
+
+    // 查询具体步骤信息
+    const [delegationSteps, delegation] = yield call(async () => {
+      return await Promise.all([
+        proxyFetch(
+          APIS.QUERY_CERTIFIER_ENTERPRISE_DELEGATION_STEP,
+          {
+            delegationUuid: payload
+          },
+          'GET'
+        ),
+        proxyFetch(
+          APIS.SELECT_CERTIFIER_DELEGATION,
+          {
+            delegationUuid: payload
+          },
+          'GET'
+        )
+      ]);
+    });
+
+    // 将所有步骤和基本信息存入redux
+    yield put(enterpriseAction.setDelegationSteps(delegationSteps));
+    yield put(enterpriseAction.setDelegation(delegation));
+
+    // loading
+    yield put(enterpriseAction.setDelegationLoading(false));
+  },
+
+
+  asyncSetTechDelegation: function*({ payload }) {
+    // loading
+    yield put(enterpriseAction.setDelegationLoading(true));
+
+    // 查询具体步骤信息
+    const [steps, delegation] = yield call(async () => {
+      return await Promise.all([
+        proxyFetch(
+          APIS.QUERY_TECH_ENTERPRISE_DELEGATION_STEP,
+          {
+            delegationUuid: payload
+          },
+          'GET'
+        ),
+        proxyFetch(
+          APIS.SELECT_TECH_DELEGATION,
+          {
+            delegationUuid: payload
+          },
+          'GET'
+        )
+      ]);
+    });
+
+    // 将所有步骤和基本信息存入redux
+    yield put(enterpriseAction.setDelegationSteps(steps));
+    yield put(enterpriseAction.setDelegation(delegation));
+
+    // loading
+    yield put(enterpriseAction.setDelegationLoading(false));
+  },
+
+  asyncSetDelegationSteps: function*({ payload }) {
+    // loading
+    yield put(enterpriseAction.setDelegationLoading(true));
+
+    // 查询具体步骤信息
+    const steps = yield call(
+      proxyFetch,
+      APIS.QUERY_ENTERPRISE_DELEGATION_STEP,
+      {
+        delegationUuid: payload
+      },
+      'GET'
+    );
+
+    // 将所有步骤和基本信息存入redux
+    yield put(enterpriseAction.setDelegationSteps(steps));
+
+    // loading
+    yield put(enterpriseAction.setDelegationLoading(false));
+  },
+
+  asyncSetSysDelegationStep: function*({ payload }) {
+    yield put(enterpriseAction.setSysDelegationStepLoading(true));
+
+    const sysDelegationStep = yield call(
+      proxyFetch,
+      APIS.QUERY_SYS_DELEGATION_STEP,
+      {},
+      'GET'
+    );
+
+    yield put(enterpriseAction.setSysDelegationStep(sysDelegationStep));
+    yield put(enterpriseAction.setSysDelegationStepLoading(false));
   }
 };
 
@@ -196,4 +362,27 @@ export default function*() {
     effects.asyncSetSysRegistrationStep
   );
   yield takeLatest(enterpriseAction.asyncSetSteps, effects.asyncSetSteps);
+
+  // 委托测试
+  yield takeLatest(
+    enterpriseAction.asyncSetDelegation,
+    effects.asyncSetDelegation
+  );
+  yield takeLatest(
+    enterpriseAction.asyncSetTechLeaderDelegation,
+    effects.asyncSetTechLeaderDelegation
+  );
+  yield takeLatest(
+    enterpriseAction.asyncSetCertifierDelegation,
+    effects.asyncSetCertifierDelegation
+  );
+  yield takeLatest(
+    enterpriseAction.asyncSetTechDelegation,
+    effects.asyncSetTechDelegation
+  );
+  yield takeLatest(
+    enterpriseAction.asyncSetSysDelegationStep,
+    effects.asyncSetSysDelegationStep
+  );
+  yield takeLatest(enterpriseAction.asyncSetDelegationSteps, effects.asyncSetDelegationSteps);
 }

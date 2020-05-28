@@ -41,8 +41,8 @@ export const NAV = {
       icon: 'file-done'
     },
     {
-      key: 'trustFinanceList',
-      path: ROUTE.HOME_TRUST_FINANCE_LIST.path,
+      key: 'delegationFinanceList',
+      path: ROUTE.HOME_DELEGATION_FINANCE_LIST.path,
       name: '委托测试列表',
       icon: 'audit'
     },
@@ -67,8 +67,8 @@ export const NAV = {
       icon: 'file-done'
     },
     {
-      key: 'trustList',
-      path: ROUTE.HOME_TRUST_LIST.path,
+      key: 'delegationList',
+      path: ROUTE.HOME_DELEGATION_LIST.path,
       name: '委托测试列表',
       icon: 'audit'
     },
@@ -93,8 +93,8 @@ export const NAV = {
       icon: 'file-done'
     },
     {
-      key: 'trustFinanceList',
-      path: ROUTE.HOME_TRUST_TASK_LIST.path,
+      key: 'delegationFinanceList',
+      path: ROUTE.HOME_DELEGATION_TASK_LIST.path,
       name: '委托测试列表',
       icon: 'audit'
     },
@@ -119,8 +119,8 @@ export const NAV = {
       icon: 'file-done'
     },
     {
-      key: 'trustTestList',
-      path: ROUTE.HOME_TRUST_TEST_LIST.path,
+      key: 'delegationTestList',
+      path: ROUTE.HOME_DELEGATION_TEST_LIST.path,
       name: '委托测试列表',
       icon: 'audit'
     },
@@ -139,8 +139,8 @@ export const NAV = {
       icon: 'file-done'
     },
     {
-      key: 'trustCertifyList',
-      path: ROUTE.HOME_TRUST_CERTIFY_LIST.path,
+      key: 'delegationCertifyList',
+      path: ROUTE.HOME_DELEGATION_CERTIFY_LIST.path,
       name: '委托测试列表',
       icon: 'audit'
     },

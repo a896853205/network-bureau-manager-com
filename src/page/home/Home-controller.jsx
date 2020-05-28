@@ -19,25 +19,25 @@ import RegistrationFileDownloadController from '@/page/home/public/Registration-
 // 项目管理员
 import RegistrationListController from '@/page/home/project-manager/Registration-list-controller.jsx';
 import RegistrationProfileController from '@/page/home/project-manager/Registration-profile-controller.jsx';
-import TrustListController from '@/page/home/project-manager/Trust-list-controller.jsx';
+import DelegationListController from '@/page/home/project-manager/Delegation-list-controller.jsx';
 
 // 财务管理员
-import TrustFinanceList from '@/page/home/accountant-manager/Trust-finance-list-controller.jsx';
+import DelegationFinanceList from '@/page/home/accountant-manager/Delegation-finance-list-controller.jsx';
 import RegistrationFinanceList from '@/page/home/accountant-manager/Registration-finance-list-controller.jsx';
 
 // 技术管理人员
-import TrustTaskList from '@/page/home/tech-leader-manager/Trust-task-list-controller.jsx';
+import DelegationTaskList from '@/page/home/tech-leader-manager/Delegation-task-list-controller.jsx';
 import RegistrationTaskList from '@/page/home/tech-leader-manager/Registration-task-list-controller.jsx';
 import RegistrationTaskRouter from '@/page/home/tech-leader-manager/Registration-task-router-controller.jsx';
 
 // 技术人员
 import RegistrationTestListController from '@/page/home/tech-manager/Registration-test-list-controller.jsx';
-import TrustTestListController from '@/page/home/tech-manager/Trust-test-list-controller.jsx';
+import DelegationTestListController from '@/page/home/tech-manager/Delegation-test-list-controller.jsx';
 import RegistrationTestRouter from '@/page/home/tech-manager/Registration-test-router-controller.jsx';
 
 // 批准人
 import RegistrationCertifyListController from '@/page/home/certifier-manager/Registration-certify-list-controller.jsx';
-import TrustCertifyListController from '@/page/home/certifier-manager/Trust-certify-list-controller.jsx';
+import DelegationCertifyListController from '@/page/home/certifier-manager/Delegation-certify-list-controller.jsx';
 import RegistrationCertifyRouterController from '@/page/home/certifier-manager/Registration-certify-router-controller.jsx';
 
 // localStorage
@@ -111,12 +111,12 @@ export default props => {
   const homeRegistrationProfile = useRouteMatch({
     path: ROUTES.HOME_REGISTRATION_PROFILE.path
   });
-  const homeTrustList = useRouteMatch({
-    path: ROUTES.HOME_TRUST_LIST.path,
+  const homeDelegationList = useRouteMatch({
+    path: ROUTES.HOME_DELEAGTION_LIST.path,
     exact: true
   });
-  const homeTrustFinanceList = useRouteMatch({
-    path: ROUTES.HOME_TRUST_FINANCE_LIST.path,
+  const homeDelegationFinanceList = useRouteMatch({
+    path: ROUTES.HOME_DELEAGTION_FINANCE_LIST.path,
     exact: true
   });
   const homeRegistrationFinanceList = useRouteMatch({
@@ -125,8 +125,8 @@ export default props => {
   });
 
   // 技术管理人员
-  const homeTrustTaskList = useRouteMatch({
-    path: ROUTES.HOME_TRUST_TASK_LIST.path,
+  const homeDelegationTaskList = useRouteMatch({
+    path: ROUTES.HOME_DELEAGTION_TASK_LIST.path,
     exact: true
   });
   const homeRegistrationTaskList = useRouteMatch({
@@ -143,8 +143,8 @@ export default props => {
     path: ROUTES.HOME_REGISTRATION_TEST_LIST.path,
     exact: true
   });
-  const homeTrustTestList = useRouteMatch({
-    path: ROUTES.HOME_TRUST_TEST_LIST.path,
+  const homeDelegationTestList = useRouteMatch({
+    path: ROUTES.HOME_DELEAGTION_TEST_LIST.path,
     exact: true
   });
   const homeRegistrationTestRouter = useRouteMatch({
@@ -156,8 +156,8 @@ export default props => {
     path: ROUTES.HOME_REGISTRATION_CERTIFY_LIST.path,
     exact: true
   });
-  const homeTrustCertifyList = useRouteMatch({
-    path: ROUTES.HOME_TRUST_CERTIFY_LIST.path,
+  const homeDelegationCertifyList = useRouteMatch({
+    path: ROUTES.HOME_DELEAGTION_CERTIFY_LIST.path,
     exact: true
   });
   const homeRegistrationCertifyRouter = useRouteMatch({
@@ -196,28 +196,28 @@ export default props => {
               undefined
             )}
             {homeRegistrationList ? <RegistrationListController /> : null}
-            {homeTrustList ? <TrustListController /> : null}
+            {homeDelegationList ? <DelegationListController /> : null}
             {homeRegistrationProfile ? <RegistrationProfileController /> : null}
             {homeRegistrationFinanceList ? <RegistrationFinanceList /> : null}
-            {homeTrustFinanceList ? <TrustFinanceList /> : null}
+            {homeDelegationFinanceList ? <DelegationFinanceList /> : null}
 
             {/* 技术管理员 */}
             {homeRegistrationTaskList ? <RegistrationTaskList /> : null}
-            {homeTrustTaskList ? <TrustTaskList /> : null}
+            {homeDelegationTaskList ? <DelegationTaskList /> : null}
             {homeRegistrationTaskRouter ? <RegistrationTaskRouter /> : null}
 
             {/* 技术人员 */}
             {homeRegistrationTestList ? (
               <RegistrationTestListController />
             ) : null}
-            {homeTrustTestList ? <TrustTestListController /> : null}
+            {homeDelegationTestList ? <DelegationTestListController /> : null}
             {homeRegistrationTestRouter ? <RegistrationTestRouter /> : null}
 
             {/* 批准人 */}
             {homeRegistrationCertifyList ? (
               <RegistrationCertifyListController />
             ) : null}
-            {homeTrustCertifyList ? <TrustCertifyListController /> : null}
+            {homeDelegationCertifyList ? <DelegationCertifyListController /> : null}
             {homeRegistrationCertifyRouter ? <RegistrationCertifyRouterController /> : null}
           </div>
         </Content>

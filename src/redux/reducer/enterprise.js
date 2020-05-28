@@ -113,6 +113,55 @@ export default handleActions(
         ...state,
         fileDownloadRegistrationUuid: result
       };
+    },
+
+    // 委托测试
+    setEnterpriseDelegationUuid(state, { payload: result }) {
+      return {
+        ...state,
+        enterpriseDelegationUuid: result
+      };
+    },
+    setDelegationSteps(state, { payload: result }) {
+      let stepWithColor = result.map(step => ({
+        ...step,
+        color: proxyStatusColor(step.step, step.status)
+      }));
+
+      return {
+        ...state,
+        delegationSteps: stepWithColor
+      };
+    },
+    setDelegation(state, { payload: result }) {
+      return {
+        ...state,
+        delegation: result
+      };
+    },
+    setDelegationLoading(state, { payload: result }) {
+      return {
+        ...state,
+        delegationLoading: result
+      };
+    },
+    setSysDelegationStep(state, { payload: result }) {
+      return {
+        ...state,
+        sysDelegationStep: result
+      };
+    },
+    setSysDelegationStepLoading(state, { payload: result }) {
+      return {
+        ...state,
+        sysDelegationStepLoading: result
+      };
+    },
+    setFileDownloadDelegationUuid(state, { payload: result }) {
+      return {
+        ...state,
+        fileDownloadDelegationUuid: result
+      };
     }
   },
   {
@@ -126,6 +175,18 @@ export default handleActions(
     sysRegistrationStep: [],
     sysRegistrationStepLoading: true,
     // 内容详细信息
-    fileDownloadRegistrationUuid: ''
+    fileDownloadRegistrationUuid: '',
+
+     // 委托测试
+    // 进度详细信息
+    enterpriseDelegationUuid: '',
+    delegationSteps: [], // 步骤详细信息
+    delegation: null,
+    delegationLoading: true, // 查询登记测试的loading
+    // 系统步骤名称
+    sysDelegationStep: [],
+    sysDelegationStepLoading: true,
+    // 内容详细信息
+    fileDownloadDelegationUuid: ''
   }
 );
