@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 
 // 工具
-import statusToColor from '@/components/home/project-manager/registration-detail/util/status-to-color';
+import statusToColor from '@/components/home/project-manager/delegation-detail/util/status-to-color';
 
 // 请求
-import { SELECT_REGISTRATION_STATUS } from '@/constants/api-constants';
+import { SELECT_DELEGATION_STATUS } from '@/constants/api-constants';
 import proxyFetch from '@/util/request';
 
 // 路由
-import { HOME_REGISTRATION_DETAIL } from '@/constants/route-constants';
+import { HOME_DELEGATION_DETAIL } from '@/constants/route-constants';
 import { Link } from 'react-router-dom';
 
 // redux
@@ -17,93 +17,89 @@ import { useSelector } from 'react-redux';
 // 样式
 import { Tag, Icon, Skeleton } from 'antd';
 
-export default props => {
+export default (props) => {
   const {
-      steps,
-      enterpriseRegistrationUuid,
-      sysRegistrationStep,
-      registration
-    } = useSelector(state => state.enterpriseStore),
+      delegationSteps,
+      enterpriseDelegationUuid,
+      sysDelegationStep,
+      delegation,
+    } = useSelector((state) => state.enterpriseStore),
     [
-      enterpriseRegistrationContractStatus,
-      setEnterpriseRegistrationContractStatus
+      enterpriseDelegationContractStatus,
+      setEnterpriseDelegationContractStatus,
     ] = useState(null),
     [
-      enterpriseRegistrationApplyStatus,
-      setEnterpriseRegistrationApplyStatus
+      enterpriseDelegationApplyStatus,
+      setEnterpriseDelegationApplyStatus,
     ] = useState(null),
     [
-      enterpriseRegistrationCopyrightStatus,
-      setEnterpriseRegistrationCopyrightStatus
+      enterpriseDelegationCopyrightStatus,
+      setEnterpriseDelegationCopyrightStatus,
     ] = useState(null),
     [
-      enterpriseRegistrationDocumentStatus,
-      setEnterpriseRegistrationDocumentStatus
+      enterpriseDelegationDocumentStatus,
+      setEnterpriseDelegationDocumentStatus,
     ] = useState(null),
     [
-      enterpriseRegistrationProductDescriptionStatus,
-      setEnterpriseRegistrationProductDescriptionStatus
+      enterpriseDelegationProductDescriptionStatus,
+      setEnterpriseDelegationProductDescriptionStatus,
     ] = useState(null),
     [
-      enterpriseRegistrationProductStatus,
-      setEnterpriseRegistrationProductStatus
+      enterpriseDelegationProductStatus,
+      setEnterpriseDelegationProductStatus,
     ] = useState(null),
     [
-      enterpriseRegistrationSpecimenStatus,
-      setEnterpriseRegistrationSpecimenStatus
+      enterpriseDelegationSpecimenStatus,
+      setEnterpriseDelegationSpecimenStatus,
     ] = useState(null),
     [
-      enterpriseRegistrationBasicStatus,
-      setEnterpriseRegistrationBasicStatus
+      enterpriseDelegationBasicStatus,
+      setEnterpriseDelegationBasicStatus,
     ] = useState(null),
     [loading, setLoading] = useState(true),
     [isCurrentStep, setIsCurrentStep] = useState(false);
 
   useEffect(() => {
-    if (registration?.currentStep === 1) {
+    if (delegation?.currentStep === 1) {
       setIsCurrentStep(true);
     }
-  }, [registration]);
+  }, [delegation]);
 
   useEffect(() => {
-    if (enterpriseRegistrationUuid) {
+    if (enterpriseDelegationUuid) {
       (async () => {
         setLoading(true);
 
         const res = await proxyFetch(
-          SELECT_REGISTRATION_STATUS,
-          { registrationUuid: enterpriseRegistrationUuid },
+          SELECT_DELEGATION_STATUS,
+          { delegationUuid: enterpriseDelegationUuid },
           'GET'
         );
 
-        setEnterpriseRegistrationApplyStatus(
-          res.enterpriseRegistrationApplyStatus
+        setEnterpriseDelegationApplyStatus(res.enterpriseDelegationApplyStatus);
+        setEnterpriseDelegationContractStatus(
+          res.enterpriseDelegationContractStatus
         );
-        setEnterpriseRegistrationContractStatus(
-          res.enterpriseRegistrationContractStatus
+        setEnterpriseDelegationCopyrightStatus(
+          res.enterpriseDelegationCopyrightStatus
         );
-        setEnterpriseRegistrationCopyrightStatus(
-          res.enterpriseRegistrationCopyrightStatus
+        setEnterpriseDelegationDocumentStatus(
+          res.enterpriseDelegationDocumentStatus
         );
-        setEnterpriseRegistrationDocumentStatus(
-          res.enterpriseRegistrationDocumentStatus
+        setEnterpriseDelegationProductDescriptionStatus(
+          res.enterpriseDelegationProductDescriptionStatus
         );
-        setEnterpriseRegistrationProductDescriptionStatus(
-          res.enterpriseRegistrationProductDescriptionStatus
+        setEnterpriseDelegationProductStatus(
+          res.enterpriseDelegationProductStatus
         );
-        setEnterpriseRegistrationProductStatus(
-          res.enterpriseRegistrationProductStatus
+        setEnterpriseDelegationSpecimenStatus(
+          res.enterpriseDelegationSpecimenStatus
         );
-        setEnterpriseRegistrationSpecimenStatus(
-          res.enterpriseRegistrationSpecimenStatus
-        );
-        setEnterpriseRegistrationBasicStatus(
-          res.enterpriseRegistrationBasicStatus
-        );
+        setEnterpriseDelegationBasicStatus(res.enterpriseDelegationBasicStatus);
         setLoading(false);
       })();
     }
-  }, [enterpriseRegistrationUuid]);
+  }, [enterpriseDelegationUuid]);
 
   return (
     <div className='left-item-box'>
@@ -114,40 +110,40 @@ export default props => {
         twoToneColor='#334454'
       />
       <Skeleton loading={loading}>
-        {sysRegistrationStep.length ? (
+        {sysDelegationStep.length ? (
           <div className='item-text-box'>
             <div className='text-top-box'>
-              {sysRegistrationStep[0].name}
-              <Tag className='title-tag' color={steps[0].color}>
-                {steps[0].statusText}
+              {sysDelegationStep[0].name}
+              <Tag className='title-tag' color={delegationSteps[0].color}>
+                {delegationSteps[0].statusText}
               </Tag>
             </div>
             <p className='text-subtitle'>
               检查8种材料信息,是否完整,是否符合要求
             </p>
             <div className='text-content-box'>
-              {enterpriseRegistrationBasicStatus ? (
+              {enterpriseDelegationBasicStatus ? (
                 <div className='text-content-link'>
                   <Link
-                    to={`${HOME_REGISTRATION_DETAIL.path}/basic`}
+                    to={`${HOME_DELEGATION_DETAIL.path}/basic`}
                     className={isCurrentStep ? '' : 'old-link'}
                   >
-                    <span>登记测试基本信息</span>
+                    <span>委托测试基本信息</span>
                   </Link>
                   <Tag
                     className='content-tag'
                     color={statusToColor(
-                      enterpriseRegistrationBasicStatus.status
+                      enterpriseDelegationBasicStatus.status
                     )}
                   >
-                    {enterpriseRegistrationBasicStatus.statusText}
+                    {enterpriseDelegationBasicStatus.statusText}
                   </Tag>
                 </div>
               ) : null}
-              {enterpriseRegistrationContractStatus ? (
+              {enterpriseDelegationContractStatus ? (
                 <div className='text-content-link'>
                   <Link
-                    to={`${HOME_REGISTRATION_DETAIL.path}/contract`}
+                    to={`${HOME_DELEGATION_DETAIL.path}/contract`}
                     className={isCurrentStep ? '' : 'old-link'}
                   >
                     <span>评测合同</span>
@@ -155,17 +151,17 @@ export default props => {
                   <Tag
                     className='content-tag'
                     color={statusToColor(
-                      enterpriseRegistrationContractStatus.status
+                      enterpriseDelegationContractStatus.status
                     )}
                   >
-                    {enterpriseRegistrationContractStatus.statusText}
+                    {enterpriseDelegationContractStatus.statusText}
                   </Tag>
                 </div>
               ) : null}
-              {enterpriseRegistrationCopyrightStatus ? (
+              {enterpriseDelegationCopyrightStatus ? (
                 <div className='text-content-link'>
                   <Link
-                    to={`${HOME_REGISTRATION_DETAIL.path}/copyright`}
+                    to={`${HOME_DELEGATION_DETAIL.path}/copyright`}
                     className={isCurrentStep ? '' : 'old-link'}
                   >
                     <span>软件著作权证书</span>
@@ -173,17 +169,17 @@ export default props => {
                   <Tag
                     className='content-tag'
                     color={statusToColor(
-                      enterpriseRegistrationCopyrightStatus.status
+                      enterpriseDelegationCopyrightStatus.status
                     )}
                   >
-                    {enterpriseRegistrationCopyrightStatus.statusText}
+                    {enterpriseDelegationCopyrightStatus.statusText}
                   </Tag>
                 </div>
               ) : null}
-              {enterpriseRegistrationSpecimenStatus ? (
+              {enterpriseDelegationSpecimenStatus ? (
                 <div className='text-content-link'>
                   <Link
-                    to={`${HOME_REGISTRATION_DETAIL.path}/specimen`}
+                    to={`${HOME_DELEGATION_DETAIL.path}/specimen`}
                     className={isCurrentStep ? '' : 'old-link'}
                   >
                     <span>样品登记表</span>
@@ -191,17 +187,17 @@ export default props => {
                   <Tag
                     className='content-tag'
                     color={statusToColor(
-                      enterpriseRegistrationSpecimenStatus.status
+                      enterpriseDelegationSpecimenStatus.status
                     )}
                   >
-                    {enterpriseRegistrationSpecimenStatus.statusText}
+                    {enterpriseDelegationSpecimenStatus.statusText}
                   </Tag>
                 </div>
               ) : null}
-              {enterpriseRegistrationProductDescriptionStatus ? (
+              {enterpriseDelegationProductDescriptionStatus ? (
                 <div className='text-content-link'>
                   <Link
-                    to={`${HOME_REGISTRATION_DETAIL.path}/productDescription`}
+                    to={`${HOME_DELEGATION_DETAIL.path}/productDescription`}
                     className={isCurrentStep ? '' : 'old-link'}
                   >
                     <span>产品说明</span>
@@ -209,17 +205,17 @@ export default props => {
                   <Tag
                     className='content-tag'
                     color={statusToColor(
-                      enterpriseRegistrationProductDescriptionStatus.status
+                      enterpriseDelegationProductDescriptionStatus.status
                     )}
                   >
-                    {enterpriseRegistrationProductDescriptionStatus.statusText}
+                    {enterpriseDelegationProductDescriptionStatus.statusText}
                   </Tag>
                 </div>
               ) : null}
-              {enterpriseRegistrationDocumentStatus ? (
+              {enterpriseDelegationDocumentStatus ? (
                 <div className='text-content-link'>
                   <Link
-                    to={`${HOME_REGISTRATION_DETAIL.path}/document`}
+                    to={`${HOME_DELEGATION_DETAIL.path}/document`}
                     className={isCurrentStep ? '' : 'old-link'}
                   >
                     <span>用户文档集</span>
@@ -227,17 +223,17 @@ export default props => {
                   <Tag
                     className='content-tag'
                     color={statusToColor(
-                      enterpriseRegistrationDocumentStatus.status
+                      enterpriseDelegationDocumentStatus.status
                     )}
                   >
-                    {enterpriseRegistrationDocumentStatus.statusText}
+                    {enterpriseDelegationDocumentStatus.statusText}
                   </Tag>
                 </div>
               ) : null}
-              {enterpriseRegistrationProductStatus ? (
+              {enterpriseDelegationProductStatus ? (
                 <div className='text-content-link'>
                   <Link
-                    to={`${HOME_REGISTRATION_DETAIL.path}/product`}
+                    to={`${HOME_DELEGATION_DETAIL.path}/product`}
                     className={isCurrentStep ? '' : 'old-link'}
                   >
                     <span>样品</span>
@@ -245,17 +241,17 @@ export default props => {
                   <Tag
                     className='content-tag'
                     color={statusToColor(
-                      enterpriseRegistrationProductStatus.status
+                      enterpriseDelegationProductStatus.status
                     )}
                   >
-                    {enterpriseRegistrationProductStatus.statusText}
+                    {enterpriseDelegationProductStatus.statusText}
                   </Tag>
                 </div>
               ) : null}
-              {enterpriseRegistrationApplyStatus ? (
+              {enterpriseDelegationApplyStatus ? (
                 <div className='text-content-link'>
                   <Link
-                    to={`${HOME_REGISTRATION_DETAIL.path}/apply`}
+                    to={`${HOME_DELEGATION_DETAIL.path}/apply`}
                     className={isCurrentStep ? '' : 'old-link'}
                   >
                     <span>现场测试申请表</span>
@@ -263,10 +259,10 @@ export default props => {
                   <Tag
                     className='content-tag'
                     color={statusToColor(
-                      enterpriseRegistrationApplyStatus.status
+                      enterpriseDelegationApplyStatus.status
                     )}
                   >
-                    {enterpriseRegistrationApplyStatus.statusText}
+                    {enterpriseDelegationApplyStatus.statusText}
                   </Tag>
                 </div>
               ) : null}

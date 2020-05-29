@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 
 // 工具
-import statusToColor from '@/components/home/project-manager/registration-detail/util/status-to-color';
+import statusToColor from '@/components/home/project-manager/delegation-detail/util/status-to-color';
 
 // 路由
-import { HOME_REGISTRATION_PROFILE } from '@/constants/route-constants';
+import { HOME_DELEGATION_PROFILE } from '@/constants/route-constants';
 import { Link, useHistory } from 'react-router-dom';
 
 // redux
@@ -15,9 +15,9 @@ import enterpriseAction from '@/redux/action/enterprise';
 import proxyFetch from '@/util/request';
 import {
   GET_FILE_URL,
-  SELECT_REGISTRATION_PRODUCT_DESCRIPTION,
-  SET_REGISTRATION_DETAIL_SUCCESS_STATUS,
-  SET_REGISTRATION_DETAIL_FAIL_STATUS,
+  SELECT_DELEGATION_PRODUCT_DESCRIPTION,
+  SET_DELEGATION_DETAIL_SUCCESS_STATUS,
+  SET_DELEGATION_DETAIL_FAIL_STATUS,
 } from '@/constants/api-constants';
 
 // 样式
@@ -26,7 +26,7 @@ import '@/style/home/project-manager/product-description.styl';
 const { TextArea } = Input;
 
 export default (props) => {
-  const { enterpriseRegistrationUuid } = useSelector(
+  const { enterpriseDelegationUuid } = useSelector(
       (state) => state.enterpriseStore
     ),
     [formProductDescriptionUrl, setFormProductDescriptionUrl] = useState(''),
@@ -43,14 +43,14 @@ export default (props) => {
     (async () => {
       setStatusLoading(true);
 
-      await proxyFetch(SET_REGISTRATION_DETAIL_SUCCESS_STATUS, {
-        registrationUuid: enterpriseRegistrationUuid,
+      await proxyFetch(SET_DELEGATION_DETAIL_SUCCESS_STATUS, {
+        delegationUuid: enterpriseDelegationUuid,
         type: 'productDescription',
       });
 
       setStatusLoading(false);
-      dispatch(enterpriseAction.asyncSetSteps(enterpriseRegistrationUuid));
-      history.push(HOME_REGISTRATION_PROFILE.path);
+      dispatch(enterpriseAction.asyncSetDelegationSteps(enterpriseDelegationUuid));
+      history.push(HOME_DELEGATION_PROFILE.path);
     })();
   };
 
@@ -59,15 +59,15 @@ export default (props) => {
       (async () => {
         setStatusLoading(true);
 
-        const res = await proxyFetch(SET_REGISTRATION_DETAIL_FAIL_STATUS, {
-          registrationUuid: enterpriseRegistrationUuid,
+        const res = await proxyFetch(SET_DELEGATION_DETAIL_FAIL_STATUS, {
+          delegationUuid: enterpriseDelegationUuid,
           type: 'productDescription',
           failText,
         });
 
         setStatusLoading(false);
         if (res) {
-          history.push(HOME_REGISTRATION_PROFILE.path);
+          history.push(HOME_DELEGATION_PROFILE.path);
         }
       })();
     } else {
@@ -76,26 +76,26 @@ export default (props) => {
   };
   // 将已有的数据回显
   useEffect(() => {
-    if (enterpriseRegistrationUuid) {
+    if (enterpriseDelegationUuid) {
       (async () => {
         setGetFileLoading(true);
 
-        let registrationProductDescription = await proxyFetch(
-          SELECT_REGISTRATION_PRODUCT_DESCRIPTION,
-          { registrationUuid: enterpriseRegistrationUuid },
+        let delegationProductDescription = await proxyFetch(
+          SELECT_DELEGATION_PRODUCT_DESCRIPTION,
+          { delegationUuid: enterpriseDelegationUuid },
           'GET'
         );
 
-        if (registrationProductDescription) {
-          setStatus(registrationProductDescription.status);
-          setStatusText(registrationProductDescription.statusText);
+        if (delegationProductDescription) {
+          setStatus(delegationProductDescription.status);
+          setStatusText(delegationProductDescription.statusText);
         }
 
-        setFormProductDescriptionUrl(registrationProductDescription.url);
+        setFormProductDescriptionUrl(delegationProductDescription.url);
         setGetFileLoading(false);
       })();
     }
-  }, [enterpriseRegistrationUuid]);
+  }, [enterpriseDelegationUuid]);
 
   useEffect(() => {
     if (formProductDescriptionUrl) {
@@ -116,7 +116,7 @@ export default (props) => {
   return (
     <>
       <div className='subtitle-box'>
-        <Link to={HOME_REGISTRATION_PROFILE.path}>
+        <Link to={HOME_DELEGATION_PROFILE.path}>
           <Icon type='left' className='exit-icon' />
         </Link>
         <p className='subtitle-title'>

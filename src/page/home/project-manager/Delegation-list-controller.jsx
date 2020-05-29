@@ -83,7 +83,7 @@ export default props => {
           }
         }}
       >
-        <Column title='登记测试项目名称' dataIndex='name' key='name' />
+        <Column title='委托测试项目名称' dataIndex='name' key='name' />
         <Column
           title='最新进展'
           dataIndex='currentStep'

@@ -2,15 +2,15 @@ import React, { useState, useEffect } from 'react';
 
 // 路由
 import { Link, useHistory } from 'react-router-dom';
-import { HOME_REGISTRATION_PROFILE } from '@/constants/route-constants';
+import { HOME_DELEGATION_PROFILE } from '@/constants/route-constants';
 
 // 请求
 import proxyFetch, { proxyFileFetch } from '@/util/request';
 import {
   UPLOAD_PDF_FILE,
   GET_FILE_URL,
-  SELECT_PROJECT_MANAGER_REGISTRATION_RECORD,
-  SAVE_RECORD_FINAL_URL,
+  SELECT_PROJECT_MANAGER_DELEGATION_RECORD,
+  SAVE_DELEGATION_RECORD_FINAL_URL,
 } from '@/constants/api-constants';
 
 // redux
@@ -31,7 +31,7 @@ import {
 } from 'antd';
 
 export default Form.create({ name: 'finalRecord' })(({ form }) => {
-  const { steps, enterpriseRegistrationUuid } = useSelector(
+  const { delegationSteps, enterpriseDelegationUuid } = useSelector(
       (state) => state.enterpriseStore
     ),
     { getFieldDecorator, setFieldsValue, getFieldValue } = form,
@@ -50,12 +50,12 @@ export default Form.create({ name: 'finalRecord' })(({ form }) => {
 
   // 将已有的数据回显
   useEffect(() => {
-    if (enterpriseRegistrationUuid) {
+    if (enterpriseDelegationUuid) {
       (async () => {
         setGetDataLoading(true);
         let record = await proxyFetch(
-          SELECT_PROJECT_MANAGER_REGISTRATION_RECORD,
-          { registrationUuid: enterpriseRegistrationUuid },
+          SELECT_PROJECT_MANAGER_DELEGATION_RECORD,
+          { delegationUuid: enterpriseDelegationUuid },
           'GET'
         );
 
@@ -68,7 +68,7 @@ export default Form.create({ name: 'finalRecord' })(({ form }) => {
         setGetDataLoading(false);
       })();
     }
-  }, [enterpriseRegistrationUuid, setFieldsValue]);
+  }, [enterpriseDelegationUuid, setFieldsValue]);
 
   /**
    * 上传pdf文件
@@ -82,7 +82,7 @@ export default Form.create({ name: 'finalRecord' })(({ form }) => {
       // 参数需要加上oss的文件夹位置
       const fileUrl = await proxyFileFetch(UPLOAD_PDF_FILE, {
         file: file.file,
-        folderName: 'registration/managerRecord',
+        folderName: 'delegation/managerRecord',
       });
 
       // loading
@@ -122,20 +122,20 @@ export default Form.create({ name: 'finalRecord' })(({ form }) => {
 
     // 表单判断
     form.validateFields(async (err, value) => {
-      if (enterpriseRegistrationUuid) {
+      if (enterpriseDelegationUuid) {
         if (!err) {
-          value.registrationUuid = enterpriseRegistrationUuid;
+          value.delegationUuid = enterpriseDelegationUuid;
           value.finalUrl = value.finalUrl[0];
 
           setSaveDataLoading(true);
-          const res = await proxyFetch(SAVE_RECORD_FINAL_URL, value);
+          const res = await proxyFetch(SAVE_DELEGATION_RECORD_FINAL_URL, value);
           setSaveDataLoading(false);
 
           if (res) {
             dispatch(
-              enterpriseAction.asyncSetSteps(enterpriseRegistrationUuid)
+              enterpriseAction.asyncSetDelegationSteps(enterpriseDelegationUuid)
             );
-            history.push(HOME_REGISTRATION_PROFILE.path);
+            history.push(HOME_DELEGATION_PROFILE.path);
           }
         }
       }
@@ -144,13 +144,13 @@ export default Form.create({ name: 'finalRecord' })(({ form }) => {
 
   // 回显原始记录word
   useEffect(() => {
-    if (enterpriseRegistrationUuid) {
+    if (enterpriseDelegationUuid) {
       (async () => {
         setDownloadRecordLoading(true);
 
         let record = await proxyFetch(
-          SELECT_PROJECT_MANAGER_REGISTRATION_RECORD,
-          { registrationUuid: enterpriseRegistrationUuid },
+          SELECT_PROJECT_MANAGER_DELEGATION_RECORD,
+          { delegationUuid: enterpriseDelegationUuid },
           'GET'
         );
 
@@ -158,7 +158,7 @@ export default Form.create({ name: 'finalRecord' })(({ form }) => {
         setDownloadRecordLoading(false);
       })();
     }
-  }, [enterpriseRegistrationUuid]);
+  }, [enterpriseDelegationUuid]);
 
   useEffect(() => {
     if (recordUrl) {
@@ -179,7 +179,7 @@ export default Form.create({ name: 'finalRecord' })(({ form }) => {
   return (
     <>
       <div className='subtitle-box'>
-        <Link to={HOME_REGISTRATION_PROFILE.path}>
+        <Link to={HOME_DELEGATION_PROFILE.path}>
           <Icon type='left' className='exit-icon' />
         </Link>
         <p className='subtitle-title'>下载原始记录,盖章扫描,上传pdf</p>
@@ -272,7 +272,7 @@ export default Form.create({ name: 'finalRecord' })(({ form }) => {
                   <Form.Item>
                     <Button
                       disabled={
-                        steps[3]?.status < 4 || steps[4]?.status === 100
+                        delegationSteps[3]?.status < 4 || delegationSteps[4]?.status === 100
                       }
                       type='primary'
                       size='large'

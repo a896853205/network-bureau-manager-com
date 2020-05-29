@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 // 路由
 import { Link, useHistory } from 'react-router-dom';
-import { HOME_REGISTRATION_PROFILE } from '@/constants/route-constants';
+import { HOME_DELEGATION_PROFILE } from '@/constants/route-constants';
 
 // redux
 import { useSelector, useDispatch } from 'react-redux';
@@ -11,8 +11,8 @@ import enterpriseAction from '@/redux/action/enterprise';
 // 请求
 import proxyFetch from '@/util/request';
 import {
-  SELECT_REGISTRATION_CONTRACT_MANAGER,
-  SAVE_REGISTRATION_CONTRACT_MANAGER
+  SELECT_DELEGATION_CONTRACT_MANAGER,
+  SAVE_DELEGATION_CONTRACT_MANAGER
 } from '@/constants/api-constants';
 
 // 样式
@@ -24,7 +24,7 @@ import moment from 'moment';
 
 export default Form.create({ name: 'contract' })(({ form }) => {
   const { getFieldDecorator, setFieldsValue } = form,
-    { steps, enterpriseRegistrationUuid } = useSelector(
+    { delegationSteps, enterpriseDelegationUuid } = useSelector(
       state => state.enterpriseStore
     ),
     history = useHistory(),
@@ -34,48 +34,48 @@ export default Form.create({ name: 'contract' })(({ form }) => {
 
   // 将已有的数据回显
   useEffect(() => {
-    if (enterpriseRegistrationUuid) {
+    if (enterpriseDelegationUuid) {
       (async () => {
         setGetDataLoading(true);
-        let registrationContract = await proxyFetch(
-          SELECT_REGISTRATION_CONTRACT_MANAGER,
-          { registrationUuid: enterpriseRegistrationUuid },
+        let delegationContract = await proxyFetch(
+          SELECT_DELEGATION_CONTRACT_MANAGER,
+          { delegationUuid: enterpriseDelegationUuid },
           'GET'
         );
 
         // 数据回显
-        if (registrationContract) {
+        if (delegationContract) {
           // 数据处理
           // 时间处理
-          if (registrationContract.specimenHaveTime) {
-            registrationContract.specimenHaveTime = moment(
-              registrationContract.specimenHaveTime
+          if (delegationContract.specimenHaveTime) {
+            delegationContract.specimenHaveTime = moment(
+              delegationContract.specimenHaveTime
             );
           }
 
-          if (registrationContract.paymentTime) {
-            registrationContract.paymentTime = moment(
-              registrationContract.paymentTime
+          if (delegationContract.paymentTime) {
+            delegationContract.paymentTime = moment(
+              delegationContract.paymentTime
             );
           }
 
-          if (registrationContract.contractTime) {
-            registrationContract.contractTime = moment(
-              registrationContract.contractTime
+          if (delegationContract.contractTime) {
+            delegationContract.contractTime = moment(
+              delegationContract.contractTime
             );
           }
 
-          delete registrationContract.failText;
-          delete registrationContract.managerUrl;
-          delete registrationContract.enterpriseUrl;
+          delete delegationContract.failText;
+          delete delegationContract.managerUrl;
+          delete delegationContract.enterpriseUrl;
 
-          setFieldsValue(registrationContract);
+          setFieldsValue(delegationContract);
         }
 
         setGetDataLoading(false);
       })();
     }
-  }, [enterpriseRegistrationUuid, setFieldsValue]);
+  }, [enterpriseDelegationUuid, setFieldsValue]);
 
   /**
    * 提交事件
@@ -85,22 +85,22 @@ export default Form.create({ name: 'contract' })(({ form }) => {
 
     // 表单判断
     form.validateFields(async (err, value) => {
-      if (enterpriseRegistrationUuid) {
+      if (enterpriseDelegationUuid) {
         if (!err) {
-          value.registrationUuid = enterpriseRegistrationUuid;
+          value.delegationUuid = enterpriseDelegationUuid;
 
           setSaveDataLoading(true);
           const res = await proxyFetch(
-            SAVE_REGISTRATION_CONTRACT_MANAGER,
+            SAVE_DELEGATION_CONTRACT_MANAGER,
             value
           );
           setSaveDataLoading(false);
 
           if (res) {
             dispatch(
-              enterpriseAction.asyncSetSteps(enterpriseRegistrationUuid)
+              enterpriseAction.asyncSetDelegationSteps(enterpriseDelegationUuid)
             );
-            history.push(HOME_REGISTRATION_PROFILE.path);
+            history.push(HOME_DELEGATION_PROFILE.path);
           }
         }
       }
@@ -110,7 +110,7 @@ export default Form.create({ name: 'contract' })(({ form }) => {
   return (
     <>
       <div className='subtitle-box'>
-        <Link to={HOME_REGISTRATION_PROFILE.path}>
+        <Link to={HOME_DELEGATION_PROFILE.path}>
           <Icon type='left' className='exit-icon' />
         </Link>
         <p className='subtitle-title'>填写评测合同内容</p>
@@ -175,7 +175,7 @@ export default Form.create({ name: 'contract' })(({ form }) => {
               {/* 提交按钮 */}
               <Form.Item wrapperCol={{ offset: 7 }}>
                 <Button
-                  disabled={!steps[1]?.status || steps[1]?.status === 100}
+                  disabled={!delegationSteps[1]?.status || delegationSteps[1]?.status === 100}
                   type='primary'
                   htmlType='submit'
                   loading={saveDataLoading}

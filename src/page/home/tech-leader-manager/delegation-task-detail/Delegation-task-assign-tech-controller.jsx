@@ -16,7 +16,7 @@ import {
   QUERY_TECH_MANAGER,
   ARRANGE_DELEGATION_TECH_MANAGER,
   QUERY_TECH_LEADER_ENTERPRISE_DELEGATION_STEP,
-  SELECT_DELEGATION_TECH_MANAGER_UUID
+  SELECT_DELEGATION_TECH_MANAGER_UUID,
 } from '@/constants/api-constants';
 
 // 样式
@@ -25,10 +25,10 @@ import '@/style/home/project-manager/tech-leader-manager-show.styl';
 import '@/style/home/item.styl';
 const { Column } = Table;
 
-export default props => {
+export default (props) => {
   const { enterpriseDelegationUuid } = useSelector(
-    state => state.enterpriseStore
-  ),
+      (state) => state.enterpriseStore
+    ),
     [loading, setLoading] = useState(true),
     [techManagerList, setTechManagerList] = useState([]),
     [total, setTotal] = useState(0),
@@ -45,7 +45,7 @@ export default props => {
       const stepsList = await proxyFetch(
         QUERY_TECH_LEADER_ENTERPRISE_DELEGATION_STEP,
         {
-          delegationUuid: enterpriseDelegationUuid
+          delegationUuid: enterpriseDelegationUuid,
         },
         'GET'
       );
@@ -61,7 +61,7 @@ export default props => {
         const techManagerUuid = await proxyFetch(
           SELECT_DELEGATION_TECH_MANAGER_UUID,
           {
-            delegationUuid: enterpriseDelegationUuid
+            delegationUuid: enterpriseDelegationUuid,
           },
           'GET'
         );
@@ -78,7 +78,7 @@ export default props => {
       const { techManagerList, total, pageSize } = await proxyFetch(
         QUERY_TECH_MANAGER,
         {
-          page
+          page,
         },
         'GET'
       );
@@ -90,13 +90,13 @@ export default props => {
   }, [page]);
 
   // 确认选择提交按钮
-  const handleUpdateStep = techManagerUuid => {
+  const handleUpdateStep = (techManagerUuid) => {
     (async () => {
       setSavaDataLoading(true);
 
       await proxyFetch(ARRANGE_DELEGATION_TECH_MANAGER, {
         delegationUuid: enterpriseDelegationUuid,
-        techManagerUuid
+        techManagerUuid,
       });
       setIsNeedFresh(true);
       setSavaDataLoading(false);
@@ -116,19 +116,19 @@ export default props => {
         <Table
           dataSource={techManagerList}
           className='table'
-          rowKey={record => record.uuid}
+          rowKey={(record) => record.uuid}
           loading={loading}
           pagination={{
             current: page,
             total,
             pageSize,
-            onChange: page => {
+            onChange: (page) => {
               setPage(page);
-            }
+            },
           }}
           rowSelection={{
             type: 'radio',
-            onChange: selectedRowKeys => {
+            onChange: (selectedRowKeys) => {
               handleUpdateStep(selectedRowKeys[0]);
             },
             columnTitle: '选择',
@@ -138,8 +138,8 @@ export default props => {
               disabled:
                 savaDataLoading ||
                 !techManagerUuid ||
-                (stepsList[3]?.status !== 2 && stepsList[3]?.status !== 3)
-            })
+                (stepsList[3]?.status !== 2 && stepsList[3]?.status !== 3),
+            }),
           }}
         >
           <Column title='账号' dataIndex='username' key='username' />
@@ -149,7 +149,7 @@ export default props => {
             title='权限'
             dataIndex='role'
             key='role'
-            render={text => <span> {getAuthortyNameByCode(text)} </span>}
+            render={(text) => <span> {getAuthortyNameByCode(text)} </span>}
           />
         </Table>
       </div>

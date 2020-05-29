@@ -13,7 +13,7 @@ import { useSelector } from 'react-redux';
 import { getAuthortyNameByCode } from '@/constants/auth-constants';
 
 // 请求
-import { GET_REGISTRATION_MANAGER_INFO } from '@/constants/api-constants';
+import { GET_DELEGATION_MANAGER_INFO } from '@/constants/api-constants';
 import proxyFetch from '@/util/request';
 
 // 样式
@@ -22,7 +22,7 @@ import '@/style/home/item.styl';
 import '@/style/home/responsible-person-list.styl';
 
 export default props => {
-  const { fileDownloadRegistrationUuid } = useSelector(
+  const { fileDownloadDelegationUuid } = useSelector(
       state => state.enterpriseStore
     ),
     [getDataLoading, setGetDataLoading] = useState(false),
@@ -35,7 +35,7 @@ export default props => {
   // #FIXME 需要将此路由修改为(管理员权限)限制
   useEffect(() => {
     (async () => {
-      if (fileDownloadRegistrationUuid) {
+      if (fileDownloadDelegationUuid) {
         setGetDataLoading(true);
         const {
           projectManager,
@@ -44,8 +44,8 @@ export default props => {
           techManager,
           certifierManager
         } = await proxyFetch(
-          GET_REGISTRATION_MANAGER_INFO,
-          { registrationUuid: fileDownloadRegistrationUuid },
+          GET_DELEGATION_MANAGER_INFO,
+          { delegationUuid: fileDownloadDelegationUuid },
           'GET'
         );
         setProjectManager(projectManager);
@@ -56,7 +56,7 @@ export default props => {
         setGetDataLoading(false);
       }
     })();
-  }, [fileDownloadRegistrationUuid]);
+  }, [fileDownloadDelegationUuid]);
 
   return (
     <div className='item-box responsible-person-list'>

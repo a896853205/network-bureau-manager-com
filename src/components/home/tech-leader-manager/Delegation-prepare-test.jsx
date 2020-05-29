@@ -7,19 +7,19 @@ import '@/style/home/tech-leader-manager/prepare-test.styl';
 // 请求
 import proxyFetch from '@/util/request';
 import {
-  GET_TECH_LEADER_REGISTRATION_TEST_APPLY,
-  GET_TECH_LEADER_REGISTRATION_TEST_SPECIMEN
+  GET_TECH_LEADER_DELEGATION_TEST_APPLY,
+  GET_TECH_LEADER_DELEGATION_TEST_SPECIMEN
 } from '@/constants/api-constants';
 
 // 路由
-import { HOME_REGISTRATION_TASK_DETAIL_APPLY } from '@/constants/route-constants';
+import { HOME_DELEGATION_TASK_DETAIL_APPLY } from '@/constants/route-constants';
 import { Link } from 'react-router-dom';
 
 // redux
 import { useSelector } from 'react-redux';
 
 export default props => {
-  const { enterpriseRegistrationUuid, registration } = useSelector(
+  const { enterpriseDelegationUuid, delegation } = useSelector(
       state => state.enterpriseStore
     ),
     [getDataLoading, setGetDataLoading] = useState(false),
@@ -28,10 +28,10 @@ export default props => {
     [isCurrentStep, setIsCurrentStep] = useState(false);
 
   useEffect(() => {
-    if (registration?.currentStep === 4) {
+    if (delegation?.currentStep === 4) {
       setIsCurrentStep(true);
     }
-  }, [registration]);
+  }, [delegation]);
   const fieldTestManagerStatusToColor = (manager, managerStatus = 0) => {
     let color = '';
 
@@ -50,34 +50,34 @@ export default props => {
 
   // 将已有的数据回显
   useEffect(() => {
-    if (enterpriseRegistrationUuid) {
+    if (enterpriseDelegationUuid) {
       (async () => {
         setGetDataLoading(true);
-        const [registrationApply, registrationSpecimen] = await Promise.all([
+        const [delegationApply, delegationSpecimen] = await Promise.all([
           proxyFetch(
-            GET_TECH_LEADER_REGISTRATION_TEST_APPLY,
-            { registrationUuid: enterpriseRegistrationUuid },
+            GET_TECH_LEADER_DELEGATION_TEST_APPLY,
+            { delegationUuid: enterpriseDelegationUuid },
             'GET'
           ),
           proxyFetch(
-            GET_TECH_LEADER_REGISTRATION_TEST_SPECIMEN,
-            { registrationUuid: enterpriseRegistrationUuid },
+            GET_TECH_LEADER_DELEGATION_TEST_SPECIMEN,
+            { delegationUuid: enterpriseDelegationUuid },
             'GET'
           )
         ]);
 
-        if (registrationApply) {
-          setApplyManagerStatus(registrationApply.managerStatus);
+        if (delegationApply) {
+          setApplyManagerStatus(delegationApply.managerStatus);
         }
 
-        if (registrationSpecimen) {
-          setSpecimenManagerStatus(registrationSpecimen.managerStatus);
+        if (delegationSpecimen) {
+          setSpecimenManagerStatus(delegationSpecimen.managerStatus);
         }
 
         setGetDataLoading(false);
       })();
     }
-  }, [enterpriseRegistrationUuid]);
+  }, [enterpriseDelegationUuid]);
 
   return (
     <div className='prepare-test-box'>
@@ -134,7 +134,7 @@ export default props => {
                   </Timeline.Item>
                   {applyManagerStatus > 1 || applyManagerStatus < -1 ? (
                     <Link
-                      to={HOME_REGISTRATION_TASK_DETAIL_APPLY.path}
+                      to={HOME_DELEGATION_TASK_DETAIL_APPLY.path}
                       className={isCurrentStep ? '' : 'old-link'}
                     >
                       <Timeline.Item

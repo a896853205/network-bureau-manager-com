@@ -10,17 +10,17 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
 // 请求
-import { SELECT_ENTERPRISE_INFO_BY_FILE_DOWNLOAD_REGISTRATION_UUID } from '@/constants/api-constants';
+import { SELECT_ENTERPRISE_INFO_BY_FILE_DOWNLOAD_DELEGATION_UUID } from '@/constants/api-constants';
 import proxyFetch from '@/util/request';
 
 // 样式
 import { Descriptions, Skeleton } from 'antd';
-import '@/style/home/registration-file-download.styl';
+import '@/style/home/delegation-file-download.styl';
 import '@/style/home/enterprise-info.styl';
 import '@/style/home/item.styl';
 
 export default props => {
-  const { fileDownloadRegistrationUuid } = useSelector(
+  const { fileDownloadDelegationUuid } = useSelector(
       state => state.enterpriseStore
     ),
     [getDataLoading, setGetDataLoading] = useState(false),
@@ -28,13 +28,13 @@ export default props => {
 
   useEffect(() => {
     (async () => {
-      if (fileDownloadRegistrationUuid) {
+      if (fileDownloadDelegationUuid) {
         setGetDataLoading(true);
 
         // #FIXME 需要将此路由修改为(管理员权限)限制
         const enterpriseInfo = await proxyFetch(
-          SELECT_ENTERPRISE_INFO_BY_FILE_DOWNLOAD_REGISTRATION_UUID,
-          { registrationUuid: fileDownloadRegistrationUuid },
+          SELECT_ENTERPRISE_INFO_BY_FILE_DOWNLOAD_DELEGATION_UUID,
+          { delegationUuid: fileDownloadDelegationUuid },
           'GET'
         );
 
@@ -42,7 +42,7 @@ export default props => {
         setGetDataLoading(false);
       }
     })();
-  }, [fileDownloadRegistrationUuid]);
+  }, [fileDownloadDelegationUuid]);
 
   return (
     <div className='item-box enterprise-info'>

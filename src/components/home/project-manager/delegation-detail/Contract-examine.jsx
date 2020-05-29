@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 // 路由
 import { Link } from 'react-router-dom';
-import { HOME_REGISTRATION_PROFILE } from '@/constants/route-constants';
+import { HOME_DELEGATION_PROFILE } from '@/constants/route-constants';
 
 // 样式
 import '@/style/home/project-manager/contract-examine.styl';
@@ -18,9 +18,9 @@ import { useHistory } from 'react-router-dom';
 import proxyFetch from '@/util/request';
 import {
   GET_FILE_URL,
-  SET_CONTRACT_MANAGER_SUCCESS_STATUS,
-  SET_CONTRACT_MANAGER_FAIL_STATUS,
-  SELECT_REGISTRATION_CONTRACT_MANAGER
+  SET_DELEGATION_CONTRACT_MANAGER_SUCCESS_STATUS,
+  SET_DELEGATION_CONTRACT_MANAGER_FAIL_STATUS,
+  SELECT_DELEGATION_CONTRACT_MANAGER
 } from '@/constants/api-constants';
 
 //样式
@@ -28,7 +28,7 @@ import { Button, Input, Icon, Tag, message } from 'antd';
 const { TextArea } = Input;
 
 export default props => {
-  const { steps, enterpriseRegistrationUuid } = useSelector(
+  const { delegationSteps, enterpriseDelegationUuid } = useSelector(
       state => state.enterpriseStore
     ),
     dispatch = useDispatch(),
@@ -40,11 +40,11 @@ export default props => {
 
   // 查找乙方上传url
   useEffect(() => {
-    if (enterpriseRegistrationUuid) {
+    if (enterpriseDelegationUuid) {
       (async () => {
         let contractList = await proxyFetch(
-          SELECT_REGISTRATION_CONTRACT_MANAGER,
-          { registrationUuid: enterpriseRegistrationUuid },
+          SELECT_DELEGATION_CONTRACT_MANAGER,
+          { delegationUuid: enterpriseDelegationUuid },
           'GET'
         );
 
@@ -55,7 +55,7 @@ export default props => {
         }
       })();
     }
-  }, [enterpriseRegistrationUuid, contractEnterpriseUrl]);
+  }, [enterpriseDelegationUuid, contractEnterpriseUrl]);
 
   useEffect(() => {
     (async () => {
@@ -95,17 +95,17 @@ export default props => {
       setStatusLoading(true);
 
       const res = await proxyFetch(
-        SET_CONTRACT_MANAGER_SUCCESS_STATUS,
+        SET_DELEGATION_CONTRACT_MANAGER_SUCCESS_STATUS,
         {
-          registrationUuid: enterpriseRegistrationUuid
+          delegationUuid: enterpriseDelegationUuid
         },
         'PUT'
       );
 
       setStatusLoading(false);
       if (res) {
-        dispatch(enterpriseAction.asyncSetSteps(enterpriseRegistrationUuid));
-        history.push(HOME_REGISTRATION_PROFILE.path);
+        dispatch(enterpriseAction.asyncSetDelegationSteps(enterpriseDelegationUuid));
+        history.push(HOME_DELEGATION_PROFILE.path);
       }
     })();
   };
@@ -115,15 +115,15 @@ export default props => {
       (async () => {
         setStatusLoading(true);
 
-        const res = await proxyFetch(SET_CONTRACT_MANAGER_FAIL_STATUS, {
-          registrationUuid: enterpriseRegistrationUuid,
+        const res = await proxyFetch(SET_DELEGATION_CONTRACT_MANAGER_FAIL_STATUS, {
+          delegationUuid: enterpriseDelegationUuid,
           managerFailText
         });
 
         setStatusLoading(false);
         if (res) {
-          dispatch(enterpriseAction.asyncSetSteps(enterpriseRegistrationUuid));
-          history.push(HOME_REGISTRATION_PROFILE.path);
+          dispatch(enterpriseAction.asyncSetDelegationSteps(enterpriseDelegationUuid));
+          history.push(HOME_DELEGATION_PROFILE.path);
         }
       })();
     } else {
@@ -134,12 +134,12 @@ export default props => {
   return (
     <>
       <div className='subtitle-box'>
-        <Link to={HOME_REGISTRATION_PROFILE.path}>
+        <Link to={HOME_DELEGATION_PROFILE.path}>
           <Icon type='left' className='exit-icon' />
         </Link>
         <p className='subtitle-title'>审核乙方合同</p>
-        <Tag className='content-tag' color={statusToColor(steps[1]?.statusText)}>
-          {steps[1]?.statusText}
+        <Tag className='content-tag' color={statusToColor(delegationSteps[1]?.statusText)}>
+          {delegationSteps[1]?.statusText}
         </Tag>
       </div>
       <div className='detail-manager-download-box'>
@@ -156,20 +156,20 @@ export default props => {
         </div>
         <div className='manager-download-button-box'>
           <Button
-            disabled={steps[1]?.status !== 3}
+            disabled={delegationSteps[1]?.status !== 3}
             type='primary'
             htmlType='submit'
-            className={steps[1]?.status === 3 ? 'fail-button' : ''}
+            className={delegationSteps[1]?.status === 3 ? 'fail-button' : ''}
             loading={statusLoading}
             onClick={handleSetFailStatus}
           >
             审核不通过
           </Button>
           <Button
-            disabled={steps[1]?.status !== 3}
+            disabled={delegationSteps[1]?.status !== 3}
             type='primary'
             htmlType='submit'
-            className={steps[1]?.status === 3 ? 'success-button' : ''}
+            className={delegationSteps[1]?.status === 3 ? 'success-button' : ''}
             loading={statusLoading}
             onClick={handleSetSuccessStatus}
           >

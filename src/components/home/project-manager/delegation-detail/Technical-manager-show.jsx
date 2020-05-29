@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 // 路由
-import { HOME_REGISTRATION_PROFILE } from '@/constants/route-constants';
+import { HOME_DELEGATION_PROFILE } from '@/constants/route-constants';
 import { Link } from 'react-router-dom';
 
 // 工具
@@ -11,8 +11,8 @@ import { getAuthortyNameByCode } from '@/constants/auth-constants';
 import proxyFetch from '@/util/request';
 import {
   QUERY_TECH_LEADER_MANAGER,
-  ARRANGE_TECH_LEADER_MANAGER,
-  SELECT_REGISTRATION_TECH_LEAD_MANAGER_UUID
+  ARRANGE_DELEGATION_TECH_LEADER_MANAGER,
+  SELECT_DELEGATION_TECH_LEAD_MANAGER_UUID
 } from '@/constants/api-constants';
 
 // redux
@@ -26,9 +26,9 @@ const { Column } = Table;
 
 export default props => {
   const {
-      steps,
-      enterpriseRegistrationUuid,
-      registrationLoading
+      delegationSteps,
+      enterpriseDelegationUuid,
+      delegationLoading
     } = useSelector(state => state.enterpriseStore),
     [loading, setLoading] = useState(true),
     [technicalManagerList, setTechnicalManagerList] = useState([]),
@@ -63,9 +63,9 @@ export default props => {
       if (isNeedFresh) {
         setSavaDataLoading(true);
         const techLeaderManagerUuid = await proxyFetch(
-          SELECT_REGISTRATION_TECH_LEAD_MANAGER_UUID,
+          SELECT_DELEGATION_TECH_LEAD_MANAGER_UUID,
           {
-            registrationUuid: enterpriseRegistrationUuid
+            delegationUuid: enterpriseDelegationUuid
           },
           'GET'
         );
@@ -74,22 +74,22 @@ export default props => {
         setSavaDataLoading(false);
       }
     })();
-  }, [enterpriseRegistrationUuid, isNeedFresh]);
+  }, [enterpriseDelegationUuid, isNeedFresh]);
 
   // 确认选择提交按钮
   const handleUpdateStep = technicalManagerUuid => {
     (async () => {
       setSavaDataLoading(true);
 
-      let res = await proxyFetch(ARRANGE_TECH_LEADER_MANAGER, {
-        registrationUuid: enterpriseRegistrationUuid,
+      let res = await proxyFetch(ARRANGE_DELEGATION_TECH_LEADER_MANAGER, {
+        delegationUuid: enterpriseDelegationUuid,
         technicalManagerUuid
       });
       setIsNeedFresh(true);
       setSavaDataLoading(false);
 
       if (res) {
-        dispatch(enterpriseAction.asyncSetSteps(enterpriseRegistrationUuid));
+        dispatch(enterpriseAction.asyncSetDelegationSteps(enterpriseDelegationUuid));
       }
     })();
   };
@@ -97,7 +97,7 @@ export default props => {
   return (
     <>
       <div className='subtitle-box'>
-        <Link to={HOME_REGISTRATION_PROFILE.path}>
+        <Link to={HOME_DELEGATION_PROFILE.path}>
           <Icon type='left' className='exit-icon' />
         </Link>
         <p className='subtitle-title'>选择技术负责人</p>
@@ -127,9 +127,9 @@ export default props => {
             getCheckboxProps: () => ({
               disabled:
                 savaDataLoading ||
-                registrationLoading ||
+                delegationLoading ||
                 !techLeaderManagerUuid ||
-                (steps[3]?.status !== 1 && steps[3]?.status !== 2)
+                (delegationSteps[3]?.status !== 1 && delegationSteps[3]?.status !== 2)
             })
           }}
         >

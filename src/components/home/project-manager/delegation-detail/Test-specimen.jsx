@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 // 路由
-import { HOME_REGISTRATION_PROFILE } from '@/constants/route-constants';
+import { HOME_DELEGATION_PROFILE } from '@/constants/route-constants';
 import { Link, useHistory } from 'react-router-dom';
 
 // redux
@@ -10,9 +10,9 @@ import { useSelector } from 'react-redux';
 // 请求
 import proxyFetch from '@/util/request';
 import {
-  GET_PROJECT_REGISTRATION_TEST_SPECIMEN,
-  SET_PROJECT_SPECIMEN_MANAGER_STATUS,
-  SET_PROJECT_SPECIMEN_MANAGER_FAIL_STATUS
+  GET_PROJECT_DELEGATION_TEST_SPECIMEN,
+  SET_DELEGATION_PROJECT_SPECIMEN_MANAGER_STATUS,
+  SET_DELEGATION_PROJECT_SPECIMEN_MANAGER_FAIL_STATUS
 } from '@/constants/api-constants';
 
 // 样式
@@ -29,10 +29,10 @@ import '@/style/home/project-manager/test-specimen.styl';
 const { TextArea } = Input;
 
 export default props => {
-  const { enterpriseRegistrationUuid } = useSelector(
+  const { enterpriseDelegationUuid } = useSelector(
       state => state.enterpriseStore
     ),
-    [registrationSpecimen, setRegistrationSpecimen] = useState(null),
+    [delegationSpecimen, setDelegationSpecimen] = useState(null),
     [getDataLoading, setGetDataLoading] = useState(false),
     [statusLoading, setStatusLoading] = useState(false),
     [failManagerText, setFailManagerText] = useState(''),
@@ -43,12 +43,12 @@ export default props => {
     (async () => {
       setStatusLoading(true);
 
-      await proxyFetch(SET_PROJECT_SPECIMEN_MANAGER_STATUS, {
-        registrationUuid: enterpriseRegistrationUuid
+      await proxyFetch(SET_DELEGATION_PROJECT_SPECIMEN_MANAGER_STATUS, {
+        delegationUuid: enterpriseDelegationUuid
       });
 
       setStatusLoading(false);
-      history.push(HOME_REGISTRATION_PROFILE.path);
+      history.push(HOME_DELEGATION_PROFILE.path);
     })();
   };
 
@@ -57,14 +57,14 @@ export default props => {
       (async () => {
         setStatusLoading(true);
 
-        const res = await proxyFetch(SET_PROJECT_SPECIMEN_MANAGER_FAIL_STATUS, {
-          registrationUuid: enterpriseRegistrationUuid,
+        const res = await proxyFetch(SET_DELEGATION_PROJECT_SPECIMEN_MANAGER_FAIL_STATUS, {
+          delegationUuid: enterpriseDelegationUuid,
           failManagerText
         });
 
         setStatusLoading(false);
         if (res) {
-          history.push(HOME_REGISTRATION_PROFILE.path);
+          history.push(HOME_DELEGATION_PROFILE.path);
         }
       })();
     } else {
@@ -74,25 +74,25 @@ export default props => {
 
   // 将已有的数据回显
   useEffect(() => {
-    if (enterpriseRegistrationUuid) {
+    if (enterpriseDelegationUuid) {
       (async () => {
         setGetDataLoading(true);
 
-        let registrationSpecimen = await proxyFetch(
-          GET_PROJECT_REGISTRATION_TEST_SPECIMEN,
-          { registrationUuid: enterpriseRegistrationUuid },
+        let delegationSpecimen = await proxyFetch(
+          GET_PROJECT_DELEGATION_TEST_SPECIMEN,
+          { delegationUuid: enterpriseDelegationUuid },
           'GET'
         );
 
-        if (registrationSpecimen) {
-          setManagerStatus(registrationSpecimen.managerStatus);
+        if (delegationSpecimen) {
+          setManagerStatus(delegationSpecimen.managerStatus);
         }
 
-        setRegistrationSpecimen(registrationSpecimen);
+        setDelegationSpecimen(delegationSpecimen);
         setGetDataLoading(false);
       })();
     }
-  }, [enterpriseRegistrationUuid]);
+  }, [enterpriseDelegationUuid]);
 
   const managerStatusToColor = managerStatus => {
     switch (managerStatus) {
@@ -146,7 +146,7 @@ export default props => {
   return (
     <>
       <div className='subtitle-box'>
-        <Link to={`${HOME_REGISTRATION_PROFILE.path}`}>
+        <Link to={`${HOME_DELEGATION_PROFILE.path}`}>
           <Icon type='left' className='exit-icon' />
         </Link>
         <p className='subtitle-title'>
@@ -160,25 +160,25 @@ export default props => {
         </p>
       </div>
       <Skeleton loading={getDataLoading}>
-        {registrationSpecimen ? (
+        {delegationSpecimen ? (
           <div className='detail-test-specimen-box'>
             <Descriptions bordered className='specimen-description-box'>
               <Descriptions.Item label='注册商标' span={3}>
-                {registrationSpecimen.trademark}
+                {delegationSpecimen.trademark}
               </Descriptions.Item>
               <Descriptions.Item label='开发工具' span={3}>
-                {registrationSpecimen.developmentTool}
+                {delegationSpecimen.developmentTool}
               </Descriptions.Item>
               <Descriptions.Item label='产品密级'>
                 {securityClassificationToText(
-                  registrationSpecimen.securityClassification
+                  delegationSpecimen.securityClassification
                 )}
               </Descriptions.Item>
               <Descriptions.Item label='单位属性' span={2}>
-                {registrationSpecimen.unit}
+                {delegationSpecimen.unit}
               </Descriptions.Item>
               <Descriptions.Item label='邮箱' span={3}>
-                {registrationSpecimen.email}
+                {delegationSpecimen.email}
               </Descriptions.Item>
             </Descriptions>
             <div className='specimen-button-box'>

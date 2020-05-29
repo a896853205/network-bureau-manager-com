@@ -17,12 +17,12 @@ import DelegationCertifyExamineOriginalRecordController from '@/page/home/certif
 import { useRouteMatch, useHistory } from 'react-router-dom';
 import * as ROUTES from '@/constants/route-constants';
 
-export default props => {
+export default (props) => {
   const localStorageDelegationUuid = localStorage.getItem(
       `${LOCAL_STORAGE}-delegationUuid`
     ),
     { enterpriseDelegationUuid } = useSelector(
-      state => state.enterpriseStore
+      (state) => state.enterpriseStore
     ),
     dispatch = useDispatch(),
     history = useHistory();
@@ -37,9 +37,7 @@ export default props => {
   useEffect(() => {
     if (localStorageDelegationUuid && !enterpriseDelegationUuid) {
       dispatch(
-        enterpriseAction.setEnterpriseDelegationUuid(
-          localStorageDelegationUuid
-        )
+        enterpriseAction.setEnterpriseDelegationUuid(localStorageDelegationUuid)
       );
     }
   }, [localStorageDelegationUuid, enterpriseDelegationUuid, dispatch]);
@@ -54,25 +52,27 @@ export default props => {
 
   const homeDelegationCertifyDetailApply = useRouteMatch({
     path: ROUTES.HOME_DELEGATION_CERTIFY_DETAIL_APPLY.path,
-    exact: true
+    exact: true,
   });
   const homeDelegationCertifyProfile = useRouteMatch({
     path: ROUTES.HOME_DELEGATION_CERTIFY_PROFILE.path,
-    exact: true
+    exact: true,
   });
   const homeDelegationCertifyExamineReport = useRouteMatch({
     path: ROUTES.HOME_DELEGATION_CERTIFY_EXAMINE_REPORT.path,
-    exact: true
+    exact: true,
   });
   const homeDelegationCertifyExamineOriginalRecord = useRouteMatch({
     path: ROUTES.HOME_DELEGATION_CERTIFY_EXAMINE_ORIGINAL_RECORD.path,
-    exact: true
+    exact: true,
   });
 
   return (
     <>
       {homeDelegationCertifyDetailApply ? <ApplyController /> : null}
-      {homeDelegationCertifyProfile ? <DelegationCertifyProfileController /> : null}
+      {homeDelegationCertifyProfile ? (
+        <DelegationCertifyProfileController />
+      ) : null}
       {homeDelegationCertifyExamineReport ? (
         <DelegationCertifyExamineReportController />
       ) : null}

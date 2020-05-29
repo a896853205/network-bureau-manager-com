@@ -11,17 +11,17 @@ import { useSelector } from 'react-redux';
 
 // 请求
 import {
-  DOWNLOAD_CONTRACT
+  DOWNLOAD_DELEGATION_CONTRACT
 } from '@/constants/api-constants';
 import proxyFetch from '@/util/request';
 
 // 样式
 import { Icon } from 'antd';
-import '@/style/home/registration-file-download.styl';
+import '@/style/home/delegation-file-download.styl';
 import '@/style/home/item.styl';
 
 export default props => {
-  const { fileDownloadRegistrationUuid } = useSelector(
+  const { fileDownloadDelegationUuid } = useSelector(
       state => state.enterpriseStore
     ),
     [contractDownloadLoading, setContractDownloadLoading] = useState(false);
@@ -31,8 +31,8 @@ export default props => {
     setContractDownloadLoading(true);
 
     const url = await proxyFetch(
-      DOWNLOAD_CONTRACT,
-      { registrationUuid: fileDownloadRegistrationUuid },
+      DOWNLOAD_DELEGATION_CONTRACT,
+      { delegationUuid: fileDownloadDelegationUuid },
       'GET'
     );
     setContractDownloadLoading(false);
@@ -41,7 +41,7 @@ export default props => {
 
   return (
     <div className='item-box file-download-list'>
-      <h5 className='title-box'>登记测试内容文件详情</h5>
+      <h5 className='title-box'>委托测试内容文件详情</h5>
       <div>
         <ul className='file-ul'>
           <li>

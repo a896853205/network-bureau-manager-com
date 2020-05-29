@@ -11,10 +11,10 @@ import { useSelector } from 'react-redux';
 
 // 请求
 import {
-  DOWNLOAD_PRODUCT,
-  DOWNLOAD_PRODUCT_DESCRIPTION,
-  DOWNLOAD_DOCUMENT,
-  DOWNLOAD_COPYRIGHT,
+  DOWNLOAD_DELEGATION_PRODUCT,
+  DOWNLOAD_DELEGATION_PRODUCT_DESCRIPTION,
+  DOWNLOAD_DELEGATION_DOCUMENT,
+  DOWNLOAD_DELEGATION_COPYRIGHT,
 } from '@/constants/api-constants';
 import proxyFetch from '@/util/request';
 
@@ -30,7 +30,7 @@ import '@/style/home/enterprise-write.styl';
 import '@/style/home/item.styl';
 
 export default (props) => {
-  const { fileDownloadRegistrationUuid } = useSelector(
+  const { fileDownloadDelegationUuid } = useSelector(
       (state) => state.enterpriseStore
     ),
     [productDownloadLoading, setProductDownloadLoading] = useState(false),
@@ -48,8 +48,8 @@ export default (props) => {
     setProductDownloadLoading(true);
 
     const url = await proxyFetch(
-      DOWNLOAD_PRODUCT,
-      { registrationUuid: fileDownloadRegistrationUuid },
+      DOWNLOAD_DELEGATION_PRODUCT,
+      { delegationUuid: fileDownloadDelegationUuid },
       'GET'
     );
     setProductDownloadLoading(false);
@@ -60,8 +60,8 @@ export default (props) => {
     setProductDescriptionDownloadLoading(true);
 
     const url = await proxyFetch(
-      DOWNLOAD_PRODUCT_DESCRIPTION,
-      { registrationUuid: fileDownloadRegistrationUuid },
+      DOWNLOAD_DELEGATION_PRODUCT_DESCRIPTION,
+      { delegationUuid: fileDownloadDelegationUuid },
       'GET'
     );
     setProductDescriptionDownloadLoading(false);
@@ -85,8 +85,8 @@ export default (props) => {
     setDocumentDownloadLoading(true);
 
     const url = await proxyFetch(
-      DOWNLOAD_DOCUMENT,
-      { registrationUuid: fileDownloadRegistrationUuid },
+      DOWNLOAD_DELEGATION_DOCUMENT,
+      { delegationUuid: fileDownloadDelegationUuid },
       'GET'
     );
     setDocumentDownloadLoading(false);
@@ -110,8 +110,8 @@ export default (props) => {
     setCopyrightDownloadLoading(true);
 
     const url = await proxyFetch(
-      DOWNLOAD_COPYRIGHT,
-      { registrationUuid: fileDownloadRegistrationUuid },
+      DOWNLOAD_DELEGATION_COPYRIGHT,
+      { delegationUuid: fileDownloadDelegationUuid },
       'GET'
     );
     setCopyrightDownloadLoading(false);
@@ -140,7 +140,7 @@ export default (props) => {
 
   return (
     <div className='item-box enterprise-write'>
-      <h5 className='title-box'>企业填写的登记测试信息</h5>
+      <h5 className='title-box'>企业填写的委托测试信息</h5>
       <div className='button-box'>
         <Button
           className='button'
@@ -149,7 +149,7 @@ export default (props) => {
           ghost
           onClick={() => handleShowModal('basic')}
         >
-          查看登记测试基本信息
+          查看委托测试基本信息
         </Button>
         <Button
           className='button'

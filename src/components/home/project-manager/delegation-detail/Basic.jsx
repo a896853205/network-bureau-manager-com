@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 
 // 工具
-import statusToColor from '@/components/home/project-manager/registration-detail/util/status-to-color';
+import statusToColor from '@/components/home/project-manager/delegation-detail/util/status-to-color';
 import moment from 'moment';
 
 // 路由
-import { HOME_REGISTRATION_PROFILE } from '@/constants/route-constants';
+import { HOME_DELEGATION_PROFILE } from '@/constants/route-constants';
 import { Link, useHistory } from 'react-router-dom';
 
 // redux
@@ -15,9 +15,9 @@ import enterpriseAction from '@/redux/action/enterprise';
 // 请求
 import proxyFetch from '@/util/request';
 import {
-  SELECT_REGISTRATION_BASIC,
-  SET_REGISTRATION_DETAIL_SUCCESS_STATUS,
-  SET_REGISTRATION_DETAIL_FAIL_STATUS
+  SELECT_DELEGATION_BASIC,
+  SET_DELEGATION_DETAIL_SUCCESS_STATUS,
+  SET_DELEGATION_DETAIL_FAIL_STATUS
 } from '@/constants/api-constants';
 
 // 样式
@@ -34,10 +34,10 @@ import '@/style/home/project-manager/basic.styl';
 const { TextArea } = Input;
 
 export default props => {
-  const { enterpriseRegistrationUuid } = useSelector(
+  const { enterpriseDelegationUuid } = useSelector(
       state => state.enterpriseStore
     ),
-    [registrationBasic, setRegistrationBasic] = useState(null),
+    [delegationBasic, setDelegationBasic] = useState(null),
     [getDataLoading, setGetDataLoading] = useState(false),
     [statusLoading, setStatusLoading] = useState(false),
     [failText, setFailText] = useState(''),
@@ -50,14 +50,14 @@ export default props => {
     (async () => {
       setStatusLoading(true);
 
-      await proxyFetch(SET_REGISTRATION_DETAIL_SUCCESS_STATUS, {
-        registrationUuid: enterpriseRegistrationUuid,
+      await proxyFetch(SET_DELEGATION_DETAIL_SUCCESS_STATUS, {
+        delegationUuid: enterpriseDelegationUuid,
         type: 'basic'
       });
 
       setStatusLoading(false);
-      dispatch(enterpriseAction.asyncSetSteps(enterpriseRegistrationUuid));
-      history.push(HOME_REGISTRATION_PROFILE.path);
+      dispatch(enterpriseAction.asyncSetDelegationSteps(enterpriseDelegationUuid));
+      history.push(HOME_DELEGATION_PROFILE.path);
     })();
   };
 
@@ -66,15 +66,15 @@ export default props => {
       (async () => {
         setStatusLoading(true);
 
-        const res = await proxyFetch(SET_REGISTRATION_DETAIL_FAIL_STATUS, {
-          registrationUuid: enterpriseRegistrationUuid,
+        const res = await proxyFetch(SET_DELEGATION_DETAIL_FAIL_STATUS, {
+          delegationUuid: enterpriseDelegationUuid,
           type: 'basic',
           failText
         });
 
         setStatusLoading(false);
         if (res) {
-          history.push(HOME_REGISTRATION_PROFILE.path);
+          history.push(HOME_DELEGATION_PROFILE.path);
         }
       })();
     } else {
@@ -84,66 +84,66 @@ export default props => {
 
   // 将已有的数据回显
   useEffect(() => {
-    if (enterpriseRegistrationUuid) {
+    if (enterpriseDelegationUuid) {
       (async () => {
         setGetDataLoading(true);
 
-        let registrationBasic = await proxyFetch(
-          SELECT_REGISTRATION_BASIC,
-          { registrationUuid: enterpriseRegistrationUuid },
+        let delegationBasic = await proxyFetch(
+          SELECT_DELEGATION_BASIC,
+          { delegationUuid: enterpriseDelegationUuid },
           'GET'
         );
 
-        if (registrationBasic) {
-          setStatus(registrationBasic.status);
-          setStatusText(registrationBasic.statusText);
+        if (delegationBasic) {
+          setStatus(delegationBasic.status);
+          setStatusText(delegationBasic.statusText);
         }
 
-        setRegistrationBasic(registrationBasic);
+        setDelegationBasic(delegationBasic);
         setGetDataLoading(false);
       })();
     }
-  }, [enterpriseRegistrationUuid]);
+  }, [enterpriseDelegationUuid]);
 
   return (
     <>
       <div className='subtitle-box'>
-        <Link to={HOME_REGISTRATION_PROFILE.path}>
+        <Link to={HOME_DELEGATION_PROFILE.path}>
           <Icon type='left' className='exit-icon' />
         </Link>
         <p className='subtitle-title'>
-          登记测试基本信息
+          委托测试基本信息
           <Tag className='content-tag' color={statusToColor(status)}>
             {statusText}
           </Tag>
         </p>
       </div>
       <Skeleton loading={getDataLoading}>
-        {registrationBasic ? (
+        {delegationBasic ? (
           <div className='detail-basic-box'>
             <Descriptions bordered className='basic-description-box'>
               <Descriptions.Item label='版本'>
-                {registrationBasic.version}
+                {delegationBasic.version}
               </Descriptions.Item>
               <Descriptions.Item label='联系人' span={2}>
-                {registrationBasic.linkman}
+                {delegationBasic.linkman}
               </Descriptions.Item>
               <Descriptions.Item label='委托单位'>
-                {registrationBasic.client}
+                {delegationBasic.client}
               </Descriptions.Item>
               <Descriptions.Item label='手机' span={2}>
-                {registrationBasic.phone}
+                {delegationBasic.phone}
               </Descriptions.Item>
               <Descriptions.Item label='注册地址' span={3}>
-                {registrationBasic.address}
+                {delegationBasic.address}
               </Descriptions.Item>
               <Descriptions.Item label='开发研发日期' span={3}>
-                {registrationBasic.devStartTime
-                  ? moment(registrationBasic.devStartTime).format('YYYY-MM-DD')
+                {delegationBasic.devStartTime
+                  ? moment(delegationBasic.devStartTime).format('YYYY-MM-DD')
                   : ''}
               </Descriptions.Item>
               <Descriptions.Item label='开发单位' span={3}>
-                {registrationBasic.enterpriseName}
+                {delegationBasic.enterpriseName}
               </Descriptions.Item>
             </Descriptions>
             <div className='basic-button-box'>

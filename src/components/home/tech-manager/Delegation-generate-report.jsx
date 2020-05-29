@@ -3,8 +3,8 @@ import React, { useState, useEffect } from 'react';
 // 请求
 import proxyFetch from '@/util/request';
 import {
-  GET_TECH_REGISTRATION_REPORT_STATUS,
-  GET_TECH_REGISTRATION_RECORD_STATUS
+  GET_TECH_DELEGATION_REPORT_STATUS,
+  GET_TECH_DELEGATION_RECORD_STATUS
 } from '@/constants/api-constants';
 
 // redux
@@ -12,8 +12,8 @@ import { useSelector } from 'react-redux';
 
 // 路由
 import {
-  HOME_REGISTRATION_TEST_GENERATE_REPORT,
-  HOME_REGISTRATION_TEST_GENERATE_ORIGINAL_RECORD
+  HOME_DELEGATION_TEST_GENERATE_REPORT,
+  HOME_DELEGATION_TEST_GENERATE_ORIGINAL_RECORD
 } from '@/constants/route-constants';
 import { Link } from 'react-router-dom';
 
@@ -22,21 +22,21 @@ import { Icon, Timeline, Skeleton, Tag } from 'antd';
 import '@/style/home/tech-manager/generate-report.styl';
 
 export default props => {
-  const { enterpriseRegistrationUuid, registration } = useSelector(
+  const { enterpriseDelegationUuid, delegation } = useSelector(
       state => state.enterpriseStore
     ),
     [getDataLoading, setGetDataLoading] = useState(false),
-    [registrationReport, setRegistrationReport] = useState(null),
-    [registrationRecord, setRegistrationRecord] = useState(null),
+    [delegationReport, setDelegationReport] = useState(null),
+    [delegationRecord, setDelegationRecord] = useState(null),
     [reportStatus, setReportStatus] = useState(0),
     [recordStatus, setRecordStatus] = useState(0),
     [isCurrentStep, setIsCurrentStep] = useState(false);
 
   useEffect(() => {
-    if (registration?.currentStep === 4) {
+    if (delegation?.currentStep === 4) {
       setIsCurrentStep(true);
     }
-  }, [registration]);
+  }, [delegation]);
 
   const fieldTestStatusToColor = (manager, status = 0) => {
     let color = '';
@@ -82,31 +82,31 @@ export default props => {
 
   // 将已有的数据回显
   useEffect(() => {
-    if (enterpriseRegistrationUuid) {
+    if (enterpriseDelegationUuid) {
       (async () => {
         setGetDataLoading(true);
-        const [registrationReport, registrationRecord] = await Promise.all([
+        const [delegationReport, delegationRecord] = await Promise.all([
           proxyFetch(
-            GET_TECH_REGISTRATION_REPORT_STATUS,
-            { registrationUuid: enterpriseRegistrationUuid },
+            GET_TECH_DELEGATION_REPORT_STATUS,
+            { delegationUuid: enterpriseDelegationUuid },
             'GET'
           ),
           proxyFetch(
-            GET_TECH_REGISTRATION_RECORD_STATUS,
-            { registrationUuid: enterpriseRegistrationUuid },
+            GET_TECH_DELEGATION_RECORD_STATUS,
+            { delegationUuid: enterpriseDelegationUuid },
             'GET'
           )
         ]);
 
-        setReportStatus(registrationReport?.status);
-        setRegistrationReport(registrationReport);
-        setRecordStatus(registrationRecord?.status);
-        setRegistrationRecord(registrationRecord);
+        setReportStatus(delegationReport?.status);
+        setDelegationReport(delegationReport);
+        setRecordStatus(delegationRecord?.status);
+        setDelegationRecord(delegationRecord);
 
         setGetDataLoading(false);
       })();
     }
-  }, [enterpriseRegistrationUuid]);
+  }, [enterpriseDelegationUuid]);
 
   return (
     <div className='generate-report-box'>
@@ -122,7 +122,7 @@ export default props => {
           <p className='text-subtitle'>技术人员生成报告和原始记录</p>
           <Skeleton loading={getDataLoading}>
             <div className='inner-timeline-box'>
-              {registrationReport ? (
+              {delegationReport ? (
                 <div className='left-timeline-box'>
                   <div className='timeline-top-box'>报告盖章</div>
                   <Timeline mode='left' className='timeline-box'>
@@ -132,7 +132,7 @@ export default props => {
                       {reportStatus ? (
                         <div>
                           <Link
-                            to={HOME_REGISTRATION_TEST_GENERATE_REPORT.path}
+                            to={HOME_DELEGATION_TEST_GENERATE_REPORT.path}
                             className={isCurrentStep ? '' : 'old-link'}
                           >
                             <span>技术人员生成报告</span>
@@ -171,7 +171,7 @@ export default props => {
                   </Timeline>
                 </div>
               ) : null}
-              {registrationRecord ? (
+              {delegationRecord ? (
                 <div className='right-timeline-box'>
                   <div className='timeline-top-box'>原始记录盖章</div>
                   <Timeline mode='left' className='timeline-box'>
@@ -181,7 +181,7 @@ export default props => {
                       {recordStatus ? (
                         <Link
                           to={
-                            HOME_REGISTRATION_TEST_GENERATE_ORIGINAL_RECORD.path
+                            HOME_DELEGATION_TEST_GENERATE_ORIGINAL_RECORD.path
                           }
                           className={isCurrentStep ? '' : 'old-link'}
                         >

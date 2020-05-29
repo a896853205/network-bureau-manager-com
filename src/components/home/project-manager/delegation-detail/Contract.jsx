@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 
 // 工具
-import statusToColor from '@/components/home/project-manager/registration-detail/util/status-to-color';
+import statusToColor from '@/components/home/project-manager/delegation-detail/util/status-to-color';
 
 // 路由
-import { HOME_REGISTRATION_PROFILE } from '@/constants/route-constants';
+import { HOME_DELEGATION_PROFILE } from '@/constants/route-constants';
 import { Link, useHistory } from 'react-router-dom';
 
 // redux
@@ -14,9 +14,9 @@ import enterpriseAction from '@/redux/action/enterprise';
 // 请求
 import proxyFetch from '@/util/request';
 import {
-  SELECT_REGISTRATION_CONTRACT,
-  SET_REGISTRATION_DETAIL_SUCCESS_STATUS,
-  SET_REGISTRATION_DETAIL_FAIL_STATUS
+  SELECT_DELEGATION_CONTRACT,
+  SET_DELEGATION_DETAIL_SUCCESS_STATUS,
+  SET_DELEGATION_DETAIL_FAIL_STATUS
 } from '@/constants/api-constants';
 
 // 样式
@@ -33,10 +33,10 @@ import '@/style/home/project-manager/contract.styl';
 const { TextArea } = Input;
 
 export default props => {
-  const { enterpriseRegistrationUuid } = useSelector(
+  const { enterpriseDelegationUuid } = useSelector(
       state => state.enterpriseStore
     ),
-    [registrationContract, setRegistrationContract] = useState(null),
+    [delegationContract, setDelegationContract] = useState(null),
     [getDataLoading, setGetDataLoading] = useState(false),
     [statusLoading, setStatusLoading] = useState(false),
     [failText, setFailText] = useState(''),
@@ -49,14 +49,14 @@ export default props => {
     (async () => {
       setStatusLoading(true);
 
-      await proxyFetch(SET_REGISTRATION_DETAIL_SUCCESS_STATUS, {
-        registrationUuid: enterpriseRegistrationUuid,
+      await proxyFetch(SET_DELEGATION_DETAIL_SUCCESS_STATUS, {
+        delegationUuid: enterpriseDelegationUuid,
         type: 'contract'
       });
 
       setStatusLoading(false);
-      dispatch(enterpriseAction.asyncSetSteps(enterpriseRegistrationUuid));
-      history.push(HOME_REGISTRATION_PROFILE.path);
+      dispatch(enterpriseAction.asyncSetDelegationSteps(enterpriseDelegationUuid));
+      history.push(HOME_DELEGATION_PROFILE.path);
     })();
   };
 
@@ -65,15 +65,15 @@ export default props => {
       (async () => {
         setStatusLoading(true);
 
-        const res = await proxyFetch(SET_REGISTRATION_DETAIL_FAIL_STATUS, {
-          registrationUuid: enterpriseRegistrationUuid,
+        const res = await proxyFetch(SET_DELEGATION_DETAIL_FAIL_STATUS, {
+          delegationUuid: enterpriseDelegationUuid,
           type: 'contract',
           failText
         });
 
         setStatusLoading(false);
         if (res) {
-          history.push(HOME_REGISTRATION_PROFILE.path);
+          history.push(HOME_DELEGATION_PROFILE.path);
         }
       })();
     } else {
@@ -83,31 +83,31 @@ export default props => {
 
   // 将已有的数据回显
   useEffect(() => {
-    if (enterpriseRegistrationUuid) {
+    if (enterpriseDelegationUuid) {
       (async () => {
         setGetDataLoading(true);
 
-        let registrationContract = await proxyFetch(
-          SELECT_REGISTRATION_CONTRACT,
-          { registrationUuid: enterpriseRegistrationUuid },
+        let delegationContract = await proxyFetch(
+          SELECT_DELEGATION_CONTRACT,
+          { delegationUuid: enterpriseDelegationUuid },
           'GET'
         );
 
-        if (registrationContract) {
-          setStatus(registrationContract.status);
-          setStatusText(registrationContract.statusText);
+        if (delegationContract) {
+          setStatus(delegationContract.status);
+          setStatusText(delegationContract.statusText);
         }
 
-        setRegistrationContract(registrationContract);
+        setDelegationContract(delegationContract);
         setGetDataLoading(false);
       })();
     }
-  }, [enterpriseRegistrationUuid]);
+  }, [enterpriseDelegationUuid]);
 
   return (
     <>
       <div className='subtitle-box'>
-        <Link to={`${HOME_REGISTRATION_PROFILE.path}`}>
+        <Link to={`${HOME_DELEGATION_PROFILE.path}`}>
           <Icon type='left' className='exit-icon' />
         </Link>
         <p className='subtitle-title'>
@@ -118,20 +118,20 @@ export default props => {
         </p>
       </div>
       <Skeleton loading={getDataLoading}>
-        {registrationContract ? (
+        {delegationContract ? (
           <div className='detail-contract-box'>
             <Descriptions bordered className='contract-description-box'>
               <Descriptions.Item label='数量'>
-                {registrationContract.amount}
+                {delegationContract.amount}
               </Descriptions.Item>
               <Descriptions.Item label='邮政编码'>
-                {registrationContract.postalCode}
+                {delegationContract.postalCode}
               </Descriptions.Item>
               <Descriptions.Item label='主要功能' span={3}>
-                {registrationContract.mainFunction}
+                {delegationContract.mainFunction}
               </Descriptions.Item>
               <Descriptions.Item label='技术指标' span={3}>
-                {registrationContract.techIndex}
+                {delegationContract.techIndex}
               </Descriptions.Item>
             </Descriptions>
             <div className='contract-button-box'>

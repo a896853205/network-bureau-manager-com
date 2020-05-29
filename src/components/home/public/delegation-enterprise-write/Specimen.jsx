@@ -5,32 +5,32 @@ import { useSelector } from 'react-redux';
 
 // 请求
 import proxyFetch from '@/util/request';
-import { GET_REGISTRATION_SPECIMEN_INFO } from '@/constants/api-constants';
+import { GET_DELEGATION_SPECIMEN_INFO } from '@/constants/api-constants';
 
 // 样式
 import { Descriptions } from 'antd';
 import '@/style/home/tech-manager/info-modal.styl';
 
 export default (props) => {
-  const { fileDownloadRegistrationUuid } = useSelector(
+  const { fileDownloadDelegationUuid } = useSelector(
       (state) => state.enterpriseStore
     ),
-    [registrationSpecimen, setRegistrationSpecimen] = useState([]);
+    [delegationSpecimen, setDelegationSpecimen] = useState([]);
 
   // 将已有的数据回显
   useEffect(() => {
-    if (fileDownloadRegistrationUuid) {
+    if (fileDownloadDelegationUuid) {
       (async () => {
-        let registrationSpecimen = await proxyFetch(
-          GET_REGISTRATION_SPECIMEN_INFO,
-          { registrationUuid: fileDownloadRegistrationUuid },
+        let delegationSpecimen = await proxyFetch(
+          GET_DELEGATION_SPECIMEN_INFO,
+          { delegationUuid: fileDownloadDelegationUuid },
           'GET'
         );
 
-        setRegistrationSpecimen(registrationSpecimen);
+        setDelegationSpecimen(delegationSpecimen);
       })();
     }
-  }, [fileDownloadRegistrationUuid]);
+  }, [fileDownloadDelegationUuid]);
 
   const securityClassificationToText = (securityClassification) => {
     switch (securityClassification) {
@@ -45,28 +45,28 @@ export default (props) => {
 
   return (
     <div>
-      {registrationSpecimen ? (
+      {delegationSpecimen ? (
         <Descriptions
           bordered
           className='inner-description-box'
-          title='登记测试基本信息'
+          title='委托测试基本信息'
         >
           <Descriptions.Item label='注册商标' span={3}>
-            {registrationSpecimen.trademark}
+            {delegationSpecimen.trademark}
           </Descriptions.Item>
           <Descriptions.Item label='开发工具' span={3}>
-            {registrationSpecimen.developmentTool}
+            {delegationSpecimen.developmentTool}
           </Descriptions.Item>
           <Descriptions.Item label='产品密级' span={3}>
             {securityClassificationToText(
-              registrationSpecimen.securityClassification
+              delegationSpecimen.securityClassification
             )}
           </Descriptions.Item>
           <Descriptions.Item label='单位属性' span={3}>
-            {registrationSpecimen.unit}
+            {delegationSpecimen.unit}
           </Descriptions.Item>
           <Descriptions.Item label='邮箱' span={3}>
-            {registrationSpecimen.email}
+            {delegationSpecimen.email}
           </Descriptions.Item>
         </Descriptions>
       ) : null}

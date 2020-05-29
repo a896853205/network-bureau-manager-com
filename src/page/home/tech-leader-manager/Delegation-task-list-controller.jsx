@@ -54,7 +54,7 @@ export default props => {
   }, [page]);
 
   return (
-    <div className='registion-task-box'>
+    <div className='delegation-task-box'>
       <Table
         dataSource={enterpriseDelegationList}
         className='table'

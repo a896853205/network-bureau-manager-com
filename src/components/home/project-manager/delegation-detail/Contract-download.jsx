@@ -2,15 +2,15 @@ import React, { useState, useEffect } from 'react';
 
 // 路由
 import { Link, useHistory } from 'react-router-dom';
-import { HOME_REGISTRATION_PROFILE } from '@/constants/route-constants';
+import { HOME_DELEGATION_PROFILE } from '@/constants/route-constants';
 
 // 请求
 import proxyFetch, { proxyFileFetch } from '@/util/request';
 import {
   UPLOAD_PDF_FILE,
   GET_FILE_URL,
-  SELECT_REGISTRATION_CONTRACT_MANAGER,
-  SAVE_MANAGER_CONTRACT_URL,
+  SELECT_DELEGATION_CONTRACT_MANAGER,
+  SAVE_DELEGATION_MANAGER_CONTRACT_URL,
 } from '@/constants/api-constants';
 
 // redux
@@ -32,7 +32,7 @@ import {
 
 export default Form.create({ name: 'contractManager' })(({ form }) => {
   const { getFieldDecorator, setFieldsValue, getFieldValue } = form,
-    { steps, enterpriseRegistrationUuid } = useSelector(
+    { delegationSteps, enterpriseDelegationUuid } = useSelector(
       (state) => state.enterpriseStore
     ),
     [contractManagerLoading, setContractManagerLoading] = useState(false),
@@ -49,12 +49,12 @@ export default Form.create({ name: 'contractManager' })(({ form }) => {
 
   // 将已有的数据回显
   useEffect(() => {
-    if (enterpriseRegistrationUuid) {
+    if (enterpriseDelegationUuid) {
       (async () => {
         setGetDataLoading(true);
         let managerContract = await proxyFetch(
-          SELECT_REGISTRATION_CONTRACT_MANAGER,
-          { registrationUuid: enterpriseRegistrationUuid },
+          SELECT_DELEGATION_CONTRACT_MANAGER,
+          { delegationUuid: enterpriseDelegationUuid },
           'GET'
         );
 
@@ -74,7 +74,7 @@ export default Form.create({ name: 'contractManager' })(({ form }) => {
         setGetDataLoading(false);
       })();
     }
-  }, [enterpriseRegistrationUuid, setFieldsValue, contractEnterpriseUrl]);
+  }, [enterpriseDelegationUuid, setFieldsValue, contractEnterpriseUrl]);
 
   /**
    * 上传pdf文件
@@ -89,7 +89,7 @@ export default Form.create({ name: 'contractManager' })(({ form }) => {
       // TODO 以后把这个改成后台输入的路由把
       const fileUrl = await proxyFileFetch(UPLOAD_PDF_FILE, {
         file: file.file,
-        folderName: 'registration/managerContract',
+        folderName: 'delegation/managerContract',
       });
 
       // loading
@@ -129,19 +129,19 @@ export default Form.create({ name: 'contractManager' })(({ form }) => {
 
     // 表单判断
     form.validateFields(async (err, value) => {
-      if (enterpriseRegistrationUuid) {
+      if (enterpriseDelegationUuid) {
         if (!err) {
-          value.registrationUuid = enterpriseRegistrationUuid;
+          value.delegationUuid = enterpriseDelegationUuid;
           value.managerUrl = value.managerUrl[0];
           setSaveDataLoading(true);
-          const res = await proxyFetch(SAVE_MANAGER_CONTRACT_URL, value);
+          const res = await proxyFetch(SAVE_DELEGATION_MANAGER_CONTRACT_URL, value);
           setSaveDataLoading(false);
 
           if (res) {
             dispatch(
-              enterpriseAction.asyncSetSteps(enterpriseRegistrationUuid)
+              enterpriseAction.asyncSetDelegationSteps(enterpriseDelegationUuid)
             );
-            history.push(HOME_REGISTRATION_PROFILE.path);
+            history.push(HOME_DELEGATION_PROFILE.path);
           }
         }
       }
@@ -167,7 +167,7 @@ export default Form.create({ name: 'contractManager' })(({ form }) => {
 
   //   const url = await proxyFetch(
   //     DOWNLOAD_CONTRACT_WORD,
-  //     { registrationUuid: enterpriseRegistrationUuid },
+  //     { delegationUuid: enterpriseDelegationUuid },
   //     'GET'
   //   );
 
@@ -181,7 +181,7 @@ export default Form.create({ name: 'contractManager' })(({ form }) => {
   return (
     <>
       <div className='subtitle-box'>
-        <Link to={HOME_REGISTRATION_PROFILE.path}>
+        <Link to={HOME_DELEGATION_PROFILE.path}>
           <Icon type='left' className='exit-icon' />
         </Link>
         <p className='subtitle-title'>合同下载,盖章扫描,上传pdf</p>
@@ -275,7 +275,7 @@ export default Form.create({ name: 'contractManager' })(({ form }) => {
                   <Form.Item>
                     <Button
                       disabled={
-                        steps[1]?.status < 2 || steps[1]?.status === 100
+                        delegationSteps[1]?.status < 2 || delegationSteps[1]?.status === 100
                       }
                       type='primary'
                       htmlType='submit'

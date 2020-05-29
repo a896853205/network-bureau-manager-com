@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 
 // 组件
-import SubmitFileProfile from '@/components/home/project-manager/registration-process/Submit-file-profile.jsx';
-import ElectronicContractProfile from '@/components/home/project-manager/registration-process/Electronic-contract-profile.jsx';
-import PaymentProfile from '@/components/home/project-manager/registration-process/Payment-profile.jsx';
-import FieldTestsProfile from '@/components/home/project-manager/registration-process/Field-tests-profile.jsx';
+import SubmitFileProfile from '@/components/home/project-manager/delegation-process/Submit-file-profile.jsx';
+import ElectronicContractProfile from '@/components/home/project-manager/delegation-process/Electronic-contract-profile.jsx';
+import PaymentProfile from '@/components/home/project-manager/delegation-process/Payment-profile.jsx';
+import FieldTestsProfile from '@/components/home/project-manager/delegation-process/Field-tests-profile.jsx';
 
 // 样式
 import { Timeline, Icon, Skeleton } from 'antd';
@@ -16,14 +16,14 @@ import enterpriseAction from '@/redux/action/enterprise';
 
 export default () => {
   const {
-      steps,
-      sysRegistrationStepLoading: loading,
-      sysRegistrationStep
-    } = useSelector(state => state.enterpriseStore),
+      delegationSteps,
+      sysDelegationStepLoading: loading,
+      sysDelegationStep,
+    } = useSelector((state) => state.enterpriseStore),
     dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(enterpriseAction.asyncSetSysRegistrationStep());
+    dispatch(enterpriseAction.asyncSetSysDelegationStep());
   }, [dispatch]);
 
   return (
@@ -32,25 +32,25 @@ export default () => {
         <span>项目审核</span>
       </p>
       <Skeleton loading={loading}>
-        {sysRegistrationStep.length && steps.length ? (
+        {sysDelegationStep.length && delegationSteps.length ? (
           <Timeline mode='left'>
             <Timeline.Item color='green' dot={<Icon type='play-circle' />}>
               开始
             </Timeline.Item>
-            <Timeline.Item color={steps[0].color}>
+            <Timeline.Item color={delegationSteps[0].color}>
               <SubmitFileProfile />
             </Timeline.Item>
-            <Timeline.Item color={steps[1].color}>
+            <Timeline.Item color={delegationSteps[1].color}>
               <ElectronicContractProfile />
             </Timeline.Item>
-            <Timeline.Item color={steps[2].color}>
+            <Timeline.Item color={delegationSteps[2].color}>
               <PaymentProfile />
             </Timeline.Item>
-            <Timeline.Item color={steps[3].color}>
+            <Timeline.Item color={delegationSteps[3].color}>
               <FieldTestsProfile />
             </Timeline.Item>
             <Timeline.Item
-              color={steps[4].color}
+              color={delegationSteps[4].color}
               dot={<Icon type='check-circle' />}
             >
               结束
