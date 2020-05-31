@@ -13,7 +13,7 @@ import ManagerShowController from '@/page/home/super-manager/Manager-show-contro
 import ManagerResultController from '@/page/home/super-manager/Manager-result-controller.jsx';
 
 // 公共
-import SettingController from '@/page/home/public/Setting-controller.jsx';
+// import SettingController from '@/page/home/public/Setting-controller.jsx';
 import RegistrationFileDownloadController from '@/page/home/public/Registration-file-download-controller.jsx';
 import DelegationFileDownloadController from '@/page/home/public/Delegation-file-download-controller.jsx';
 
@@ -93,10 +93,10 @@ export default props => {
     path: ROUTES.HOME_INDEX.path,
     exact: true
   });
-  const homeSetting = useRouteMatch({
-    path: ROUTES.HOME_SETTIND.path,
-    exact: true
-  });
+  // const homeSetting = useRouteMatch({
+  //   path: ROUTES.HOME_SETTIND.path,
+  //   exact: true
+  // });
   const homeManagerShow = useRouteMatch({
     path: ROUTES.HOME_MANAGER_SHOW.path,
     exact: true
@@ -206,7 +206,6 @@ export default props => {
               <DelegationFileDownloadController />
             ) : null}
             {homeIndex ? <HomeIndexController /> : undefined}
-            {homeSetting ? <SettingController /> : undefined}
             {homeManagerCreate ? <ManagerCreateController /> : undefined}
             {homeManagerShow ? <ManagerShowController /> : undefined}
             {homeManagerResult ? (

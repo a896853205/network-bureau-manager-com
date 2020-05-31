@@ -6,7 +6,7 @@ export const HOME = { path: '/home', name: '主页' };
 
 // 二级路由
 export const HOME_INDEX = { path: '/home/index', name: '主首页' };
-export const HOME_SETTIND = { path: '/home/setting', name: '个人设置页' };
+// export const HOME_SETTIND = { path: '/home/setting', name: '个人设置页' };
 export const HOME_MANAGER_SHOW = {
   path: '/home/manager/show',
   name: '管理员展示页'

@@ -20,12 +20,12 @@ export const NAV = {
         }
       ]
     },
-    {
-      key: 'setting',
-      path: ROUTE.HOME_SETTIND.path,
-      name: '个人设置',
-      icon: 'audit'
-    }
+    // {
+    //   key: 'setting',
+    //   path: ROUTE.HOME_SETTIND.path,
+    //   name: '个人设置',
+    //   icon: 'audit'
+    // }
   ],
   [AUTHORITY.ACCOUNTANT.code]: [
     {
@@ -46,12 +46,12 @@ export const NAV = {
       name: '委托测试列表',
       icon: 'audit'
     },
-    {
-      key: 'setting',
-      path: ROUTE.HOME_SETTIND.path,
-      name: '个人设置',
-      icon: 'setting'
-    }
+    // {
+    //   key: 'setting',
+    //   path: ROUTE.HOME_SETTIND.path,
+    //   name: '个人设置',
+    //   icon: 'setting'
+    // }
   ],
   [AUTHORITY.PROJECT_MANAGER.code]: [
     {
@@ -72,12 +72,12 @@ export const NAV = {
       name: '委托测试列表',
       icon: 'audit'
     },
-    {
-      key: 'setting',
-      path: ROUTE.HOME_SETTIND.path,
-      name: '个人设置',
-      icon: 'setting'
-    }
+    // {
+    //   key: 'setting',
+    //   path: ROUTE.HOME_SETTIND.path,
+    //   name: '个人设置',
+    //   icon: 'setting'
+    // }
   ],
   [AUTHORITY.TECH_LEADER.code]: [
     {
@@ -98,12 +98,12 @@ export const NAV = {
       name: '委托测试列表',
       icon: 'audit'
     },
-    {
-      key: 'setting',
-      path: ROUTE.HOME_SETTIND.path,
-      name: '个人设置',
-      icon: 'setting'
-    }
+    // {
+    //   key: 'setting',
+    //   path: ROUTE.HOME_SETTIND.path,
+    //   name: '个人设置',
+    //   icon: 'setting'
+    // }
   ],
   [AUTHORITY.TECH.code]: [
     {
